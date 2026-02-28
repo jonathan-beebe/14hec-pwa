@@ -109,6 +109,7 @@ Premium dark theme with glassmorphism. Custom Tailwind color palettes:
 - `earth` (warm neutrals) — text, backgrounds
 - `celestial` (purple) — astrology, mystical
 - `gold` (amber) — teachings, journal, sacred
+- `teal/silver` — presence energetics, living with plants
 - HMBS domains: heart (rose), mind (blue), body (green), spirit (purple)
 
 ## Adding a New Feature (checklist)
@@ -151,9 +152,9 @@ merge conflicts are likely. Coordinate via the workstreams doc in Google Drive.
 - `.env` / `.env.local` — secrets
 - Personal Claude settings
 
-## Current Database Counts (as of initial commit)
+## Current Database Counts
 - 207 plants, 75 ailments, 91 compounds
 - 25 body systems, 219 body-ailment mappings
-- 30 plant teachings, 93 journal prompts
+- 30 plant teachings, 35 presence energetics, 105 journal prompts
 - 806 contraindications, 797 plant-ailment associations
 - 441 plant parts, 48 body-system plant part correspondences
