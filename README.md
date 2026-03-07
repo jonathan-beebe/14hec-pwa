@@ -63,3 +63,4 @@ Open a Claude Code session in the project directory. Claude will automatically r
 - **Rafa** — Co-founder
 
 Coordination docs, design assets, and releases live in the shared Google Drive folder.
+# Relational-Alchemy
