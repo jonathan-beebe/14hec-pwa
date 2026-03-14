@@ -32,6 +32,7 @@ const api = {
   getBodySystemByName: (name: string) => ipcRenderer.invoke('db:bodySystems:getByName', name),
 
   // Plant Teachings
+  getAllTeachings: () => ipcRenderer.invoke('db:teachings:getAll'),
   getTeachingsByPlantId: (plantId: number) => ipcRenderer.invoke('db:teachings:getByPlantId', plantId),
 
   // Plant Presence Energetics

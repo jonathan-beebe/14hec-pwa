@@ -218,6 +218,12 @@ export interface PlantTeaching {
   created_at: string
 }
 
+export interface PlantTeachingWithPlant extends PlantTeaching {
+  common_name: string
+  latin_name: string
+  category: string
+}
+
 // ── Plant Presence Energetics ──────────────────────────────────────
 export interface PlantPresenceEnergetics {
   id: number
@@ -326,6 +332,7 @@ declare global {
       getBodySystemByName: (name: string) => Promise<BodySystemDetail | null>
 
       // Plant Teachings
+      getAllTeachings: () => Promise<PlantTeachingWithPlant[]>
       getTeachingsByPlantId: (plantId: number) => Promise<PlantTeaching | null>
 
       // Plant Presence Energetics
