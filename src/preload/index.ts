@@ -37,6 +37,9 @@ const api = {
   // Plant Presence Energetics
   getPresenceByPlantId: (plantId: number) => ipcRenderer.invoke('db:presence:getByPlantId', plantId),
 
+  // Ethical Practice
+  getEthicalPracticeByPlantId: (plantId: number) => ipcRenderer.invoke('db:ethicalPractice:getByPlantId', plantId),
+
   // Journal
   getJournalPrompts: (filters?: any) => ipcRenderer.invoke('db:journal:getPrompts', filters),
   getJournalEntries: (filters?: any) => ipcRenderer.invoke('db:journal:getEntries', filters),

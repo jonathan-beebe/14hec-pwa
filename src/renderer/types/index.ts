@@ -70,6 +70,7 @@ export interface PlantDetail extends Plant {
   contraindications: Contraindication[]
   teachings: PlantTeaching | null
   presenceEnergetics: PlantPresenceEnergetics | null
+  ethicalPractice: EthicalPractice | null
 }
 
 export interface PlanetAssociation {
@@ -230,6 +231,57 @@ export interface PlantPresenceEnergetics {
   created_at: string
 }
 
+// ── Ethical Practice ──────────────────────────────────────
+export interface EthicalPractice {
+  id: number
+  plant_id: number
+  // Ethical Use & Context
+  use_context_daily: string | null
+  use_context_practitioner: string | null
+  use_context_ceremonial: string | null
+  use_context_group_vs_private: string | null
+  cultural_respect_notes: string | null
+  misuse_risks: string | null
+  // Facilitation Guidelines
+  facilitator_qualifications: string | null
+  facilitator_qualities: string | null
+  facilitator_red_flags: string | null
+  preparation_framework: string | null
+  // Contraindications & Safety
+  physiological_contraindications: string | null
+  psychological_considerations: string | null
+  environmental_considerations: string | null
+  dosage_sensitivity: string | null
+  interaction_notes: string | null
+  contraindication_severity: string | null
+  // Sourcing & Ecological Integrity
+  native_ecosystems: string | null
+  wildcrafted_vs_cultivated: string | null
+  sustainable_harvesting: string | null
+  ethical_sourcing_concerns: string | null
+  sourcing_standards: string | null
+  // Preparation & Energetic Relationship
+  traditional_preparation: string | null
+  modern_preparation: string | null
+  preparation_potency_notes: string | null
+  intentional_practices: string | null
+  // Energetic Signature & Divine Intelligence
+  psychospiritual_effects: string | null
+  archetypal_resonance: string | null
+  nervous_system_influence: string | null
+  consciousness_interaction: string | null
+  spirit_teaching: string | null
+  // Integration
+  integration_body: string | null
+  integration_heart: string | null
+  integration_mind: string | null
+  integration_spirit: string | null
+  healthy_integration_signs: string | null
+  incomplete_integration_signs: string | null
+  when_to_seek_support: string | null
+  created_at: string
+}
+
 // ── Journal ──────────────────────────────────────
 export interface JournalPrompt {
   id: number
@@ -330,6 +382,9 @@ declare global {
 
       // Plant Presence Energetics
       getPresenceByPlantId: (plantId: number) => Promise<PlantPresenceEnergetics | null>
+
+      // Ethical Practice
+      getEthicalPracticeByPlantId: (plantId: number) => Promise<EthicalPractice | null>
 
       // Journal
       getJournalPrompts: (filters?: { plantId?: number | null; category?: string }) => Promise<JournalPrompt[]>
