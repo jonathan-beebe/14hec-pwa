@@ -385,7 +385,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                 </div>
               )}
 
-              {selectedPlant.safety_notes && (
+              {selectedPlant.safety_notes && !selectedPlant.ethicalPractice && (
                 <div className="rounded-xl p-4 mb-5"
                      style={{ background: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.1)' }}>
                   <div className="flex items-center gap-2 mb-2">
