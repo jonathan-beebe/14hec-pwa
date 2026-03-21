@@ -30,6 +30,7 @@ export function seedDatabase(db: Database.Database): void {
     seedPlants(db)
     seedBodySystems(db)
     seedTeachingsAndJournal(db)
+    seedEthicalPractice(db)
   })
 
   transaction()
@@ -312,6 +313,89 @@ function seedTeachingsAndJournal(db: Database.Database): void {
       prompt_text: prompt.prompt_text,
       prompt_category: prompt.prompt_category
     })
+  }
+}
+
+function seedEthicalPractice(db: Database.Database): void {
+  const data = loadJson('ethical-practice.json')
+  const getPlant = db.prepare('SELECT id FROM plants WHERE common_name = ?')
+
+  const stmt = db.prepare(`
+    INSERT INTO ethical_practice (
+      plant_id,
+      use_context_daily, use_context_practitioner, use_context_ceremonial,
+      use_context_group_vs_private, cultural_respect_notes, misuse_risks,
+      facilitator_qualifications, facilitator_qualities, facilitator_red_flags, preparation_framework,
+      physiological_contraindications, psychological_considerations, environmental_considerations,
+      dosage_sensitivity, interaction_notes, contraindication_severity,
+      native_ecosystems, wildcrafted_vs_cultivated, sustainable_harvesting,
+      ethical_sourcing_concerns, sourcing_standards,
+      traditional_preparation, modern_preparation, preparation_potency_notes, intentional_practices,
+      psychospiritual_effects, archetypal_resonance, nervous_system_influence,
+      consciousness_interaction, spirit_teaching,
+      integration_body, integration_heart, integration_mind, integration_spirit,
+      healthy_integration_signs, incomplete_integration_signs, when_to_seek_support
+    ) VALUES (
+      @plant_id,
+      @use_context_daily, @use_context_practitioner, @use_context_ceremonial,
+      @use_context_group_vs_private, @cultural_respect_notes, @misuse_risks,
+      @facilitator_qualifications, @facilitator_qualities, @facilitator_red_flags, @preparation_framework,
+      @physiological_contraindications, @psychological_considerations, @environmental_considerations,
+      @dosage_sensitivity, @interaction_notes, @contraindication_severity,
+      @native_ecosystems, @wildcrafted_vs_cultivated, @sustainable_harvesting,
+      @ethical_sourcing_concerns, @sourcing_standards,
+      @traditional_preparation, @modern_preparation, @preparation_potency_notes, @intentional_practices,
+      @psychospiritual_effects, @archetypal_resonance, @nervous_system_influence,
+      @consciousness_interaction, @spirit_teaching,
+      @integration_body, @integration_heart, @integration_mind, @integration_spirit,
+      @healthy_integration_signs, @incomplete_integration_signs, @when_to_seek_support
+    )
+  `)
+
+  for (const entry of data) {
+    const plant = getPlant.get(entry.plant) as { id: number } | undefined
+    if (plant) {
+      stmt.run({
+        plant_id: plant.id,
+        use_context_daily: entry.use_context_daily || null,
+        use_context_practitioner: entry.use_context_practitioner || null,
+        use_context_ceremonial: entry.use_context_ceremonial || null,
+        use_context_group_vs_private: entry.use_context_group_vs_private || null,
+        cultural_respect_notes: entry.cultural_respect_notes || null,
+        misuse_risks: entry.misuse_risks || null,
+        facilitator_qualifications: entry.facilitator_qualifications || null,
+        facilitator_qualities: entry.facilitator_qualities || null,
+        facilitator_red_flags: entry.facilitator_red_flags || null,
+        preparation_framework: entry.preparation_framework || null,
+        physiological_contraindications: entry.physiological_contraindications || null,
+        psychological_considerations: entry.psychological_considerations || null,
+        environmental_considerations: entry.environmental_considerations || null,
+        dosage_sensitivity: entry.dosage_sensitivity || null,
+        interaction_notes: entry.interaction_notes || null,
+        contraindication_severity: entry.contraindication_severity || null,
+        native_ecosystems: entry.native_ecosystems || null,
+        wildcrafted_vs_cultivated: entry.wildcrafted_vs_cultivated || null,
+        sustainable_harvesting: entry.sustainable_harvesting || null,
+        ethical_sourcing_concerns: entry.ethical_sourcing_concerns || null,
+        sourcing_standards: entry.sourcing_standards || null,
+        traditional_preparation: entry.traditional_preparation || null,
+        modern_preparation: entry.modern_preparation || null,
+        preparation_potency_notes: entry.preparation_potency_notes || null,
+        intentional_practices: entry.intentional_practices || null,
+        psychospiritual_effects: entry.psychospiritual_effects || null,
+        archetypal_resonance: entry.archetypal_resonance || null,
+        nervous_system_influence: entry.nervous_system_influence || null,
+        consciousness_interaction: entry.consciousness_interaction || null,
+        spirit_teaching: entry.spirit_teaching || null,
+        integration_body: entry.integration_body || null,
+        integration_heart: entry.integration_heart || null,
+        integration_mind: entry.integration_mind || null,
+        integration_spirit: entry.integration_spirit || null,
+        healthy_integration_signs: entry.healthy_integration_signs || null,
+        incomplete_integration_signs: entry.incomplete_integration_signs || null,
+        when_to_seek_support: entry.when_to_seek_support || null
+      })
+    }
   }
 }
 
