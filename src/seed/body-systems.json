@@ -226,274 +226,2174 @@
       "zodiac_sign": "Capricorn"
     }
   ],
-
   "ailment_mappings": [
-    { "body_system": "Heart", "ailment": "High Blood Pressure", "relevance": "primary", "notes": "Hypertension directly strains the heart muscle and coronary arteries" },
-    { "body_system": "Heart", "ailment": "Heart Palpitations", "relevance": "primary", "notes": "Palpitations originate from cardiac rhythm disturbance" },
-    { "body_system": "Heart", "ailment": "Heart Disease", "relevance": "primary", "notes": "Structural and functional cardiac disease" },
-    { "body_system": "Heart", "ailment": "Poor Circulation", "relevance": "primary", "notes": "Inadequate cardiac output reduces peripheral circulation" },
-    { "body_system": "Heart", "ailment": "Grief", "relevance": "secondary", "notes": "Grief is the emotion of the heart in multiple traditions; manifests as chest tightness" },
-    { "body_system": "Heart", "ailment": "Anxiety", "relevance": "secondary", "notes": "Anxiety disrupts heart rhythm and heart rate variability" },
-
-    { "body_system": "Liver", "ailment": "Liver Stagnation", "relevance": "primary", "notes": "Direct liver dysfunction and sluggish detoxification" },
-    { "body_system": "Liver", "ailment": "Liver Disease", "relevance": "primary", "notes": "Hepatitis, cirrhosis, and fatty liver conditions" },
-    { "body_system": "Liver", "ailment": "Anger and Irritability", "relevance": "primary", "notes": "Anger is the emotion of the liver in TCM; liver qi stagnation manifests as irritability" },
-    { "body_system": "Liver", "ailment": "Hormonal Imbalance", "relevance": "secondary", "notes": "The liver metabolizes and conjugates steroid hormones" },
-    { "body_system": "Liver", "ailment": "Skin Conditions", "relevance": "secondary", "notes": "Skin problems often reflect liver detoxification overload" },
-    { "body_system": "Liver", "ailment": "Allergies", "relevance": "associated", "notes": "Histamine is metabolized by the liver; liver congestion worsens allergic response" },
-
-    { "body_system": "Kidneys", "ailment": "Urinary Tract Issues", "relevance": "primary", "notes": "Direct renal and urinary pathology" },
-    { "body_system": "Kidneys", "ailment": "Kidney Disease", "relevance": "primary", "notes": "Impaired renal filtration and elimination" },
-    { "body_system": "Kidneys", "ailment": "Edema and Water Retention", "relevance": "primary", "notes": "Kidney weakness impairs fluid regulation" },
-    { "body_system": "Kidneys", "ailment": "High Blood Pressure", "relevance": "secondary", "notes": "Kidneys regulate blood pressure through the renin-angiotensin system" },
-    { "body_system": "Kidneys", "ailment": "Fatigue", "relevance": "associated", "notes": "In TCM, kidney Jing depletion is a root cause of deep exhaustion" },
-
-    { "body_system": "Lungs", "ailment": "Respiratory Issues", "relevance": "primary", "notes": "Direct pulmonary pathology affecting gas exchange" },
-    { "body_system": "Lungs", "ailment": "Cold and Flu", "relevance": "primary", "notes": "Upper and lower respiratory viral infections" },
-    { "body_system": "Lungs", "ailment": "Allergies", "relevance": "primary", "notes": "Allergic rhinitis and asthma manifest in the respiratory tract" },
-    { "body_system": "Lungs", "ailment": "Grief", "relevance": "secondary", "notes": "In TCM, grief is the emotion of the lungs; unresolved grief weakens lung qi" },
-
-    { "body_system": "Brain", "ailment": "Headaches", "relevance": "primary", "notes": "Cephalic pain from vascular, tension, or neurological origin" },
-    { "body_system": "Brain", "ailment": "Insomnia", "relevance": "primary", "notes": "Sleep regulation is a brain function involving the hypothalamus and pineal gland" },
-    { "body_system": "Brain", "ailment": "Depression", "relevance": "primary", "notes": "Neurotransmitter imbalance and neuroinflammation" },
-    { "body_system": "Brain", "ailment": "Anxiety", "relevance": "primary", "notes": "Amygdala hyperactivation and prefrontal cortex dysregulation" },
-    { "body_system": "Brain", "ailment": "Vertigo and Dizziness", "relevance": "primary", "notes": "Central vertigo originates from brainstem or cerebellar dysfunction" },
-    { "body_system": "Brain", "ailment": "Seizure Disorders", "relevance": "primary", "notes": "Abnormal electrical activity in the cerebral cortex" },
-    { "body_system": "Brain", "ailment": "Lack of Clarity", "relevance": "primary", "notes": "Cognitive fog reflects impaired cerebral circulation or neurochemistry" },
-    { "body_system": "Brain", "ailment": "Consciousness Expansion", "relevance": "associated", "notes": "Higher cognitive states involve cortical and default mode network modulation" },
-
-    { "body_system": "Stomach", "ailment": "Digestive Stagnation", "relevance": "primary", "notes": "Sluggish gastric motility and enzyme production" },
-    { "body_system": "Stomach", "ailment": "Nausea", "relevance": "primary", "notes": "Nausea originates from gastric irritation or vagal stimulation" },
-    { "body_system": "Stomach", "ailment": "Digestive Ulcers", "relevance": "primary", "notes": "Erosion of the gastric mucosal lining" },
-
-    { "body_system": "Spleen", "ailment": "Immune Deficiency", "relevance": "secondary", "notes": "The spleen filters blood-borne pathogens and produces antibodies" },
-    { "body_system": "Spleen", "ailment": "Fatigue", "relevance": "secondary", "notes": "In TCM, spleen qi deficiency is a primary cause of fatigue and poor digestion" },
-
-    { "body_system": "Skin", "ailment": "Skin Conditions", "relevance": "primary", "notes": "Direct dermatological pathology" },
-    { "body_system": "Skin", "ailment": "Wound Healing", "relevance": "primary", "notes": "Skin is the tissue most visibly involved in wound repair" },
-    { "body_system": "Skin", "ailment": "Fungal Infections", "relevance": "primary", "notes": "Cutaneous fungal overgrowth" },
-
-    { "body_system": "Bones", "ailment": "Joint Pain", "relevance": "primary", "notes": "Joint structures connect bones and degeneration affects skeletal function" },
-    { "body_system": "Bones", "ailment": "Chronic Pain", "relevance": "secondary", "notes": "Musculoskeletal pain often involves bone and joint structures" },
-
-    { "body_system": "Blood", "ailment": "Chronic Inflammation", "relevance": "primary", "notes": "Inflammatory markers circulate in the blood; blood quality reflects systemic inflammation" },
-    { "body_system": "Blood", "ailment": "Poor Circulation", "relevance": "primary", "notes": "Blood viscosity and vessel health determine circulatory efficiency" },
-    { "body_system": "Blood", "ailment": "Bleeding Disorders", "relevance": "primary", "notes": "Coagulation cascade is a blood function" },
-    { "body_system": "Blood", "ailment": "High Blood Pressure", "relevance": "secondary", "notes": "Blood volume and viscosity contribute to arterial pressure" },
-
-    { "body_system": "Reproductive System", "ailment": "Menstrual Irregularity", "relevance": "primary", "notes": "Uterine and ovarian function governs menstrual cycling" },
-    { "body_system": "Reproductive System", "ailment": "Menopausal Symptoms", "relevance": "primary", "notes": "Declining ovarian hormone production" },
-    { "body_system": "Reproductive System", "ailment": "Prostate Issues", "relevance": "primary", "notes": "Prostate gland pathology" },
-    { "body_system": "Reproductive System", "ailment": "Low Libido", "relevance": "primary", "notes": "Sexual desire involves gonadal hormones and reproductive vitality" },
-    { "body_system": "Reproductive System", "ailment": "Pregnancy", "relevance": "primary", "notes": "Gestation is the primary function of the female reproductive system" },
-    { "body_system": "Reproductive System", "ailment": "Breastfeeding", "relevance": "primary", "notes": "Lactation involves mammary glands under reproductive endocrine control" },
-    { "body_system": "Reproductive System", "ailment": "Hormonal Imbalance", "relevance": "secondary", "notes": "Reproductive hormones are major contributors to overall endocrine balance" },
-    { "body_system": "Reproductive System", "ailment": "Hormone-Sensitive Cancers", "relevance": "associated", "notes": "Estrogen and testosterone-dependent cancers involve reproductive tissues" },
-
-    { "body_system": "Digestive Tract", "ailment": "Digestive Stagnation", "relevance": "primary", "notes": "Sluggish peristalsis throughout the GI tract" },
-    { "body_system": "Digestive Tract", "ailment": "Nausea", "relevance": "primary", "notes": "Gastrointestinal disturbance" },
-    { "body_system": "Digestive Tract", "ailment": "Digestive Ulcers", "relevance": "primary", "notes": "Mucosal erosion in the GI lining" },
-    { "body_system": "Digestive Tract", "ailment": "Parasitic Infections", "relevance": "primary", "notes": "Intestinal parasites inhabit the digestive tract" },
-
-    { "body_system": "Nervous System", "ailment": "Insomnia", "relevance": "primary", "notes": "Sleep is regulated by the central nervous system" },
-    { "body_system": "Nervous System", "ailment": "Anxiety", "relevance": "primary", "notes": "Sympathetic nervous system overactivation" },
-    { "body_system": "Nervous System", "ailment": "Depression", "relevance": "primary", "notes": "Neurotransmitter imbalances in the CNS" },
-    { "body_system": "Nervous System", "ailment": "Stress", "relevance": "primary", "notes": "Chronic sympathetic activation and vagal tone suppression" },
-    { "body_system": "Nervous System", "ailment": "Chronic Pain", "relevance": "primary", "notes": "Central sensitization and pain processing" },
-    { "body_system": "Nervous System", "ailment": "Nerve Pain and Neuralgia", "relevance": "primary", "notes": "Peripheral nerve damage and neuropathic signaling" },
-    { "body_system": "Nervous System", "ailment": "Seizure Disorders", "relevance": "primary", "notes": "Abnormal neuronal firing patterns" },
-    { "body_system": "Nervous System", "ailment": "Trauma and PTSD", "relevance": "primary", "notes": "Dysregulated autonomic nervous system and limbic hyperactivation" },
-    { "body_system": "Nervous System", "ailment": "Headaches", "relevance": "secondary", "notes": "Neural and vascular components of cephalic pain" },
-
-    { "body_system": "Immune System", "ailment": "Immune Deficiency", "relevance": "primary", "notes": "Weakened immune surveillance and response" },
-    { "body_system": "Immune System", "ailment": "Chronic Inflammation", "relevance": "primary", "notes": "Dysregulated immune-mediated inflammatory response" },
-    { "body_system": "Immune System", "ailment": "Allergies", "relevance": "primary", "notes": "Misdirected immune hypersensitivity" },
-    { "body_system": "Immune System", "ailment": "Autoimmune Conditions", "relevance": "primary", "notes": "Immune system attacks self-tissues" },
-    { "body_system": "Immune System", "ailment": "Cold and Flu", "relevance": "primary", "notes": "Acute immune response to viral pathogens" },
-    { "body_system": "Immune System", "ailment": "Fungal Infections", "relevance": "secondary", "notes": "Immune weakness allows fungal overgrowth" },
-    { "body_system": "Immune System", "ailment": "Parasitic Infections", "relevance": "secondary", "notes": "Immune insufficiency permits parasitic establishment" },
-
-    { "body_system": "Endocrine System", "ailment": "Hormonal Imbalance", "relevance": "primary", "notes": "Dysregulation of endocrine gland output" },
-    { "body_system": "Endocrine System", "ailment": "Fatigue", "relevance": "primary", "notes": "Adrenal and thyroid hormones govern energy metabolism" },
-    { "body_system": "Endocrine System", "ailment": "Blood Sugar Imbalance", "relevance": "primary", "notes": "Insulin and glucagon regulation from the pancreas" },
-    { "body_system": "Endocrine System", "ailment": "Menopausal Symptoms", "relevance": "primary", "notes": "Declining gonadal hormone production" },
-    { "body_system": "Endocrine System", "ailment": "Stress", "relevance": "secondary", "notes": "HPA axis activation and cortisol dysregulation" },
-
-    { "body_system": "Lymphatic System", "ailment": "Edema and Water Retention", "relevance": "primary", "notes": "Lymphatic congestion causes fluid accumulation" },
-    { "body_system": "Lymphatic System", "ailment": "Immune Deficiency", "relevance": "secondary", "notes": "Lymph nodes are sites of immune cell activation" },
-    { "body_system": "Lymphatic System", "ailment": "Chronic Inflammation", "relevance": "secondary", "notes": "Lymphatic stagnation perpetuates inflammatory waste accumulation" },
-
-    { "body_system": "Adrenal Glands", "ailment": "Fatigue", "relevance": "primary", "notes": "Adrenal depletion is a primary cause of chronic fatigue" },
-    { "body_system": "Adrenal Glands", "ailment": "Stress", "relevance": "primary", "notes": "Adrenals produce cortisol and adrenaline in the stress response" },
-
-    { "body_system": "Thyroid", "ailment": "Fatigue", "relevance": "secondary", "notes": "Hypothyroidism causes profound fatigue and metabolic slowing" },
-    { "body_system": "Thyroid", "ailment": "Hormonal Imbalance", "relevance": "secondary", "notes": "Thyroid hormones influence every other endocrine axis" },
-
-    { "body_system": "Pineal Gland", "ailment": "Insomnia", "relevance": "primary", "notes": "Melatonin production governs sleep onset" },
-    { "body_system": "Pineal Gland", "ailment": "Dream Enhancement", "relevance": "primary", "notes": "The pineal gland governs dream states and circadian rhythm" },
-    { "body_system": "Pineal Gland", "ailment": "Consciousness Expansion", "relevance": "primary", "notes": "Traditionally associated with the third eye and visionary states" },
-    { "body_system": "Pineal Gland", "ailment": "Spiritual Disconnection", "relevance": "primary", "notes": "Pineal calcification correlates with loss of spiritual sensitivity" },
-
-    { "body_system": "Pancreas", "ailment": "Blood Sugar Imbalance", "relevance": "primary", "notes": "Insulin and glucagon secretion from pancreatic islets" },
-    { "body_system": "Pancreas", "ailment": "Digestive Stagnation", "relevance": "secondary", "notes": "Pancreatic enzymes are essential for food breakdown" },
-
-    { "body_system": "Gallbladder", "ailment": "Liver Stagnation", "relevance": "secondary", "notes": "Bile stasis in the gallbladder accompanies liver congestion" },
-    { "body_system": "Gallbladder", "ailment": "Digestive Stagnation", "relevance": "secondary", "notes": "Insufficient bile release impairs fat digestion" },
-
-    { "body_system": "Bladder", "ailment": "Urinary Tract Issues", "relevance": "primary", "notes": "Bladder infections and dysfunction" },
-
-    { "body_system": "Muscles", "ailment": "Chronic Pain", "relevance": "primary", "notes": "Myofascial pain and tension" },
-    { "body_system": "Muscles", "ailment": "Joint Pain", "relevance": "secondary", "notes": "Surrounding muscle weakness contributes to joint instability" },
-
-    { "body_system": "Eyes", "ailment": "Eye Health", "relevance": "primary", "notes": "Direct visual organ pathology" },
-    { "body_system": "Eyes", "ailment": "Headaches", "relevance": "associated", "notes": "Eye strain and visual disturbances trigger headaches" },
-
-    { "body_system": "Oral Cavity", "ailment": "Dental and Gum Issues", "relevance": "primary", "notes": "Direct oral pathology" },
-
-    { "body_system": "Nervous System", "ailment": "Addiction Recovery", "relevance": "primary", "notes": "Dopamine reward circuitry and neuroplasticity" },
-    { "body_system": "Nervous System", "ailment": "Psychiatric Conditions", "relevance": "primary", "notes": "Neurotransmitter and neurochemical dysregulation" },
-    { "body_system": "Nervous System", "ailment": "Vertigo and Dizziness", "relevance": "primary", "notes": "Vestibular nerve and cerebellar processing" },
-    { "body_system": "Nervous System", "ailment": "Lack of Clarity", "relevance": "secondary", "notes": "Cognitive function depends on neural signaling efficiency" },
-
-    { "body_system": "Brain", "ailment": "Multiple Sclerosis", "relevance": "primary", "notes": "Demyelination of central nervous system white matter disrupts brain signaling" },
-    { "body_system": "Nervous System", "ailment": "Multiple Sclerosis", "relevance": "primary", "notes": "Myelin sheath destruction impairs nerve conduction throughout the CNS and peripheral nerves" },
-    { "body_system": "Immune System", "ailment": "Multiple Sclerosis", "relevance": "primary", "notes": "Autoimmune T-cell attack on myelin drives disease progression" },
-    { "body_system": "Eyes", "ailment": "Multiple Sclerosis", "relevance": "secondary", "notes": "Optic neuritis is often the first presenting symptom of MS" },
-    { "body_system": "Bladder", "ailment": "Multiple Sclerosis", "relevance": "secondary", "notes": "Neurogenic bladder dysfunction is common in MS due to spinal cord lesions" },
-    { "body_system": "Muscles", "ailment": "Multiple Sclerosis", "relevance": "secondary", "notes": "Spasticity and muscle weakness result from disrupted motor nerve signaling" },
-
-    { "body_system": "Reproductive System", "ailment": "PCOS (Polycystic Ovary Syndrome)", "relevance": "primary", "notes": "Ovarian cyst formation, anovulation, and disrupted menstrual cycling" },
-    { "body_system": "Endocrine System", "ailment": "PCOS (Polycystic Ovary Syndrome)", "relevance": "primary", "notes": "Androgen excess and insulin resistance reflect systemic endocrine dysregulation" },
-    { "body_system": "Pancreas", "ailment": "PCOS (Polycystic Ovary Syndrome)", "relevance": "secondary", "notes": "Insulin resistance and hyperinsulinemia drive androgen overproduction" },
-    { "body_system": "Adrenal Glands", "ailment": "PCOS (Polycystic Ovary Syndrome)", "relevance": "secondary", "notes": "Adrenal androgen excess contributes to PCOS symptom profile" },
-    { "body_system": "Skin", "ailment": "PCOS (Polycystic Ovary Syndrome)", "relevance": "associated", "notes": "Acne, hirsutism, and acanthosis nigricans are dermatological manifestations" },
-
-    { "body_system": "Reproductive System", "ailment": "Endometriosis", "relevance": "primary", "notes": "Endometrial-like tissue grows outside the uterus, causing adhesions, ovarian endometriomas, and fertility impairment" },
-    { "body_system": "Immune System", "ailment": "Endometriosis", "relevance": "secondary", "notes": "Immune dysfunction fails to clear ectopic endometrial tissue" },
-    { "body_system": "Digestive Tract", "ailment": "Endometriosis", "relevance": "secondary", "notes": "Bowel endometriosis causes pain with defecation and GI disturbance" },
-    { "body_system": "Bladder", "ailment": "Endometriosis", "relevance": "associated", "notes": "Bladder endometriosis can cause urinary pain and frequency" },
-
-    { "body_system": "Thyroid", "ailment": "Hyperthyroidism", "relevance": "primary", "notes": "Excessive thyroid hormone production from an overactive gland" },
-    { "body_system": "Endocrine System", "ailment": "Hyperthyroidism", "relevance": "primary", "notes": "Systemic metabolic acceleration from thyroid hormone excess" },
-    { "body_system": "Heart", "ailment": "Hyperthyroidism", "relevance": "secondary", "notes": "Thyroid hormone excess causes tachycardia, atrial fibrillation, and cardiac strain" },
-    { "body_system": "Nervous System", "ailment": "Hyperthyroidism", "relevance": "secondary", "notes": "Sympathetic nervous system overactivation drives anxiety and tremor" },
-    { "body_system": "Immune System", "ailment": "Hyperthyroidism", "relevance": "associated", "notes": "Graves' disease is an autoimmune cause of hyperthyroidism" },
-    { "body_system": "Eyes", "ailment": "Hyperthyroidism", "relevance": "associated", "notes": "Graves' ophthalmopathy causes eye bulging and visual disturbance" },
-    { "body_system": "Bones", "ailment": "Hyperthyroidism", "relevance": "associated", "notes": "Excess thyroid hormone accelerates bone resorption and osteoporosis risk" },
-
-    { "body_system": "Thyroid", "ailment": "Hypothyroidism", "relevance": "primary", "notes": "Insufficient thyroid hormone production from an underactive gland" },
-    { "body_system": "Endocrine System", "ailment": "Hypothyroidism", "relevance": "primary", "notes": "Systemic metabolic slowing from thyroid hormone deficiency" },
-    { "body_system": "Brain", "ailment": "Hypothyroidism", "relevance": "secondary", "notes": "Thyroid hormone deficiency impairs cognitive function and causes brain fog" },
-    { "body_system": "Heart", "ailment": "Hypothyroidism", "relevance": "secondary", "notes": "Hypothyroidism causes bradycardia and elevated cholesterol" },
-    { "body_system": "Skin", "ailment": "Hypothyroidism", "relevance": "secondary", "notes": "Dry skin and myxedema are characteristic dermatological signs" },
-    { "body_system": "Muscles", "ailment": "Hypothyroidism", "relevance": "associated", "notes": "Muscle weakness, cramps, and aches from slowed metabolic function" },
-
-    { "body_system": "Brain", "ailment": "Night Terrors", "relevance": "primary", "notes": "Disrupted sleep architecture involving abnormal arousal from deep NREM sleep" },
-    { "body_system": "Nervous System", "ailment": "Night Terrors", "relevance": "primary", "notes": "Autonomic nervous system activation causes intense fear response during sleep" },
-    { "body_system": "Adrenal Glands", "ailment": "Night Terrors", "relevance": "secondary", "notes": "Adrenaline and cortisol surges during episodes reflect HPA axis activation" },
-    { "body_system": "Pineal Gland", "ailment": "Night Terrors", "relevance": "associated", "notes": "Disrupted melatonin cycling may contribute to sleep architecture instability" },
-
-    { "body_system": "Immune System", "ailment": "Rheumatoid Arthritis", "relevance": "primary", "notes": "Autoimmune attack on synovial joint membranes drives the disease" },
-    { "body_system": "Bones", "ailment": "Rheumatoid Arthritis", "relevance": "primary", "notes": "Progressive joint erosion and bone destruction" },
-    { "body_system": "Muscles", "ailment": "Rheumatoid Arthritis", "relevance": "secondary", "notes": "Periarticular muscle wasting and weakness from disuse and inflammation" },
-    { "body_system": "Blood", "ailment": "Rheumatoid Arthritis", "relevance": "secondary", "notes": "Elevated inflammatory markers and anemia of chronic disease" },
-    { "body_system": "Lymphatic System", "ailment": "Rheumatoid Arthritis", "relevance": "associated", "notes": "Lymph node enlargement and lymphatic involvement in systemic inflammation" },
-    { "body_system": "Skin", "ailment": "Rheumatoid Arthritis", "relevance": "associated", "notes": "Rheumatoid nodules and vasculitis-related skin changes" },
-
-    { "body_system": "Immune System", "ailment": "Lupus (SLE)", "relevance": "primary", "notes": "Anti-nuclear antibody production and systemic autoimmune attack on multiple tissues" },
-    { "body_system": "Kidneys", "ailment": "Lupus (SLE)", "relevance": "primary", "notes": "Lupus nephritis is a life-threatening complication affecting kidney filtration" },
-    { "body_system": "Skin", "ailment": "Lupus (SLE)", "relevance": "primary", "notes": "Characteristic butterfly rash and photosensitive skin lesions" },
-    { "body_system": "Blood", "ailment": "Lupus (SLE)", "relevance": "secondary", "notes": "Cytopenias including anemia, leukopenia, and thrombocytopenia" },
-    { "body_system": "Heart", "ailment": "Lupus (SLE)", "relevance": "secondary", "notes": "Pericarditis and accelerated atherosclerosis" },
-    { "body_system": "Lungs", "ailment": "Lupus (SLE)", "relevance": "secondary", "notes": "Pleuritis and pulmonary inflammation" },
-    { "body_system": "Brain", "ailment": "Lupus (SLE)", "relevance": "secondary", "notes": "Neuropsychiatric lupus causes cognitive dysfunction, seizures, and psychosis" },
-    { "body_system": "Bones", "ailment": "Lupus (SLE)", "relevance": "associated", "notes": "Joint pain and arthritis without erosion is a common feature" },
-
-    { "body_system": "Thyroid", "ailment": "Hashimoto's Thyroiditis", "relevance": "primary", "notes": "Immune-mediated destruction of thyroid tissue" },
-    { "body_system": "Immune System", "ailment": "Hashimoto's Thyroiditis", "relevance": "primary", "notes": "Autoantibodies against thyroid peroxidase and thyroglobulin" },
-    { "body_system": "Endocrine System", "ailment": "Hashimoto's Thyroiditis", "relevance": "primary", "notes": "Progressive thyroid failure disrupts the entire endocrine axis" },
-    { "body_system": "Brain", "ailment": "Hashimoto's Thyroiditis", "relevance": "secondary", "notes": "Hashimoto's encephalopathy and cognitive impairment from thyroid hormone deficiency" },
-    { "body_system": "Heart", "ailment": "Hashimoto's Thyroiditis", "relevance": "associated", "notes": "Resulting hypothyroidism causes bradycardia and elevated cholesterol" },
-    { "body_system": "Muscles", "ailment": "Hashimoto's Thyroiditis", "relevance": "associated", "notes": "Myalgia and weakness from thyroid hormone deficiency" },
-
-    { "body_system": "Nervous System", "ailment": "Fibromyalgia", "relevance": "primary", "notes": "Central sensitization amplifies pain processing in the spinal cord and brain" },
-    { "body_system": "Muscles", "ailment": "Fibromyalgia", "relevance": "primary", "notes": "Widespread myofascial pain and tender points throughout the muscular system" },
-    { "body_system": "Brain", "ailment": "Fibromyalgia", "relevance": "secondary", "notes": "Altered pain processing, cognitive dysfunction, and sleep architecture disruption" },
-    { "body_system": "Endocrine System", "ailment": "Fibromyalgia", "relevance": "secondary", "notes": "HPA axis dysfunction and cortisol dysregulation" },
-    { "body_system": "Immune System", "ailment": "Fibromyalgia", "relevance": "associated", "notes": "Neuroinflammation and immune mediator involvement in pain sensitization" },
-    { "body_system": "Digestive Tract", "ailment": "Fibromyalgia", "relevance": "associated", "notes": "Irritable bowel symptoms frequently co-occur with fibromyalgia" },
-
-    { "body_system": "Digestive Tract", "ailment": "Crohn's Disease", "relevance": "primary", "notes": "Transmural inflammation of the gastrointestinal tract, especially ileum and colon" },
-    { "body_system": "Immune System", "ailment": "Crohn's Disease", "relevance": "primary", "notes": "Dysregulated mucosal immune response and Th1/Th17 pathway activation" },
-    { "body_system": "Stomach", "ailment": "Crohn's Disease", "relevance": "secondary", "notes": "Crohn's can affect the entire GI tract including the stomach, though less commonly" },
-    { "body_system": "Lymphatic System", "ailment": "Crohn's Disease", "relevance": "secondary", "notes": "Mesenteric lymph node enlargement and lymphatic obstruction" },
-    { "body_system": "Blood", "ailment": "Crohn's Disease", "relevance": "secondary", "notes": "Anemia from chronic blood loss and malabsorption of iron and B12" },
-    { "body_system": "Bones", "ailment": "Crohn's Disease", "relevance": "associated", "notes": "Calcium and vitamin D malabsorption increases osteoporosis risk" },
-
-    { "body_system": "Digestive Tract", "ailment": "Ulcerative Colitis", "relevance": "primary", "notes": "Continuous mucosal inflammation, ulceration, and bleeding of the colon and rectum" },
-    { "body_system": "Immune System", "ailment": "Ulcerative Colitis", "relevance": "primary", "notes": "Th2-mediated autoimmune attack on colonic mucosa" },
-    { "body_system": "Blood", "ailment": "Ulcerative Colitis", "relevance": "secondary", "notes": "Iron-deficiency anemia from chronic intestinal blood loss" },
-    { "body_system": "Liver", "ailment": "Ulcerative Colitis", "relevance": "associated", "notes": "Primary sclerosing cholangitis is an associated hepatobiliary complication" },
-
-    { "body_system": "Stomach", "ailment": "Celiac Disease", "relevance": "associated", "notes": "Gluten exposure begins gastric irritation; villous atrophy occurs in the small intestinal portion of the digestive tract" },
-    { "body_system": "Digestive Tract", "ailment": "Celiac Disease", "relevance": "primary", "notes": "Gluten-triggered destruction of intestinal villi" },
-    { "body_system": "Immune System", "ailment": "Celiac Disease", "relevance": "primary", "notes": "IgA-mediated autoimmune response to gluten-derived gliadin peptides" },
-    { "body_system": "Skin", "ailment": "Celiac Disease", "relevance": "secondary", "notes": "Dermatitis herpetiformis is the cutaneous manifestation of celiac disease" },
-    { "body_system": "Bones", "ailment": "Celiac Disease", "relevance": "secondary", "notes": "Calcium and vitamin D malabsorption leads to osteopenia and osteoporosis" },
-    { "body_system": "Nervous System", "ailment": "Celiac Disease", "relevance": "associated", "notes": "Gluten ataxia and peripheral neuropathy from neurological involvement" },
-    { "body_system": "Blood", "ailment": "Celiac Disease", "relevance": "associated", "notes": "Iron, folate, and B12 deficiency anemias from impaired absorption" },
-
-    { "body_system": "Pancreas", "ailment": "Type 1 Diabetes", "relevance": "primary", "notes": "Autoimmune destruction of pancreatic beta cells eliminates insulin production" },
-    { "body_system": "Endocrine System", "ailment": "Type 1 Diabetes", "relevance": "primary", "notes": "Absolute insulin deficiency disrupts glucose metabolism systemically" },
-    { "body_system": "Immune System", "ailment": "Type 1 Diabetes", "relevance": "primary", "notes": "T-cell mediated autoimmune attack on islets of Langerhans" },
-    { "body_system": "Blood", "ailment": "Type 1 Diabetes", "relevance": "secondary", "notes": "Chronic hyperglycemia damages blood vessels and alters blood chemistry" },
-    { "body_system": "Kidneys", "ailment": "Type 1 Diabetes", "relevance": "secondary", "notes": "Diabetic nephropathy is a major long-term complication" },
-    { "body_system": "Eyes", "ailment": "Type 1 Diabetes", "relevance": "secondary", "notes": "Diabetic retinopathy from chronic microvascular damage" },
-    { "body_system": "Nervous System", "ailment": "Type 1 Diabetes", "relevance": "secondary", "notes": "Diabetic neuropathy from nerve damage caused by hyperglycemia" },
-
-    { "body_system": "Immune System", "ailment": "Psoriatic Arthritis", "relevance": "primary", "notes": "Autoimmune-driven inflammation targeting both skin and joints" },
-    { "body_system": "Skin", "ailment": "Psoriatic Arthritis", "relevance": "primary", "notes": "Psoriasis plaques with characteristic silvery scaling" },
-    { "body_system": "Bones", "ailment": "Psoriatic Arthritis", "relevance": "primary", "notes": "Joint erosion and new bone formation in affected joints" },
-    { "body_system": "Muscles", "ailment": "Psoriatic Arthritis", "relevance": "secondary", "notes": "Enthesitis and tendon inflammation at muscle-bone junctions" },
-    { "body_system": "Eyes", "ailment": "Psoriatic Arthritis", "relevance": "associated", "notes": "Uveitis and eye inflammation can accompany psoriatic arthritis" },
-
-    { "body_system": "Immune System", "ailment": "Sjögren's Syndrome", "relevance": "primary", "notes": "Autoimmune lymphocytic infiltration of exocrine glands" },
-    { "body_system": "Eyes", "ailment": "Sjögren's Syndrome", "relevance": "primary", "notes": "Lacrimal gland destruction causes severe dry eye syndrome" },
-    { "body_system": "Oral Cavity", "ailment": "Sjögren's Syndrome", "relevance": "primary", "notes": "Salivary gland destruction causes xerostomia and dental complications" },
-    { "body_system": "Skin", "ailment": "Sjögren's Syndrome", "relevance": "secondary", "notes": "Cutaneous dryness and vasculitis-related skin changes" },
-    { "body_system": "Lungs", "ailment": "Sjögren's Syndrome", "relevance": "secondary", "notes": "Dry cough and interstitial lung involvement" },
-    { "body_system": "Kidneys", "ailment": "Sjögren's Syndrome", "relevance": "associated", "notes": "Interstitial nephritis and renal tubular acidosis" },
-    { "body_system": "Lymphatic System", "ailment": "Sjögren's Syndrome", "relevance": "associated", "notes": "Increased risk of lymphoma from chronic lymphocytic stimulation" },
-
-    { "body_system": "Heart", "ailment": "Raynaud's Phenomenon", "relevance": "primary", "notes": "Vasospasm of peripheral arteries driven by vascular hyperreactivity" },
-    { "body_system": "Blood", "ailment": "Raynaud's Phenomenon", "relevance": "secondary", "notes": "Disrupted blood flow to extremities during vasospastic episodes" },
-    { "body_system": "Nervous System", "ailment": "Raynaud's Phenomenon", "relevance": "secondary", "notes": "Sympathetic nervous system overactivation triggers arterial constriction" },
-    { "body_system": "Immune System", "ailment": "Raynaud's Phenomenon", "relevance": "associated", "notes": "Secondary Raynaud's often accompanies autoimmune connective tissue diseases" },
-    { "body_system": "Skin", "ailment": "Raynaud's Phenomenon", "relevance": "associated", "notes": "Fingertip ulcers and skin color changes reflect peripheral ischemia" },
-
-    { "body_system": "Immune System", "ailment": "Chronic Fatigue Syndrome", "relevance": "primary", "notes": "Immune dysfunction with natural killer cell impairment and chronic immune activation" },
-    { "body_system": "Nervous System", "ailment": "Chronic Fatigue Syndrome", "relevance": "primary", "notes": "Autonomic dysregulation, central sensitization, and neuroinflammation" },
-    { "body_system": "Endocrine System", "ailment": "Chronic Fatigue Syndrome", "relevance": "primary", "notes": "HPA axis blunting and cortisol dysregulation" },
-    { "body_system": "Adrenal Glands", "ailment": "Chronic Fatigue Syndrome", "relevance": "secondary", "notes": "Reduced cortisol output and impaired stress response capacity" },
-    { "body_system": "Brain", "ailment": "Chronic Fatigue Syndrome", "relevance": "secondary", "notes": "Neuroinflammation, cognitive impairment, and disrupted sleep architecture" },
-    { "body_system": "Muscles", "ailment": "Chronic Fatigue Syndrome", "relevance": "secondary", "notes": "Post-exertional malaise and impaired mitochondrial energy production in muscle tissue" },
-    { "body_system": "Lymphatic System", "ailment": "Chronic Fatigue Syndrome", "relevance": "associated", "notes": "Tender lymph nodes and lymphatic sluggishness" },
-
-    { "body_system": "Digestive Tract", "ailment": "Irritable Bowel Syndrome", "relevance": "primary", "notes": "Functional disorder of gastrointestinal motility and visceral sensitivity" },
-    { "body_system": "Stomach", "ailment": "Irritable Bowel Syndrome", "relevance": "secondary", "notes": "Functional dyspepsia frequently overlaps with IBS; colonic dysmotility drives alternating bowel habits" },
-    { "body_system": "Nervous System", "ailment": "Irritable Bowel Syndrome", "relevance": "primary", "notes": "Gut-brain axis dysregulation and visceral hypersensitivity" },
-    { "body_system": "Brain", "ailment": "Irritable Bowel Syndrome", "relevance": "secondary", "notes": "Central processing of visceral pain signals and stress-gut connection" },
-    { "body_system": "Spleen", "ailment": "Irritable Bowel Syndrome", "relevance": "associated", "notes": "In TCM, spleen qi deficiency is a root pattern underlying IBS with bloating and loose stools" },
-    { "body_system": "Immune System", "ailment": "Irritable Bowel Syndrome", "relevance": "associated", "notes": "Low-grade mucosal inflammation and mast cell activation in some IBS subtypes" },
-
-    { "body_system": "Adrenal Glands", "ailment": "Adrenal Fatigue", "relevance": "primary", "notes": "Depleted adrenal cortisol and DHEA output from chronic stress" },
-    { "body_system": "Endocrine System", "ailment": "Adrenal Fatigue", "relevance": "primary", "notes": "HPA axis dysregulation and downstream hormonal cascade disruption" },
-    { "body_system": "Nervous System", "ailment": "Adrenal Fatigue", "relevance": "secondary", "notes": "Sympathetic-parasympathetic imbalance and impaired stress resilience" },
-    { "body_system": "Immune System", "ailment": "Adrenal Fatigue", "relevance": "secondary", "notes": "Cortisol depletion impairs immune regulation and increases susceptibility to illness" },
-    { "body_system": "Brain", "ailment": "Adrenal Fatigue", "relevance": "secondary", "notes": "Cortisol dysregulation affects hippocampal function, memory, and cognitive clarity" },
-    { "body_system": "Thyroid", "ailment": "Adrenal Fatigue", "relevance": "associated", "notes": "Adrenal-thyroid axis interaction means adrenal depletion often suppresses thyroid function" }
+    {
+      "body_system": "Heart",
+      "ailment": "High Blood Pressure",
+      "relevance": "primary",
+      "notes": "Hypertension directly strains the heart muscle and coronary arteries"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Heart Palpitations",
+      "relevance": "primary",
+      "notes": "Palpitations originate from cardiac rhythm disturbance"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Heart Disease",
+      "relevance": "primary",
+      "notes": "Structural and functional cardiac disease"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Poor Circulation",
+      "relevance": "primary",
+      "notes": "Inadequate cardiac output reduces peripheral circulation"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Grief",
+      "relevance": "secondary",
+      "notes": "Grief is the emotion of the heart in multiple traditions; manifests as chest tightness"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Anxiety",
+      "relevance": "secondary",
+      "notes": "Anxiety disrupts heart rhythm and heart rate variability"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Liver Stagnation",
+      "relevance": "primary",
+      "notes": "Direct liver dysfunction and sluggish detoxification"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Liver Disease",
+      "relevance": "primary",
+      "notes": "Hepatitis, cirrhosis, and fatty liver conditions"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Anger and Irritability",
+      "relevance": "primary",
+      "notes": "Anger is the emotion of the liver in TCM; liver qi stagnation manifests as irritability"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Hormonal Imbalance",
+      "relevance": "secondary",
+      "notes": "The liver metabolizes and conjugates steroid hormones"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Skin Conditions",
+      "relevance": "secondary",
+      "notes": "Skin problems often reflect liver detoxification overload"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Allergies",
+      "relevance": "associated",
+      "notes": "Histamine is metabolized by the liver; liver congestion worsens allergic response"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Urinary Tract Issues",
+      "relevance": "primary",
+      "notes": "Direct renal and urinary pathology"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Kidney Disease",
+      "relevance": "primary",
+      "notes": "Impaired renal filtration and elimination"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Edema and Water Retention",
+      "relevance": "primary",
+      "notes": "Kidney weakness impairs fluid regulation"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "High Blood Pressure",
+      "relevance": "secondary",
+      "notes": "Kidneys regulate blood pressure through the renin-angiotensin system"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Fatigue",
+      "relevance": "associated",
+      "notes": "In TCM, kidney Jing depletion is a root cause of deep exhaustion"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Respiratory Issues",
+      "relevance": "primary",
+      "notes": "Direct pulmonary pathology affecting gas exchange"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Cold and Flu",
+      "relevance": "primary",
+      "notes": "Upper and lower respiratory viral infections"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Allergies",
+      "relevance": "primary",
+      "notes": "Allergic rhinitis and asthma manifest in the respiratory tract"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Grief",
+      "relevance": "secondary",
+      "notes": "In TCM, grief is the emotion of the lungs; unresolved grief weakens lung qi"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Headaches",
+      "relevance": "primary",
+      "notes": "Cephalic pain from vascular, tension, or neurological origin"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Insomnia",
+      "relevance": "primary",
+      "notes": "Sleep regulation is a brain function involving the hypothalamus and pineal gland"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Depression",
+      "relevance": "primary",
+      "notes": "Neurotransmitter imbalance and neuroinflammation"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Anxiety",
+      "relevance": "primary",
+      "notes": "Amygdala hyperactivation and prefrontal cortex dysregulation"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Vertigo and Dizziness",
+      "relevance": "primary",
+      "notes": "Central vertigo originates from brainstem or cerebellar dysfunction"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Seizure Disorders",
+      "relevance": "primary",
+      "notes": "Abnormal electrical activity in the cerebral cortex"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Lack of Clarity",
+      "relevance": "primary",
+      "notes": "Cognitive fog reflects impaired cerebral circulation or neurochemistry"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Consciousness Expansion",
+      "relevance": "associated",
+      "notes": "Higher cognitive states involve cortical and default mode network modulation"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Digestive Stagnation",
+      "relevance": "primary",
+      "notes": "Sluggish gastric motility and enzyme production"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Nausea",
+      "relevance": "primary",
+      "notes": "Nausea originates from gastric irritation or vagal stimulation"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Digestive Ulcers",
+      "relevance": "primary",
+      "notes": "Erosion of the gastric mucosal lining"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Immune Deficiency",
+      "relevance": "secondary",
+      "notes": "The spleen filters blood-borne pathogens and produces antibodies"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Fatigue",
+      "relevance": "secondary",
+      "notes": "In TCM, spleen qi deficiency is a primary cause of fatigue and poor digestion"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Skin Conditions",
+      "relevance": "primary",
+      "notes": "Direct dermatological pathology"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Wound Healing",
+      "relevance": "primary",
+      "notes": "Skin is the tissue most visibly involved in wound repair"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Fungal Infections",
+      "relevance": "primary",
+      "notes": "Cutaneous fungal overgrowth"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Joint Pain",
+      "relevance": "primary",
+      "notes": "Joint structures connect bones and degeneration affects skeletal function"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Chronic Pain",
+      "relevance": "secondary",
+      "notes": "Musculoskeletal pain often involves bone and joint structures"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Chronic Inflammation",
+      "relevance": "primary",
+      "notes": "Inflammatory markers circulate in the blood; blood quality reflects systemic inflammation"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Poor Circulation",
+      "relevance": "primary",
+      "notes": "Blood viscosity and vessel health determine circulatory efficiency"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Bleeding Disorders",
+      "relevance": "primary",
+      "notes": "Coagulation cascade is a blood function"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "High Blood Pressure",
+      "relevance": "secondary",
+      "notes": "Blood volume and viscosity contribute to arterial pressure"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Menstrual Irregularity",
+      "relevance": "primary",
+      "notes": "Uterine and ovarian function governs menstrual cycling"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Menopausal Symptoms",
+      "relevance": "primary",
+      "notes": "Declining ovarian hormone production"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Prostate Issues",
+      "relevance": "primary",
+      "notes": "Prostate gland pathology"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Low Libido",
+      "relevance": "primary",
+      "notes": "Sexual desire involves gonadal hormones and reproductive vitality"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Pregnancy",
+      "relevance": "primary",
+      "notes": "Gestation is the primary function of the female reproductive system"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Breastfeeding",
+      "relevance": "primary",
+      "notes": "Lactation involves mammary glands under reproductive endocrine control"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Hormonal Imbalance",
+      "relevance": "secondary",
+      "notes": "Reproductive hormones are major contributors to overall endocrine balance"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Hormone-Sensitive Cancers",
+      "relevance": "associated",
+      "notes": "Estrogen and testosterone-dependent cancers involve reproductive tissues"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Digestive Stagnation",
+      "relevance": "primary",
+      "notes": "Sluggish peristalsis throughout the GI tract"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Nausea",
+      "relevance": "primary",
+      "notes": "Gastrointestinal disturbance"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Digestive Ulcers",
+      "relevance": "primary",
+      "notes": "Mucosal erosion in the GI lining"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Parasitic Infections",
+      "relevance": "primary",
+      "notes": "Intestinal parasites inhabit the digestive tract"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Insomnia",
+      "relevance": "primary",
+      "notes": "Sleep is regulated by the central nervous system"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Anxiety",
+      "relevance": "primary",
+      "notes": "Sympathetic nervous system overactivation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Depression",
+      "relevance": "primary",
+      "notes": "Neurotransmitter imbalances in the CNS"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Stress",
+      "relevance": "primary",
+      "notes": "Chronic sympathetic activation and vagal tone suppression"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Chronic Pain",
+      "relevance": "primary",
+      "notes": "Central sensitization and pain processing"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Nerve Pain and Neuralgia",
+      "relevance": "primary",
+      "notes": "Peripheral nerve damage and neuropathic signaling"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Seizure Disorders",
+      "relevance": "primary",
+      "notes": "Abnormal neuronal firing patterns"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Trauma and PTSD",
+      "relevance": "primary",
+      "notes": "Dysregulated autonomic nervous system and limbic hyperactivation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Headaches",
+      "relevance": "secondary",
+      "notes": "Neural and vascular components of cephalic pain"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Immune Deficiency",
+      "relevance": "primary",
+      "notes": "Weakened immune surveillance and response"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Chronic Inflammation",
+      "relevance": "primary",
+      "notes": "Dysregulated immune-mediated inflammatory response"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Allergies",
+      "relevance": "primary",
+      "notes": "Misdirected immune hypersensitivity"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Autoimmune Conditions",
+      "relevance": "primary",
+      "notes": "Immune system attacks self-tissues"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Cold and Flu",
+      "relevance": "primary",
+      "notes": "Acute immune response to viral pathogens"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Fungal Infections",
+      "relevance": "secondary",
+      "notes": "Immune weakness allows fungal overgrowth"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Parasitic Infections",
+      "relevance": "secondary",
+      "notes": "Immune insufficiency permits parasitic establishment"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Hormonal Imbalance",
+      "relevance": "primary",
+      "notes": "Dysregulation of endocrine gland output"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Fatigue",
+      "relevance": "primary",
+      "notes": "Adrenal and thyroid hormones govern energy metabolism"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Blood Sugar Imbalance",
+      "relevance": "primary",
+      "notes": "Insulin and glucagon regulation from the pancreas"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Menopausal Symptoms",
+      "relevance": "primary",
+      "notes": "Declining gonadal hormone production"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Stress",
+      "relevance": "secondary",
+      "notes": "HPA axis activation and cortisol dysregulation"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Edema and Water Retention",
+      "relevance": "primary",
+      "notes": "Lymphatic congestion causes fluid accumulation"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Immune Deficiency",
+      "relevance": "secondary",
+      "notes": "Lymph nodes are sites of immune cell activation"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Chronic Inflammation",
+      "relevance": "secondary",
+      "notes": "Lymphatic stagnation perpetuates inflammatory waste accumulation"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Fatigue",
+      "relevance": "primary",
+      "notes": "Adrenal depletion is a primary cause of chronic fatigue"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Stress",
+      "relevance": "primary",
+      "notes": "Adrenals produce cortisol and adrenaline in the stress response"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Fatigue",
+      "relevance": "secondary",
+      "notes": "Hypothyroidism causes profound fatigue and metabolic slowing"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Hormonal Imbalance",
+      "relevance": "secondary",
+      "notes": "Thyroid hormones influence every other endocrine axis"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Insomnia",
+      "relevance": "primary",
+      "notes": "Melatonin production governs sleep onset"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Dream Enhancement",
+      "relevance": "primary",
+      "notes": "The pineal gland governs dream states and circadian rhythm"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Consciousness Expansion",
+      "relevance": "primary",
+      "notes": "Traditionally associated with the third eye and visionary states"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Spiritual Disconnection",
+      "relevance": "primary",
+      "notes": "Pineal calcification correlates with loss of spiritual sensitivity"
+    },
+    {
+      "body_system": "Pancreas",
+      "ailment": "Blood Sugar Imbalance",
+      "relevance": "primary",
+      "notes": "Insulin and glucagon secretion from pancreatic islets"
+    },
+    {
+      "body_system": "Pancreas",
+      "ailment": "Digestive Stagnation",
+      "relevance": "secondary",
+      "notes": "Pancreatic enzymes are essential for food breakdown"
+    },
+    {
+      "body_system": "Gallbladder",
+      "ailment": "Liver Stagnation",
+      "relevance": "secondary",
+      "notes": "Bile stasis in the gallbladder accompanies liver congestion"
+    },
+    {
+      "body_system": "Gallbladder",
+      "ailment": "Digestive Stagnation",
+      "relevance": "secondary",
+      "notes": "Insufficient bile release impairs fat digestion"
+    },
+    {
+      "body_system": "Bladder",
+      "ailment": "Urinary Tract Issues",
+      "relevance": "primary",
+      "notes": "Bladder infections and dysfunction"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Chronic Pain",
+      "relevance": "primary",
+      "notes": "Myofascial pain and tension"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Joint Pain",
+      "relevance": "secondary",
+      "notes": "Surrounding muscle weakness contributes to joint instability"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Eye Health",
+      "relevance": "primary",
+      "notes": "Direct visual organ pathology"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Headaches",
+      "relevance": "associated",
+      "notes": "Eye strain and visual disturbances trigger headaches"
+    },
+    {
+      "body_system": "Oral Cavity",
+      "ailment": "Dental and Gum Issues",
+      "relevance": "primary",
+      "notes": "Direct oral pathology"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Addiction Recovery",
+      "relevance": "primary",
+      "notes": "Dopamine reward circuitry and neuroplasticity"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Psychiatric Conditions",
+      "relevance": "primary",
+      "notes": "Neurotransmitter and neurochemical dysregulation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Vertigo and Dizziness",
+      "relevance": "primary",
+      "notes": "Vestibular nerve and cerebellar processing"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Lack of Clarity",
+      "relevance": "secondary",
+      "notes": "Cognitive function depends on neural signaling efficiency"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "primary",
+      "notes": "Demyelination of central nervous system white matter disrupts brain signaling"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "primary",
+      "notes": "Myelin sheath destruction impairs nerve conduction throughout the CNS and peripheral nerves"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "primary",
+      "notes": "Autoimmune T-cell attack on myelin drives disease progression"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "secondary",
+      "notes": "Optic neuritis is often the first presenting symptom of MS"
+    },
+    {
+      "body_system": "Bladder",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "secondary",
+      "notes": "Neurogenic bladder dysfunction is common in MS due to spinal cord lesions"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Multiple Sclerosis",
+      "relevance": "secondary",
+      "notes": "Spasticity and muscle weakness result from disrupted motor nerve signaling"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "PCOS (Polycystic Ovary Syndrome)",
+      "relevance": "primary",
+      "notes": "Ovarian cyst formation, anovulation, and disrupted menstrual cycling"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "PCOS (Polycystic Ovary Syndrome)",
+      "relevance": "primary",
+      "notes": "Androgen excess and insulin resistance reflect systemic endocrine dysregulation"
+    },
+    {
+      "body_system": "Pancreas",
+      "ailment": "PCOS (Polycystic Ovary Syndrome)",
+      "relevance": "secondary",
+      "notes": "Insulin resistance and hyperinsulinemia drive androgen overproduction"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "PCOS (Polycystic Ovary Syndrome)",
+      "relevance": "secondary",
+      "notes": "Adrenal androgen excess contributes to PCOS symptom profile"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "PCOS (Polycystic Ovary Syndrome)",
+      "relevance": "associated",
+      "notes": "Acne, hirsutism, and acanthosis nigricans are dermatological manifestations"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Endometriosis",
+      "relevance": "primary",
+      "notes": "Endometrial-like tissue grows outside the uterus, causing adhesions, ovarian endometriomas, and fertility impairment"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Endometriosis",
+      "relevance": "secondary",
+      "notes": "Immune dysfunction fails to clear ectopic endometrial tissue"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Endometriosis",
+      "relevance": "secondary",
+      "notes": "Bowel endometriosis causes pain with defecation and GI disturbance"
+    },
+    {
+      "body_system": "Bladder",
+      "ailment": "Endometriosis",
+      "relevance": "associated",
+      "notes": "Bladder endometriosis can cause urinary pain and frequency"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Hyperthyroidism",
+      "relevance": "primary",
+      "notes": "Excessive thyroid hormone production from an overactive gland"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Hyperthyroidism",
+      "relevance": "primary",
+      "notes": "Systemic metabolic acceleration from thyroid hormone excess"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Hyperthyroidism",
+      "relevance": "secondary",
+      "notes": "Thyroid hormone excess causes tachycardia, atrial fibrillation, and cardiac strain"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Hyperthyroidism",
+      "relevance": "secondary",
+      "notes": "Sympathetic nervous system overactivation drives anxiety and tremor"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Hyperthyroidism",
+      "relevance": "associated",
+      "notes": "Graves' disease is an autoimmune cause of hyperthyroidism"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Hyperthyroidism",
+      "relevance": "associated",
+      "notes": "Graves' ophthalmopathy causes eye bulging and visual disturbance"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Hyperthyroidism",
+      "relevance": "associated",
+      "notes": "Excess thyroid hormone accelerates bone resorption and osteoporosis risk"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Hypothyroidism",
+      "relevance": "primary",
+      "notes": "Insufficient thyroid hormone production from an underactive gland"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Hypothyroidism",
+      "relevance": "primary",
+      "notes": "Systemic metabolic slowing from thyroid hormone deficiency"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Hypothyroidism",
+      "relevance": "secondary",
+      "notes": "Thyroid hormone deficiency impairs cognitive function and causes brain fog"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Hypothyroidism",
+      "relevance": "secondary",
+      "notes": "Hypothyroidism causes bradycardia and elevated cholesterol"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Hypothyroidism",
+      "relevance": "secondary",
+      "notes": "Dry skin and myxedema are characteristic dermatological signs"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Hypothyroidism",
+      "relevance": "associated",
+      "notes": "Muscle weakness, cramps, and aches from slowed metabolic function"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Night Terrors",
+      "relevance": "primary",
+      "notes": "Disrupted sleep architecture involving abnormal arousal from deep NREM sleep"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Night Terrors",
+      "relevance": "primary",
+      "notes": "Autonomic nervous system activation causes intense fear response during sleep"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Night Terrors",
+      "relevance": "secondary",
+      "notes": "Adrenaline and cortisol surges during episodes reflect HPA axis activation"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Night Terrors",
+      "relevance": "associated",
+      "notes": "Disrupted melatonin cycling may contribute to sleep architecture instability"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "primary",
+      "notes": "Autoimmune attack on synovial joint membranes drives the disease"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "primary",
+      "notes": "Progressive joint erosion and bone destruction"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "secondary",
+      "notes": "Periarticular muscle wasting and weakness from disuse and inflammation"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "secondary",
+      "notes": "Elevated inflammatory markers and anemia of chronic disease"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "associated",
+      "notes": "Lymph node enlargement and lymphatic involvement in systemic inflammation"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Rheumatoid Arthritis",
+      "relevance": "associated",
+      "notes": "Rheumatoid nodules and vasculitis-related skin changes"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Lupus (SLE)",
+      "relevance": "primary",
+      "notes": "Anti-nuclear antibody production and systemic autoimmune attack on multiple tissues"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Lupus (SLE)",
+      "relevance": "primary",
+      "notes": "Lupus nephritis is a life-threatening complication affecting kidney filtration"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Lupus (SLE)",
+      "relevance": "primary",
+      "notes": "Characteristic butterfly rash and photosensitive skin lesions"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Lupus (SLE)",
+      "relevance": "secondary",
+      "notes": "Cytopenias including anemia, leukopenia, and thrombocytopenia"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Lupus (SLE)",
+      "relevance": "secondary",
+      "notes": "Pericarditis and accelerated atherosclerosis"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Lupus (SLE)",
+      "relevance": "secondary",
+      "notes": "Pleuritis and pulmonary inflammation"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Lupus (SLE)",
+      "relevance": "secondary",
+      "notes": "Neuropsychiatric lupus causes cognitive dysfunction, seizures, and psychosis"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Lupus (SLE)",
+      "relevance": "associated",
+      "notes": "Joint pain and arthritis without erosion is a common feature"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "primary",
+      "notes": "Immune-mediated destruction of thyroid tissue"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "primary",
+      "notes": "Autoantibodies against thyroid peroxidase and thyroglobulin"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "primary",
+      "notes": "Progressive thyroid failure disrupts the entire endocrine axis"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "secondary",
+      "notes": "Hashimoto's encephalopathy and cognitive impairment from thyroid hormone deficiency"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "associated",
+      "notes": "Resulting hypothyroidism causes bradycardia and elevated cholesterol"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Hashimoto's Thyroiditis",
+      "relevance": "associated",
+      "notes": "Myalgia and weakness from thyroid hormone deficiency"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Fibromyalgia",
+      "relevance": "primary",
+      "notes": "Central sensitization amplifies pain processing in the spinal cord and brain"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Fibromyalgia",
+      "relevance": "primary",
+      "notes": "Widespread myofascial pain and tender points throughout the muscular system"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Fibromyalgia",
+      "relevance": "secondary",
+      "notes": "Altered pain processing, cognitive dysfunction, and sleep architecture disruption"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Fibromyalgia",
+      "relevance": "secondary",
+      "notes": "HPA axis dysfunction and cortisol dysregulation"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Fibromyalgia",
+      "relevance": "associated",
+      "notes": "Neuroinflammation and immune mediator involvement in pain sensitization"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Fibromyalgia",
+      "relevance": "associated",
+      "notes": "Irritable bowel symptoms frequently co-occur with fibromyalgia"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Crohn's Disease",
+      "relevance": "primary",
+      "notes": "Transmural inflammation of the gastrointestinal tract, especially ileum and colon"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Crohn's Disease",
+      "relevance": "primary",
+      "notes": "Dysregulated mucosal immune response and Th1/Th17 pathway activation"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Crohn's Disease",
+      "relevance": "secondary",
+      "notes": "Crohn's can affect the entire GI tract including the stomach, though less commonly"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Crohn's Disease",
+      "relevance": "secondary",
+      "notes": "Mesenteric lymph node enlargement and lymphatic obstruction"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Crohn's Disease",
+      "relevance": "secondary",
+      "notes": "Anemia from chronic blood loss and malabsorption of iron and B12"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Crohn's Disease",
+      "relevance": "associated",
+      "notes": "Calcium and vitamin D malabsorption increases osteoporosis risk"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Ulcerative Colitis",
+      "relevance": "primary",
+      "notes": "Continuous mucosal inflammation, ulceration, and bleeding of the colon and rectum"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Ulcerative Colitis",
+      "relevance": "primary",
+      "notes": "Th2-mediated autoimmune attack on colonic mucosa"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Ulcerative Colitis",
+      "relevance": "secondary",
+      "notes": "Iron-deficiency anemia from chronic intestinal blood loss"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Ulcerative Colitis",
+      "relevance": "associated",
+      "notes": "Primary sclerosing cholangitis is an associated hepatobiliary complication"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Celiac Disease",
+      "relevance": "associated",
+      "notes": "Gluten exposure begins gastric irritation; villous atrophy occurs in the small intestinal portion of the digestive tract"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Celiac Disease",
+      "relevance": "primary",
+      "notes": "Gluten-triggered destruction of intestinal villi"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Celiac Disease",
+      "relevance": "primary",
+      "notes": "IgA-mediated autoimmune response to gluten-derived gliadin peptides"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Celiac Disease",
+      "relevance": "secondary",
+      "notes": "Dermatitis herpetiformis is the cutaneous manifestation of celiac disease"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Celiac Disease",
+      "relevance": "secondary",
+      "notes": "Calcium and vitamin D malabsorption leads to osteopenia and osteoporosis"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Celiac Disease",
+      "relevance": "associated",
+      "notes": "Gluten ataxia and peripheral neuropathy from neurological involvement"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Celiac Disease",
+      "relevance": "associated",
+      "notes": "Iron, folate, and B12 deficiency anemias from impaired absorption"
+    },
+    {
+      "body_system": "Pancreas",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "primary",
+      "notes": "Autoimmune destruction of pancreatic beta cells eliminates insulin production"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "primary",
+      "notes": "Absolute insulin deficiency disrupts glucose metabolism systemically"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "primary",
+      "notes": "T-cell mediated autoimmune attack on islets of Langerhans"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "secondary",
+      "notes": "Chronic hyperglycemia damages blood vessels and alters blood chemistry"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "secondary",
+      "notes": "Diabetic nephropathy is a major long-term complication"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "secondary",
+      "notes": "Diabetic retinopathy from chronic microvascular damage"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Type 1 Diabetes",
+      "relevance": "secondary",
+      "notes": "Diabetic neuropathy from nerve damage caused by hyperglycemia"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Psoriatic Arthritis",
+      "relevance": "primary",
+      "notes": "Autoimmune-driven inflammation targeting both skin and joints"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Psoriatic Arthritis",
+      "relevance": "primary",
+      "notes": "Psoriasis plaques with characteristic silvery scaling"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Psoriatic Arthritis",
+      "relevance": "primary",
+      "notes": "Joint erosion and new bone formation in affected joints"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Psoriatic Arthritis",
+      "relevance": "secondary",
+      "notes": "Enthesitis and tendon inflammation at muscle-bone junctions"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Psoriatic Arthritis",
+      "relevance": "associated",
+      "notes": "Uveitis and eye inflammation can accompany psoriatic arthritis"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "primary",
+      "notes": "Autoimmune lymphocytic infiltration of exocrine glands"
+    },
+    {
+      "body_system": "Eyes",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "primary",
+      "notes": "Lacrimal gland destruction causes severe dry eye syndrome"
+    },
+    {
+      "body_system": "Oral Cavity",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "primary",
+      "notes": "Salivary gland destruction causes xerostomia and dental complications"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "secondary",
+      "notes": "Cutaneous dryness and vasculitis-related skin changes"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "secondary",
+      "notes": "Dry cough and interstitial lung involvement"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "associated",
+      "notes": "Interstitial nephritis and renal tubular acidosis"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Sj\u00f6gren's Syndrome",
+      "relevance": "associated",
+      "notes": "Increased risk of lymphoma from chronic lymphocytic stimulation"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Raynaud's Phenomenon",
+      "relevance": "primary",
+      "notes": "Vasospasm of peripheral arteries driven by vascular hyperreactivity"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Raynaud's Phenomenon",
+      "relevance": "secondary",
+      "notes": "Disrupted blood flow to extremities during vasospastic episodes"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Raynaud's Phenomenon",
+      "relevance": "secondary",
+      "notes": "Sympathetic nervous system overactivation triggers arterial constriction"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Raynaud's Phenomenon",
+      "relevance": "associated",
+      "notes": "Secondary Raynaud's often accompanies autoimmune connective tissue diseases"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Raynaud's Phenomenon",
+      "relevance": "associated",
+      "notes": "Fingertip ulcers and skin color changes reflect peripheral ischemia"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "primary",
+      "notes": "Immune dysfunction with natural killer cell impairment and chronic immune activation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "primary",
+      "notes": "Autonomic dysregulation, central sensitization, and neuroinflammation"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "primary",
+      "notes": "HPA axis blunting and cortisol dysregulation"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "secondary",
+      "notes": "Reduced cortisol output and impaired stress response capacity"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "secondary",
+      "notes": "Neuroinflammation, cognitive impairment, and disrupted sleep architecture"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "secondary",
+      "notes": "Post-exertional malaise and impaired mitochondrial energy production in muscle tissue"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Chronic Fatigue Syndrome",
+      "relevance": "associated",
+      "notes": "Tender lymph nodes and lymphatic sluggishness"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "primary",
+      "notes": "Functional disorder of gastrointestinal motility and visceral sensitivity"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "secondary",
+      "notes": "Functional dyspepsia frequently overlaps with IBS; colonic dysmotility drives alternating bowel habits"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "primary",
+      "notes": "Gut-brain axis dysregulation and visceral hypersensitivity"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "secondary",
+      "notes": "Central processing of visceral pain signals and stress-gut connection"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "associated",
+      "notes": "In TCM, spleen qi deficiency is a root pattern underlying IBS with bloating and loose stools"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Irritable Bowel Syndrome",
+      "relevance": "associated",
+      "notes": "Low-grade mucosal inflammation and mast cell activation in some IBS subtypes"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "primary",
+      "notes": "Depleted adrenal cortisol and DHEA output from chronic stress"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "primary",
+      "notes": "HPA axis dysregulation and downstream hormonal cascade disruption"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "secondary",
+      "notes": "Sympathetic-parasympathetic imbalance and impaired stress resilience"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "secondary",
+      "notes": "Cortisol depletion impairs immune regulation and increases susceptibility to illness"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "secondary",
+      "notes": "Cortisol dysregulation affects hippocampal function, memory, and cognitive clarity"
+    },
+    {
+      "body_system": "Thyroid",
+      "ailment": "Adrenal Fatigue",
+      "relevance": "associated",
+      "notes": "Adrenal-thyroid axis interaction means adrenal depletion often suppresses thyroid function"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Tinnitus",
+      "relevance": "primary",
+      "notes": "Auditory nerve dysfunction and central nervous system processing disturbance"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Tinnitus",
+      "relevance": "secondary",
+      "notes": "In TCM the kidneys govern the ears and kidney essence depletion manifests as tinnitus"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Tinnitus",
+      "relevance": "associated",
+      "notes": "Rising liver fire can disturb the upper orifices causing ringing in the ears"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Acid Reflux",
+      "relevance": "primary",
+      "notes": "Gastric acid escaping through a weakened lower esophageal sphincter"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Acid Reflux",
+      "relevance": "primary",
+      "notes": "Disordered motility and mucosal integrity throughout the upper GI tract"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Acid Reflux",
+      "relevance": "secondary",
+      "notes": "Vagus nerve dysfunction affects esophageal sphincter tone and digestive motility"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Anemia",
+      "relevance": "primary",
+      "notes": "Deficiency in red blood cell quantity or quality reducing oxygen-carrying capacity"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Anemia",
+      "relevance": "secondary",
+      "notes": "The spleen governs blood quality in TCM and is central to iron recycling"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Anemia",
+      "relevance": "secondary",
+      "notes": "Iron and B12 absorption depend on healthy digestive function"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Varicose Veins",
+      "relevance": "secondary",
+      "notes": "Venous return insufficiency reflects broader cardiovascular weakness"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Varicose Veins",
+      "relevance": "associated",
+      "notes": "Calf muscle pump assists venous return and its weakness contributes to venous stasis"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Hemorrhoids",
+      "relevance": "primary",
+      "notes": "Venous congestion in the rectal area from straining and constipation"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Hemorrhoids",
+      "relevance": "secondary",
+      "notes": "Portal venous congestion from liver stagnation contributes to hemorrhoid formation"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Gout",
+      "relevance": "primary",
+      "notes": "Impaired renal clearance of uric acid leads to crystal accumulation"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Gout",
+      "relevance": "primary",
+      "notes": "Uric acid crystals deposit in joints causing acute inflammatory arthritis"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Gout",
+      "relevance": "secondary",
+      "notes": "The liver metabolizes purines and its dysfunction affects uric acid production"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Kidney Stones",
+      "relevance": "primary",
+      "notes": "Mineral crystallization within the renal system from concentrated urine"
+    },
+    {
+      "body_system": "Bladder",
+      "ailment": "Kidney Stones",
+      "relevance": "secondary",
+      "notes": "Stones passing through the urinary tract cause bladder irritation and pain"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Sinusitis",
+      "relevance": "primary",
+      "notes": "Upper respiratory inflammation and mucus accumulation in the sinus cavities"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Sinusitis",
+      "relevance": "secondary",
+      "notes": "Immune response to infection or allergens drives sinus inflammation"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Sinusitis",
+      "relevance": "associated",
+      "notes": "In TCM the spleen governs dampness and its weakness produces excess mucus"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Asthma",
+      "relevance": "primary",
+      "notes": "Bronchial hyperresponsiveness with airway inflammation and constriction"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Asthma",
+      "relevance": "primary",
+      "notes": "Allergic immune cascade triggers mast cell degranulation and airway inflammation"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Asthma",
+      "relevance": "secondary",
+      "notes": "Adrenal cortisol is the bodys natural anti-inflammatory for airway inflammation"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Bronchitis",
+      "relevance": "primary",
+      "notes": "Inflammation of the bronchial tubes with mucus production"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Bronchitis",
+      "relevance": "secondary",
+      "notes": "Immune response to viral or bacterial infection in the airways"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Muscle Cramps and Spasms",
+      "relevance": "primary",
+      "notes": "Involuntary muscle contractions from electrolyte or mineral imbalance"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Muscle Cramps and Spasms",
+      "relevance": "secondary",
+      "notes": "Nerve compression or dysfunction can trigger muscle spasms"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Back Pain",
+      "relevance": "primary",
+      "notes": "Muscular strain and spasm along the spinal column"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Back Pain",
+      "relevance": "primary",
+      "notes": "Spinal disc degeneration and vertebral misalignment"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Back Pain",
+      "relevance": "secondary",
+      "notes": "Nerve compression and central pain sensitization"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Sore Throat",
+      "relevance": "primary",
+      "notes": "Upper respiratory inflammation at the gateway of the airway"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Sore Throat",
+      "relevance": "primary",
+      "notes": "Immune defense activation against pathogens in the throat"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Sore Throat",
+      "relevance": "secondary",
+      "notes": "Lymph node swelling in neck reflects immune activation"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Fever",
+      "relevance": "primary",
+      "notes": "Immune-directed elevation of body temperature to fight infection"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Fever",
+      "relevance": "secondary",
+      "notes": "Hypothalamic thermostat reset drives the fever response"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Osteoporosis",
+      "relevance": "primary",
+      "notes": "Progressive loss of bone density and structural integrity"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Osteoporosis",
+      "relevance": "primary",
+      "notes": "Hormonal decline especially estrogen drives bone resorption"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Osteoporosis",
+      "relevance": "secondary",
+      "notes": "Kidneys govern bones in TCM and regulate calcium and vitamin D metabolism"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Hair Loss",
+      "relevance": "primary",
+      "notes": "Hair follicle health is part of the integumentary system"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Hair Loss",
+      "relevance": "primary",
+      "notes": "Hormonal imbalance particularly androgens and thyroid affects hair growth"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Hair Loss",
+      "relevance": "secondary",
+      "notes": "Blood nourishes hair follicles and blood deficiency causes hair thinning"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Eczema",
+      "relevance": "primary",
+      "notes": "Chronic inflammatory disruption of skin barrier function"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Eczema",
+      "relevance": "primary",
+      "notes": "Immune hypersensitivity and misdirected inflammatory response"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Eczema",
+      "relevance": "secondary",
+      "notes": "Gut-skin axis links intestinal permeability to skin inflammation"
+    },
+    {
+      "body_system": "Gallbladder",
+      "ailment": "Gallbladder Issues",
+      "relevance": "primary",
+      "notes": "Direct dysfunction of gallbladder storage and bile release"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Gallbladder Issues",
+      "relevance": "primary",
+      "notes": "The liver produces bile that the gallbladder concentrates and stores"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Gallbladder Issues",
+      "relevance": "secondary",
+      "notes": "Impaired bile flow compromises fat digestion throughout the GI tract"
+    },
+    {
+      "body_system": "Lymphatic System",
+      "ailment": "Lymphatic Stagnation",
+      "relevance": "primary",
+      "notes": "Sluggish lymphatic flow impairs immune function and waste removal"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Lymphatic Stagnation",
+      "relevance": "primary",
+      "notes": "Lymphatic system is the highway of immune surveillance and response"
+    },
+    {
+      "body_system": "Spleen",
+      "ailment": "Lymphatic Stagnation",
+      "relevance": "secondary",
+      "notes": "The spleen filters blood and is the largest lymphatic organ"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Gastritis",
+      "relevance": "primary",
+      "notes": "Direct inflammation of the stomach mucosal lining"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Gastritis",
+      "relevance": "secondary",
+      "notes": "Gastric inflammation disrupts the entire upper digestive process"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Restless Leg Syndrome",
+      "relevance": "primary",
+      "notes": "Dopaminergic pathway dysfunction drives the irresistible urge to move"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Restless Leg Syndrome",
+      "relevance": "secondary",
+      "notes": "Muscular restlessness and involuntary limb movements during sleep"
+    },
+    {
+      "body_system": "Oral Cavity",
+      "ailment": "Dry Mouth",
+      "relevance": "primary",
+      "notes": "Insufficient salivary gland production affecting oral health"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Dry Mouth",
+      "relevance": "secondary",
+      "notes": "Autonomic nervous system regulates salivary gland secretion"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Candida Overgrowth",
+      "relevance": "primary",
+      "notes": "Immune weakness allows opportunistic yeast proliferation"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Candida Overgrowth",
+      "relevance": "primary",
+      "notes": "Gut microbiome disruption creates favorable environment for yeast overgrowth"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Candida Overgrowth",
+      "relevance": "secondary",
+      "notes": "Cutaneous and mucosal candida manifestations on skin and nails"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Low Blood Pressure",
+      "relevance": "primary",
+      "notes": "Insufficient cardiac output or vascular tone produces low arterial pressure"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Low Blood Pressure",
+      "relevance": "secondary",
+      "notes": "Adrenal insufficiency with low cortisol and aldosterone contributes to hypotension"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Low Blood Pressure",
+      "relevance": "secondary",
+      "notes": "Autonomic nervous system dysfunction impairs blood pressure regulation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Motion Sickness",
+      "relevance": "primary",
+      "notes": "Sensory conflict between visual vestibular and proprioceptive inputs"
+    },
+    {
+      "body_system": "Stomach",
+      "ailment": "Motion Sickness",
+      "relevance": "secondary",
+      "notes": "Nausea and vomiting response triggered by neurological dissonance"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Sciatica",
+      "relevance": "primary",
+      "notes": "Sciatic nerve compression or irritation causing radiating pain"
+    },
+    {
+      "body_system": "Bones",
+      "ailment": "Sciatica",
+      "relevance": "secondary",
+      "notes": "Disc herniation and spinal structural issues compress the nerve root"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Sciatica",
+      "relevance": "secondary",
+      "notes": "Piriformis and surrounding muscle tension can compress the sciatic nerve"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Hives and Urticaria",
+      "relevance": "primary",
+      "notes": "Histamine-mediated dermal swelling and inflammation"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Hives and Urticaria",
+      "relevance": "primary",
+      "notes": "Mast cell degranulation and histamine release from immune activation"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Rosacea",
+      "relevance": "primary",
+      "notes": "Chronic facial skin inflammation with vascular instability"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Rosacea",
+      "relevance": "secondary",
+      "notes": "Immune dysregulation and inflammatory cascade in facial skin"
+    },
+    {
+      "body_system": "Bladder",
+      "ailment": "Cystitis",
+      "relevance": "primary",
+      "notes": "Direct inflammation of the bladder wall and mucosal lining"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Cystitis",
+      "relevance": "secondary",
+      "notes": "Immune response to bacterial infection in the urinary tract"
+    },
+    {
+      "body_system": "Muscles",
+      "ailment": "Tendonitis",
+      "relevance": "primary",
+      "notes": "Inflammation of tendons connecting muscle to bone from overuse or strain"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Cold Sores",
+      "relevance": "primary",
+      "notes": "Herpes simplex virus eruptions on the skin and mucosal surfaces"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Cold Sores",
+      "relevance": "primary",
+      "notes": "Viral reactivation occurs when immune surveillance weakens"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Cold Sores",
+      "relevance": "secondary",
+      "notes": "Virus resides dormant in nerve ganglia between outbreaks"
+    },
+    {
+      "body_system": "Digestive Tract",
+      "ailment": "Diverticulitis",
+      "relevance": "primary",
+      "notes": "Inflammation of diverticula in the colon wall"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Sleep Apnea",
+      "relevance": "primary",
+      "notes": "Airway obstruction disrupting breathing during sleep"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Sleep Apnea",
+      "relevance": "primary",
+      "notes": "Central respiratory drive failure and sleep architecture disruption"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Sleep Apnea",
+      "relevance": "secondary",
+      "notes": "Repeated oxygen desaturation strains the cardiovascular system"
+    },
+    {
+      "body_system": "Pancreas",
+      "ailment": "Type 2 Diabetes",
+      "relevance": "primary",
+      "notes": "Progressive beta cell dysfunction and insulin resistance"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Type 2 Diabetes",
+      "relevance": "primary",
+      "notes": "Systemic metabolic and hormonal dysregulation"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Type 2 Diabetes",
+      "relevance": "secondary",
+      "notes": "Diabetes accelerates cardiovascular disease and vascular damage"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Erectile Dysfunction",
+      "relevance": "primary",
+      "notes": "Impaired sexual function involving vascular and nervous mechanisms"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Erectile Dysfunction",
+      "relevance": "secondary",
+      "notes": "Endothelial dysfunction and impaired blood flow often signal cardiovascular disease"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Erectile Dysfunction",
+      "relevance": "secondary",
+      "notes": "Testosterone and hormonal balance affect sexual function"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Postpartum Recovery",
+      "relevance": "primary",
+      "notes": "Uterine healing and reproductive system recovery after birth"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Postpartum Recovery",
+      "relevance": "primary",
+      "notes": "Massive hormonal shifts following delivery affecting mood and milk production"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Postpartum Recovery",
+      "relevance": "secondary",
+      "notes": "Blood loss during delivery requires replenishment of blood volume and quality"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Dandruff and Scalp Conditions",
+      "relevance": "primary",
+      "notes": "Scalp-specific inflammatory and microbial skin conditions"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Burnout",
+      "relevance": "primary",
+      "notes": "Chronic stress depletes adrenal reserves and cortisol regulation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Burnout",
+      "relevance": "primary",
+      "notes": "Nervous system exhaustion from sustained sympathetic activation"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Burnout",
+      "relevance": "secondary",
+      "notes": "Cognitive decline and executive function impairment from chronic depletion"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Low Self-Esteem",
+      "relevance": "primary",
+      "notes": "Neural patterns of negative self-perception and self-critical cognition"
+    },
+    {
+      "body_system": "Brain",
+      "ailment": "Low Self-Esteem",
+      "relevance": "secondary",
+      "notes": "Prefrontal cortex and limbic system involvement in self-concept formation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Emotional Numbness",
+      "relevance": "primary",
+      "notes": "Limbic and autonomic nervous system dampening of emotional processing"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Emotional Numbness",
+      "relevance": "secondary",
+      "notes": "Heart-brain coherence disrupted by emotional shutdown and disconnection"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Fear and Phobias",
+      "relevance": "primary",
+      "notes": "Amygdala-driven fear responses and threat processing dysregulation"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Fear and Phobias",
+      "relevance": "primary",
+      "notes": "Chronic fear activates the adrenal stress response depleting reserves"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Fear and Phobias",
+      "relevance": "secondary",
+      "notes": "In TCM fear is the emotion of the kidneys depleting kidney essence"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Loneliness and Isolation",
+      "relevance": "primary",
+      "notes": "Social disconnection directly affects cardiovascular health and heart coherence"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Loneliness and Isolation",
+      "relevance": "secondary",
+      "notes": "Chronic loneliness measurably suppresses immune function"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Shame and Guilt",
+      "relevance": "primary",
+      "notes": "Deep neural patterns of self-punishment and threat-system activation"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Shame and Guilt",
+      "relevance": "associated",
+      "notes": "In TCM toxic emotions like shame stagnate liver qi and impair its free flow"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Overwhelm",
+      "relevance": "primary",
+      "notes": "Neural processing capacity exceeded by incoming demands and stimuli"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Overwhelm",
+      "relevance": "secondary",
+      "notes": "Adrenal stress response activated by the perception of unmanageable demands"
+    },
+    {
+      "body_system": "Endocrine System",
+      "ailment": "Mood Swings",
+      "relevance": "primary",
+      "notes": "Hormonal fluctuations drive rapid emotional state changes"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Mood Swings",
+      "relevance": "primary",
+      "notes": "Neurotransmitter imbalance affects emotional regulation capacity"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Mood Swings",
+      "relevance": "secondary",
+      "notes": "Liver qi stagnation in TCM manifests as emotional volatility and irritability"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Heartbreak",
+      "relevance": "primary",
+      "notes": "Emotional cardiac pain and potential broken heart syndrome affecting cardiac function"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Heartbreak",
+      "relevance": "secondary",
+      "notes": "Grief activates pain centers and disrupts nervous system regulation"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Nervous Exhaustion",
+      "relevance": "primary",
+      "notes": "Profound depletion of neural circuit resilience and processing capacity"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Nervous Exhaustion",
+      "relevance": "primary",
+      "notes": "Adrenal exhaustion accompanies and drives nervous system depletion"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Energetic Depletion",
+      "relevance": "primary",
+      "notes": "Vital energy reserves governed by adrenal function become exhausted"
+    },
+    {
+      "body_system": "Kidneys",
+      "ailment": "Energetic Depletion",
+      "relevance": "secondary",
+      "notes": "Kidney essence in TCM is the root of vital energy and its depletion is foundational"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Dark Night of the Soul",
+      "relevance": "primary",
+      "notes": "Heart center dissolution and reorganization during spiritual crisis"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Dark Night of the Soul",
+      "relevance": "secondary",
+      "notes": "Pineal gland and crown center involvement in spiritual transformation processes"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Inability to Ground",
+      "relevance": "primary",
+      "notes": "Autonomic nervous system dysregulation and dissociation from embodied awareness"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Inability to Ground",
+      "relevance": "secondary",
+      "notes": "Adrenal function supports grounded presence and physical vitality"
+    },
+    {
+      "body_system": "Reproductive System",
+      "ailment": "Blocked Creativity",
+      "relevance": "primary",
+      "notes": "Creative and generative life force flows from the sacral reproductive center"
+    },
+    {
+      "body_system": "Liver",
+      "ailment": "Blocked Creativity",
+      "relevance": "secondary",
+      "notes": "Liver qi stagnation impedes the free flow of creative energy in TCM"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Disconnection from Nature",
+      "relevance": "primary",
+      "notes": "Sensory and nervous system deprivation from lack of natural stimuli"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Disconnection from Nature",
+      "relevance": "secondary",
+      "notes": "Nature exposure directly supports immune function through phytoncides and microbiome diversity"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Intuition Blockage",
+      "relevance": "primary",
+      "notes": "Pineal gland calcification and dysfunction impair intuitive and subtle perception"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Intuition Blockage",
+      "relevance": "secondary",
+      "notes": "Overactive analytical neural pathways suppress intuitive processing centers"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Ancestral Healing",
+      "relevance": "primary",
+      "notes": "Epigenetic patterns stored in the nervous system from inherited trauma"
+    },
+    {
+      "body_system": "Blood",
+      "ailment": "Ancestral Healing",
+      "relevance": "secondary",
+      "notes": "Blood carries genetic and epigenetic information across generations"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Loss of Wonder",
+      "relevance": "primary",
+      "notes": "Heart center closure diminishes capacity for awe and reverence"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Loss of Wonder",
+      "relevance": "secondary",
+      "notes": "Pineal function supports perception of beauty mystery and the numinous"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Spiritual Fatigue",
+      "relevance": "primary",
+      "notes": "Heart center depletion from sustained spiritual giving without replenishment"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Spiritual Fatigue",
+      "relevance": "secondary",
+      "notes": "Adrenal reserves support the will and capacity for sustained meaningful engagement"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Psychic Overwhelm",
+      "relevance": "primary",
+      "notes": "Hypersensitive neural processing of external emotional and energetic stimuli"
+    },
+    {
+      "body_system": "Pineal Gland",
+      "ailment": "Psychic Overwhelm",
+      "relevance": "secondary",
+      "notes": "Overactive subtle perception without adequate filtering and boundary mechanisms"
+    },
+    {
+      "body_system": "Heart",
+      "ailment": "Loss of Purpose",
+      "relevance": "primary",
+      "notes": "Heart center where purpose and calling are felt and recognized"
+    },
+    {
+      "body_system": "Adrenal Glands",
+      "ailment": "Loss of Purpose",
+      "relevance": "secondary",
+      "notes": "Will and motivation governed by adrenal vitality fade without clear purpose"
+    },
+    {
+      "body_system": "Lungs",
+      "ailment": "Laryngitis",
+      "relevance": "primary",
+      "notes": "Laryngeal inflammation as part of the upper respiratory system"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Laryngitis",
+      "relevance": "secondary",
+      "notes": "Immune response to viral or bacterial infection of the voice box"
+    },
+    {
+      "body_system": "Nervous System",
+      "ailment": "Shingles",
+      "relevance": "primary",
+      "notes": "Varicella-zoster virus reactivation along nerve pathways causing neuralgia"
+    },
+    {
+      "body_system": "Immune System",
+      "ailment": "Shingles",
+      "relevance": "primary",
+      "notes": "Immune decline allows dormant virus to reactivate from nerve ganglia"
+    },
+    {
+      "body_system": "Skin",
+      "ailment": "Shingles",
+      "relevance": "secondary",
+      "notes": "Blistering rash erupts on skin along the affected nerve dermatome"
+    }
   ],
-
   "plant_part_correspondences": [
     {
       "body_system": "Brain",
@@ -756,7 +2656,6 @@
       "therapeutic_action": "Rich in beta-carotene, iron, and zinc, all supporting immune cell production in the spleen. The gentle, nourishing quality supports spleen qi in TCM dietary therapy",
       "notes": "Sweet, warming foods are considered spleen-nourishing in TCM dietary therapy"
     },
-
     {
       "body_system": "Heart",
       "part_type": "flower",
@@ -885,7 +2784,6 @@
       "therapeutic_action": "Warming aromatic roots like ginger, galangal, and calamus stimulate gastric acid, improve motility, and reduce nausea through direct gastric action",
       "notes": "The root is the first point of nutrient extraction in the plant, just as the stomach is in the body"
     },
-
     {
       "body_system": "Bladder",
       "is_food": 1,

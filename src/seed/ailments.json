@@ -523,5 +523,425 @@
     "body_system": "Endocrine / Adrenal",
     "description": "A state of suboptimal adrenal function resulting from prolonged stress, in which the adrenal glands can no longer produce adequate cortisol, DHEA, and other hormones to meet the body's demands. While not recognized as a formal diagnosis in conventional medicine, adrenal fatigue is a well-established pattern in functional and traditional medicine, representing the depletion phase that follows sustained HPA axis activation. It reflects the exhaustion of the body's deepest energy reserves, the burning out of the fire that sustains the will, resilience, and capacity to respond to life's demands, leaving behind a profound weariness that no amount of sleep can fully resolve.",
     "symptoms": ["Persistent fatigue worst in morning and mid-afternoon", "Difficulty waking up despite adequate sleep", "Craving for salt and salty foods", "Reliance on caffeine and stimulants to function", "Feeling overwhelmed by minor stresses", "Low blood pressure and lightheadedness on standing", "Decreased resilience and slow recovery from illness", "Diminished libido and general lack of motivation"]
+  },
+  {
+    "name": "Tinnitus",
+    "category": "physical",
+    "body_system": "Nervous system / Auditory",
+    "description": "A persistent ringing, buzzing, hissing, or whooshing sound in the ears without an external source. Tinnitus arises from damage to the auditory nerve, circulatory disturbance to the inner ear, or central nervous system dysfunction. In traditional Chinese medicine, the ears are governed by the kidneys, and tinnitus often reflects kidney essence depletion or rising liver fire disturbing the upper orifices.",
+    "symptoms": ["Ringing or buzzing in one or both ears", "Hissing or whooshing sounds", "Difficulty concentrating due to noise", "Sleep disruption", "Increased sensitivity to external sounds", "Worsening in quiet environments", "Associated hearing loss", "Anxiety and irritability from persistent sound"]
+  },
+  {
+    "name": "Acid Reflux",
+    "category": "physical",
+    "body_system": "Digestive system",
+    "description": "A condition in which stomach acid flows backward into the esophagus, causing burning pain and tissue irritation. Acid reflux results from weakness or dysfunction of the lower esophageal sphincter and is often aggravated by diet, stress, and postural habits. Rather than simply excess acid, reflux frequently reflects disordered digestive motility and compromised mucosal integrity throughout the upper gastrointestinal tract.",
+    "symptoms": ["Burning sensation in chest after eating", "Sour or bitter taste in mouth", "Difficulty swallowing", "Regurgitation of food or liquid", "Chronic cough or hoarseness", "Worsening when lying down", "Throat irritation and globus sensation"]
+  },
+  {
+    "name": "Anemia",
+    "category": "physical",
+    "body_system": "Circulatory / Hematologic",
+    "description": "A deficiency in the number or quality of red blood cells, reducing the blood's capacity to carry oxygen to tissues throughout the body. Anemia may result from iron deficiency, vitamin B12 or folate insufficiency, chronic blood loss, or impaired red blood cell production. It represents a fundamental depletion of the blood's vitality, the river of life running thin and pale, unable to nourish the organs and tissues that depend on its richness.",
+    "symptoms": ["Persistent fatigue and weakness", "Pale skin and mucous membranes", "Shortness of breath on exertion", "Dizziness and lightheadedness", "Cold hands and feet", "Brittle nails and hair loss", "Rapid or irregular heartbeat", "Difficulty concentrating"]
+  },
+  {
+    "name": "Varicose Veins",
+    "category": "physical",
+    "body_system": "Cardiovascular / Vascular",
+    "description": "Enlarged, twisted veins visible beneath the skin surface, most commonly in the legs, caused by weakened venous valves that allow blood to pool and distend the vessel walls. Varicose veins reflect a loss of vascular tone and integrity, where the upward return of blood against gravity becomes sluggish and stagnant, mirroring a broader pattern of circulatory insufficiency and connective tissue weakness.",
+    "symptoms": ["Visible bulging veins on legs", "Aching and heaviness in legs", "Swelling in lower legs and ankles", "Itching around affected veins", "Skin discoloration near veins", "Muscle cramping especially at night", "Worsening with prolonged standing"]
+  },
+  {
+    "name": "Hemorrhoids",
+    "category": "physical",
+    "body_system": "Digestive / Vascular",
+    "description": "Swollen and inflamed veins in the rectum and anus that cause discomfort, bleeding, and itching. Hemorrhoids arise from increased pressure in the lower rectum due to straining, chronic constipation, prolonged sitting, or pregnancy. They reflect vascular congestion and weakened tissue tone in the pelvic floor, often signaling sluggish digestion and poor venous return from the lower body.",
+    "symptoms": ["Rectal bleeding during bowel movements", "Itching and irritation around anus", "Pain or discomfort when sitting", "Swelling around the anus", "A lump near the anus", "Mucus discharge", "Feeling of incomplete evacuation"]
+  },
+  {
+    "name": "Gout",
+    "category": "physical",
+    "body_system": "Musculoskeletal / Renal",
+    "description": "An intensely painful form of inflammatory arthritis caused by the accumulation of uric acid crystals in the joints, most commonly the big toe. Gout reflects impaired purine metabolism and insufficient renal clearance of uric acid, creating sharp crystalline deposits that trigger acute inflammatory episodes. Traditionally understood as a disease of excess, gout signals the body's inability to process and eliminate metabolic waste, a toxic accumulation that manifests as fire in the joints.",
+    "symptoms": ["Sudden severe joint pain often at night", "Intense swelling and redness in affected joint", "Warmth and tenderness to touch", "Limited range of motion during attacks", "Pain most commonly in big toe", "Attacks lasting days to weeks", "Tophi deposits in chronic cases"]
+  },
+  {
+    "name": "Kidney Stones",
+    "category": "physical",
+    "body_system": "Renal / Urinary",
+    "description": "Hard mineral deposits that form within the kidneys from concentrated urine, causing severe pain as they travel through the urinary tract. Kidney stones develop when the balance of water, minerals, and acids in the urine is disrupted, allowing calcium oxalate, uric acid, or other compounds to crystallize. They represent a failure of the body's dissolving and flushing mechanisms, where substances that should flow freely instead solidify and obstruct.",
+    "symptoms": ["Severe pain in back and side below ribs", "Pain radiating to lower abdomen and groin", "Painful urination", "Pink, red, or brown urine", "Nausea and vomiting", "Frequent urge to urinate", "Fever and chills if infection is present"]
+  },
+  {
+    "name": "Sinusitis",
+    "category": "physical",
+    "body_system": "Respiratory / Immune",
+    "description": "Inflammation and congestion of the sinus cavities, either acute from infection or chronic from persistent allergic or structural factors. Sinusitis creates a stagnant environment where mucus accumulates, pressure builds, and secondary infections take hold. In traditional medicine, chronic sinus congestion reflects damp accumulation in the head, often linked to digestive weakness and excessive mucus-forming foods.",
+    "symptoms": ["Facial pain and pressure around eyes and forehead", "Thick nasal discharge", "Nasal congestion and obstruction", "Reduced sense of smell and taste", "Post-nasal drip", "Headache worsened by bending forward", "Fatigue and malaise", "Bad breath"]
+  },
+  {
+    "name": "Asthma",
+    "category": "physical",
+    "body_system": "Respiratory system",
+    "description": "A chronic inflammatory condition of the airways characterized by recurrent episodes of wheezing, breathlessness, chest tightness, and coughing. Asthma involves bronchial hyperresponsiveness, airway inflammation, and excess mucus production that narrows the breathing passages. Beyond the physical constriction, asthma carries an emotional dimension — the feeling of not being able to breathe freely reflects a deeper pattern of constriction, often linked to anxiety, grief, or a sense of suffocation in one's life circumstances.",
+    "symptoms": ["Wheezing and whistling when breathing", "Shortness of breath", "Chest tightness and constriction", "Coughing especially at night or early morning", "Difficulty exhaling fully", "Attacks triggered by allergens, exercise, or cold air", "Anxiety during breathing episodes", "Reduced exercise tolerance"]
+  },
+  {
+    "name": "Bronchitis",
+    "category": "physical",
+    "body_system": "Respiratory system",
+    "description": "Inflammation of the bronchial tubes that carry air to and from the lungs, producing persistent cough with mucus production. Acute bronchitis typically follows a viral infection, while chronic bronchitis reflects prolonged irritation and structural changes in the airways. The bronchi serve as the tree-like branches of the respiratory system, and their inflammation represents a disruption of the body's ability to exchange breath with the world, to take in life and release what is spent.",
+    "symptoms": ["Persistent productive cough", "Mucus production clear, white, yellow, or green", "Chest discomfort and soreness", "Fatigue and low energy", "Mild fever and body aches", "Shortness of breath", "Wheezing", "Sore throat from persistent coughing"]
+  },
+  {
+    "name": "Muscle Cramps and Spasms",
+    "category": "physical",
+    "body_system": "Musculoskeletal",
+    "description": "Involuntary and often painful contractions of muscles that can occur during activity, at rest, or during sleep. Muscle cramps reflect electrolyte imbalance, dehydration, poor circulation, nerve compression, or mineral deficiency — particularly magnesium, potassium, and calcium. They signal the muscular system's distress when its nutritional and circulatory needs are unmet, the body's fibers seizing up in protest when the conditions for smooth contraction and relaxation are absent.",
+    "symptoms": ["Sudden sharp muscle pain", "Visible muscle tightening or bulging", "Inability to use affected muscle during cramp", "Nocturnal leg cramps", "Soreness after cramp resolves", "Recurring cramps in same muscle groups", "Muscle twitching and fasciculations"]
+  },
+  {
+    "name": "Back Pain",
+    "category": "physical",
+    "body_system": "Musculoskeletal / Nervous",
+    "description": "Pain in the upper, middle, or lower back arising from muscular strain, spinal misalignment, disc degeneration, nerve compression, or chronic postural stress. Back pain is among the most prevalent conditions worldwide and often reflects the cumulative burden of physical labor, sedentary habits, and emotional tension stored in the body's central axis of support. The spine carries both literal and metaphorical weight, and its pain speaks to what we bear.",
+    "symptoms": ["Aching or stiffness along the spine", "Sharp pain with movement or lifting", "Pain radiating down the legs", "Muscle spasms in the back", "Difficulty standing straight", "Pain worsened by sitting or standing too long", "Reduced flexibility and range of motion"]
+  },
+  {
+    "name": "Sore Throat",
+    "category": "physical",
+    "body_system": "Respiratory / Immune",
+    "description": "Inflammation and pain in the throat arising from viral or bacterial infection, allergic irritation, dryness, or vocal strain. The throat is both a physical passageway for breath and nourishment and an energetic center of expression and communication. Sore throat often accompanies the onset of colds and flu, serving as the body's first line of immune defense where pathogens are intercepted at the gateway between the outer world and the inner body.",
+    "symptoms": ["Pain or scratchiness in the throat", "Pain worsened by swallowing", "Swollen and red tonsils", "Hoarse or muffled voice", "Swollen lymph nodes in the neck", "White patches on tonsils with infection", "Dry irritated throat"]
+  },
+  {
+    "name": "Fever",
+    "category": "physical",
+    "body_system": "Immune system",
+    "description": "An elevation of body temperature above the normal range, orchestrated by the hypothalamus as a deliberate immune strategy to create an inhospitable environment for pathogens and accelerate immune cell activity. Fever is not a disease but a healing response — the body's internal fire rising to burn away infection. Traditional herbalism works with fever rather than against it, supporting its intelligent progression through diaphoretic, cooling, and restorative herbs at appropriate stages.",
+    "symptoms": ["Elevated body temperature", "Chills and shivering", "Sweating", "Headache and body aches", "Fatigue and weakness", "Flushed skin", "Loss of appetite", "Increased thirst"]
+  },
+  {
+    "name": "Osteoporosis",
+    "category": "physical",
+    "body_system": "Musculoskeletal / Endocrine",
+    "description": "Progressive loss of bone density and structural integrity, making bones fragile and susceptible to fractures. Osteoporosis develops silently over years as bone resorption outpaces bone formation, driven by hormonal changes, mineral deficiency, sedentary lifestyle, and chronic inflammation. The bones are the body's deepest mineral reservoir and structural foundation, and their erosion reflects a depletion at the most fundamental level of physical support and structural integrity.",
+    "symptoms": ["Loss of height over time", "Stooped or hunched posture", "Fractures from minor falls or stress", "Back pain from compression fractures", "Bone pain and tenderness", "Weakened grip strength", "Receding gums from jaw bone loss"]
+  },
+  {
+    "name": "Hair Loss",
+    "category": "physical",
+    "body_system": "Integumentary / Endocrine",
+    "description": "Excessive shedding or thinning of hair from the scalp or body, arising from hormonal imbalance, nutritional deficiency, stress, autoimmune processes, or genetic predisposition. Hair is nourished by blood and governed by kidney essence in traditional Chinese medicine, making hair loss a visible indicator of deeper systemic depletion. The health of the hair reflects the vitality of the blood, the balance of hormones, and the strength of the body's reserves.",
+    "symptoms": ["Gradual thinning on top of head", "Receding hairline", "Circular bald patches", "Excessive hair on pillow or in shower", "Hair becoming finer and more brittle", "Widening part line", "Slow regrowth after shedding"]
+  },
+  {
+    "name": "Eczema",
+    "category": "physical",
+    "body_system": "Integumentary / Immune",
+    "description": "A chronic inflammatory skin condition characterized by dry, itchy, red, and sometimes weeping patches that cycle through flares and remission. Eczema reflects immune hypersensitivity and impaired skin barrier function, often linked to gut health, food sensitivities, and environmental triggers. The skin as the body's outermost boundary bears the visible expression of internal immune confusion, where inflammation meant to protect instead becomes a source of persistent suffering at the interface between self and world.",
+    "symptoms": ["Intensely itchy dry skin", "Red inflamed patches", "Cracked and weeping skin", "Thickened leathery skin from chronic scratching", "Small raised bumps that may ooze", "Flares triggered by stress, allergens, or weather", "Sleep disruption from itching", "Skin sensitivity to soaps and fabrics"]
+  },
+  {
+    "name": "Gallbladder Issues",
+    "category": "physical",
+    "body_system": "Hepatic / Digestive",
+    "description": "Conditions affecting the gallbladder including gallstones, cholecystitis, and biliary sludge that impair the storage and release of bile needed for fat digestion. The gallbladder works in concert with the liver, concentrating and releasing bile in response to dietary fat. In traditional Chinese medicine, the gallbladder governs decisiveness and courage, and its dysfunction often accompanies difficulty making decisions, timidity, and unresolved resentment alongside the physical symptoms of impaired fat metabolism.",
+    "symptoms": ["Pain in upper right abdomen after eating fatty foods", "Nausea and vomiting", "Bloating and indigestion", "Intolerance to fatty or greasy foods", "Pain radiating to right shoulder blade", "Light-colored stools", "Yellowing of skin in severe cases"]
+  },
+  {
+    "name": "Lymphatic Stagnation",
+    "category": "physical",
+    "body_system": "Lymphatic system",
+    "description": "Sluggish or congested lymphatic flow resulting in impaired immune function, fluid retention, and toxin accumulation. The lymphatic system has no central pump and relies on muscular movement, breathing, and tissue pressure to circulate lymph fluid through its vast network of vessels and nodes. When lymphatic flow stagnates, the body's ability to clear cellular waste, fight infection, and regulate fluid balance is compromised, creating a swampy internal terrain that fosters inflammation and disease.",
+    "symptoms": ["Swollen lymph nodes", "Puffiness and fluid retention", "Frequent infections and slow recovery", "Cellulite and skin congestion", "Morning stiffness and heaviness", "Brain fog and fatigue", "Chronic sinus or ear congestion", "Sluggish immune response"]
+  },
+  {
+    "name": "Gastritis",
+    "category": "physical",
+    "body_system": "Digestive system",
+    "description": "Inflammation of the stomach lining that can be acute or chronic, caused by H. pylori infection, excessive alcohol use, chronic stress, NSAID medications, or autoimmune processes. Gastritis erodes the protective mucus barrier of the stomach, exposing the underlying tissue to the corrosive effects of hydrochloric acid. It represents a breakdown in the stomach's self-protection, where the organ tasked with dissolving food begins to dissolve itself.",
+    "symptoms": ["Gnawing or burning upper abdominal pain", "Nausea and sometimes vomiting", "Feeling of fullness in upper abdomen", "Loss of appetite", "Bloating and belching", "Indigestion worsened by eating", "Dark stools if bleeding is present"]
+  },
+  {
+    "name": "Restless Leg Syndrome",
+    "category": "physical",
+    "body_system": "Nervous system / Musculoskeletal",
+    "description": "An irresistible urge to move the legs, typically accompanied by uncomfortable sensations that worsen during rest and in the evening. Restless leg syndrome involves dysfunction of the dopaminergic pathways in the brain and is often associated with iron deficiency, magnesium depletion, or peripheral neuropathy. It disrupts sleep and rest, trapping the body in a state of agitation when it most needs stillness, a nervous system unable to find peace in repose.",
+    "symptoms": ["Uncomfortable crawling or tingling in legs", "Irresistible urge to move legs", "Symptoms worse at rest especially evening", "Temporary relief from movement", "Sleep disruption and insomnia", "Involuntary leg jerking during sleep", "Fatigue from poor sleep quality"]
+  },
+  {
+    "name": "Dry Mouth",
+    "category": "physical",
+    "body_system": "Oral / Glandular",
+    "description": "Insufficient saliva production leading to persistent dryness in the mouth, difficulty swallowing, and increased vulnerability to dental decay and oral infections. Dry mouth may result from medication side effects, autoimmune conditions like Sjögren's syndrome, dehydration, or nervous system dysfunction. Saliva is essential for digestion, oral defense, and tissue integrity, and its absence creates a parched environment where the mouth's natural ecology breaks down.",
+    "symptoms": ["Persistent dry feeling in mouth", "Difficulty swallowing dry foods", "Thick or stringy saliva", "Bad breath", "Increased dental cavities", "Cracked lips and mouth corners", "Altered taste sensation", "Sore throat and hoarseness"]
+  },
+  {
+    "name": "Candida Overgrowth",
+    "category": "physical",
+    "body_system": "Immune / Digestive",
+    "description": "An excessive proliferation of Candida yeast, particularly Candida albicans, beyond its normal commensal levels in the gut, mouth, skin, or genitourinary tract. Candida overgrowth occurs when the microbiome's natural balance is disrupted by antibiotics, high sugar diets, immunosuppression, or chronic stress. It reflects a breakdown of the body's microbial ecosystem, where an opportunistic organism that normally coexists peacefully exploits weakened defenses to colonize territory beyond its natural boundaries.",
+    "symptoms": ["Oral thrush with white patches", "Recurring vaginal yeast infections", "Digestive bloating and gas", "Sugar and carbohydrate cravings", "Brain fog and difficulty concentrating", "Fatigue and low energy", "Skin and nail fungal issues", "Joint pain and muscle aches"]
+  },
+  {
+    "name": "Low Blood Pressure",
+    "category": "physical",
+    "body_system": "Cardiovascular system",
+    "description": "Chronically low arterial blood pressure that causes inadequate blood flow to the brain, organs, and extremities. While often considered benign, symptomatic hypotension produces dizziness, fainting, and fatigue that impair daily functioning. Low blood pressure may reflect adrenal insufficiency, dehydration, autonomic nervous system dysfunction, or constitutional weakness of the cardiovascular system's pumping and tonal mechanisms.",
+    "symptoms": ["Dizziness and lightheadedness upon standing", "Fainting or near-fainting episodes", "Blurred vision", "Fatigue and weakness", "Difficulty concentrating", "Nausea", "Cold clammy skin", "Rapid shallow breathing"]
+  },
+  {
+    "name": "Motion Sickness",
+    "category": "physical",
+    "body_system": "Nervous system / Vestibular",
+    "description": "A condition of nausea, dizziness, and malaise triggered by the sensory conflict between visual input, vestibular signals, and proprioceptive information during travel or movement. Motion sickness arises when the brain receives contradictory messages about the body's position and motion, creating a neurological dissonance that the body interprets as potential poisoning, triggering the nausea response as a protective mechanism.",
+    "symptoms": ["Nausea and vomiting during travel", "Cold sweats and pallor", "Dizziness and disorientation", "Increased salivation", "Headache", "Fatigue after episodes", "Inability to read or focus during motion"]
+  },
+  {
+    "name": "Sciatica",
+    "category": "physical",
+    "body_system": "Nervous system / Musculoskeletal",
+    "description": "Pain radiating along the path of the sciatic nerve from the lower back through the hip and buttock and down the leg. Sciatica results from compression or irritation of the sciatic nerve root, most commonly from a herniated disc, bone spur, or muscular tension in the piriformis. The sciatic nerve is the longest and largest nerve in the body, and its compression creates a lightning-bolt of pain that can be debilitating, restricting movement and undermining the foundation of upright posture.",
+    "symptoms": ["Sharp shooting pain from lower back down leg", "Burning or tingling sensation in leg or foot", "Numbness or weakness in affected leg", "Pain worsened by sitting", "Difficulty standing or walking", "Pain typically affecting one side", "Lower back stiffness"]
+  },
+  {
+    "name": "Hives and Urticaria",
+    "category": "physical",
+    "body_system": "Integumentary / Immune",
+    "description": "Raised, itchy welts on the skin triggered by histamine release from mast cells in response to allergens, stress, temperature changes, or unknown causes. Hives represent the skin's acute inflammatory alarm, where the immune system floods the dermis with histamine, creating rapid swelling and irritation. Chronic urticaria, lasting more than six weeks, often defies identification of a specific trigger and may reflect underlying autoimmune activity or deep-seated immune dysregulation.",
+    "symptoms": ["Raised red or skin-colored welts", "Intense itching", "Welts that change shape and location", "Swelling of lips, eyelids, or throat in severe cases", "Burning or stinging sensation", "Flares triggered by heat, stress, or foods", "Episodes lasting hours to days"]
+  },
+  {
+    "name": "Rosacea",
+    "category": "physical",
+    "body_system": "Integumentary / Vascular",
+    "description": "A chronic inflammatory skin condition affecting the face, characterized by persistent redness, visible blood vessels, and sometimes acne-like bumps. Rosacea involves vascular instability, immune dysfunction, and disruption of the skin's microbial balance, particularly the Demodex mite population. Triggers include heat, alcohol, spicy foods, stress, and sun exposure. The face, as our most visible and expressive surface, carries this condition into every social interaction, adding an emotional burden to the physical inflammation.",
+    "symptoms": ["Persistent facial redness especially cheeks and nose", "Visible broken blood vessels", "Acne-like bumps and pimples", "Burning or stinging sensation", "Dry irritated eyes", "Thickened skin on nose in advanced cases", "Flushing triggered by heat, alcohol, or spicy food"]
+  },
+  {
+    "name": "Cystitis",
+    "category": "physical",
+    "body_system": "Urinary / Immune",
+    "description": "Inflammation of the bladder, most commonly from bacterial infection but also occurring as interstitial cystitis without infection. Cystitis creates urgent, painful, and frequent urination that disrupts daily life and sleep. The bladder stores and releases the body's liquid waste, and its inflammation reflects vulnerability at this critical junction of elimination, where the body's filtration products meet the outside world through a delicate mucosal interface.",
+    "symptoms": ["Burning pain during urination", "Urgent and frequent need to urinate", "Passing small amounts of urine frequently", "Cloudy or strong-smelling urine", "Blood in urine", "Pelvic pressure and discomfort", "Low-grade fever with infection"]
+  },
+  {
+    "name": "Tendonitis",
+    "category": "physical",
+    "body_system": "Musculoskeletal",
+    "description": "Inflammation or irritation of a tendon, the thick fibrous cord that attaches muscle to bone, typically from repetitive motion, overuse, or age-related degeneration. Tendonitis commonly affects the shoulders, elbows, wrists, knees, and heels. Tendons heal slowly due to limited blood supply, making tendonitis a condition that demands patience and persistent nourishment. It reflects the strain placed on the body's connecting structures when demand exceeds their capacity for repair.",
+    "symptoms": ["Pain at the tendon site worsened by movement", "Tenderness and mild swelling", "Stiffness restricting movement", "A grating or crackling sensation with motion", "Weakness in the affected area", "Pain that worsens with activity", "Morning stiffness at affected joint"]
+  },
+  {
+    "name": "Cold Sores",
+    "category": "physical",
+    "body_system": "Integumentary / Immune",
+    "description": "Painful fluid-filled blisters on or around the lips caused by herpes simplex virus type 1, which lies dormant in nerve ganglia and reactivates during periods of immune suppression, stress, sun exposure, or hormonal changes. Cold sores represent the body's inability to keep a latent viral guest fully contained, the virus emerging from its hiding place in the nervous system when the body's defenses waver, creating visible eruptions at the boundary between inner and outer worlds.",
+    "symptoms": ["Tingling or burning before blisters appear", "Clusters of small fluid-filled blisters", "Pain and tenderness at blister site", "Blisters that rupture and crust over", "Swelling of lips and surrounding skin", "Recurrence during stress or illness", "Healing over seven to fourteen days"]
+  },
+  {
+    "name": "Diverticulitis",
+    "category": "physical",
+    "body_system": "Digestive system",
+    "description": "Inflammation or infection of small pouches called diverticula that form in the walls of the colon, typically in the sigmoid region. Diverticula develop from increased pressure in the colon, often due to a low-fiber diet and chronic constipation. When these pouches become trapped with waste material and inflame, the result is acute pain and potential complications. Diverticulitis reflects the long-term consequences of digestive stagnation and insufficient dietary fiber, the colon weakening under sustained pressure.",
+    "symptoms": ["Severe pain in lower left abdomen", "Fever and chills", "Nausea and vomiting", "Change in bowel habits", "Bloating and gas", "Tenderness in the abdomen", "Loss of appetite"]
+  },
+  {
+    "name": "Sleep Apnea",
+    "category": "physical",
+    "body_system": "Respiratory / Nervous",
+    "description": "A condition in which breathing repeatedly stops and starts during sleep due to airway obstruction or failure of the brain's respiratory drive. Sleep apnea fragments the architecture of sleep, preventing the body from reaching the deep restorative stages necessary for healing, memory consolidation, and hormonal regulation. It creates a nightly cycle of suffocation and arousal that strains the cardiovascular system and leaves the person chronically exhausted despite apparent hours of sleep.",
+    "symptoms": ["Loud snoring", "Episodes of stopped breathing during sleep", "Gasping or choking during sleep", "Excessive daytime sleepiness", "Morning headaches", "Difficulty concentrating", "Irritability and mood changes", "Dry mouth upon waking"]
+  },
+  {
+    "name": "Type 2 Diabetes",
+    "category": "physical",
+    "body_system": "Endocrine / Pancreatic",
+    "description": "A metabolic disorder characterized by insulin resistance and progressive decline in pancreatic beta cell function, resulting in chronically elevated blood glucose levels. Type 2 diabetes develops over years as the body's cells become increasingly deaf to insulin's signal, requiring the pancreas to produce ever more insulin until it can no longer compensate. This condition reflects a fundamental disruption in the body's relationship with its primary fuel source, a metabolic dialogue gone silent.",
+    "symptoms": ["Increased thirst and frequent urination", "Blurred vision", "Slow-healing wounds and frequent infections", "Tingling or numbness in hands and feet", "Fatigue and low energy", "Darkened skin patches", "Unexplained weight changes", "Recurring yeast infections"]
+  },
+  {
+    "name": "Erectile Dysfunction",
+    "category": "physical",
+    "body_system": "Reproductive / Cardiovascular",
+    "description": "The persistent inability to achieve or maintain an erection sufficient for satisfactory sexual activity. Erectile dysfunction involves a complex interplay of vascular health, nervous system function, hormonal balance, and psychological state. Often an early warning sign of cardiovascular disease, ED reflects impaired blood flow and endothelial dysfunction. Beyond the physical mechanics, it touches deeply on masculine identity, intimate connection, and the vital life force that drives creative and sexual expression.",
+    "symptoms": ["Difficulty achieving erection", "Difficulty maintaining erection", "Reduced sexual desire", "Anxiety about sexual performance", "Relationship stress", "Associated cardiovascular symptoms", "Fatigue and low vitality"]
+  },
+  {
+    "name": "Postpartum Recovery",
+    "category": "physical",
+    "body_system": "Reproductive / Endocrine",
+    "description": "The period of physical and emotional recovery following childbirth, during which the body must heal from labor, restore hormonal balance, replenish blood and vital reserves, and adapt to the demands of nursing and infant care. Postpartum recovery is recognized across traditional cultures as a critical window requiring intensive nourishment, rest, and herbal support. When this recovery period is neglected, long-term depletion of the mother's health can follow.",
+    "symptoms": ["Fatigue and exhaustion", "Uterine cramping and bleeding", "Hormonal fluctuations and mood changes", "Difficulty with milk production", "Perineal soreness and healing", "Hair loss", "Sleep deprivation effects", "Feeling emotionally overwhelmed"]
+  },
+  {
+    "name": "Dandruff and Scalp Conditions",
+    "category": "physical",
+    "body_system": "Integumentary",
+    "description": "Chronic flaking, itching, and irritation of the scalp caused by seborrheic dermatitis, fungal overgrowth, dryness, or inflammatory skin conditions. The scalp is richly supplied with sebaceous glands and has its own unique microbiome, making it susceptible to imbalances that manifest as visible flaking and discomfort. Scalp health reflects both external care and internal factors including hormonal balance, stress levels, and digestive function.",
+    "symptoms": ["White or yellowish flakes on scalp and shoulders", "Itchy and irritated scalp", "Red inflamed patches on scalp", "Oily or excessively dry scalp", "Crusty or scaly patches", "Temporary hair thinning in affected areas", "Worsening during stress or seasonal changes"]
+  },
+  {
+    "name": "Burnout",
+    "category": "emotional",
+    "body_system": "Adrenal / Nervous system",
+    "description": "A state of chronic physical, emotional, and mental exhaustion caused by prolonged exposure to excessive demands without adequate recovery. Burnout goes beyond ordinary tiredness, involving a fundamental depletion of the will and a collapse of meaning in relation to one's work or responsibilities. It erodes motivation, empathy, and the sense of personal accomplishment, leaving behind cynicism, detachment, and a hollow fatigue that rest alone cannot repair.",
+    "symptoms": ["Emotional exhaustion and emptiness", "Cynicism and detachment from work", "Reduced sense of accomplishment", "Physical exhaustion resistant to rest", "Difficulty caring about responsibilities", "Irritability and impatience", "Cognitive decline and forgetfulness", "Withdrawal from social connections"]
+  },
+  {
+    "name": "Low Self-Esteem",
+    "category": "emotional",
+    "body_system": "Nervous system / Psyche",
+    "description": "A persistent pattern of negative self-perception characterized by feelings of inadequacy, unworthiness, and self-doubt. Low self-esteem often develops from early childhood experiences, criticism, trauma, or chronic comparison with others, and becomes a lens through which all of life is filtered. It undermines confidence, limits the full expression of one's gifts, and creates a contraction of the spirit that affects posture, voice, relationships, and willingness to take up space in the world.",
+    "symptoms": ["Persistent feelings of unworthiness", "Harsh self-criticism and negative self-talk", "Difficulty accepting compliments", "Avoidance of challenges and new experiences", "People-pleasing and difficulty setting boundaries", "Comparing oneself unfavorably to others", "Social anxiety and withdrawal", "Difficulty making decisions from self-doubt"]
+  },
+  {
+    "name": "Emotional Numbness",
+    "category": "emotional",
+    "body_system": "Nervous system / Limbic",
+    "description": "A state of diminished emotional responsiveness in which feelings become muted, flattened, or seemingly absent. Emotional numbness often develops as a protective mechanism following trauma, chronic stress, or overwhelming experience, where the nervous system dampens feeling to prevent being overwhelmed. While initially protective, sustained numbness disconnects a person from joy, intimacy, and the full spectrum of human experience, creating a gray existence that feels safe but hollow.",
+    "symptoms": ["Inability to feel emotions fully", "Sense of disconnection from others", "Feeling like going through the motions", "Loss of interest in previously enjoyable activities", "Difficulty crying or expressing emotion", "Feeling detached from one's own life", "Flatness of affect and expression", "Difficulty forming deep connections"]
+  },
+  {
+    "name": "Fear and Phobias",
+    "category": "emotional",
+    "body_system": "Nervous system / Adrenal",
+    "description": "Persistent, disproportionate fear responses that limit daily life, ranging from specific phobias to generalized fearfulness. Fear is a primal survival mechanism governed by the amygdala, but when it becomes chronic or misdirected, it imprisons the spirit in a cage of avoidance and contraction. In traditional Chinese medicine, fear is the emotion of the kidneys, and chronic fearfulness depletes kidney essence, weakening the body's foundational vitality and willpower.",
+    "symptoms": ["Intense fear disproportionate to actual threat", "Avoidance of feared situations or objects", "Panic symptoms when confronted with triggers", "Anticipatory anxiety before potential exposure", "Physical symptoms including trembling and sweating", "Limitation of daily activities and experiences", "Feeling of loss of control during fear episodes"]
+  },
+  {
+    "name": "Loneliness and Isolation",
+    "category": "emotional",
+    "body_system": "Heart / Nervous system",
+    "description": "A painful subjective experience of social disconnection that persists regardless of the number of external contacts. Loneliness is now recognized as a significant health risk comparable to smoking, affecting immune function, cardiovascular health, and cognitive decline. It reflects a hunger for meaningful connection that superficial social contact cannot satisfy, a heart-level need for being truly seen and known that, when unmet, creates a wound as real as any physical ailment.",
+    "symptoms": ["Persistent feeling of being alone even around others", "Aching sense of disconnection", "Difficulty reaching out to others", "Withdrawal from social situations", "Feeling misunderstood or unseen", "Sleep disturbance and rumination", "Low mood and loss of motivation", "Physical aches from emotional pain"]
+  },
+  {
+    "name": "Shame and Guilt",
+    "category": "emotional",
+    "body_system": "Nervous system / Psyche",
+    "description": "Persistent feelings of deep unworthiness (shame) or self-blame for past actions (guilt) that have become toxic and immobilizing rather than serving their natural corrective function. While healthy guilt can motivate repair and healthy shame can maintain social bonds, chronic shame and guilt become a prison of self-punishment that contracts the spirit, undermines self-worth, and poisons the capacity for self-compassion and authentic connection with others.",
+    "symptoms": ["Persistent feelings of being fundamentally flawed", "Replaying past mistakes and regrets", "Difficulty forgiving oneself", "Hiding aspects of oneself from others", "Feeling undeserving of love or success", "Physical contraction and avoidance of eye contact", "Self-sabotaging behaviors", "Overcompensating through perfectionism"]
+  },
+  {
+    "name": "Overwhelm",
+    "category": "emotional",
+    "body_system": "Nervous system / Adrenal",
+    "description": "A state of being emotionally and mentally flooded beyond one's capacity to process, organize, or respond effectively. Overwhelm occurs when the demands placed on the nervous system exceed its available resources, creating a paralysis where everything feels urgent yet nothing feels manageable. It reflects the modern condition of overstimulation, where the ancient nervous system designed for a simpler world is bombarded with more information, choices, and responsibilities than it was built to handle.",
+    "symptoms": ["Feeling paralyzed by too many demands", "Inability to prioritize or make decisions", "Emotional flooding and tearfulness", "Shutting down or dissociating", "Difficulty starting tasks despite urgency", "Racing thoughts and scattered attention", "Physical tension and shallow breathing", "Desire to escape or hide"]
+  },
+  {
+    "name": "Mood Swings",
+    "category": "emotional",
+    "body_system": "Endocrine / Nervous system",
+    "description": "Rapid and intense shifts in emotional state that feel disproportionate to circumstances and difficult to regulate. Mood swings may reflect hormonal fluctuations, blood sugar instability, neurotransmitter imbalance, or unprocessed emotional material that surfaces unpredictably. They create instability in relationships, self-perception, and daily functioning, as the emotional landscape shifts like weather, leaving the person and those around them unable to find steady ground.",
+    "symptoms": ["Rapid shifts between emotional states", "Irritability alternating with sadness or elation", "Emotional reactions disproportionate to triggers", "Difficulty regulating emotions once triggered", "Fatigue from emotional volatility", "Relationship strain from unpredictability", "Feeling out of control of one's own emotions"]
+  },
+  {
+    "name": "Heartbreak",
+    "category": "emotional",
+    "body_system": "Heart / Nervous system",
+    "description": "The acute emotional pain following the loss or rupture of a significant intimate relationship. Heartbreak is more than metaphor — research confirms that emotional rejection activates the same brain regions as physical pain, and broken heart syndrome can cause actual cardiac dysfunction. The experience of heartbreak shakes the foundations of identity and belonging, creating a wound that requires not just time but genuine healing of the heart space and the restoration of self-love.",
+    "symptoms": ["Intense emotional pain centered in the chest", "Waves of grief and longing", "Obsessive thoughts about the lost relationship", "Loss of appetite and disrupted sleep", "Physical fatigue and heaviness", "Difficulty imagining a future", "Withdrawal from social life", "Alternating anger and sadness"]
+  },
+  {
+    "name": "Nervous Exhaustion",
+    "category": "emotional",
+    "body_system": "Nervous system / Adrenal",
+    "description": "A state of profound nervous system depletion in which the capacity for stimulus processing, emotional regulation, and stress tolerance has been exhausted. Nervous exhaustion goes beyond physical tiredness, representing a fundamental overload of the neural circuitry itself. The nervous system, pushed beyond its capacity for too long, loses its resilience and adaptability, leaving the person hypersensitive, fragile, and unable to tolerate what was once manageable.",
+    "symptoms": ["Extreme sensitivity to noise, light, and stimulation", "Emotional fragility and easy tearfulness", "Inability to tolerate stress or pressure", "Trembling and nervous agitation", "Profound fatigue with wired feeling", "Insomnia despite exhaustion", "Difficulty with concentration and memory", "Feeling of nervous system being raw"]
+  },
+  {
+    "name": "Energetic Depletion",
+    "category": "spiritual",
+    "body_system": "Adrenal / Energetic body",
+    "description": "A felt sense of vital energy being drained, depleted, or leaking, beyond what can be explained by physical fatigue alone. Energetic depletion may result from overgiving, poor energetic boundaries, exposure to draining environments or relationships, or a disconnection from one's natural sources of replenishment. Many traditional healing systems recognize this as a distinct condition where the subtle body's reserves are exhausted, even when the physical body appears outwardly functional.",
+    "symptoms": ["Feeling drained after social interactions", "Difficulty maintaining personal boundaries", "Sense of vitality being siphoned", "Exhaustion not explained by physical causes", "Feeling empty or hollowed out", "Susceptibility to others' emotional states", "Need for excessive alone time to recover", "Loss of enthusiasm and spark"]
+  },
+  {
+    "name": "Dark Night of the Soul",
+    "category": "spiritual",
+    "body_system": "Heart / Psyche",
+    "description": "A profound spiritual crisis characterized by the dissolution of previously held beliefs, identities, and sources of meaning, leaving a void of darkness, confusion, and existential despair. Recognized across mystical traditions as a necessary passage in spiritual development, the dark night is not a clinical depression but a transformative process in which the ego's constructs must be stripped away before a deeper truth can emerge. It is the chrysalis stage of spiritual metamorphosis, where the old self has died but the new has not yet been born.",
+    "symptoms": ["Loss of previously sustaining spiritual beliefs", "Profound sense of meaninglessness", "Feeling abandoned by the divine or sacred", "Identity dissolution and confusion", "Deep existential despair without clear cause", "Inability to find comfort in former practices", "Sense of being in a void between worlds", "Paradoxical glimpses of deeper truth amid the darkness"]
+  },
+  {
+    "name": "Inability to Ground",
+    "category": "spiritual",
+    "body_system": "Nervous system / Root",
+    "description": "A persistent difficulty in feeling rooted, present, and connected to the physical body and the earth. Inability to ground manifests as spaciness, disconnection from bodily sensations, and difficulty with practical daily tasks. It may result from trauma, excessive spiritual practice without physical integration, chronic anxiety, or a lifestyle disconnected from nature and embodied activity. Grounding is the foundation upon which all other energetic and spiritual work depends, the root without which the tree cannot stand.",
+    "symptoms": ["Feeling spacey and ungrounded", "Difficulty being present in the body", "Chronic daydreaming and dissociation", "Clumsiness and lack of physical coordination", "Anxiety and restlessness", "Difficulty completing practical tasks", "Feeling unrooted and unstable", "Inability to feel connection to the earth"]
+  },
+  {
+    "name": "Blocked Creativity",
+    "category": "spiritual",
+    "body_system": "Reproductive / Sacral",
+    "description": "A state in which the creative life force feels stagnant, blocked, or inaccessible, leaving the person unable to express, create, or birth new ideas and projects. Creativity in the traditional view is not merely artistic talent but the fundamental generative force of life itself, flowing from the same sacral center that governs sexuality and reproduction. When this energy is blocked, stagnation spreads into every area of life, creating a dull sense of purposelessness and unfulfilled potential.",
+    "symptoms": ["Inability to generate new ideas", "Feeling creatively stuck or empty", "Procrastination and avoidance of creative work", "Inner critic silencing creative impulses", "Loss of inspiration and wonder", "Frustration with one's own expression", "Feeling disconnected from one's creative gifts", "Stagnation in projects and life direction"]
+  },
+  {
+    "name": "Disconnection from Nature",
+    "category": "spiritual",
+    "body_system": "Nervous system / Whole body",
+    "description": "A felt separation from the natural world that manifests as both a spiritual ache and a measurable physiological deficit. Disconnection from nature is the epidemic of industrial civilization, where humans have severed their ancient kinship with the living earth. Research confirms that nature deprivation affects immune function, mood, cognitive capacity, and stress resilience. The plants themselves are the bridge back — every herbal practice is fundamentally a practice of reconnection with the green world.",
+    "symptoms": ["Feeling alienated from the natural world", "Spending little or no time outdoors", "Inability to identify local plants or seasons", "Indoor lifestyle with artificial light dominance", "Restlessness and agitation relieved by nature", "Loss of wonder at natural phenomena", "Feeling that nature is separate from oneself", "Craving for green spaces and wild places"]
+  },
+  {
+    "name": "Intuition Blockage",
+    "category": "spiritual",
+    "body_system": "Pineal gland / Third eye",
+    "description": "A diminished capacity to access the body's innate knowing, gut feelings, and non-rational perception that guide wise decision-making. Intuition blockage arises from over-reliance on analytical thinking, cultural devaluation of inner knowing, trauma that makes it unsafe to feel, or numbing of the subtle senses through overstimulation. Many plant allies, particularly those working with the pineal gland and the dream state, help reopen the channels of intuitive perception that modern life has narrowed.",
+    "symptoms": ["Difficulty trusting gut feelings", "Over-reliance on logic and external validation", "Second-guessing decisions constantly", "Feeling cut off from inner guidance", "Ignoring subtle body signals", "Difficulty reading situations or people", "Loss of synchronistic awareness", "Feeling disconnected from dreams and subtle perception"]
+  },
+  {
+    "name": "Ancestral Healing",
+    "category": "spiritual",
+    "body_system": "Whole body / Genetic",
+    "description": "The recognition and resolution of patterns, traumas, and unfinished emotional material inherited from previous generations through both epigenetic mechanisms and the transmission of family behavioral patterns. Ancestral healing acknowledges that we carry more than our own experiences — we carry the joys, sorrows, and unresolved wounds of those who came before us. Many indigenous plant medicine traditions specifically address ancestral patterns, using sacred plants to access and transform inherited burdens.",
+    "symptoms": ["Recurring family patterns of illness or behavior", "Inexplicable fears or sorrows without personal origin", "Feeling burdened by family history", "Repeating relationship or addiction patterns across generations", "Dreams involving ancestors or unknown places", "Strong emotional reactions to ancestral homelands or histories", "Sense of carrying grief that is not entirely one's own"]
+  },
+  {
+    "name": "Loss of Wonder",
+    "category": "spiritual",
+    "body_system": "Heart / Pineal gland",
+    "description": "A diminished capacity for awe, amazement, and reverence before the mystery of existence. Loss of wonder is the spiritual consequence of a culture that has reduced the world to mechanism and commodity, draining the enchantment from everyday experience. When wonder fades, life becomes flat and transactional, motivation withers, and the sense that the world is a living, meaningful, and magical place recedes into childhood memory. The restoration of wonder is one of the greatest gifts of plant communion.",
+    "symptoms": ["Inability to feel awe or amazement", "Viewing the world as mundane and mechanical", "Loss of curiosity and fascination", "Emotional flatness in the face of beauty", "Taking the miracle of existence for granted", "Cynicism and world-weariness", "Nostalgia for childhood wonder", "Feeling that life has lost its magic"]
+  },
+  {
+    "name": "Spiritual Fatigue",
+    "category": "spiritual",
+    "body_system": "Heart / Adrenal",
+    "description": "A weariness of the spirit that goes beyond physical or emotional tiredness, manifesting as exhaustion of one's sense of purpose, faith, and capacity to engage with the deeper dimensions of life. Spiritual fatigue often afflicts those in helping and healing roles, or anyone who has carried the weight of sustained meaningful engagement without adequate spiritual replenishment. It is the depletion that follows when one gives from the spirit without receiving, when the well of meaning runs dry.",
+    "symptoms": ["Weariness in spiritual practices", "Loss of faith or trust in the sacred", "Feeling spiritually drained and empty", "Compassion fatigue and emotional depletion", "Questioning the value of one's spiritual path", "Withdrawal from community and service", "Difficulty finding meaning in daily life", "Longing for renewal without knowing how"]
+  },
+  {
+    "name": "Psychic Overwhelm",
+    "category": "spiritual",
+    "body_system": "Nervous system / Energetic body",
+    "description": "A condition of hypersensitivity to the emotions, energies, and psychic impressions of others and of environments, resulting in overwhelm, confusion, and energetic depletion. Psychic overwhelm is particularly common in empathic and highly sensitive individuals whose perceptual boundaries are more porous than average. Without adequate energetic hygiene and boundary practices, the flood of incoming impressions drowns out one's own inner signal, making it difficult to distinguish personal feelings from absorbed external energies.",
+    "symptoms": ["Absorbing others' emotions and physical symptoms", "Overwhelm in crowded or emotionally charged spaces", "Difficulty distinguishing own feelings from others'", "Need to withdraw after social exposure", "Emotional and energetic exhaustion", "Hypersensitivity to atmospheres and places", "Vivid or disturbing dreams from absorbed material", "Feeling of losing oneself in others' experiences"]
+  },
+  {
+    "name": "Loss of Purpose",
+    "category": "spiritual",
+    "body_system": "Heart / Solar plexus",
+    "description": "A state of directionlessness in which one's sense of mission, calling, or reason for being has faded, been lost, or never fully emerged. Loss of purpose creates a vacuum at the center of life that material comfort and distraction cannot fill. In traditional cultures, finding one's purpose is a central initiatory task supported by plant medicines, vision quests, and elder guidance. Without purpose, the vital fire that drives meaningful action dims, and existence becomes a series of empty routines.",
+    "symptoms": ["Feeling directionless and adrift", "Inability to identify meaningful goals", "Going through the motions without engagement", "Questioning why one is here", "Envy of those who seem to have found their calling", "Restless dissatisfaction with career or life path", "Difficulty making long-term commitments", "Sense that something essential is missing"]
+  },
+  {
+    "name": "Laryngitis",
+    "category": "physical",
+    "body_system": "Respiratory / Immune",
+    "description": "Inflammation of the larynx and vocal cords causing hoarseness or loss of voice, typically from viral infection, vocal overuse, or irritant exposure. The voice box is both the instrument of speech and a reflection of the throat energy center governing self-expression and truth-telling. Laryngitis strips away the capacity for vocal expression, and its recurrence may signal a deeper pattern of suppressed communication or difficulty speaking one's truth.",
+    "symptoms": ["Hoarseness or loss of voice", "Tickling and rawness in throat", "Sore throat", "Dry cough", "Need to constantly clear throat", "Difficulty projecting voice", "Throat fatigue from speaking"]
+  },
+  {
+    "name": "Shingles",
+    "category": "physical",
+    "body_system": "Nervous system / Immune",
+    "description": "A painful reactivation of the varicella-zoster virus that lies dormant in nerve ganglia after childhood chickenpox, emerging years or decades later as a band of blistering rash along a nerve pathway. Shingles erupts when the immune system is weakened by stress, aging, illness, or immunosuppression, allowing the dormant virus to travel along nerve fibers to the skin. It represents the body's unfinished business with a past infection, a latent fire that reignites when the immune vigilance that contained it falters.",
+    "symptoms": ["Burning or shooting pain along one side of body", "Band-like blistering rash", "Extreme sensitivity of skin in affected area", "Itching and tingling before rash appears", "Fever and general malaise", "Headache and fatigue", "Persistent nerve pain after rash heals"]
   }
 ]
