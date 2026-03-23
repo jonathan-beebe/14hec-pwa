@@ -42,7 +42,13 @@ const api = {
   getJournalEntries: (filters?: any) => ipcRenderer.invoke('db:journal:getEntries', filters),
   createJournalEntry: (entry: any) => ipcRenderer.invoke('db:journal:createEntry', entry),
   updateJournalEntry: (id: number, updates: any) => ipcRenderer.invoke('db:journal:updateEntry', id, updates),
-  deleteJournalEntry: (id: number) => ipcRenderer.invoke('db:journal:deleteEntry', id)
+  deleteJournalEntry: (id: number) => ipcRenderer.invoke('db:journal:deleteEntry', id),
+
+  // Wellness Goals
+  getWellnessCategories: () => ipcRenderer.invoke('db:wellness:getCategories'),
+  getWellnessGoalsByCategory: (categoryId: number) => ipcRenderer.invoke('db:wellness:getGoalsByCategory', categoryId),
+  getWellnessGoalById: (id: number) => ipcRenderer.invoke('db:wellness:getGoalById', id),
+  searchWellnessGoals: (search: string) => ipcRenderer.invoke('db:wellness:search', search)
 }
 
 contextBridge.exposeInMainWorld('api', api)

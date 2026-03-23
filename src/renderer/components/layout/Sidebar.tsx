@@ -21,6 +21,7 @@ const navSections: NavSection[] = [
     items: [
       { view: 'plants', label: 'Plants', icon: '\u2618' },
       { view: 'ailments', label: 'Ailments', icon: '\u2695' },
+      { view: 'wellness', label: 'Wellness Goals', icon: '\u2740' },
       { view: 'preparations', label: 'Preparations', icon: '\u2697' },
       { view: 'entheogenic', label: 'Entheogens', icon: '\u2604' },
       { view: 'body-systems', label: 'Body Systems', icon: '\u2B22' }
@@ -54,7 +55,8 @@ const navSections: NavSection[] = [
 const activeViews: Record<string, string> = {
   'plant-detail': 'plants',
   'ailment-detail': 'ailments',
-  'body-system-detail': 'body-systems'
+  'body-system-detail': 'body-systems',
+  'wellness-detail': 'wellness'
 }
 
 export default function Sidebar({ currentView, navigate }: SidebarProps) {

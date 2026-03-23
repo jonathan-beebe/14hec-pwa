@@ -30,6 +30,7 @@ export function seedDatabase(db: Database.Database): void {
     seedPlants(db)
     seedBodySystems(db)
     seedTeachingsAndJournal(db)
+    seedWellnessGoals(db)
   })
 
   transaction()
@@ -386,6 +387,65 @@ function seedBodySystems(db: Database.Database): void {
         is_food: corr.is_food || 0,
         food_name: corr.food_name || null,
         notes: corr.notes || null
+      })
+    }
+  }
+}
+
+function seedWellnessGoals(db: Database.Database): void {
+  const data = JSON.parse(readFileSync(join(__dirname, '../../src/seed', 'wellness-goals.json'), 'utf-8'))
+
+  // ── Insert wellness categories ──────────────────────────────────────
+  const insertCategory = db.prepare(`
+    INSERT OR IGNORE INTO wellness_categories (name, slug, description, icon, sort_order)
+    VALUES (@name, @slug, @description, @icon, @sort_order)
+  `)
+
+  for (const cat of data.wellness_categories) {
+    insertCategory.run(cat)
+  }
+
+  // ── Insert wellness goals ──────────────────────────────────────
+  const getCategory = db.prepare('SELECT id FROM wellness_categories WHERE name = ?')
+  const insertGoal = db.prepare(`
+    INSERT OR IGNORE INTO wellness_goals (category_id, name, description, desired_outcome, body_system, evidence_summary, lifestyle_notes)
+    VALUES (@category_id, @name, @description, @desired_outcome, @body_system, @evidence_summary, @lifestyle_notes)
+  `)
+
+  for (const goal of data.wellness_goals) {
+    const category = getCategory.get(goal.category) as { id: number } | undefined
+    if (category) {
+      insertGoal.run({
+        category_id: category.id,
+        name: goal.name,
+        description: goal.description,
+        desired_outcome: goal.desired_outcome || null,
+        body_system: goal.body_system || null,
+        evidence_summary: goal.evidence_summary || null,
+        lifestyle_notes: goal.lifestyle_notes || null
+      })
+    }
+  }
+
+  // ── Insert plant-wellness-goal mappings ──────────────────────────────
+  const getPlant = db.prepare('SELECT id FROM plants WHERE common_name = ?')
+  const getGoal = db.prepare('SELECT id FROM wellness_goals WHERE name = ?')
+  const insertMapping = db.prepare(`
+    INSERT OR IGNORE INTO plant_wellness_goals (plant_id, wellness_goal_id, mechanism, efficacy_notes, evidence_level, dosage_notes)
+    VALUES (@plant_id, @wellness_goal_id, @mechanism, @efficacy_notes, @evidence_level, @dosage_notes)
+  `)
+
+  for (const mapping of data.plant_wellness_mappings) {
+    const plant = getPlant.get(mapping.plant) as { id: number } | undefined
+    const goal = getGoal.get(mapping.goal) as { id: number } | undefined
+    if (plant && goal) {
+      insertMapping.run({
+        plant_id: plant.id,
+        wellness_goal_id: goal.id,
+        mechanism: mapping.mechanism || null,
+        efficacy_notes: mapping.efficacy_notes || null,
+        evidence_level: mapping.evidence_level || 'traditional',
+        dosage_notes: mapping.dosage_notes || null
       })
     }
   }

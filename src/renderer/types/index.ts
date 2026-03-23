@@ -303,6 +303,54 @@ export interface BodySystemPlantPart {
   notes: string | null
 }
 
+// ── Wellness Goals ──────────────────────────────────────
+export interface WellnessCategory {
+  id: number
+  name: string
+  slug: string
+  description: string
+  icon: string
+  sort_order: number
+  goal_count: number
+  created_at: string
+}
+
+export interface WellnessGoal {
+  id: number
+  category_id: number
+  category_name: string
+  category_slug: string
+  name: string
+  description: string
+  desired_outcome: string | null
+  body_system: string | null
+  evidence_summary: string | null
+  lifestyle_notes: string | null
+  plant_count: number
+  created_at: string
+}
+
+export interface WellnessGoalDetail extends WellnessGoal {
+  category_icon: string
+  plantRecommendations: WellnessPlantRecommendation[]
+}
+
+export interface WellnessPlantRecommendation {
+  id: number
+  plant_id: number
+  wellness_goal_id: number
+  common_name: string
+  latin_name: string
+  plant_category: string
+  part_type: string | null
+  preparation_name: string | null
+  mechanism: string | null
+  efficacy_notes: string | null
+  evidence_level: string
+  dosage_notes: string | null
+  notes: string | null
+}
+
 declare global {
   interface Window {
     api: {
@@ -351,6 +399,12 @@ declare global {
         entry_date?: string | null
       }) => Promise<{ success: boolean }>
       deleteJournalEntry: (id: number) => Promise<{ success: boolean }>
+
+      // Wellness Goals
+      getWellnessCategories: () => Promise<WellnessCategory[]>
+      getWellnessGoalsByCategory: (categoryId: number) => Promise<WellnessGoal[]>
+      getWellnessGoalById: (id: number) => Promise<WellnessGoalDetail | null>
+      searchWellnessGoals: (search: string) => Promise<WellnessGoal[]>
     }
   }
 }

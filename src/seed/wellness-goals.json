@@ -1,0 +1,1347 @@
+{
+  "wellness_categories": [
+    {
+      "name": "Hair Growth & Scalp Health",
+      "slug": "hair-scalp",
+      "description": "Support healthy hair growth, scalp circulation, and follicle vitality through plants that nourish from root to tip.",
+      "icon": "\u2618",
+      "sort_order": 1
+    },
+    {
+      "name": "Skin Health & Radiance",
+      "slug": "skin-health",
+      "description": "Promote clear, resilient, and vibrant skin through plants that support collagen, hydration, and cellular renewal.",
+      "icon": "\u2728",
+      "sort_order": 2
+    },
+    {
+      "name": "Eye & Vision Support",
+      "slug": "eye-vision",
+      "description": "Protect and nourish the eyes with plants that support visual acuity, retinal health, and reduce oxidative stress.",
+      "icon": "\u25C9",
+      "sort_order": 3
+    },
+    {
+      "name": "Oral & Dental Health",
+      "slug": "oral-dental",
+      "description": "Strengthen teeth, gums, and the oral microbiome with antimicrobial and mineralizing plant allies.",
+      "icon": "\u2662",
+      "sort_order": 4
+    },
+    {
+      "name": "Cardiac & Circulatory Support",
+      "slug": "cardiac-circulatory",
+      "description": "Strengthen heart function, improve blood flow, and support healthy blood pressure through cardiovascular plant allies.",
+      "icon": "\u2661",
+      "sort_order": 5
+    },
+    {
+      "name": "Immune Resilience",
+      "slug": "immune-resilience",
+      "description": "Build robust immune defenses and reduce infection risk with immunomodulating and antimicrobial plants.",
+      "icon": "\u2694",
+      "sort_order": 6
+    },
+    {
+      "name": "Inflammation Balance",
+      "slug": "inflammation-balance",
+      "description": "Reduce chronic inflammation and support a healthy inflammatory response through anti-inflammatory plant compounds.",
+      "icon": "\u2622",
+      "sort_order": 7
+    },
+    {
+      "name": "Digestive Wellness",
+      "slug": "digestive-wellness",
+      "description": "Improve gut health, nutrient absorption, and digestive comfort with carminative and gut-supportive plants.",
+      "icon": "\u2740",
+      "sort_order": 8
+    },
+    {
+      "name": "Liver & Detoxification",
+      "slug": "liver-detox",
+      "description": "Support liver function and the body's natural detoxification pathways with hepatoprotective plant allies.",
+      "icon": "\u2766",
+      "sort_order": 9
+    },
+    {
+      "name": "Respiratory Vitality",
+      "slug": "respiratory-vitality",
+      "description": "Strengthen lung capacity, improve breathing, and support respiratory tissue health with expectorant and tonic plants.",
+      "icon": "\u2632",
+      "sort_order": 10
+    },
+    {
+      "name": "Nervous System Balance",
+      "slug": "nervous-system",
+      "description": "Regulate and restore the nervous system with nervine herbs that calm, tonify, and support neurological function.",
+      "icon": "\u269B",
+      "sort_order": 11
+    },
+    {
+      "name": "Stress Resilience",
+      "slug": "stress-resilience",
+      "description": "Build adaptive capacity and buffer against chronic stress through adaptogenic and calming plant allies.",
+      "icon": "\u2616",
+      "sort_order": 12
+    },
+    {
+      "name": "Sleep & Rest",
+      "slug": "sleep-rest",
+      "description": "Improve sleep quality, support healthy circadian rhythms, and deepen restorative rest with sedative and relaxant herbs.",
+      "icon": "\u263D",
+      "sort_order": 13
+    },
+    {
+      "name": "Cognitive & Brain Support",
+      "slug": "cognitive-brain",
+      "description": "Enhance memory, focus, and mental clarity with nootropic and neuroprotective plants that support brain health.",
+      "icon": "\u2609",
+      "sort_order": 14
+    },
+    {
+      "name": "Mood & Emotional Balance",
+      "slug": "mood-emotional",
+      "description": "Support emotional well-being, stability, and joy with plants that gently modulate neurotransmitter activity.",
+      "icon": "\u2600",
+      "sort_order": 15
+    },
+    {
+      "name": "Hormonal Harmony",
+      "slug": "hormonal-harmony",
+      "description": "Support endocrine balance and healthy hormone production with plants that nourish glands and modulate hormonal pathways.",
+      "icon": "\u2641",
+      "sort_order": 16
+    },
+    {
+      "name": "Bone & Joint Support",
+      "slug": "bone-joint",
+      "description": "Strengthen bones, support joint flexibility, and reduce stiffness with mineralizing and anti-inflammatory plants.",
+      "icon": "\u2693",
+      "sort_order": 17
+    },
+    {
+      "name": "Muscle Recovery & Repair",
+      "slug": "muscle-recovery",
+      "description": "Support muscle repair, reduce soreness, and promote physical recovery with anti-inflammatory and circulatory plants.",
+      "icon": "\u2742",
+      "sort_order": 18
+    },
+    {
+      "name": "Energy & Vitality",
+      "slug": "energy-vitality",
+      "description": "Build sustainable energy, stamina, and overall vitality through tonic and adaptogenic plants that nourish without depleting.",
+      "icon": "\u2607",
+      "sort_order": 19
+    },
+    {
+      "name": "Longevity & Healthy Aging",
+      "slug": "longevity-aging",
+      "description": "Support cellular health, antioxidant protection, and graceful aging with plants traditionally revered for longevity.",
+      "icon": "\u2318",
+      "sort_order": 20
+    },
+    {
+      "name": "Reproductive Wellness",
+      "slug": "reproductive-wellness",
+      "description": "Support fertility, libido, and reproductive health with plants that nourish the reproductive system across all life stages.",
+      "icon": "\u2640",
+      "sort_order": 21
+    },
+    {
+      "name": "Kidney & Urinary Health",
+      "slug": "kidney-urinary",
+      "description": "Support kidney function, urinary tract health, and fluid balance with diuretic and kidney-tonic plants.",
+      "icon": "\u2614",
+      "sort_order": 22
+    }
+  ],
+  "wellness_goals": [
+    {
+      "category": "Hair Growth & Scalp Health",
+      "name": "Promote Hair Growth",
+      "description": "Stimulate hair follicles and support new growth through improved scalp circulation and nutrient delivery.",
+      "desired_outcome": "Thicker, fuller hair with reduced thinning and shedding",
+      "body_system": "Integumentary system",
+      "evidence_summary": "Several herbs improve scalp microcirculation and provide follicle-nourishing compounds.",
+      "lifestyle_notes": "Scalp massage, adequate protein intake, and stress management complement herbal support."
+    },
+    {
+      "category": "Hair Growth & Scalp Health",
+      "name": "Strengthen Hair Structure",
+      "description": "Provide minerals, silica, and nutrients that strengthen the hair shaft from within.",
+      "desired_outcome": "Reduced breakage, improved elasticity and shine",
+      "body_system": "Integumentary system",
+      "evidence_summary": "Silica-rich and mineral-dense plants support keratin formation and hair resilience.",
+      "lifestyle_notes": "Biotin-rich foods and gentle hair care practices enhance results."
+    },
+    {
+      "category": "Skin Health & Radiance",
+      "name": "Improve Skin Clarity",
+      "description": "Support clear, blemish-free skin through detoxification, inflammation modulation, and antimicrobial action.",
+      "desired_outcome": "Reduced breakouts, even skin tone, and clearer complexion",
+      "body_system": "Integumentary system",
+      "evidence_summary": "Blood-purifying and anti-inflammatory herbs have long traditions in skin care across multiple herbal systems.",
+      "lifestyle_notes": "Hydration, reducing processed foods, and gentle skincare routines amplify results."
+    },
+    {
+      "category": "Skin Health & Radiance",
+      "name": "Support Skin Elasticity",
+      "description": "Nourish collagen production and protect against oxidative damage that accelerates skin aging.",
+      "desired_outcome": "Firmer, more supple skin with improved moisture retention",
+      "body_system": "Integumentary system",
+      "evidence_summary": "Antioxidant-rich plants protect collagen and support skin cell regeneration.",
+      "lifestyle_notes": "Sun protection and adequate vitamin C intake work synergistically with herbal support."
+    },
+    {
+      "category": "Eye & Vision Support",
+      "name": "Protect Visual Acuity",
+      "description": "Nourish the retina and support sharp, clear vision with antioxidant and circulation-enhancing plants.",
+      "desired_outcome": "Maintained or improved visual sharpness and reduced eye strain",
+      "body_system": "Nervous system",
+      "evidence_summary": "Anthocyanin-rich and lutein-supporting plants have clinical evidence for retinal protection.",
+      "lifestyle_notes": "Reduce screen time, practice the 20-20-20 rule, and ensure adequate lighting."
+    },
+    {
+      "category": "Eye & Vision Support",
+      "name": "Reduce Eye Fatigue",
+      "description": "Soothe tired, strained eyes and support healthy tear production and ocular circulation.",
+      "desired_outcome": "Less eye strain, dryness, and irritation",
+      "body_system": "Nervous system",
+      "evidence_summary": "Traditional eye-tonic herbs have been used for centuries to relieve visual fatigue.",
+      "lifestyle_notes": "Regular breaks from close work and adequate hydration support eye comfort."
+    },
+    {
+      "category": "Oral & Dental Health",
+      "name": "Strengthen Teeth & Gums",
+      "description": "Support gum tissue integrity, reduce inflammation, and provide mineralizing support for strong teeth.",
+      "desired_outcome": "Healthier gums, reduced bleeding, and stronger enamel",
+      "body_system": "Skeletal system",
+      "evidence_summary": "Antimicrobial and astringent herbs have strong traditional use for oral health across cultures.",
+      "lifestyle_notes": "Oil pulling, proper brushing technique, and reducing sugar intake complement herbal approaches."
+    },
+    {
+      "category": "Oral & Dental Health",
+      "name": "Support Oral Microbiome",
+      "description": "Promote a healthy balance of oral bacteria while reducing harmful pathogens naturally.",
+      "desired_outcome": "Fresher breath, reduced plaque formation, and balanced oral flora",
+      "body_system": "Immune system",
+      "evidence_summary": "Several antimicrobial herbs selectively target pathogenic oral bacteria while supporting beneficial flora.",
+      "lifestyle_notes": "Probiotic foods and avoiding harsh mouthwashes help maintain oral microbial balance."
+    },
+    {
+      "category": "Cardiac & Circulatory Support",
+      "name": "Strengthen Heart Function",
+      "description": "Tonify cardiac muscle, support healthy rhythm, and improve overall heart efficiency.",
+      "desired_outcome": "Stronger heart contractions, stable rhythm, and improved cardiac output",
+      "body_system": "Cardiovascular system",
+      "evidence_summary": "Cardiotonic herbs like hawthorn have significant clinical evidence for heart support.",
+      "lifestyle_notes": "Regular cardiovascular exercise, stress management, and omega-3 fatty acids complement herbal support."
+    },
+    {
+      "category": "Cardiac & Circulatory Support",
+      "name": "Improve Circulation",
+      "description": "Enhance blood flow to extremities and vital organs through vasodilating and blood-thinning plant allies.",
+      "desired_outcome": "Warmer extremities, improved tissue oxygenation, and better nutrient delivery",
+      "body_system": "Cardiovascular system",
+      "evidence_summary": "Warming and circulatory-stimulant herbs have robust traditional and clinical evidence.",
+      "lifestyle_notes": "Movement, hydration, and avoiding prolonged sitting enhance circulatory function."
+    },
+    {
+      "category": "Immune Resilience",
+      "name": "Build Immune Strength",
+      "description": "Strengthen baseline immune function and increase resistance to common infections.",
+      "desired_outcome": "Fewer infections, faster recovery, and more robust immune responses",
+      "body_system": "Immune system",
+      "evidence_summary": "Immunomodulating herbs have extensive clinical evidence for enhancing immune cell activity.",
+      "lifestyle_notes": "Adequate sleep, regular exercise, and stress management are foundational for immune health."
+    },
+    {
+      "category": "Immune Resilience",
+      "name": "Reduce Infection Risk",
+      "description": "Provide antimicrobial, antiviral, and antifungal protection through plant-based immune defense.",
+      "desired_outcome": "Greater resistance to pathogens and reduced frequency of illness",
+      "body_system": "Immune system",
+      "evidence_summary": "Many antimicrobial herbs show broad-spectrum activity against bacteria, viruses, and fungi.",
+      "lifestyle_notes": "Good hygiene, nutrient-dense diet, and adequate vitamin D support pathogen resistance."
+    }
+    ,
+    {
+      "category": "Inflammation Balance",
+      "name": "Reduce Chronic Inflammation",
+      "description": "Modulate the body's inflammatory response and reduce systemic inflammation through anti-inflammatory plant compounds.",
+      "desired_outcome": "Lower inflammatory markers, reduced pain, and improved tissue health",
+      "body_system": "Immune system",
+      "evidence_summary": "Curcuminoids, boswellic acids, and other plant compounds have strong clinical evidence for inflammation modulation.",
+      "lifestyle_notes": "Anti-inflammatory diet, regular movement, and stress reduction are essential foundations."
+    },
+    {
+      "category": "Inflammation Balance",
+      "name": "Support Healthy Inflammatory Response",
+      "description": "Help the body mount appropriate inflammatory responses when needed while preventing excessive or chronic activation.",
+      "desired_outcome": "Balanced inflammation — effective when needed, resolved when not",
+      "body_system": "Immune system",
+      "evidence_summary": "Adaptogenic and immunomodulating herbs help calibrate inflammatory pathways.",
+      "lifestyle_notes": "Omega-3 fatty acids, quality sleep, and gut health support balanced inflammation."
+    },
+    {
+      "category": "Digestive Wellness",
+      "name": "Improve Digestion & Absorption",
+      "description": "Enhance digestive enzyme activity, improve nutrient absorption, and support healthy gut motility.",
+      "desired_outcome": "Better nutrient uptake, reduced bloating, and comfortable digestion",
+      "body_system": "Digestive system",
+      "evidence_summary": "Bitter and carminative herbs have centuries of documented use for improving digestive function.",
+      "lifestyle_notes": "Mindful eating, chewing thoroughly, and eating on a regular schedule enhance digestive function."
+    },
+    {
+      "category": "Digestive Wellness",
+      "name": "Support Gut Lining Integrity",
+      "description": "Heal and protect the intestinal lining with demulcent and mucilaginous plants that soothe and repair.",
+      "desired_outcome": "Reduced gut permeability, less digestive discomfort, and improved barrier function",
+      "body_system": "Digestive system",
+      "evidence_summary": "Mucilaginous herbs coat and protect the GI tract and have traditional and emerging clinical support.",
+      "lifestyle_notes": "Bone broth, fermented foods, and avoiding gut irritants complement herbal support."
+    },
+    {
+      "category": "Liver & Detoxification",
+      "name": "Support Liver Function",
+      "description": "Protect hepatocytes, enhance Phase I and Phase II detoxification, and promote healthy bile flow.",
+      "desired_outcome": "Improved toxin clearance, better fat digestion, and overall metabolic health",
+      "body_system": "Digestive system",
+      "evidence_summary": "Silymarin and other hepatoprotective compounds have robust clinical evidence for liver support.",
+      "lifestyle_notes": "Reducing alcohol, processed foods, and environmental toxin exposure supports liver health."
+    },
+    {
+      "category": "Liver & Detoxification",
+      "name": "Enhance Natural Detoxification",
+      "description": "Support the body's innate detoxification pathways through lymphatic, hepatic, and renal-supportive plants.",
+      "desired_outcome": "Improved toxin elimination, clearer skin, and more energy",
+      "body_system": "Lymphatic system",
+      "evidence_summary": "Alterative herbs that support multiple detox organs have long traditions across herbal systems.",
+      "lifestyle_notes": "Adequate hydration, sweating through exercise or sauna, and fiber intake support detox pathways."
+    },
+    {
+      "category": "Respiratory Vitality",
+      "name": "Strengthen Lung Capacity",
+      "description": "Tonify respiratory tissue, improve oxygen exchange, and support deep, full breathing.",
+      "desired_outcome": "Greater breathing capacity, improved endurance, and clearer airways",
+      "body_system": "Respiratory system",
+      "evidence_summary": "Pulmonary tonic herbs have extensive traditional use for strengthening respiratory function.",
+      "lifestyle_notes": "Breathwork practices, regular aerobic exercise, and clean air exposure enhance lung health."
+    },
+    {
+      "category": "Respiratory Vitality",
+      "name": "Clear & Protect Airways",
+      "description": "Support healthy mucus production, clear congestion, and protect respiratory tissue from irritants.",
+      "desired_outcome": "Easier breathing, reduced congestion, and resilient respiratory passages",
+      "body_system": "Respiratory system",
+      "evidence_summary": "Expectorant and demulcent herbs effectively support airway clearance and protection.",
+      "lifestyle_notes": "Steam inhalation, nasal rinsing, and avoiding air pollutants complement herbal respiratory care."
+    },
+    {
+      "category": "Nervous System Balance",
+      "name": "Regulate Nervous System",
+      "description": "Support healthy autonomic nervous system function, including balanced sympathetic and parasympathetic activity.",
+      "desired_outcome": "Greater emotional stability, improved stress response, and calm alertness",
+      "body_system": "Nervous system",
+      "evidence_summary": "Nervine tonic herbs modulate neurotransmitter activity and support nervous system resilience.",
+      "lifestyle_notes": "Vagal toning exercises, meditation, and time in nature support nervous system regulation."
+    },
+    {
+      "category": "Nervous System Balance",
+      "name": "Support Nerve Health",
+      "description": "Nourish and protect nerve tissue, support myelin sheath integrity, and promote healthy nerve signaling.",
+      "desired_outcome": "Reduced tingling or numbness, improved nerve conduction, and neuroprotection",
+      "body_system": "Nervous system",
+      "evidence_summary": "Neuroprotective plants provide antioxidant protection and support nerve growth factors.",
+      "lifestyle_notes": "B-vitamin-rich foods, adequate omega-3 intake, and blood sugar stability support nerve health."
+    },
+    {
+      "category": "Stress Resilience",
+      "name": "Build Adaptive Capacity",
+      "description": "Strengthen the body's ability to adapt to physical, mental, and emotional stressors through adaptogenic support.",
+      "desired_outcome": "Greater resilience to stress, more even energy, and improved recovery from challenges",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Adaptogenic herbs have significant clinical evidence for modulating the HPA axis and stress hormones.",
+      "lifestyle_notes": "Regular sleep schedule, movement, and social connection are foundational for stress resilience."
+    },
+    {
+      "category": "Stress Resilience",
+      "name": "Calm the Stress Response",
+      "description": "Gently downregulate an overactive stress response and promote parasympathetic activation.",
+      "desired_outcome": "Reduced anxiety, lower cortisol, and a greater sense of ease",
+      "body_system": "Nervous system",
+      "evidence_summary": "Anxiolytic and nervine herbs effectively support calm without sedation.",
+      "lifestyle_notes": "Breathwork, progressive relaxation, and limiting stimulant intake enhance calming effects."
+    }
+    ,
+    {
+      "category": "Sleep & Rest",
+      "name": "Improve Sleep Quality",
+      "description": "Deepen sleep, reduce nighttime waking, and support restorative sleep cycles with sedative and relaxant herbs.",
+      "desired_outcome": "Falling asleep more easily, sleeping more deeply, and waking refreshed",
+      "body_system": "Nervous system",
+      "evidence_summary": "Several sedative herbs have clinical evidence for improving sleep latency and quality.",
+      "lifestyle_notes": "Consistent sleep schedule, dark bedroom, and limiting screens before bed enhance herbal sleep support."
+    },
+    {
+      "category": "Sleep & Rest",
+      "name": "Support Circadian Rhythm",
+      "description": "Help regulate the body's natural sleep-wake cycle and promote healthy melatonin production.",
+      "desired_outcome": "More consistent sleep timing and improved alignment with natural light cycles",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Certain herbs support the pineal gland and natural melatonin synthesis.",
+      "lifestyle_notes": "Morning sunlight exposure, consistent wake times, and avoiding blue light at night are essential."
+    },
+    {
+      "category": "Cognitive & Brain Support",
+      "name": "Enhance Memory & Focus",
+      "description": "Improve working memory, concentration, and mental clarity with nootropic and cerebrovascular plants.",
+      "desired_outcome": "Sharper recall, sustained focus, and clearer thinking",
+      "body_system": "Nervous system",
+      "evidence_summary": "Nootropic herbs like ginkgo and bacopa have clinical evidence for cognitive enhancement.",
+      "lifestyle_notes": "Mental exercises, adequate sleep, and regular physical activity support cognitive function."
+    },
+    {
+      "category": "Cognitive & Brain Support",
+      "name": "Protect Brain Health",
+      "description": "Provide neuroprotection against oxidative stress and age-related cognitive decline.",
+      "desired_outcome": "Long-term brain health preservation and reduced risk of cognitive decline",
+      "body_system": "Nervous system",
+      "evidence_summary": "Antioxidant and anti-inflammatory plants show neuroprotective effects in clinical and preclinical studies.",
+      "lifestyle_notes": "Mediterranean diet, social engagement, and lifelong learning support neuroprotection."
+    },
+    {
+      "category": "Mood & Emotional Balance",
+      "name": "Uplift Mood Naturally",
+      "description": "Support healthy serotonin and dopamine activity with plants that gently elevate mood.",
+      "desired_outcome": "More stable, positive mood and greater emotional resilience",
+      "body_system": "Nervous system",
+      "evidence_summary": "St. John's Wort and saffron have clinical evidence comparable to conventional mood support.",
+      "lifestyle_notes": "Regular exercise, sunlight exposure, and social connection are powerful mood supporters."
+    },
+    {
+      "category": "Mood & Emotional Balance",
+      "name": "Emotional Steadiness",
+      "description": "Reduce emotional volatility and support a calm, grounded emotional baseline.",
+      "desired_outcome": "Less reactivity, greater equanimity, and emotional clarity",
+      "body_system": "Nervous system",
+      "evidence_summary": "Nervine and adaptogenic herbs support emotional regulation through multiple pathways.",
+      "lifestyle_notes": "Mindfulness practice, journaling, and creative expression complement herbal emotional support."
+    },
+    {
+      "category": "Hormonal Harmony",
+      "name": "Balance Hormone Production",
+      "description": "Support healthy hormone synthesis and metabolism across the endocrine system.",
+      "desired_outcome": "More regular cycles, stable energy, and balanced mood related to hormonal function",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Phytoestrogenic and hormone-modulating herbs have clinical evidence for endocrine support.",
+      "lifestyle_notes": "Reducing endocrine disruptors, stress management, and adequate fat intake support hormonal health."
+    },
+    {
+      "category": "Hormonal Harmony",
+      "name": "Support Thyroid Function",
+      "description": "Nourish and modulate thyroid activity for balanced metabolic function.",
+      "desired_outcome": "Stable metabolism, healthy energy levels, and balanced body temperature",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Certain adaptogens and iodine-containing plants support thyroid regulation.",
+      "lifestyle_notes": "Selenium-rich foods, stress reduction, and avoiding goitrogens in excess complement thyroid support."
+    },
+    {
+      "category": "Bone & Joint Support",
+      "name": "Strengthen Bone Density",
+      "description": "Provide mineralizing support and promote osteoblast activity for strong, resilient bones.",
+      "desired_outcome": "Maintained or improved bone density and reduced fracture risk",
+      "body_system": "Skeletal system",
+      "evidence_summary": "Mineral-rich and silica-containing plants support bone matrix formation.",
+      "lifestyle_notes": "Weight-bearing exercise, adequate calcium and vitamin D, and K2 support bone health."
+    },
+    {
+      "category": "Bone & Joint Support",
+      "name": "Improve Joint Flexibility",
+      "description": "Reduce joint stiffness and inflammation while supporting cartilage health and synovial fluid production.",
+      "desired_outcome": "Greater range of motion, less stiffness, and more comfortable movement",
+      "body_system": "Musculoskeletal system",
+      "evidence_summary": "Anti-inflammatory and connective tissue-supporting herbs have evidence for joint health.",
+      "lifestyle_notes": "Gentle movement, stretching, and maintaining healthy weight reduce joint stress."
+    },
+    {
+      "category": "Muscle Recovery & Repair",
+      "name": "Accelerate Recovery",
+      "description": "Support faster muscle repair after exertion through anti-inflammatory and circulatory-enhancing plants.",
+      "desired_outcome": "Reduced soreness, faster return to activity, and improved tissue repair",
+      "body_system": "Musculoskeletal system",
+      "evidence_summary": "Anti-inflammatory and adaptogenic herbs support recovery by modulating inflammation and cortisol.",
+      "lifestyle_notes": "Adequate protein, sleep, and active recovery enhance muscle repair."
+    },
+    {
+      "category": "Muscle Recovery & Repair",
+      "name": "Reduce Muscle Tension",
+      "description": "Relax tight, overworked muscles and relieve spasms with antispasmodic and muscle-relaxant plants.",
+      "desired_outcome": "Less muscle tightness, reduced cramps, and greater physical comfort",
+      "body_system": "Musculoskeletal system",
+      "evidence_summary": "Antispasmodic herbs have traditional and clinical evidence for relieving muscle tension.",
+      "lifestyle_notes": "Magnesium-rich foods, stretching, and warm baths complement herbal muscle relaxation."
+    }
+    ,
+    {
+      "category": "Energy & Vitality",
+      "name": "Build Sustainable Energy",
+      "description": "Increase vitality and stamina without the crash of stimulants, using tonic and adaptogenic plants.",
+      "desired_outcome": "Steady, lasting energy throughout the day without depletion",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Adaptogenic and qi-tonic herbs have evidence for improving sustained energy and reducing fatigue.",
+      "lifestyle_notes": "Blood sugar stability, adequate hydration, and regular movement support sustained energy."
+    },
+    {
+      "category": "Energy & Vitality",
+      "name": "Overcome Fatigue",
+      "description": "Address the root causes of chronic tiredness through adrenal nourishment and mitochondrial support.",
+      "desired_outcome": "Reduced fatigue, improved motivation, and greater physical endurance",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Adrenal-supportive and mitochondrial-nourishing herbs address fatigue at multiple levels.",
+      "lifestyle_notes": "Sleep optimization, iron and B12 status, and pacing activity levels help resolve fatigue."
+    },
+    {
+      "category": "Longevity & Healthy Aging",
+      "name": "Support Cellular Health",
+      "description": "Provide antioxidant protection, support telomere health, and promote healthy cellular turnover.",
+      "desired_outcome": "Slower biological aging, reduced oxidative damage, and vibrant cellular function",
+      "body_system": "Immune system",
+      "evidence_summary": "Polyphenol-rich and antioxidant herbs have evidence for protecting against age-related cellular damage.",
+      "lifestyle_notes": "Caloric moderation, fasting protocols, and regular exercise support cellular longevity."
+    },
+    {
+      "category": "Longevity & Healthy Aging",
+      "name": "Graceful Aging",
+      "description": "Support the body's vitality and function across decades with rejuvenating rasayana and tonic herbs.",
+      "desired_outcome": "Maintained physical and cognitive function, vitality, and quality of life with age",
+      "body_system": "Endocrine system",
+      "evidence_summary": "Rasayana and longevity-tonic herbs from Ayurvedic and Chinese traditions have centuries of documented use.",
+      "lifestyle_notes": "Community engagement, purposeful living, and continued learning are longevity essentials."
+    },
+    {
+      "category": "Reproductive Wellness",
+      "name": "Support Fertility",
+      "description": "Nourish reproductive health and support hormonal conditions favorable for conception.",
+      "desired_outcome": "Improved reproductive function and hormonal readiness for conception",
+      "body_system": "Reproductive system",
+      "evidence_summary": "Reproductive-tonic herbs have traditional and emerging clinical evidence for fertility support.",
+      "lifestyle_notes": "Stress reduction, optimal body weight, and reducing environmental toxins support fertility."
+    },
+    {
+      "category": "Reproductive Wellness",
+      "name": "Enhance Libido",
+      "description": "Support healthy sexual desire and function through plants that nourish reproductive vitality.",
+      "desired_outcome": "Improved sexual desire, arousal, and satisfaction",
+      "body_system": "Reproductive system",
+      "evidence_summary": "Aphrodisiac herbs have traditional use and some clinical evidence for enhancing libido.",
+      "lifestyle_notes": "Stress management, adequate sleep, and relationship health support sexual vitality."
+    },
+    {
+      "category": "Kidney & Urinary Health",
+      "name": "Support Kidney Function",
+      "description": "Nourish and protect the kidneys with tonic herbs that support filtration and fluid balance.",
+      "desired_outcome": "Healthy kidney filtration, balanced fluid levels, and reduced kidney stress",
+      "body_system": "Urinary system",
+      "evidence_summary": "Kidney-tonic herbs from TCM and Western herbalism support renal function and protection.",
+      "lifestyle_notes": "Adequate hydration, moderate sodium, and avoiding nephrotoxic substances protect kidney health."
+    },
+    {
+      "category": "Kidney & Urinary Health",
+      "name": "Urinary Tract Health",
+      "description": "Maintain a healthy urinary tract and prevent infections through antimicrobial and anti-adhesion plants.",
+      "desired_outcome": "Reduced UTI frequency, comfortable urination, and healthy urinary flora",
+      "body_system": "Urinary system",
+      "evidence_summary": "Antimicrobial and diuretic herbs have clinical evidence for urinary tract support.",
+      "lifestyle_notes": "Adequate water intake, prompt urination, and proper hygiene support urinary health."
+    }
+  ],
+  "plant_wellness_mappings": [
+    {
+      "plant": "Nettle",
+      "goal": "Promote Hair Growth",
+      "mechanism": "Rich in silica, iron, and sulfur that nourish hair follicles and improve scalp circulation.",
+      "efficacy_notes": "Traditional hair tonic used as rinse or tea; supports growth through mineral delivery.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tea rinse on scalp 3x weekly, or 2-3 cups daily as infusion."
+    },
+    {
+      "plant": "Rosemary",
+      "goal": "Promote Hair Growth",
+      "mechanism": "Improves scalp microcirculation and stimulates hair follicle activity via carnosic acid.",
+      "efficacy_notes": "Rosemary oil shown comparable to minoxidil for hair growth in clinical trial.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Topical essential oil diluted in carrier oil, massaged into scalp daily."
+    },
+    {
+      "plant": "He Shou Wu",
+      "goal": "Promote Hair Growth",
+      "mechanism": "TCM kidney-jing tonic traditionally used to reverse premature graying and hair loss.",
+      "efficacy_notes": "Revered in Chinese medicine as a premier hair and longevity tonic.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Prepared (processed) form only; 3-6g daily as decoction."
+    },
+    {
+      "plant": "Amla",
+      "goal": "Strengthen Hair Structure",
+      "mechanism": "Extremely high vitamin C and tannin content strengthens hair shaft and adds shine.",
+      "efficacy_notes": "Used extensively in Ayurvedic hair care for strength and luster.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Hair oil or powder mask applied 1-2x weekly; 1-2 tsp powder daily internally."
+    },
+    {
+      "plant": "Nettle",
+      "goal": "Strengthen Hair Structure",
+      "mechanism": "Silica and mineral content supports keratin formation and hair resilience.",
+      "efficacy_notes": "Long-standing European tradition as a hair-strengthening herb.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Long infusion (4+ hours) provides maximum mineral extraction."
+    },
+    {
+      "plant": "Burdock",
+      "goal": "Improve Skin Clarity",
+      "mechanism": "Alterative that supports liver detoxification and blood purification, clearing skin from within.",
+      "efficacy_notes": "Traditional blood cleanser used for acne, eczema, and skin eruptions across multiple herbal traditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Root decoction 2-3 cups daily, or tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Calendula",
+      "goal": "Improve Skin Clarity",
+      "mechanism": "Anti-inflammatory and antimicrobial properties soothe and heal inflamed skin.",
+      "efficacy_notes": "Well-established wound healer and skin soother with clinical evidence for dermatological use.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Topical salve or wash applied 2-3x daily; tea used internally."
+    },
+    {
+      "plant": "Red Clover",
+      "goal": "Improve Skin Clarity",
+      "mechanism": "Alterative and blood-purifying properties support skin clarity; isoflavones benefit skin health.",
+      "efficacy_notes": "Traditional blood cleanser with emerging evidence for skin-supportive isoflavones.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Infusion 2-3 cups daily, or tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Sea Buckthorn",
+      "goal": "Support Skin Elasticity",
+      "mechanism": "Rich in omega-7 fatty acids that nourish skin from within, plus vitamins C and E for collagen support.",
+      "efficacy_notes": "Clinical evidence for improving skin hydration, elasticity, and wound healing.",
+      "evidence_level": "clinical",
+      "dosage_notes": "1-2 tsp oil daily internally, or topical application."
+    },
+    {
+      "plant": "Gotu Kola",
+      "goal": "Support Skin Elasticity",
+      "mechanism": "Triterpenoid saponins stimulate collagen synthesis and improve skin firmness.",
+      "efficacy_notes": "Clinical evidence for wound healing and collagen production; used in Ayurvedic and TCM skin care.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 60-120mg daily, or fresh leaf tea."
+    },
+    {
+      "plant": "Aloe Vera",
+      "goal": "Support Skin Elasticity",
+      "mechanism": "Mucopolysaccharides support moisture retention; promotes fibroblast activity for skin repair.",
+      "efficacy_notes": "Extensive clinical use for skin hydration, healing, and anti-aging.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Topical gel applied liberally; internal gel 1-2 tbsp daily."
+    },
+    {
+      "plant": "Eyebright",
+      "goal": "Protect Visual Acuity",
+      "mechanism": "Astringent and anti-inflammatory properties traditionally used to strengthen and protect eyes.",
+      "efficacy_notes": "Primary eye herb in Western tradition; used for centuries for all manner of eye complaints.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tea used as eyewash (strained and cooled) or taken internally 2-3 cups daily."
+    },
+    {
+      "plant": "Ginkgo",
+      "goal": "Protect Visual Acuity",
+      "mechanism": "Improves microcirculation to the retina and provides antioxidant protection to ocular tissues.",
+      "efficacy_notes": "Clinical evidence for improving retinal blood flow and supporting macular health.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 120-240mg daily in divided doses."
+    },
+    {
+      "plant": "Grape Seed",
+      "goal": "Protect Visual Acuity",
+      "mechanism": "Proanthocyanidins provide potent antioxidant protection for retinal tissues.",
+      "efficacy_notes": "Strong antioxidant activity with affinity for eye tissues; clinical evidence for visual fatigue.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 150-300mg daily."
+    },
+    {
+      "plant": "Chamomile",
+      "goal": "Reduce Eye Fatigue",
+      "mechanism": "Anti-inflammatory and soothing properties calm tired, irritated eyes.",
+      "efficacy_notes": "Traditional eye wash; widely used compress for eye strain and irritation.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Cooled tea bags as eye compress for 10-15 minutes."
+    },
+    {
+      "plant": "Clove",
+      "goal": "Strengthen Teeth & Gums",
+      "mechanism": "Eugenol provides powerful antimicrobial and analgesic action in the oral cavity.",
+      "efficacy_notes": "Dentistry's most traditional herbal remedy; eugenol is still used in dental materials.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Diluted clove oil applied topically to gums; whole cloves chewed gently."
+    },
+    {
+      "plant": "Myrrh",
+      "goal": "Strengthen Teeth & Gums",
+      "mechanism": "Astringent and antimicrobial resin tightens gum tissue and fights oral pathogens.",
+      "efficacy_notes": "Ancient oral remedy used across Egyptian, Greek, and Ayurvedic traditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tincture diluted as mouthwash, or myrrh-based toothpaste."
+    },
+    {
+      "plant": "Neem",
+      "goal": "Support Oral Microbiome",
+      "mechanism": "Broad-spectrum antimicrobial that targets oral pathogens while supporting healthy oral ecology.",
+      "efficacy_notes": "Neem sticks (datun) are one of the oldest oral hygiene tools; clinical evidence for plaque reduction.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Neem mouthwash or neem stick chewing; neem leaf tea."
+    },
+    {
+      "plant": "Sage",
+      "goal": "Support Oral Microbiome",
+      "mechanism": "Antimicrobial and astringent properties support healthy oral flora and reduce gum inflammation.",
+      "efficacy_notes": "Traditional European mouth rinse for sore throats and gum health.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Strong sage tea used as mouth rinse 2-3x daily."
+    },
+    {
+      "plant": "Hawthorn",
+      "goal": "Strengthen Heart Function",
+      "mechanism": "Flavonoids and oligomeric proanthocyanidins strengthen cardiac contractility and coronary blood flow.",
+      "efficacy_notes": "Among the most clinically studied cardiotonic herbs; used in European cardiology.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 160-900mg daily; berry tea 2-3 cups daily."
+    },
+    {
+      "plant": "Hibiscus",
+      "goal": "Strengthen Heart Function",
+      "mechanism": "Anthocyanins and organic acids support healthy blood pressure and vascular function.",
+      "efficacy_notes": "Multiple clinical trials show significant blood pressure reduction with daily use.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 2-3 cups daily using 1-2 tsp dried calyces per cup."
+    },
+    {
+      "plant": "Cayenne Pepper",
+      "goal": "Improve Circulation",
+      "mechanism": "Capsaicin dilates blood vessels and stimulates peripheral circulation immediately.",
+      "efficacy_notes": "Fastest-acting circulatory stimulant in the herbal repertoire.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Small pinch in warm water or food; tincture 5-10 drops in water."
+    },
+    {
+      "plant": "Ginger",
+      "goal": "Improve Circulation",
+      "mechanism": "Warming gingerols improve peripheral blood flow and reduce blood viscosity.",
+      "efficacy_notes": "Well-documented circulatory stimulant with extensive clinical evidence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Fresh root tea 2-3 cups daily, or 1-2g dried ginger daily."
+    },
+    {
+      "plant": "Ginkgo",
+      "goal": "Improve Circulation",
+      "mechanism": "Improves microcirculation and blood flow to brain and extremities via platelet-activating factor inhibition.",
+      "efficacy_notes": "One of the most clinically studied herbs for cerebral and peripheral circulation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 120-240mg daily."
+    },
+    {
+      "plant": "Astragalus",
+      "goal": "Build Immune Strength",
+      "mechanism": "Polysaccharides stimulate macrophage activity and increase T-cell proliferation.",
+      "efficacy_notes": "Premier immune tonic in Traditional Chinese Medicine with extensive clinical evidence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Decoction of dried root 9-15g daily; often simmered in soups."
+    },
+    {
+      "plant": "Reishi",
+      "goal": "Build Immune Strength",
+      "mechanism": "Beta-glucans and triterpenes modulate immune function, enhancing both innate and adaptive immunity.",
+      "efficacy_notes": "Revered as the 'mushroom of immortality'; strong clinical evidence for immunomodulation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 1-3g daily, or decoction simmered 2+ hours."
+    },
+    {
+      "plant": "Echinacea",
+      "goal": "Build Immune Strength",
+      "mechanism": "Alkylamides and polysaccharides activate macrophages and increase phagocytic activity.",
+      "efficacy_notes": "Most researched Western immune herb; best used at onset of illness or for prevention.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tincture 2-4ml 3x daily during acute phase; lower dose for maintenance."
+    },
+    {
+      "plant": "Elderberry",
+      "goal": "Reduce Infection Risk",
+      "mechanism": "Anthocyanins and lectins inhibit viral attachment and replication; boost cytokine production.",
+      "efficacy_notes": "Clinical evidence for reducing duration and severity of cold and flu infections.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Syrup 1 tbsp 2-4x daily during acute illness; 1 tbsp daily for prevention."
+    },
+    {
+      "plant": "Garlic",
+      "goal": "Reduce Infection Risk",
+      "mechanism": "Allicin provides broad-spectrum antimicrobial activity against bacteria, viruses, and fungi.",
+      "efficacy_notes": "One of nature's most potent antimicrobials with extensive clinical validation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "2-3 raw cloves daily (crushed, rested 10 min before use); aged garlic extract."
+    },
+    {
+      "plant": "Oregano",
+      "goal": "Reduce Infection Risk",
+      "mechanism": "Carvacrol and thymol are potent antimicrobials effective against a wide range of pathogens.",
+      "efficacy_notes": "Strong in vitro evidence for antimicrobial activity; traditional Mediterranean immune support.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Oil of oregano 2-3 drops in water 2-3x daily (short term); tea for milder use."
+    }
+    ,
+    {
+      "plant": "Turmeric",
+      "goal": "Reduce Chronic Inflammation",
+      "mechanism": "Curcumin inhibits NF-kB, COX-2, and multiple inflammatory pathways simultaneously.",
+      "efficacy_notes": "One of the most clinically studied anti-inflammatory botanicals in existence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized curcumin 500-1000mg daily with black pepper for absorption."
+    },
+    {
+      "plant": "Frankincense",
+      "goal": "Reduce Chronic Inflammation",
+      "mechanism": "Boswellic acids inhibit 5-lipoxygenase, a key enzyme in the inflammatory cascade.",
+      "efficacy_notes": "Clinical evidence for joint inflammation, gut inflammation, and respiratory inflammation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized boswellia extract 300-500mg 2-3x daily."
+    },
+    {
+      "plant": "Ginger",
+      "goal": "Reduce Chronic Inflammation",
+      "mechanism": "Gingerols and shogaols inhibit prostaglandin synthesis and reduce inflammatory cytokines.",
+      "efficacy_notes": "Clinical evidence for pain and inflammation reduction comparable to some NSAIDs.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Fresh root 2-4g daily; dried ginger 1-2g daily; tea 2-3 cups."
+    },
+    {
+      "plant": "Ashwagandha",
+      "goal": "Support Healthy Inflammatory Response",
+      "mechanism": "Withanolides modulate the immune system to produce appropriate but not excessive inflammation.",
+      "efficacy_notes": "Adaptogenic action helps calibrate inflammatory response to stressors.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300-600mg daily, or root powder 3-6g daily."
+    },
+    {
+      "plant": "Cat's Claw",
+      "goal": "Support Healthy Inflammatory Response",
+      "mechanism": "Pentacyclic oxindole alkaloids modulate NF-kB and support balanced immune activation.",
+      "efficacy_notes": "Traditional Amazonian immune modulator with clinical evidence for inflammatory balance.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 250-350mg daily; bark decoction 1-2 cups daily."
+    },
+    {
+      "plant": "Gentian",
+      "goal": "Improve Digestion & Absorption",
+      "mechanism": "Intensely bitter compounds stimulate digestive enzyme production and bile flow.",
+      "efficacy_notes": "The quintessential bitter digestive tonic; used in virtually every European bitter formula.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Bitter tincture 10-20 drops before meals; tea sipped 15 min before eating."
+    },
+    {
+      "plant": "Ginger",
+      "goal": "Improve Digestion & Absorption",
+      "mechanism": "Promotes gastric motility, stimulates digestive enzymes, and reduces nausea.",
+      "efficacy_notes": "One of the most versatile digestive herbs with extensive clinical evidence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Fresh ginger tea before or after meals; 1-2g dried ginger daily."
+    },
+    {
+      "plant": "Fennel",
+      "goal": "Improve Digestion & Absorption",
+      "mechanism": "Carminative volatile oils relax intestinal smooth muscle and reduce gas and bloating.",
+      "efficacy_notes": "Classic digestive carminative safe for all ages; widely used in Ayurveda and Western herbalism.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Chew seeds after meals, or tea 1-3 cups daily."
+    },
+    {
+      "plant": "Slippery Elm",
+      "goal": "Support Gut Lining Integrity",
+      "mechanism": "Mucilage coats and soothes inflamed mucous membranes throughout the digestive tract.",
+      "efficacy_notes": "One of the most effective demulcent herbs for gut lining repair; FDA-recognized.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Powder mixed with water as gruel, 1-2 tbsp 2-3x daily."
+    },
+    {
+      "plant": "Marshmallow",
+      "goal": "Support Gut Lining Integrity",
+      "mechanism": "Root mucilage forms a protective film over inflamed GI tissue, promoting healing.",
+      "efficacy_notes": "Traditional gut-soothing herb used for ulcers, gastritis, and intestinal inflammation.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Cold infusion (root soaked overnight) 2-3 cups daily; powder 2-5g daily."
+    },
+    {
+      "plant": "Milk Thistle",
+      "goal": "Support Liver Function",
+      "mechanism": "Silymarin protects hepatocytes from toxin damage and stimulates liver cell regeneration.",
+      "efficacy_notes": "The gold standard hepatoprotective herb with extensive clinical evidence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized silymarin extract 140-420mg daily in divided doses."
+    },
+    {
+      "plant": "Dandelion",
+      "goal": "Support Liver Function",
+      "mechanism": "Root stimulates bile production and flow; supports Phase I and Phase II detoxification.",
+      "efficacy_notes": "Traditional liver and digestive tonic used worldwide; root specifically for liver support.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Root decoction 2-3 cups daily, or roasted root as coffee substitute."
+    },
+    {
+      "plant": "Artichoke",
+      "goal": "Support Liver Function",
+      "mechanism": "Cynarin and chlorogenic acid protect liver cells and stimulate bile production.",
+      "efficacy_notes": "Clinical evidence for improving liver enzyme levels and lipid metabolism.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Leaf extract 320-640mg 3x daily before meals."
+    },
+    {
+      "plant": "Burdock",
+      "goal": "Enhance Natural Detoxification",
+      "mechanism": "Alterative that supports liver, lymphatic, and skin elimination pathways simultaneously.",
+      "efficacy_notes": "Classic blood cleanser in Western, TCM, and Ayurvedic traditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Root decoction 2-3 cups daily; tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Cleavers",
+      "goal": "Enhance Natural Detoxification",
+      "mechanism": "Lymphatic tonic that promotes fluid movement and waste clearance through the lymphatic system.",
+      "efficacy_notes": "Premier lymphatic herb in Western herbalism; supports kidney and skin elimination too.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Fresh juice 2-3 tbsp daily; cold infusion 2-3 cups daily."
+    },
+    {
+      "plant": "Mullein",
+      "goal": "Strengthen Lung Capacity",
+      "mechanism": "Saponins and mucilage tonify respiratory tissue and support healthy mucus production.",
+      "efficacy_notes": "One of the most widely used respiratory herbs across Western traditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tea 2-3 cups daily (strain well through cloth); tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Elecampane",
+      "goal": "Strengthen Lung Capacity",
+      "mechanism": "Inulin and alantolactone tonify respiratory tissue and have antimicrobial properties.",
+      "efficacy_notes": "Traditional pulmonary tonic especially valued for chronic respiratory conditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Root decoction 1-2 cups daily; tincture 1-3ml 3x daily."
+    },
+    {
+      "plant": "Eucalyptus",
+      "goal": "Clear & Protect Airways",
+      "mechanism": "1,8-cineole opens airways, thins mucus, and provides antimicrobial protection.",
+      "efficacy_notes": "Clinical evidence for relieving respiratory congestion and supporting airway clearance.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Steam inhalation with 3-5 drops essential oil; chest rub with diluted oil."
+    },
+    {
+      "plant": "Thyme",
+      "goal": "Clear & Protect Airways",
+      "mechanism": "Thymol and carvacrol are potent antimicrobials with expectorant and bronchospasmolytic action.",
+      "efficacy_notes": "Approved by German Commission E for bronchitis and upper respiratory infections.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 2-3 cups daily; tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Skullcap",
+      "goal": "Regulate Nervous System",
+      "mechanism": "Flavonoids bind to GABA receptors, calming nervous system excitability without heavy sedation.",
+      "efficacy_notes": "Premier nervine tonic for anxiety, nervous tension, and overstimulation.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tincture (fresh plant preferred) 2-4ml 3x daily; tea 2-3 cups daily."
+    },
+    {
+      "plant": "Lemon Balm",
+      "goal": "Regulate Nervous System",
+      "mechanism": "Rosmarinic acid and volatile oils calm the nervous system and improve mood.",
+      "efficacy_notes": "Clinical evidence for reducing anxiety and improving calm alertness.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 2-3 cups daily; tincture 2-4ml 3x daily; fresh leaves in food."
+    },
+    {
+      "plant": "Lion's Mane",
+      "goal": "Support Nerve Health",
+      "mechanism": "Hericenones and erinacines stimulate nerve growth factor (NGF) synthesis for nerve repair.",
+      "efficacy_notes": "Unique among medicinal mushrooms for directly supporting nerve regeneration; clinical evidence.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 500-1000mg 2x daily; powder 3-5g daily."
+    },
+    {
+      "plant": "Gotu Kola",
+      "goal": "Support Nerve Health",
+      "mechanism": "Asiaticoside supports nerve regeneration and improves nerve conduction velocity.",
+      "efficacy_notes": "Ayurvedic brain and nerve tonic with emerging clinical evidence for neuroprotection.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Fresh leaves 2-4 daily; standardized extract 60-120mg daily."
+    },
+    {
+      "plant": "Ashwagandha",
+      "goal": "Build Adaptive Capacity",
+      "mechanism": "Withanolides modulate the HPA axis, reducing cortisol and improving stress recovery.",
+      "efficacy_notes": "One of the most clinically studied adaptogens; significant evidence for stress resilience.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300-600mg daily; root powder 3-6g daily in warm milk."
+    },
+    {
+      "plant": "Rhodiola",
+      "goal": "Build Adaptive Capacity",
+      "mechanism": "Rosavins and salidroside enhance stress resistance and mental performance under pressure.",
+      "efficacy_notes": "Strong clinical evidence for reducing fatigue and improving performance during stress.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 200-400mg daily, taken in the morning."
+    },
+    {
+      "plant": "Holy Basil",
+      "goal": "Build Adaptive Capacity",
+      "mechanism": "Eugenol and ursolic acid normalize cortisol and support balanced stress response.",
+      "efficacy_notes": "Revered Ayurvedic adaptogen with clinical evidence for stress, anxiety, and fatigue.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 2-3 cups daily; extract 300-600mg daily."
+    },
+    {
+      "plant": "Passionflower",
+      "goal": "Calm the Stress Response",
+      "mechanism": "Chrysin and other flavonoids modulate GABA receptors, promoting calm without drowsiness.",
+      "efficacy_notes": "Clinical evidence for anxiety reduction comparable to some benzodiazepines.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 1-2 cups in the evening; tincture 2-4ml as needed."
+    },
+    {
+      "plant": "Lavender",
+      "goal": "Calm the Stress Response",
+      "mechanism": "Linalool and linalyl acetate reduce sympathetic nervous system activation and promote calm.",
+      "efficacy_notes": "Clinical evidence for anxiety reduction via oral supplementation and aromatherapy.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 1-2 cups daily; essential oil diffusion; oral capsule 80mg daily."
+    }
+    ,
+    {
+      "plant": "Valerian",
+      "goal": "Improve Sleep Quality",
+      "mechanism": "Valerenic acid increases GABA availability, promoting deep sleep without morning grogginess.",
+      "efficacy_notes": "Among the most studied sleep herbs; clinical evidence for improved sleep latency and quality.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tincture 2-5ml or extract 300-600mg, 30-60 minutes before bed."
+    },
+    {
+      "plant": "Chamomile",
+      "goal": "Improve Sleep Quality",
+      "mechanism": "Apigenin binds to benzodiazepine receptors, inducing mild sedation and relaxation.",
+      "efficacy_notes": "Gentle, widely tolerated sleep aid with clinical evidence for sleep quality improvement.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Strong tea (2-3 bags) 30 minutes before bed; extract 200-400mg."
+    },
+    {
+      "plant": "Hops",
+      "goal": "Improve Sleep Quality",
+      "mechanism": "2-methylbutenol acts as a mild sedative; synergizes with valerian for enhanced sleep effects.",
+      "efficacy_notes": "Clinical evidence especially strong when combined with valerian for sleep support.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tincture 1-2ml before bed; often combined with valerian."
+    },
+    {
+      "plant": "Ashwagandha",
+      "goal": "Support Circadian Rhythm",
+      "mechanism": "Regulates cortisol patterns, helping restore natural cortisol-melatonin cycling.",
+      "efficacy_notes": "Clinical evidence for normalizing sleep-wake cycles through HPA axis regulation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "300-600mg standardized extract in the evening."
+    },
+    {
+      "plant": "Ginkgo",
+      "goal": "Enhance Memory & Focus",
+      "mechanism": "Improves cerebral blood flow and provides antioxidant protection to brain tissue.",
+      "efficacy_notes": "One of the most studied nootropic herbs with evidence for memory and concentration.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 120-240mg daily in divided doses."
+    },
+    {
+      "plant": "Brahmi",
+      "goal": "Enhance Memory & Focus",
+      "mechanism": "Bacosides enhance synaptic communication and support memory consolidation.",
+      "efficacy_notes": "Ayurvedic nootropic with strong clinical evidence for memory, learning, and focus.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300-450mg daily; traditionally taken with ghee."
+    },
+    {
+      "plant": "Rosemary",
+      "goal": "Enhance Memory & Focus",
+      "mechanism": "1,8-cineole and carnosic acid improve cerebral circulation and acetylcholine availability.",
+      "efficacy_notes": "Traditional memory herb; clinical evidence for improved cognitive performance and alertness.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 1-2 cups daily; aromatherapy inhalation; fresh herb in cooking."
+    },
+    {
+      "plant": "Lion's Mane",
+      "goal": "Protect Brain Health",
+      "mechanism": "Promotes nerve growth factor synthesis, supporting neuroplasticity and neuroprotection.",
+      "efficacy_notes": "Unique neuroprotective mushroom with clinical evidence for cognitive preservation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 500-1000mg 2x daily; whole fruiting body in cooking."
+    },
+    {
+      "plant": "Turmeric",
+      "goal": "Protect Brain Health",
+      "mechanism": "Curcumin crosses the blood-brain barrier, reducing neuroinflammation and amyloid plaque formation.",
+      "efficacy_notes": "Emerging clinical evidence for neuroprotection and cognitive preservation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Curcumin extract 500-1000mg daily with piperine for absorption."
+    },
+    {
+      "plant": "St. John's Wort",
+      "goal": "Uplift Mood Naturally",
+      "mechanism": "Hypericin and hyperforin modulate serotonin, dopamine, and norepinephrine reuptake.",
+      "efficacy_notes": "Clinical evidence comparable to SSRIs for mild-to-moderate mood support.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300mg 3x daily. Important: many drug interactions."
+    },
+    {
+      "plant": "Saffron",
+      "goal": "Uplift Mood Naturally",
+      "mechanism": "Crocin and safranal modulate serotonergic and dopaminergic pathways.",
+      "efficacy_notes": "Multiple clinical trials show efficacy comparable to conventional mood support medications.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 30mg daily, or culinary use of stigmas."
+    },
+    {
+      "plant": "Lemon Balm",
+      "goal": "Emotional Steadiness",
+      "mechanism": "Rosmarinic acid inhibits GABA transaminase, increasing calming GABA availability.",
+      "efficacy_notes": "Clinical evidence for reducing agitation and improving emotional stability.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea 2-3 cups daily; tincture 2-4ml 3x daily."
+    },
+    {
+      "plant": "Rose",
+      "goal": "Emotional Steadiness",
+      "mechanism": "Volatile oils and flavonoids support heart-centered calm and emotional opening.",
+      "efficacy_notes": "Traditional heart herb across Persian, Ayurvedic, and Western traditions for emotional balance.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Rose petal tea 2-3 cups daily; rose water; rose hip tea."
+    },
+    {
+      "plant": "Chaste Tree",
+      "goal": "Balance Hormone Production",
+      "mechanism": "Iridoid glycosides modulate prolactin and support progesterone balance through pituitary action.",
+      "efficacy_notes": "Clinical evidence for PMS, cycle irregularity, and hormonal balance.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 20-40mg daily in the morning; tincture 1-3ml daily."
+    },
+    {
+      "plant": "Maca",
+      "goal": "Balance Hormone Production",
+      "mechanism": "Macamides and macaenes support endocrine function without directly containing hormones.",
+      "efficacy_notes": "Clinical evidence for hormonal balance, libido, and menopausal symptom relief.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Gelatinized powder 1.5-3g daily; traditionally cooked, not raw."
+    },
+    {
+      "plant": "Ashwagandha",
+      "goal": "Support Thyroid Function",
+      "mechanism": "May support thyroid hormone synthesis through HPA-HPT axis normalization.",
+      "efficacy_notes": "Clinical evidence for subclinical hypothyroid support; use cautiously with hyperthyroidism.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300-600mg daily. Monitor thyroid levels."
+    },
+    {
+      "plant": "Nettle",
+      "goal": "Strengthen Bone Density",
+      "mechanism": "Rich in calcium, magnesium, silica, and vitamin K — key minerals for bone matrix formation.",
+      "efficacy_notes": "Long infusions provide highly bioavailable minerals for bone support.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Long infusion (4+ hours) 2-3 cups daily for maximum mineral extraction."
+    },
+    {
+      "plant": "Comfrey",
+      "goal": "Strengthen Bone Density",
+      "mechanism": "Allantoin promotes bone cell proliferation and accelerates fracture healing.",
+      "efficacy_notes": "Traditional bone-knitting herb; the name 'comfrey' derives from Latin for 'knit together.'",
+      "evidence_level": "traditional",
+      "dosage_notes": "Topical use only (poultice or salve on unbroken skin); internal use not recommended."
+    },
+    {
+      "plant": "Turmeric",
+      "goal": "Improve Joint Flexibility",
+      "mechanism": "Curcumin reduces joint inflammation and protects cartilage from degradation.",
+      "efficacy_notes": "Clinical evidence for improving joint comfort and mobility, comparable to some NSAIDs.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Curcumin extract 500-1000mg daily with piperine."
+    },
+    {
+      "plant": "Devil's Claw",
+      "goal": "Improve Joint Flexibility",
+      "mechanism": "Harpagoside reduces inflammation and pain in joints, supporting comfortable movement.",
+      "efficacy_notes": "Clinical evidence for joint pain and stiffness, particularly in osteoarthritis.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract providing 50-100mg harpagoside daily."
+    },
+    {
+      "plant": "Arnica",
+      "goal": "Accelerate Recovery",
+      "mechanism": "Sesquiterpene lactones reduce inflammation and promote tissue repair after physical stress.",
+      "efficacy_notes": "Clinical evidence for reducing post-exercise soreness and bruising. Topical use only.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Topical gel or cream applied to sore areas 2-3x daily. Do not use on broken skin."
+    },
+    {
+      "plant": "Turmeric",
+      "goal": "Accelerate Recovery",
+      "mechanism": "Curcumin reduces exercise-induced inflammation and oxidative stress, speeding recovery.",
+      "efficacy_notes": "Clinical evidence for reduced DOMS and faster return to baseline after exercise.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Curcumin extract 500mg before and after exercise."
+    },
+    {
+      "plant": "Cramp Bark",
+      "goal": "Reduce Muscle Tension",
+      "mechanism": "Viopudial and scopoletin relax smooth and skeletal muscle, reducing spasms.",
+      "efficacy_notes": "Traditional antispasmodic; valued for menstrual cramps, back spasms, and general muscle tension.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tincture 2-4ml 3x daily; bark decoction 1-2 cups daily."
+    },
+    {
+      "plant": "Valerian",
+      "goal": "Reduce Muscle Tension",
+      "mechanism": "Valerenic acid and isovaleric acid have muscle-relaxant properties via GABA modulation.",
+      "efficacy_notes": "Known primarily for sleep but also effective for muscle relaxation and tension.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tincture 2-4ml as needed; tea 1-2 cups for muscle tension."
+    },
+    {
+      "plant": "Cordyceps",
+      "goal": "Build Sustainable Energy",
+      "mechanism": "Cordycepin supports ATP production and improves oxygen utilization at the cellular level.",
+      "efficacy_notes": "Clinical evidence for improved exercise performance, oxygen uptake, and reduced fatigue.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 1-3g daily; traditionally simmered as tea."
+    },
+    {
+      "plant": "Rhodiola",
+      "goal": "Build Sustainable Energy",
+      "mechanism": "Rosavins enhance mitochondrial energy production and reduce mental and physical fatigue.",
+      "efficacy_notes": "Clinical evidence for improving energy, endurance, and reducing fatigue without stimulation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 200-400mg in the morning."
+    },
+    {
+      "plant": "Maca",
+      "goal": "Build Sustainable Energy",
+      "mechanism": "Macamides support sustained energy through adrenal and endocrine nourishment.",
+      "efficacy_notes": "Traditional Andean energy food with clinical evidence for improved stamina and vitality.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Gelatinized powder 1.5-3g daily in smoothies or warm drinks."
+    },
+    {
+      "plant": "Ashwagandha",
+      "goal": "Overcome Fatigue",
+      "mechanism": "Reduces cortisol, supports adrenal function, and improves mitochondrial health.",
+      "efficacy_notes": "Clinical evidence for significant reductions in fatigue and improved energy levels.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Standardized extract 300-600mg daily."
+    },
+    {
+      "plant": "Schisandra",
+      "goal": "Overcome Fatigue",
+      "mechanism": "Lignans enhance cellular energy production and protect against oxidative stress-induced fatigue.",
+      "efficacy_notes": "Traditional Chinese adaptogen for exhaustion; clinical evidence for physical and mental endurance.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Dried berries 1-3g daily as tea; tincture 2-4ml 2x daily."
+    },
+    {
+      "plant": "Reishi",
+      "goal": "Support Cellular Health",
+      "mechanism": "Triterpenes and polysaccharides provide antioxidant protection and support immune surveillance.",
+      "efficacy_notes": "Revered longevity mushroom in TCM with evidence for cellular protection and immune modulation.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 1-3g daily; dual extraction (water + alcohol) for full compound profile."
+    },
+    {
+      "plant": "Green Tea",
+      "goal": "Support Cellular Health",
+      "mechanism": "EGCG is a potent antioxidant that protects cells from oxidative damage and supports autophagy.",
+      "efficacy_notes": "Extensive epidemiological and clinical evidence for cellular protection and healthy aging.",
+      "evidence_level": "clinical",
+      "dosage_notes": "2-4 cups daily; matcha provides higher EGCG concentration."
+    },
+    {
+      "plant": "He Shou Wu",
+      "goal": "Graceful Aging",
+      "mechanism": "Traditional kidney-jing tonic believed to preserve vitality and delay aging signs.",
+      "efficacy_notes": "Premier longevity herb in TCM; supports hair, bones, reproductive function, and vitality.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Prepared (zhi) form only; 3-6g daily as decoction. Avoid raw form."
+    },
+    {
+      "plant": "Astragalus",
+      "goal": "Graceful Aging",
+      "mechanism": "Cycloastragenol may support telomerase activity; polysaccharides enhance immune longevity.",
+      "efficacy_notes": "Traditional Chinese longevity tonic with emerging telomere research.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Dried root 9-15g daily in soups or decoctions."
+    },
+    {
+      "plant": "Shatavari",
+      "goal": "Support Fertility",
+      "mechanism": "Steroidal saponins nourish reproductive tissues and support healthy ovulatory cycles.",
+      "efficacy_notes": "Premier Ayurvedic female reproductive tonic; name means 'she who possesses 100 husbands.'",
+      "evidence_level": "traditional",
+      "dosage_notes": "Root powder 3-6g daily in warm milk; extract 500mg 2x daily."
+    },
+    {
+      "plant": "Maca",
+      "goal": "Support Fertility",
+      "mechanism": "Supports hormonal balance and reproductive function in both men and women.",
+      "efficacy_notes": "Clinical evidence for improved sperm parameters and hormonal fertility markers.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Gelatinized powder 2-3g daily for at least 3 months."
+    },
+    {
+      "plant": "Damiana",
+      "goal": "Enhance Libido",
+      "mechanism": "Flavonoids and volatile oils have traditional aphrodisiac and reproductive tonic properties.",
+      "efficacy_notes": "Traditional Mesoamerican aphrodisiac with some clinical support for sexual function.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tea 1-2 cups daily; tincture 2-4ml 2x daily."
+    },
+    {
+      "plant": "Muira Puama",
+      "goal": "Enhance Libido",
+      "mechanism": "Lupeol and other compounds support sexual desire and function through multiple pathways.",
+      "efficacy_notes": "Amazonian potency herb with clinical evidence for sexual function improvement.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Extract 1-1.5g daily; bark decoction 1-2 cups daily."
+    },
+    {
+      "plant": "Nettle",
+      "goal": "Support Kidney Function",
+      "mechanism": "Gentle diuretic action supports kidney filtration without depleting potassium.",
+      "efficacy_notes": "Traditional kidney-supportive herb used across European herbal traditions.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Leaf tea 2-3 cups daily; seed tincture for more direct kidney support."
+    },
+    {
+      "plant": "Uva Ursi",
+      "goal": "Urinary Tract Health",
+      "mechanism": "Arbutin converts to hydroquinone in alkaline urine, providing targeted urinary antimicrobial action.",
+      "efficacy_notes": "Clinical evidence for preventing recurrent UTIs; traditional urinary antiseptic.",
+      "evidence_level": "clinical",
+      "dosage_notes": "Tea or extract providing 400-800mg arbutin daily. Short-term use only (1-2 weeks)."
+    },
+    {
+      "plant": "Buchu",
+      "goal": "Urinary Tract Health",
+      "mechanism": "Diosphenol and volatile oils provide antiseptic and anti-inflammatory support to the urinary tract.",
+      "efficacy_notes": "Traditional South African urinary remedy with antimicrobial properties.",
+      "evidence_level": "traditional",
+      "dosage_notes": "Tea 2-3 cups daily; tincture 2-4ml 3x daily."
+    }
+  ]
+}

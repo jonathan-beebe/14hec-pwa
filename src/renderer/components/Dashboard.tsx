@@ -215,6 +215,50 @@ export default function Dashboard({ navigate }: DashboardProps) {
         ))}
       </div>
 
+      {/* Wellness Goals Card */}
+      <div className="mb-8">
+        <button
+          onClick={() => navigate({ view: 'wellness' })}
+          className="w-full text-left cursor-pointer group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ease-out-expo"
+          style={{
+            background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, rgba(13, 12, 20, 0.85) 40%, rgba(34, 197, 94, 0.03) 100%)',
+            border: '1px solid rgba(74, 222, 128, 0.08)',
+            boxShadow: 'inset 0 1px 0 0 rgba(74, 222, 128, 0.04), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(74, 222, 128, 0.15)';
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(74, 222, 128, 0.08)';
+            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+          }}
+        >
+          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
+               style={{ background: 'rgba(74, 222, 128, 0.04)', filter: 'blur(60px)' }} />
+          <div className="relative flex items-center gap-5">
+            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(74, 222, 128, 0.02))',
+                   border: '1px solid rgba(74, 222, 128, 0.1)'
+                 }}>
+              {'\u2740'}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-display font-semibold text-gradient-botanical group-hover:opacity-90 transition-opacity">
+                Wellness Goals
+              </div>
+              <p className="text-[11px] text-earth-400 mt-1 leading-relaxed">
+                Explore plants by what you want to improve {'\u2014'} hair growth, immunity, sleep, cognition, and more
+              </p>
+            </div>
+            <div className="text-earth-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+              {'\u2192'}
+            </div>
+          </div>
+        </button>
+      </div>
+
       {/* Feature Cards — Botanical */}
       <div className="grid grid-cols-4 gap-3 mb-8">
         {[
