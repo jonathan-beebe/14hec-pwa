@@ -32,7 +32,8 @@ function createSchema(): void {
     '002-body-systems.sql',
     '003-teachings-journal.sql',
     '004-presence-energetics.sql',
-    '005-wellness-goals.sql'
+    '005-ethical-practice.sql',
+    '006-wellness-goals.sql'
   ]
 
   for (const migration of migrations) {
@@ -50,8 +51,11 @@ function createSchema(): void {
 }
 
 function getEmbeddedSchema(migration: string): string {
-  if (migration === '005-wellness-goals.sql') {
+  if (migration === '006-wellness-goals.sql') {
     return getEmbeddedWellnessGoalsSchema()
+  }
+  if (migration === '005-ethical-practice.sql') {
+    return getEmbeddedEthicalPracticeSchema()
   }
   if (migration === '004-presence-energetics.sql') {
     return getEmbeddedPresenceSchema()
@@ -341,6 +345,57 @@ CREATE INDEX IF NOT EXISTS idx_teachings_plant ON plant_teachings(plant_id);
 CREATE INDEX IF NOT EXISTS idx_journal_prompts_plant ON journal_prompts(plant_id);
 CREATE INDEX IF NOT EXISTS idx_journal_entries_plant ON journal_entries(plant_id);
 CREATE INDEX IF NOT EXISTS idx_journal_entries_date ON journal_entries(entry_date);
+  `
+}
+
+function getEmbeddedEthicalPracticeSchema(): string {
+  return `
+-- Ethical Plant Medicine Practice: comprehensive guidance for safe, respectful,
+-- and culturally aware engagement with plant medicines
+CREATE TABLE IF NOT EXISTS ethical_practice (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  plant_id INTEGER NOT NULL UNIQUE REFERENCES plants(id),
+  use_context_daily TEXT,
+  use_context_practitioner TEXT,
+  use_context_ceremonial TEXT,
+  use_context_group_vs_private TEXT,
+  cultural_respect_notes TEXT,
+  misuse_risks TEXT,
+  facilitator_qualifications TEXT,
+  facilitator_qualities TEXT,
+  facilitator_red_flags TEXT,
+  preparation_framework TEXT,
+  physiological_contraindications TEXT,
+  psychological_considerations TEXT,
+  environmental_considerations TEXT,
+  dosage_sensitivity TEXT,
+  interaction_notes TEXT,
+  contraindication_severity TEXT,
+  native_ecosystems TEXT,
+  wildcrafted_vs_cultivated TEXT,
+  sustainable_harvesting TEXT,
+  ethical_sourcing_concerns TEXT,
+  sourcing_standards TEXT,
+  traditional_preparation TEXT,
+  modern_preparation TEXT,
+  preparation_potency_notes TEXT,
+  intentional_practices TEXT,
+  psychospiritual_effects TEXT,
+  archetypal_resonance TEXT,
+  nervous_system_influence TEXT,
+  consciousness_interaction TEXT,
+  spirit_teaching TEXT,
+  integration_body TEXT,
+  integration_heart TEXT,
+  integration_mind TEXT,
+  integration_spirit TEXT,
+  healthy_integration_signs TEXT,
+  incomplete_integration_signs TEXT,
+  when_to_seek_support TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_ethical_practice_plant ON ethical_practice(plant_id);
   `
 }
 

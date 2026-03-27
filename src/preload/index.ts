@@ -32,10 +32,14 @@ const api = {
   getBodySystemByName: (name: string) => ipcRenderer.invoke('db:bodySystems:getByName', name),
 
   // Plant Teachings
+  getAllTeachings: () => ipcRenderer.invoke('db:teachings:getAll'),
   getTeachingsByPlantId: (plantId: number) => ipcRenderer.invoke('db:teachings:getByPlantId', plantId),
 
   // Plant Presence Energetics
   getPresenceByPlantId: (plantId: number) => ipcRenderer.invoke('db:presence:getByPlantId', plantId),
+
+  // Ethical Practice
+  getEthicalPracticeByPlantId: (plantId: number) => ipcRenderer.invoke('db:ethicalPractice:getByPlantId', plantId),
 
   // Journal
   getJournalPrompts: (filters?: any) => ipcRenderer.invoke('db:journal:getPrompts', filters),

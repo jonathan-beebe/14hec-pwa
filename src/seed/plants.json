@@ -206,6 +206,70 @@
         "efficacy_notes": "Withaferin A inhibits NF-kB signaling and reduces inflammatory cytokines. Supports joint health and systemic inflammation reduction.",
         "evidence_level": "clinical",
         "dosage_notes": "300-600mg standardized root extract, twice daily with food. Combine with anti-inflammatory diet for best results."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Withanolides provide neuroprotective and immunomodulatory effects, helping regulate the overactive immune response characteristic of MS.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 300-600 mg extract, twice daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical studies show ashwagandha normalizes TSH and T4 levels in subclinical hypothyroidism, supporting thyroid function in Hashimoto's.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Stimulates thyroid hormone production by enhancing T4 to T3 conversion. Clinical trials show significant improvements in TSH and T4 levels.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Adaptogenic and anti-inflammatory effects address the HPA axis dysfunction and widespread pain characteristic of fibromyalgia.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Adaptogenic support for HPA axis dysfunction and mitochondrial energy production, addressing core fatigue mechanisms in CFS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Premier adaptogen for restoring HPA axis function and normalizing cortisol rhythms disrupted by chronic stress.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Immunomodulatory withanolides help regulate overactive immune responses while supporting overall vitality.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical evidence for reducing anxiety and stress-related psychiatric symptoms through GABAergic and serotonergic modulation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-600 mg root extract twice daily. Use as adjunct under psychiatric supervision."
       }
     ],
     "compound_names": [
@@ -572,6 +636,30 @@
         "efficacy_notes": "Indica-leaning cultivars and CBN-rich preparations promote sleep onset and duration. Most effective for pain-related or anxiety-related insomnia.",
         "evidence_level": "clinical",
         "dosage_notes": "5-15mg THC (indica-dominant tincture) or 5mg CBN, taken 1 hour before bed. Tolerance can develop with nightly use."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "Cannabinoids reduce spasticity, neuropathic pain, and neuroinflammation. Sativex (THC:CBD) is approved for MS spasticity in many countries.",
+        "evidence_level": "clinical",
+        "dosage_notes": "Dose varies; start low with 2.5-5 mg THC:CBD, titrate gradually under guidance."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "Cannabinoids modulate pain signaling and improve sleep quality, with growing clinical evidence for fibromyalgia symptom relief.",
+        "evidence_level": "clinical",
+        "dosage_notes": "Dose varies; start low with 2.5-5 mg, titrate under guidance."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "CBD (cannabidiol) has FDA-approved clinical evidence for reducing seizure frequency in treatment-resistant epilepsy.",
+        "evidence_level": "clinical",
+        "dosage_notes": "CBD: dosing varies, typically 5-20 mg/kg/day. Must work with prescribing physician."
       }
     ],
     "compound_names": [
@@ -694,6 +782,70 @@
         "efficacy_notes": "Regular chamomile use reduces cortisol and promotes parasympathetic nervous system activation. The ritual of tea preparation itself contributes to stress reduction.",
         "evidence_level": "clinical",
         "dosage_notes": "30-60 drops tincture in warm water, 2-3 times daily. Or 2-4 cups of tea throughout the day."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and antispasmodic properties soothe intestinal inflammation and reduce cramping associated with celiac flares.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and antispasmodic properties soothe intestinal inflammation and reduce cramping.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and antispasmodic properties soothe colonic inflammation and reduce bloody diarrhea frequency.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Antispasmodic and carminative properties reduce intestinal cramping, bloating, and gas characteristic of IBS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming nervine that reduces irritability and emotional reactivity through gentle sedative and anti-inflammatory effects.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-4 cups daily."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle calming herb suitable for all ages that promotes restful sleep and reduces nighttime anxiety.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink before bed."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle nervine and digestive aid that soothes pregnancy-related anxiety, insomnia, and digestive discomfort.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10 minutes. Drink 1-2 cups daily."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle calming herb safe during breastfeeding that reduces stress and may help with infant colic through breast milk.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10 minutes. Drink 1-3 cups daily."
       }
     ],
     "compound_names": [
@@ -904,6 +1056,22 @@
         "efficacy_notes": "Infused oil applied topically accelerates wound closure, reduces inflammation, and supports nerve repair. Particularly effective for burns, bruises, and nerve-rich areas.",
         "evidence_level": "clinical",
         "dosage_notes": "Apply St. John's Wort infused oil directly to clean wounds, burns, or areas of nerve pain 2-3 times daily. Avoid sun exposure on treated areas."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "Addresses the depression and nerve pain components of fibromyalgia through serotonin modulation and anti-inflammatory effects.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 300 mg extract standardized to 0.3% hypericin, 3 times daily."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "Well-established clinical evidence for mild to moderate depression, with efficacy comparable to SSRIs in trials.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300 mg extract standardized to 0.3% hypericin, 3 times daily. Monitor drug interactions carefully."
       }
     ],
     "compound_names": [
@@ -1019,6 +1187,30 @@
         "efficacy_notes": "The aromatic and energetic qualities of lavender reduce cortisol and promote parasympathetic activation. Flower essence works on the subtle body to release tension patterns.",
         "evidence_level": "clinical",
         "dosage_notes": "4 drops flower essence under the tongue, 4 times daily. Or add 5-10 drops essential oil to a warm bath for full-body stress relief."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anxiolytic and calming effects reduce emotional volatility and promote a sense of peace and equanimity.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming aromatherapy and internal use promotes peaceful sleep and reduces the nervous system hyperarousal behind night terrors.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10 minutes. Also effective as pillow sachet or essential oil."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "flower",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical trials show Silexan (lavender oil capsules) reduces anxiety comparable to lorazepam without sedation or dependence.",
+        "evidence_level": "clinical",
+        "dosage_notes": "80-160 mg lavender oil capsules daily, or 1-2 cups lavender tea daily."
       }
     ],
     "compound_names": [
@@ -1135,6 +1327,46 @@
         "efficacy_notes": "Iron and vitamin K content support healthy menstrual flow. Astringent action helps reduce excessive bleeding while minerals replenish what is lost.",
         "evidence_level": "traditional",
         "dosage_notes": "2-3 cups nettle infusion daily throughout the menstrual cycle. Especially important during and after menstruation to replenish iron stores."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory lectins and minerals support joint health and reduce inflammatory markers. Topical sting therapy also used traditionally.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle diuretic and kidney tonic that supports renal function without overstressing damaged kidneys.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Rich in vitamin K and iron, supports healthy blood clotting and rebuilds blood after hemorrhagic episodes.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Nutrient-dense pregnancy tonic rich in iron, calcium, and vitamin K, supporting blood building and fetal development.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 1-2 cups daily."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Nutrient-dense herb rich in iron and minerals that supports milk production and maternal nutrition during lactation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -1250,6 +1482,14 @@
         "efficacy_notes": "Rose hips provide exceptionally high vitamin C content, supporting immune function and collagen production. Antioxidant carotenoids further bolster immune resilience.",
         "evidence_level": "clinical",
         "dosage_notes": "1-2 teaspoons crushed dried rose hips per cup, simmered gently 10-15 minutes. Strain carefully. Drink 2-3 cups daily during cold season."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Opens the heart center and softens emotional reactivity, transforming anger into compassion through subtle vibrational medicine.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried rose petals per cup, steeped 10 minutes. Drink mindfully."
       }
     ],
     "compound_names": [
@@ -1359,6 +1599,14 @@
         "efficacy_notes": "By decongestanting the liver and improving nutrient assimilation, dandelion root addresses a common root cause of chronic fatigue. The roasted root also serves as a nourishing caffeine-free coffee alternative.",
         "evidence_level": "traditional",
         "dosage_notes": "Roasted dandelion root decoction: 1-2 tablespoons per cup, simmered 10-15 minutes. Drink 1-2 cups daily as a coffee substitute."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Supports liver detoxification, increases bile production, and provides gentle hepatoprotective effects.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried root simmered 10 minutes, 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -1567,6 +1815,54 @@
         "efficacy_notes": "Calms the sympathetic nervous system overdrive characteristic of chronic stress. Reduces muscle tension and nervous agitation without causing grogginess.",
         "evidence_level": "clinical",
         "dosage_notes": "30-60 drops tincture in water, 2-3 times daily during periods of heightened stress."
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming nervine that addresses the anxiety, insomnia, and nervous tension characteristic of hyperthyroid states.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming nervine that improves sleep quality and reduces the anxiety that amplifies pain perception in fibromyalgia.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink before bed."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "GABAergic action calms nervous agitation and reduces the physiological arousal underlying anger responses.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 1-2 cups tea, 2-3 times daily."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "GABAergic action promotes deeper, more stable sleep patterns and reduces the arousal disturbances underlying night terrors.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, taken 30-60 minutes before bed."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Chrysin and other flavonoids enhance GABA activity, raising the seizure threshold and calming neuronal hyperexcitability.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily. Use as adjunct under medical supervision."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "GABAergic anxiolytic with clinical evidence for generalized anxiety disorder, comparable to oxazepam in one trial.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -1673,6 +1969,14 @@
         "efficacy_notes": "Chamazulene provides anti-inflammatory action similar to chamomile. The diaphoretic quality helps resolve inflammatory processes by opening the channels of elimination.",
         "evidence_level": "traditional",
         "dosage_notes": "1-2 teaspoons dried flowering tops per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Premier hemostatic herb that both stops bleeding and supports healthy blood clotting through styptic and astringent actions.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -1783,6 +2087,78 @@
         "efficacy_notes": "Anti-inflammatory and analgesic properties address both the inflammatory and pain-signaling components of chronic pain. Particularly effective for musculoskeletal and arthritic pain.",
         "evidence_level": "clinical",
         "dosage_notes": "30-60 drops tincture, 2-3 times daily. Topical: apply ginger compress (cloth soaked in strong ginger decoction) to painful areas for 20 minutes."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Warming circulatory stimulant that promotes peripheral blood flow and reduces platelet aggregation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 inches fresh root simmered for 10 minutes, or 500 mg dried ginger, 2-3 times daily."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and prokinetic effects reduce nausea and intestinal inflammation while supporting nutrient absorption.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 inches fresh root steeped in hot water for 10 minutes, or 500 mg dried ginger. 2-3 times daily."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Reduces prostaglandin-mediated pain and inflammation. Clinical studies show efficacy comparable to NSAIDs for menstrual pain.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g fresh or dried ginger in tea, 2-3 times daily, especially during painful episodes."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Inhibits prostaglandins and leukotrienes, reducing joint inflammation and pain. Multiple trials confirm benefit in inflammatory arthritis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g dried ginger daily, or 250 mg extract 4 times daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory action with emerging research showing benefit in reducing neutrophil extracellular trap formation in lupus.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 inches fresh root steeped for 10 minutes, 2-3 cups daily."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Warming herb that supports thyroid function and improves the sluggish metabolism characteristic of hypothyroidism.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 inches fresh root steeped 10 minutes, 2-3 cups daily."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Anti-inflammatory and analgesic properties help reduce widespread muscular pain and stiffness.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried ginger daily, or fresh ginger tea 2-3 times daily."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Prokinetic and anti-nausea effects support healthy gut motility and reduce IBS-related nausea and discomfort.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 inches fresh root steeped 10 minutes, 2-3 cups daily."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "root",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Clinically proven to reduce pregnancy-related nausea and vomiting (morning sickness) safely in the first trimester.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1 g fresh ginger or 250 mg extract, up to 4 times daily. Do not exceed 1-2 g dried ginger daily."
       }
     ],
     "compound_names": [
@@ -2101,6 +2477,70 @@
         "efficacy_notes": "Classified as a superior Shen tonic in Chinese medicine, reishi calms the spirit and opens the heart to receive higher wisdom. Traditional use in Taoist spiritual cultivation spans millennia.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Long-simmered decoction taken daily as part of a meditation or spiritual practice. 3-5g dried reishi in 1 liter water, simmered 2-4 hours."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Beta-glucans and triterpenes modulate immune function and reduce neuroinflammation, supporting balanced immune activity.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered for 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Triterpenes and polysaccharides modulate immune function, reducing autoantibody production while supporting overall immune balance.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating triterpenes help rebalance the autoimmune response that drives thyroid tissue destruction.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating and anti-fatigue effects support recovery from the persistent immune activation seen in CFS.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating triterpenes help rebalance the autoimmune response attacking salivary and lacrimal glands.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating effects may help slow the autoimmune destruction of pancreatic beta cells.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Beta-glucans and triterpenes rebalance immune function, reducing autoimmune overactivity without suppressing necessary immune defenses.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Triterpenes inhibit 5-alpha reductase and aromatase, with immunomodulatory effects supporting anti-cancer immunity.",
+        "evidence_level": "clinical",
+        "dosage_notes": "3-5 g dried slices simmered 30 minutes, or 1-2 g extract daily."
       }
     ],
     "compound_names": [
@@ -3409,6 +3849,14 @@
         "efficacy_notes": "Kavalactones provide analgesic and muscle-relaxant effects useful for tension-related and musculoskeletal pain.",
         "evidence_level": "clinical",
         "dosage_notes": "Traditional preparation focused on heavier cultivars; topical application of masticated root also traditional for localized pain."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Kavalactones provide anxiolytic effects comparable to benzodiazepines for generalized anxiety, without cognitive impairment.",
+        "evidence_level": "clinical",
+        "dosage_notes": "120-240 mg kavalactones daily. Monitor liver function."
       }
     ],
     "compound_names": [
@@ -3914,6 +4362,14 @@
         "efficacy_notes": "The clarifying, cutting quality of wormwood's bitterness has been used to sharpen mental focus and dispel confusion in traditional European herbalism.",
         "evidence_level": "traditional",
         "dosage_notes": "Small doses of tincture (5-15 drops); the sensory impact of the bitterness is considered part of the therapeutic action."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Clinical studies show Artemisia absinthium can induce and maintain remission in Crohn's disease and reduce need for steroids.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg dried herb 3 times daily, or 2-3 ml tincture. Use under practitioner guidance."
       }
     ],
     "compound_names": [
@@ -5826,6 +6282,54 @@
         "efficacy_notes": "Reduces the physiological manifestations of stress including muscle tension, nervous restlessness, and elevated heart rate.",
         "evidence_level": "clinical",
         "dosage_notes": "1-2 teaspoons dried root per cup, steeped covered for 15 minutes. Drink up to 3 times daily."
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Sedative and anxiolytic effects help manage the nervousness and insomnia that accompany hyperthyroidism.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture at bedtime, or 300-600 mg extract."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Improves sleep quality and reduces pain sensitivity, addressing two core symptoms of fibromyalgia.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 300-600 mg extract at bedtime."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Antispasmodic and anxiolytic effects reduce visceral hypersensitivity and stress-triggered IBS episodes.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 300-600 mg extract, 2-3 times daily."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Reduces nervous tension and irritability through GABAergic calming of the central nervous system.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily, or 300-600 mg extract."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Promotes deep sleep and reduces sleep disturbances through GABAergic sedative effects.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 300-600 mg extract, taken 30-60 minutes before bed."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "GABAergic sedative that raises seizure threshold and reduces neuronal excitability, with historical use for convulsive disorders.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily. Work with prescribing physician."
       }
     ],
     "compound_names": [
@@ -6040,6 +6544,14 @@
         "efficacy_notes": "Silymarin exhibits significant antioxidant and anti-inflammatory effects, reducing NF-kB activation and oxidative stress.",
         "evidence_level": "clinical",
         "dosage_notes": "Standardized extract providing 200-400mg silymarin daily, divided into 2-3 doses."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Silymarin is clinically proven to protect hepatocytes, promote liver regeneration, and reduce fibrosis in various liver diseases.",
+        "evidence_level": "clinical",
+        "dosage_notes": "140-420 mg silymarin daily in divided doses."
       }
     ],
     "compound_names": [
@@ -6157,6 +6669,30 @@
         "efficacy_notes": "Improves peripheral and coronary circulation through vasodilation and improved cardiac output. Helpful for cold extremities with cardiac weakness.",
         "evidence_level": "clinical",
         "dosage_notes": "1 tablespoon dried berries simmered in 1 cup water for 20 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Improves cardiovascular function and peripheral circulation through vasodilatory and antioxidant effects on blood vessel walls.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 160-900 mg standardized extract daily in divided doses."
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Cardioprotective herb that reduces heart palpitations and supports cardiovascular function strained by hyperthyroidism.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 160-450 mg extract, twice daily."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Clinical evidence supports hawthorn for congestive heart failure, improving cardiac output, exercise tolerance, and reducing symptoms.",
+        "evidence_level": "clinical",
+        "dosage_notes": "160-900 mg standardized extract daily in divided doses, or 2-4 ml tincture twice daily."
       }
     ],
     "compound_names": [
@@ -6366,6 +6902,38 @@
         "efficacy_notes": "Soothes and heals inflamed gastric and duodenal mucosa through vulnerary and anti-inflammatory action.",
         "evidence_level": "traditional",
         "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 15 minutes. Drink 3 times daily between meals."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Vulnerary and anti-inflammatory properties support healing of damaged intestinal mucosa and reduce gut inflammation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Vulnerary and anti-inflammatory properties support healing of ulcerated intestinal tissue.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Healing and anti-inflammatory properties support repair of ulcerated colonic tissue.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Moistening and healing properties support repair of dry, damaged mucosal tissues.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -6471,6 +7039,62 @@
         "efficacy_notes": "Traditionally renowned as a mood-lifting herb. Modern research confirms mild antidepressant effects through cholinergic and serotonergic mechanisms.",
         "evidence_level": "clinical",
         "dosage_notes": "30-60 drops of fresh leaf tincture, 3 times daily."
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Blocks TSH receptor binding and inhibits the conversion of T4 to T3, with clinical evidence for reducing hyperthyroid symptoms.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 3-4 cups daily."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming nervine and antispasmodic that addresses the gut-brain axis dysfunction underlying IBS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle calming herb that reduces irritability and promotes emotional balance through mild sedative effects.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mild sedative and anxiolytic that promotes calm sleep and reduces sleep-disrupting anxiety.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink before bed."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Rosmarinic acid provides neuroprotective and anticonvulsant effects through GABAergic modulation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle calming herb that reduces pregnancy-related anxiety and aids sleep without sedative side effects.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 1-2 cups daily."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Calming nervine that reduces anxiety and agitation in psychiatric conditions through GABA-transaminase inhibition.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -6908,6 +7532,22 @@
         "efficacy_notes": "Demulcent mucilage coats and protects inflamed gastric mucosa while aucubin provides antimicrobial support against H. pylori.",
         "evidence_level": "traditional",
         "dosage_notes": "Cold infusion (steep overnight in cold water) for maximum mucilage extraction. Drink 1-2 cups daily on an empty stomach."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous and vulnerary herb that soothes inflamed gut lining and supports tissue repair in damaged intestinal villi.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous and anti-inflammatory properties protect and heal damaged colonic mucosa.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -7249,6 +7889,54 @@
         "efficacy_notes": "Applied topically as a poultice or wash, marshmallow root soothes burns, dermatitis, and inflamed skin conditions through its emollient and anti-inflammatory action.",
         "evidence_level": "traditional",
         "dosage_notes": "Root decoction (2 tablespoons simmered in 2 cups water for 15 minutes) applied as a compress or added to baths."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Mucilage polysaccharides coat and protect the inflamed intestinal mucosa, supporting the healing of villous atrophy.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight. Drink throughout the day."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Mucilage coats and protects inflamed intestinal mucosa, reducing irritation and supporting tissue healing.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight. Drink throughout the day."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Mucilage soothes and protects inflamed colonic tissue, reducing irritation and supporting mucosal repair.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Mucilage soothes irritated intestinal lining and reduces hypersensitivity of gut nerves.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Mucilage moistens dry mucous membranes, directly addressing the hallmark dryness of mouth and eyes in Sjogren's.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight. Sip throughout the day."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "root",
+        "preparation": "Cold Infusion",
+        "efficacy_notes": "Demulcent properties soothe urinary tract irritation and support kidney function through gentle diuretic action.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons dried root soaked in cold water overnight."
       }
     ],
     "compound_names": [
@@ -7464,6 +8152,38 @@
         "efficacy_notes": "Daily use supports nervous system resilience under sustained stress",
         "evidence_level": "clinical",
         "dosage_notes": "1-2 cups infusion daily"
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Nervine tonic that calms the nervous system overstimulation caused by excess thyroid hormones.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Nervine tonic that calms irritability and restores nervous system resilience, particularly when anger stems from exhaustion.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Nervine sedative that calms the overactive nervous system states associated with parasomnia disorders.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture taken 30-60 minutes before bed."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Nervine and antispasmodic that reduces neuronal excitability. Historically used for convulsive disorders.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -7579,6 +8299,30 @@
         "efficacy_notes": "Eases hot flashes, anxiety, and palpitations associated with menopause",
         "evidence_level": "clinical",
         "dosage_notes": "2 mL tincture three times daily"
+      },
+      {
+        "ailment": "Hyperthyroidism",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Reduces heart palpitations, anxiety, and tachycardia associated with hyperthyroidism. Traditionally used as a thyroid-calming herb.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily, or as infusion."
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Calms heart palpitations and emotional agitation, particularly effective for anger mixed with anxiety.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Cardiotonic that reduces heart palpitations and anxiety-related cardiac symptoms while supporting heart function.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -7677,6 +8421,14 @@
         "efficacy_notes": "Bitter properties stimulate digestive secretions and appetite",
         "evidence_level": "traditional",
         "dosage_notes": "0.5-1 mL tincture before meals"
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "flower",
+        "preparation": "Tincture",
+        "efficacy_notes": "Sedative and hypnotic effects promote stable sleep architecture and reduce arousal episodes during sleep.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or as part of a sleep pillow. Take 30-60 minutes before bed."
       }
     ],
     "compound_names": [
@@ -7789,6 +8541,22 @@
         "efficacy_notes": "Mild diuretic action supports urinary flushing and waste elimination",
         "evidence_level": "traditional",
         "dosage_notes": "1 teaspoon crushed seeds steeped 15 minutes, 2 cups daily"
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Blood-cleansing and anti-inflammatory properties support skin healing and reduce the toxic burden underlying psoriasis.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried root simmered 10-15 minutes, 2-3 cups daily."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Blood-cleansing and hepatoprotective herb that supports liver function and detoxification pathways.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried root simmered 10-15 minutes, 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -8103,6 +8871,14 @@
         "efficacy_notes": "Anti-inflammatory action of escin reduces swelling and tissue damage in venous disease",
         "evidence_level": "clinical",
         "dosage_notes": "300 mg standardized extract twice daily"
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Aescin strengthens blood vessel walls and improves venous return, supporting overall peripheral vascular health.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300 mg extract standardized to 50 mg aescin, twice daily."
       }
     ],
     "compound_names": [
@@ -8315,6 +9091,14 @@
         "efficacy_notes": "Astringent and vulnerary properties support tissue repair when used as a wash or compress",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Strong infusion applied as a wound wash or compress"
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle astringent that supports healthy blood clotting and reduces bleeding tendency.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -8421,6 +9205,14 @@
         "efficacy_notes": "Traditionally used to clear mental fog and restore focused awareness",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "1-2 mL tincture in the morning and midday"
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Grounds scattered, agitated energy and reduces tension headaches that accompany chronic irritability.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -9077,6 +9869,22 @@
         "efficacy_notes": "Red ginseng in particular has demonstrated improvement in erectile function and sexual arousal through nitric oxide pathway enhancement.",
         "evidence_level": "clinical",
         "dosage_notes": "1-3 grams of red ginseng root decocted daily for a minimum of 8 weeks."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Enhances energy, reduces fatigue, and supports immune function through adaptogenic mechanisms.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg standardized extract daily, taken in the morning."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Restores energy and supports adrenal gland function through adaptogenic modulation of the HPA axis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg standardized extract daily."
       }
     ],
     "compound_names": [
@@ -9198,6 +10006,22 @@
         "efficacy_notes": "Enhanced retinal blood flow and antioxidant protection support glaucoma management and age-related visual decline.",
         "evidence_level": "clinical",
         "dosage_notes": "120 mg standardized extract daily."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Improves cerebral blood flow and provides antioxidant neuroprotection, supporting cognitive function often impaired in MS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "120-240 mg standardized extract daily in divided doses."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Improves peripheral circulation and microvascular blood flow, reducing the frequency and severity of vasospastic episodes.",
+        "evidence_level": "clinical",
+        "dosage_notes": "120-240 mg standardized extract daily in divided doses."
       }
     ],
     "compound_names": [
@@ -9310,6 +10134,158 @@
         "efficacy_notes": "Promotes gastric motility, reduces bloating, and increases bile secretion for improved fat digestion.",
         "evidence_level": "traditional",
         "dosage_notes": "1 teaspoon powdered turmeric steeped in hot water with ginger and honey, taken after meals."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin modulates inflammatory pathways implicated in MS, reducing neuroinflammation and oxidative damage to myelin sheaths.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Anti-inflammatory action protects blood vessel endothelium and improves vascular function, reducing vasospastic tendency.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Anti-inflammatory action reduces ovarian inflammation and improves insulin sensitivity, both key factors in PCOS pathology.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces intestinal inflammation and supports gut barrier repair through modulation of tight junction proteins.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin inhibits endometrial cell proliferation and reduces inflammatory mediators driving endometrial growth outside the uterus.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin inhibits inflammatory cytokines (TNF-alpha, IL-6) central to RA pathology, with clinical trials showing reduced joint swelling and tenderness.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin modulates autoimmune inflammatory cascades and reduces proteinuria in lupus nephritis, with clinical evidence supporting its use.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces thyroid inflammation and modulates the autoimmune response targeting the thyroid gland.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces the central sensitization and neuroinflammation driving widespread pain in fibromyalgia.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces intestinal inflammation through NF-kB inhibition, with clinical trials showing maintained remission in Crohn's.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin maintains remission in ulcerative colitis as adjunct therapy, with multiple clinical trials demonstrating reduced relapse rates.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g curcumin with piperine daily, in addition to standard therapy."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin inhibits the inflammatory pathways (TNF-alpha, IL-17) driving both skin and joint manifestations of psoriatic arthritis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Anti-inflammatory action reduces the autoimmune inflammation destroying moisture-producing glands.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces the inflammatory processes damaging pancreatic beta cells and improves insulin sensitivity.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin broadly modulates autoimmune pathways by inhibiting NF-kB, reducing pro-inflammatory cytokines, and supporting T-regulatory cell function.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces vascular inflammation, improves endothelial function, and protects against atherosclerosis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces hepatic inflammation, fibrosis, and oxidative stress in chronic liver disease.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin reduces renal inflammation and fibrosis, with emerging evidence for slowing CKD progression.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg curcumin with piperine, twice daily with food."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Curcumin inhibits cancer cell proliferation, induces apoptosis, and modulates estrogen receptor activity in hormone-sensitive cancers.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500-1000 mg curcumin with piperine, 2-3 times daily with food. Use as adjunct under oncologist guidance."
       }
     ],
     "compound_names": [
@@ -9431,6 +10407,46 @@
         "efficacy_notes": "GABAergic and serotonergic activity provides anxiolytic effects comparable to mild benzodiazepines without sedation.",
         "evidence_level": "clinical",
         "dosage_notes": "2-3 mL of 1:5 tincture taken 2-3 times daily."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Adaptogenic herb that reduces cortisol and blood glucose, addressing stress and insulin resistance components of PCOS.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Adaptogenic support for the HPA axis, reducing cortisol which can exacerbate thyroid autoimmunity.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Adaptogenic herb that reduces cortisol, improves energy, and supports the stress response system depleted in CFS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Lowers elevated cortisol and supports adrenal function through adaptogenic modulation of the stress response.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Reduces fasting and postprandial blood glucose through multiple mechanisms including enhanced insulin secretion.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -9538,6 +10554,54 @@
         "efficacy_notes": "Prophylactic use strengthens Wei Qi (defensive energy) and reduces frequency and duration of upper respiratory infections.",
         "evidence_level": "clinical",
         "dosage_notes": "500-1000 mg standardized extract daily during cold and flu season as prevention."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating polysaccharides help rebalance immune function without overstimulation, supporting balanced immunity in autoimmune states.",
+        "evidence_level": "traditional",
+        "dosage_notes": "6-12 g dried root simmered for 20-30 minutes, taken daily. Use with caution during flares."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune tonic that addresses the persistent immune dysfunction and fatigue characteristic of CFS.",
+        "evidence_level": "traditional",
+        "dosage_notes": "6-12 g dried root simmered 20-30 minutes, taken daily."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune and energy tonic that supports adrenal recovery through deep nourishment of vital energy.",
+        "evidence_level": "traditional",
+        "dosage_notes": "6-12 g dried root simmered 20-30 minutes, taken daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating herb that helps restore immune balance rather than simply stimulating or suppressing. Use with caution during acute flares.",
+        "evidence_level": "traditional",
+        "dosage_notes": "6-12 g dried root simmered 20-30 minutes, taken daily during stable periods."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Clinical evidence supports astragalus for reducing proteinuria and improving kidney function in chronic kidney disease.",
+        "evidence_level": "clinical",
+        "dosage_notes": "6-12 g dried root simmered 20-30 minutes, taken daily."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-enhancing polysaccharides support anti-cancer immunity and reduce side effects of conventional cancer treatments.",
+        "evidence_level": "clinical",
+        "dosage_notes": "6-12 g dried root simmered 20-30 minutes, taken daily."
       }
     ],
     "compound_names": [
@@ -9646,6 +10710,46 @@
         "efficacy_notes": "Lignan compounds modulate cortisol output and enhance adrenal reserve, improving stress tolerance and recovery.",
         "evidence_level": "clinical",
         "dosage_notes": "500-1000 mg standardized extract taken 1-2 times daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Adaptogenic berry that supports thyroid function and helps regulate the stress response that worsens autoimmune thyroiditis.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Adaptogenic support for thyroid function, helping optimize hormonal output and supporting liver conversion of T4 to T3.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Five-flavored adaptogen that reduces fatigue, enhances mental performance, and supports liver detoxification.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Supports adrenal function and reduces stress-induced cortisol spikes while improving mental clarity and energy.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Lignans protect hepatocytes from toxic damage and support liver regeneration in chronic liver conditions.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
       }
     ],
     "compound_names": [
@@ -9756,6 +10860,38 @@
         "efficacy_notes": "Enhances cognitive performance under stress and fatigue, improving attention, associative thinking, and short-term memory.",
         "evidence_level": "clinical",
         "dosage_notes": "2-3 mL tincture taken in the morning before demanding mental tasks."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Combats the profound fatigue and cognitive fog of fibromyalgia through adaptogenic HPA axis support.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg extract standardized to rosavins, taken in the morning."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Enhances cellular energy metabolism and reduces mental and physical fatigue through adaptogenic action on stress pathways.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg extract standardized to rosavins, taken in the morning."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Reduces cortisol output during stress and improves stress resilience, directly supporting adrenal recovery.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg extract standardized to rosavins, taken in the morning."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Adaptogenic support for stress-related psychiatric symptoms, with evidence for reducing fatigue, anxiety, and mild depression.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg extract standardized to rosavins daily."
       }
     ],
     "compound_names": [
@@ -9871,6 +11007,38 @@
         "efficacy_notes": "Glycyrrhizin demonstrates broad-spectrum antiviral activity and the root's demulcent properties soothe sore throat and reduce mucosal inflammation.",
         "evidence_level": "clinical",
         "dosage_notes": "1-2 grams root steeped in hot water for 10-15 minutes, taken 3-4 times daily during acute illness."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Glycyrrhizin reduces serum testosterone through inhibition of 17-hydroxysteroid dehydrogenase. Traditionally paired with white peony for PCOS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 g dried root simmered for 15 minutes, taken daily. Monitor blood pressure."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Deglycyrrhizinated licorice (DGL) supports mucosal repair and protects the gut lining from further inflammatory damage.",
+        "evidence_level": "clinical",
+        "dosage_notes": "DGL: 380-760 mg chewable tablets before meals. Regular: 1-2 g root simmered 10 minutes."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Supports adrenal function and prevents cortisol breakdown, addressing the adrenal insufficiency component of CFS.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried root simmered 10 minutes, 1-2 cups daily. Monitor blood pressure."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Inhibits 11-beta-hydroxysteroid dehydrogenase, preventing cortisol breakdown and supporting adrenal output during depletion.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g dried root simmered 10 minutes, taken in the morning. Avoid in hypertension."
       }
     ],
     "compound_names": [
@@ -9988,6 +11156,14 @@
         "efficacy_notes": "As a blood tonic, dong quai addresses fatigue stemming from blood deficiency patterns with symptoms of pallor, dizziness, and blurred vision.",
         "evidence_level": "traditional",
         "dosage_notes": "6-12 grams decocted with astragalus and codonopsis for Qi and blood dual tonification."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Supports pelvic blood circulation and reduces stagnation, while modulating estrogen metabolism implicated in endometrial growth.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture twice daily. Avoid during heavy menstrual bleeding."
       }
     ],
     "compound_names": [
@@ -10102,6 +11278,46 @@
         "efficacy_notes": "Triterpenoids improve skin elasticity, reduce scarring, and modulate fibroblast activity in conditions including eczema, psoriasis, and keloid scarring.",
         "evidence_level": "clinical",
         "dosage_notes": "300-600 mg standardized extract taken twice daily for 4-8 weeks."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Triterpenoid saponins support nerve regeneration and improve microcirculation, aiding in myelin repair processes.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Supports connective tissue health and wound healing, particularly beneficial for lupus-related skin manifestations.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Supports thyroid function and reduces inflammation, traditionally used in Ayurvedic medicine for thyroid conditions.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and connective tissue-supporting herb that helps manage autoimmune tissue damage.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Supports kidney tissue repair and reduces fibrosis through triterpenoid saponin action.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -10207,6 +11423,14 @@
         "efficacy_notes": "Calming effects on the nervous system combined with mild sedative properties help establish healthy sleep patterns without morning drowsiness.",
         "evidence_level": "traditional",
         "dosage_notes": "3-5 grams whole herb decocted with ashwagandha and warm milk, taken 30-60 minutes before sleep."
+      },
+      {
+        "ailment": "Seizure Disorders",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Bacosides modulate serotonin and GABA pathways, with traditional use for seizure disorders and neuroprotection.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 300 mg extract twice daily."
       }
     ],
     "compound_names": [
@@ -10322,6 +11546,14 @@
         "efficacy_notes": "Nourishes Shukra Dhatu (reproductive tissue), improves vaginal lubrication, and enhances sexual receptivity through hormonal and tissue-level support.",
         "evidence_level": "traditional",
         "dosage_notes": "3-6 grams root powder prepared with warm milk, honey, and ghee, taken daily for several months."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Premier Ayurvedic galactagogue that enhances breast milk production and quality through hormonal support.",
+        "evidence_level": "traditional",
+        "dosage_notes": "500 mg-1 g root powder twice daily, or 2-4 ml tincture twice daily."
       }
     ],
     "compound_names": [
@@ -10439,6 +11671,14 @@
         "efficacy_notes": "Antimicrobial tannins and nimbidin reduce oral bacterial load, inhibit plaque formation, and reduce gingival inflammation.",
         "evidence_level": "clinical",
         "dosage_notes": "Bark decoction used as a mouthwash 2-3 times daily, or fresh neem twig chewed as a natural toothbrush."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and immunomodulatory properties address both the skin and joint manifestations of PsA.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 1-2 cups daily."
       }
     ],
     "compound_names": [
@@ -10674,6 +11914,22 @@
         "efficacy_notes": "Baicalin and wogonin bind to GABA-A receptors at the benzodiazepine site, producing anxiolytic effects without significant sedation or dependence.",
         "evidence_level": "clinical",
         "dosage_notes": "250-500 mg standardized extract taken 2-3 times daily."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Baicalin inhibits multiple inflammatory pathways and provides antioxidant protection to joint tissues.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 250-500 mg extract, 2-3 times daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Baicalin inhibits multiple inflammatory pathways involved in autoimmune activation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 250-500 mg extract, 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -10785,6 +12041,14 @@
         "efficacy_notes": "Reduces cortisol levels and moderates the stress response, supporting resilience without sedation at lower doses.",
         "evidence_level": "clinical",
         "dosage_notes": "200-400 mg standardized bark extract daily, divided into two doses."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "bark",
+        "preparation": "Tincture",
+        "efficacy_notes": "Honokiol and magnolol reduce anxiety, improve sleep quality, and modulate pain pathways.",
+        "evidence_level": "clinical",
+        "dosage_notes": "200-400 mg extract twice daily, or 2-3 ml tincture."
       }
     ],
     "compound_names": [
@@ -10896,6 +12160,14 @@
         "efficacy_notes": "The vine stem (ye jiao teng) calms the spirit and nourishes heart blood, addressing insomnia with vivid dreaming or restless sleep.",
         "evidence_level": "traditional",
         "dosage_notes": "9-15 grams of dried vine stem simmered for 20 minutes. Drink in the evening before bed."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Traditional liver and kidney tonic with hepatoprotective effects, supporting liver function and blood nourishment.",
+        "evidence_level": "traditional",
+        "dosage_notes": "6-12 g prepared root simmered 20-30 minutes, taken daily."
       }
     ],
     "compound_names": [
@@ -11120,6 +12392,14 @@
         "efficacy_notes": "Supports neuroplasticity and NGF production, with clinical studies demonstrating reduction in depression and anxiety scores after four weeks of supplementation.",
         "evidence_level": "clinical",
         "dosage_notes": "1-3 grams extract daily in divided doses. Allow 4-8 weeks for mood-related benefits to manifest."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "fungal_body",
+        "preparation": "Tincture",
+        "efficacy_notes": "Contains hericenones and erinacines that stimulate nerve growth factor (NGF) production, supporting myelin repair and neuroprotection.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 ml tincture or 500-1000 mg extract, 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -11230,6 +12510,14 @@
         "efficacy_notes": "Anti-inflammatory and mucosal-protective properties support healing of gastric tissue, with traditional use across Siberia for stomach ailments and ulcers.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "1-2 cups warm chaga decoction daily, taken between meals on an empty stomach."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "Betulinic acid and polysaccharides demonstrate anti-proliferative effects on cancer cells and immune-enhancing properties.",
+        "evidence_level": "clinical",
+        "dosage_notes": "3-5 g dried chunks simmered 30 minutes, or 1-2 g extract daily."
       }
     ],
     "compound_names": [
@@ -11342,6 +12630,14 @@
         "efficacy_notes": "Modulates inflammatory cytokine production, helping resolve chronic low-grade inflammation that underlies many degenerative conditions.",
         "evidence_level": "clinical",
         "dosage_notes": "1-3 grams extract daily in capsules, taken consistently for 8-12 weeks for anti-inflammatory benefits."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "fungal_body",
+        "preparation": "Decoction",
+        "efficacy_notes": "PSK and PSP polysaccharides enhance anti-cancer immune function. Used as adjunct therapy in Japan for cancer treatment.",
+        "evidence_level": "clinical",
+        "dosage_notes": "3-5 g dried mushroom simmered 30 minutes, or 1-3 g extract daily."
       }
     ],
     "compound_names": [
@@ -11551,6 +12847,22 @@
         "efficacy_notes": "Caffeine provides gentle stimulation while L-theanine prevents the crash and jitteriness of coffee, creating sustained energy without adrenal depletion.",
         "evidence_level": "clinical",
         "dosage_notes": "2-4 cups throughout the morning and early afternoon. Avoid after 2pm for sleep-sensitive individuals."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Catechins reduce LDL oxidation, improve endothelial function, and lower cardiovascular disease risk.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 cups daily, or 250-500 mg EGCG extract daily."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "EGCG inhibits aromatase, reduces estrogen receptor signaling, and provides chemopreventive effects in hormone-sensitive cancers.",
+        "evidence_level": "clinical",
+        "dosage_notes": "3-5 cups daily, or 250-500 mg EGCG extract daily."
       }
     ],
     "compound_names": [
@@ -11662,6 +12974,14 @@
         "efficacy_notes": "Positive inotropic action strengthens and regularizes cardiac contractions while the vasodilatory effect reduces cardiac workload, addressing palpitations of functional origin.",
         "evidence_level": "clinical",
         "dosage_notes": "20-40 drops tincture, 2-3 times daily. Use only under practitioner supervision for cardiac applications."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Forskolin activates adenylate cyclase, directly stimulating thyroid hormone production and release.",
+        "evidence_level": "clinical",
+        "dosage_notes": "50-100 mg extract standardized to 10% forskolin, 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -11771,6 +13091,22 @@
         "efficacy_notes": "Rich phytonutrient profile supports hormonal equilibrium and thyroid function. Traditionally used as a galactagogue to support lactation in postpartum mothers.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "3-6 grams dried leaf powder daily. For lactation support, begin with lower doses and increase gradually."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "leaf",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Reduces blood glucose levels and provides dense nutrition to support overall metabolic health in T1D.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g dried leaf powder daily with meals."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "leaf",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical studies show moringa significantly increases breast milk volume. Rich in iron, calcium, and protein for maternal nutrition.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg-1 g dried leaf powder, 2-3 times daily with meals."
       }
     ],
     "compound_names": [
@@ -11979,6 +13315,30 @@
         "efficacy_notes": "Powerful antimicrobial and warming diaphoretic action helps the body expel wind-cold pathogens while the sweet warmth soothes sore throats and relieves chills.",
         "evidence_level": "traditional",
         "dosage_notes": "1-2 cinnamon sticks simmered with fresh ginger, honey, and lemon. Drink hot, 3-4 times daily during acute illness."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Warming aromatic that improves microcirculation and peripheral blood flow, particularly to the extremities.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1 cinnamon stick or 1/2 teaspoon powder steeped in hot water, 2-3 times daily."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "bark",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Improves insulin sensitivity and reduces fasting blood glucose, addressing the metabolic insulin resistance central to PCOS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g cinnamon powder daily, or 500 mg extract twice daily with meals."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "bark",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Improves insulin sensitivity and glucose uptake at the cellular level, reducing overall insulin requirements.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g cinnamon daily with meals."
       }
     ],
     "compound_names": [
@@ -12304,6 +13664,30 @@
         "efficacy_notes": "Ellagic acid and emblicanins suppress COX and LOX inflammatory pathways while the cooling energetic quality directly counteracts pitta-type inflammatory heat.",
         "evidence_level": "clinical",
         "dosage_notes": "1-2 fresh fruits or 3-6 grams dried powder daily. Consistent long-term use provides the greatest anti-inflammatory benefit."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Powerful antioxidant that protects remaining beta cells and improves glycemic control in diabetic patients.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg-1 g amla powder daily."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Powerful hepatoprotective antioxidant that reduces liver enzyme elevation and supports liver tissue repair.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg-1 g amla powder daily."
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Rich in vitamin C and bioflavonoids that strengthen capillary walls and support healthy blood clotting.",
+        "evidence_level": "traditional",
+        "dosage_notes": "500 mg-1 g amla powder daily."
       }
     ],
     "compound_names": [
@@ -12405,6 +13789,70 @@
         "efficacy_notes": "Incensole acetate activates TRPV3 ion channels in the brain, producing anxiolytic and mildly antidepressant effects that facilitate contemplative practice.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Burn resin tears on charcoal during meditation or prayer; no standardized dose for this application."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce neuroinflammation and may help protect myelin from immune-mediated degradation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract standardized to 60% boswellic acids, 3 times daily."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids provide potent anti-inflammatory action, reducing the chronic pelvic inflammation of endometriosis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids inhibit 5-lipoxygenase and reduce joint inflammation, with studies showing improved joint function in RA.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract standardized to boswellic acids, 3 times daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce systemic inflammation and modulate autoimmune pathways relevant to lupus.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce intestinal inflammation comparable to mesalamine in clinical trials for inflammatory bowel disease.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce colonic inflammation with efficacy comparable to sulfasalazine in clinical trials.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce joint inflammation and may help manage the autoimmune joint destruction of PsA.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Boswellic acids reduce autoimmune inflammation through 5-lipoxygenase inhibition and immune modulation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "300-400 mg boswellia extract, 3 times daily."
       }
     ],
     "compound_names": [
@@ -12615,6 +14063,70 @@
         "efficacy_notes": "Anti-inflammatory and mucosal-protective properties help heal gastric and intestinal ulceration.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Mild decoction (0.5-1 gram bark) taken before meals, 2 times daily."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Oxindole alkaloids modulate immune function, helping to temper the autoimmune response without suppressing overall immunity.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered for 15 minutes, taken 2-3 times daily."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Pentacyclic oxindole alkaloids modulate TNF-alpha production and NF-kB pathway, reducing autoimmune joint destruction.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily, or 60 mg standardized extract daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating alkaloids help regulate overactive immune responses characteristic of lupus.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Anti-inflammatory and immune-modulating effects support intestinal healing and reduce inflammatory bowel symptoms.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating and anti-inflammatory effects support intestinal healing in inflammatory bowel disease.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating alkaloids help regulate the autoimmune inflammation affecting both skin and joints.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Pentacyclic oxindole alkaloids modulate TNF-alpha and NF-kB, helping temper autoimmune inflammatory cascades.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Immune-modulating and anti-proliferative effects support the body's anti-cancer defenses.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 g dried bark simmered 15 minutes, 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -13048,6 +14560,14 @@
         "efficacy_notes": "Traditional use as a reproductive tonic; may support libido through improved urogenital function and hormonal modulation.",
         "evidence_level": "traditional",
         "dosage_notes": "320 mg standardized extract daily as part of a broader reproductive tonic protocol."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Inhibits 5-alpha-reductase, reducing the conversion of testosterone to the more potent DHT, addressing hirsutism and acne in PCOS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "160 mg standardized extract twice daily, or 1-2 ml tincture twice daily."
       }
     ],
     "compound_names": [
@@ -13153,6 +14673,46 @@
         "efficacy_notes": "Applied as a poultice, the mucilage draws out irritants and provides a protective, moist wound-healing environment.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Mix powdered bark with warm water to form a paste; apply directly to wounds and cover. Refresh 2-3 times daily."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous bark soothes and coats damaged intestinal lining, reducing inflammation and supporting mucosal repair in celiac-affected gut.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons powdered bark mixed with warm water, taken before meals 2-3 times daily."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous bark soothes inflamed intestinal tissue and supports mucosal barrier repair in Crohn's-affected bowel.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons powdered bark mixed with warm water, taken before meals 2-3 times daily."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous demulcent that coats and protects inflamed colonic mucosa, reducing irritation and supporting healing.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons powdered bark in warm water, 2-3 times daily before meals."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mucilaginous fiber soothes intestinal lining and normalizes bowel movements in both IBS-C and IBS-D.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 tablespoons powdered bark in warm water, 2-3 times daily."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "bark",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Demulcent mucilage soothes dry mouth and throat, providing symptomatic relief from sicca symptoms.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1 tablespoon powdered bark mixed in warm water, sipped throughout the day."
       }
     ],
     "compound_names": [
@@ -13257,6 +14817,14 @@
         "efficacy_notes": "Anti-inflammatory saponins combined with antispasmodic action provide relief from muscular and visceral pain.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "2-4 mL tincture (1:5) taken 3 times daily as needed."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Contains diosgenin which supports progesterone pathways and provides antispasmodic relief for pelvic cramping.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily, or as decoction."
       }
     ],
     "compound_names": [
@@ -13361,6 +14929,30 @@
         "efficacy_notes": "Clinical evidence supports reduction in hot flashes, night sweats, mood disturbances, and sleep disruption in perimenopausal women.",
         "evidence_level": "clinical",
         "dosage_notes": "2-3.5 grams gelatinized powder daily for 6-12 weeks."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Adaptogenic support for the hypothalamic-pituitary-gonadal axis, helping normalize hormonal signaling without directly supplying hormones.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1.5-3 g dried maca powder daily, taken with food."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Energizing adaptogen that improves stamina and reduces fatigue without stimulant effects.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1.5-3 g dried maca powder daily, taken with food."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Nourishes and supports adrenal gland function without direct hormonal stimulation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1.5-3 g dried maca powder daily with food."
       }
     ],
     "compound_names": [
@@ -13571,6 +15163,14 @@
         "efficacy_notes": "Phytosterols and ecdysteroids may help regulate endocrine function, traditionally used for menopausal and reproductive support.",
         "evidence_level": "traditional",
         "dosage_notes": "500-1000 mg dried root powder, taken 2 times daily for at least 8 weeks."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Brazilian adaptogen that supports adrenal recovery and improves stamina during periods of exhaustion.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture or 500 mg extract, twice daily."
       }
     ],
     "compound_names": [
@@ -13891,6 +15491,30 @@
         "efficacy_notes": "Bitter iridoids stimulate gastric acid and bile secretion, improving appetite and digestive throughput.",
         "evidence_level": "traditional",
         "dosage_notes": "1-2 mL tincture (1:5) taken 15-30 minutes before meals, 3 times daily."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Harpagoside reduces inflammatory markers and provides analgesic effects, with clinical evidence for joint pain relief in inflammatory arthritis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 600-1200 mg extract daily in divided doses."
+      },
+      {
+        "ailment": "Fibromyalgia",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Harpagoside provides analgesic and anti-inflammatory effects for musculoskeletal pain relief.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 600-1200 mg extract daily in divided doses."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Anti-inflammatory and analgesic effects reduce joint pain and swelling in inflammatory arthritis conditions.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture or 600-1200 mg extract daily in divided doses."
       }
     ],
     "compound_names": [
@@ -15376,6 +17000,14 @@
         "efficacy_notes": "Broad anti-inflammatory action through multiple pathways including NF-kB inhibition, COX-2 suppression, and modulation of pro-inflammatory cytokines. Three-thousand-year track record in Ayurvedic anti-inflammatory formulas.",
         "evidence_level": "clinical",
         "dosage_notes": "30-60 drops of guggul resin tincture in warm water, 2-3 times daily."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "resin_sap",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Guggulsterones stimulate thyroid function by increasing iodine uptake and enhancing T4 to T3 conversion.",
+        "evidence_level": "clinical",
+        "dosage_notes": "75-150 mg guggulsterones daily in divided doses."
       }
     ],
     "compound_names": [
@@ -15612,6 +17244,86 @@
         "efficacy_notes": "Potent antihistamine and mast cell-stabilizing effects reduce allergic symptoms including rhinitis, conjunctivitis, and eczema. Nigellone specifically inhibits histamine release from mast cells.",
         "evidence_level": "clinical",
         "dosage_notes": "30-40 drops of seed tincture or 500mg black seed oil, taken 2-3 times daily during allergy season. Begin 2-4 weeks before anticipated allergen exposure for prophylactic benefit."
+      },
+      {
+        "ailment": "Multiple Sclerosis",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone provides neuroprotective and anti-inflammatory effects, with emerging research showing benefit in autoimmune neurological conditions.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily, or 500 mg capsules twice daily."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Black seed oil improves metabolic markers in PCOS including insulin resistance, lipid profile, and inflammatory markers.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily, or 500 mg capsules twice daily."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone suppresses inflammatory cytokines and oxidative stress contributing to joint destruction in RA.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily, or 500 mg capsules twice daily."
+      },
+      {
+        "ailment": "Lupus (SLE)",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone demonstrates immunomodulatory effects and reduces inflammatory markers elevated in SLE.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily."
+      },
+      {
+        "ailment": "Hashimoto's Thyroiditis",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical trials demonstrate improved thyroid function, reduced TPO antibodies, and decreased TSH in Hashimoto's patients.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily, or 500 mg capsules twice daily."
+      },
+      {
+        "ailment": "Hypothyroidism",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Supports thyroid hormone production and reduces TSH in hypothyroid patients according to clinical studies.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone provides immunomodulatory and anti-inflammatory effects relevant to autoimmune glandular destruction.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone protects pancreatic beta cells and modulates immune function, with studies showing improved glycemic control in T1D.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily, or 500 mg capsules twice daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone modulates T-helper cell balance and reduces autoantibody production in various autoimmune conditions.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily."
+      },
+      {
+        "ailment": "Hormone-Sensitive Cancers",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Thymoquinone demonstrates anti-cancer effects including apoptosis induction and anti-angiogenesis in multiple cancer models.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons black seed oil daily. Use as complement, not replacement, for conventional treatment."
       }
     ],
     "compound_names": [
@@ -15724,6 +17436,14 @@
         "efficacy_notes": "Traditionally used as a vermifuge; allicin and ajoene show antiparasitic activity against intestinal parasites in laboratory studies.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "2-3 raw cloves daily on an empty stomach for 2-3 weeks under practitioner guidance."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "root",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Reduces atherosclerosis progression, lowers LDL cholesterol and blood pressure, and inhibits platelet aggregation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "600-1200 mg aged garlic extract daily, or 1-2 fresh cloves daily."
       }
     ],
     "compound_names": [
@@ -15829,6 +17549,14 @@
         "efficacy_notes": "Cayenne tea promotes sweating, clears sinus congestion, and supports the fever response as part of traditional diaphoretic therapy.",
         "evidence_level": "traditional",
         "dosage_notes": "1/4 teaspoon cayenne powder in hot water with honey and lemon, sipped slowly 2-3 times daily."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Capsaicin promotes vasodilation and improves peripheral blood flow, warming extremities and counteracting vasospasm.",
+        "evidence_level": "clinical",
+        "dosage_notes": "5-10 drops tincture in warm water, 2-3 times daily. Can also be used topically in diluted form."
       }
     ],
     "compound_names": [
@@ -15935,6 +17663,22 @@
         "efficacy_notes": "Anethole exhibits mild estrogenic activity and fennel has traditional use supporting lactation and easing menopausal discomfort.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "30-60 drops of tincture in water, 2-3 times daily under practitioner guidance."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Carminative and antispasmodic effects reduce bloating, gas, and intestinal cramping in IBS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons crushed seeds per cup, steeped 10 minutes. Drink after meals."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Traditional galactagogue that increases breast milk production and reduces infant colic through carminative properties passed via milk.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons crushed seeds per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -16028,6 +17772,14 @@
         "efficacy_notes": "The aromatic volatile oils settle the stomach and ease nausea, particularly the morning sickness of pregnancy in traditional midwifery.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Sip a mild infusion of dill seed slowly; 1/2 to 1 cup as needed."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Traditional galactagogue that supports milk production and reduces colic in nursing infants.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons crushed seeds per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -16143,6 +17895,14 @@
         "efficacy_notes": "The exceptional iron, vitamin C, and chlorophyll content of parsley makes it a valuable nutritive tonic for fatigue related to nutritional deficiency.",
         "evidence_level": "traditional",
         "dosage_notes": "Eat liberally as part of the daily diet; juice with other greens for a concentrated tonic."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Mild diuretic that supports kidney function and helps reduce fluid retention in early kidney disease.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried parsley per cup, steeped 10 minutes. Drink 1-2 cups daily."
       }
     ],
     "compound_names": [
@@ -16658,6 +18418,14 @@
         "efficacy_notes": "Hibiscus acts as a gentle, potassium-sparing diuretic, helping to reduce fluid retention without electrolyte depletion.",
         "evidence_level": "traditional",
         "dosage_notes": "3 cups daily of standard infusion; effects are gentle and cumulative."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Clinical trials demonstrate significant blood pressure and LDL cholesterol reduction with regular hibiscus tea consumption.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-3 teaspoons dried calyces per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -16764,6 +18532,30 @@
         "efficacy_notes": "Fenugreek saponins and diosgenin exhibit anti-inflammatory activity by modulating inflammatory cytokines and NF-kB signaling.",
         "evidence_level": "clinical",
         "dosage_notes": "500 mg standardized extract twice daily with meals."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Improves insulin sensitivity and reduces androgen levels. Contains diosgenin which supports healthy hormonal metabolism.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg seed extract twice daily, or 1 teaspoon soaked seeds daily."
+      },
+      {
+        "ailment": "Type 1 Diabetes",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Fiber and saponins slow glucose absorption and improve glycemic control as adjunct to insulin therapy.",
+        "evidence_level": "clinical",
+        "dosage_notes": "5-10 g seed powder with meals, or 500 mg extract twice daily."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Most widely used galactagogue, with clinical evidence showing increased breast milk production within 24-72 hours.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons seeds steeped 10 minutes, 2-3 cups daily, or 500-1000 mg capsules 3 times daily."
       }
     ],
     "compound_names": [
@@ -16960,6 +18752,14 @@
         "efficacy_notes": "Crocin and crocetin in saffron have demonstrated neuroprotective effects on retinal cells, with clinical evidence supporting improved visual acuity in age-related macular degeneration.",
         "evidence_level": "clinical",
         "dosage_notes": "20-30 mg standardized saffron extract daily."
+      },
+      {
+        "ailment": "Psychiatric Conditions",
+        "plant_part": "flower",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical trials demonstrate antidepressant effects comparable to fluoxetine and imipramine in mild-moderate depression.",
+        "evidence_level": "clinical",
+        "dosage_notes": "30 mg saffron extract daily in divided doses."
       }
     ],
     "compound_names": [
@@ -17768,6 +19568,22 @@
         "efficacy_notes": "Bitter artichoke leaf tea settles the stomach by stimulating proper digestive secretion and bile flow.",
         "evidence_level": "traditional",
         "dosage_notes": "Infuse 1-2 teaspoons of dried leaf in hot water for 10 minutes, sip slowly before meals."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "leaf",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical trials demonstrate artichoke leaf extract reduces IBS symptoms including pain, bloating, and constipation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "320-640 mg extract, 2-3 times daily before meals."
+      },
+      {
+        "ailment": "Liver Disease",
+        "plant_part": "leaf",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Cynarin and silymarin content supports liver function, increases bile flow, and protects against hepatotoxicity.",
+        "evidence_level": "clinical",
+        "dosage_notes": "320-640 mg extract, 2-3 times daily before meals."
       }
     ],
     "compound_names": [
@@ -17868,6 +19684,14 @@
         "efficacy_notes": "Celery seed acts as a urinary antiseptic and diuretic, traditionally used for mild urinary infections.",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "20-40 drops of tincture three times daily with plenty of water."
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Anti-inflammatory and diuretic properties help reduce joint swelling and clear uric acid, supporting joint comfort.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1 teaspoon crushed seeds per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -18074,6 +19898,14 @@
         "efficacy_notes": "The essential oil compounds carvone and limonene show anti-inflammatory activity in digestive tissues.",
         "evidence_level": "clinical",
         "dosage_notes": "20-40 drops of tincture three times daily."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "seed_fruit",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Antispasmodic and carminative effects reduce IBS symptoms. Often combined with peppermint for enhanced efficacy.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons crushed seeds per cup, steeped 10 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -18283,6 +20115,46 @@
         "efficacy_notes": "Aloe gel contains multiple anti-inflammatory compounds that reduce systemic and local inflammation.",
         "evidence_level": "clinical",
         "dosage_notes": "Consume 30-50 ml of inner gel juice daily or apply topically to inflamed areas."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "leaf",
+        "preparation": "Juice/Gel",
+        "efficacy_notes": "Soothes intestinal inflammation and supports mucosal healing. Contains acemannan which promotes tissue repair.",
+        "evidence_level": "traditional",
+        "dosage_notes": "30-60 ml inner leaf gel juice, taken twice daily between meals."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "leaf",
+        "preparation": "Juice/Gel",
+        "efficacy_notes": "Inner leaf gel reduces intestinal inflammation and supports mucosal healing in inflammatory bowel conditions.",
+        "evidence_level": "traditional",
+        "dosage_notes": "30-60 ml inner leaf gel juice, twice daily between meals."
+      },
+      {
+        "ailment": "Ulcerative Colitis",
+        "plant_part": "leaf",
+        "preparation": "Juice/Gel",
+        "efficacy_notes": "Clinical trial evidence shows aloe vera gel improves clinical response and histological scores in mild-to-moderate ulcerative colitis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "100 ml aloe vera gel twice daily for 4 weeks."
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "leaf",
+        "preparation": "Juice/Gel",
+        "efficacy_notes": "Topical application soothes psoriatic skin lesions while internal use reduces systemic inflammation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "Topical gel on skin lesions twice daily; 30-60 ml juice internally twice daily."
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "leaf",
+        "preparation": "Juice/Gel",
+        "efficacy_notes": "Moisturizing and anti-inflammatory properties soothe dry mucous membranes and support tissue hydration.",
+        "evidence_level": "traditional",
+        "dosage_notes": "30-60 ml inner leaf juice daily; topical gel for skin dryness."
       }
     ],
     "compound_names": [
@@ -18605,6 +20477,14 @@
         "efficacy_notes": "Proanthocyanidins protect collagen and elastin from degradation, supporting skin health and wound healing.",
         "evidence_level": "clinical",
         "dosage_notes": "100-200 mg of standardized extract daily for long-term skin support."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Proanthocyanidins strengthen blood vessel walls, reduce LDL oxidation, and improve endothelial function.",
+        "evidence_level": "clinical",
+        "dosage_notes": "150-300 mg grape seed extract daily."
       }
     ],
     "compound_names": [
@@ -18714,6 +20594,14 @@
         "efficacy_notes": "Olive leaf polyphenols improve insulin sensitivity and support healthy blood glucose levels.",
         "evidence_level": "clinical",
         "dosage_notes": "Drink 3-4 cups of olive leaf tea daily, or take 500 mg of standardized extract."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Oleuropein reduces blood pressure, LDL oxidation, and arterial inflammation, supporting overall cardiovascular health.",
+        "evidence_level": "clinical",
+        "dosage_notes": "500 mg extract twice daily, or 2-4 ml tincture twice daily."
       }
     ],
     "compound_names": [
@@ -18819,6 +20707,14 @@
         "efficacy_notes": "Traditional use for tension headaches is well-supported, though onset of action is slower than synthetic aspirin",
         "evidence_level": "traditional",
         "dosage_notes": "Strong infusion of powdered bark, 1-2 cups at onset of headache"
+      },
+      {
+        "ailment": "Rheumatoid Arthritis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Salicin provides anti-inflammatory and analgesic effects similar to aspirin but with better GI tolerance, reducing joint pain and swelling.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried bark simmered 10-15 minutes, 2-3 times daily, or 120-240 mg salicin daily."
       }
     ],
     "compound_names": [
@@ -18925,6 +20821,14 @@
         "efficacy_notes": "Proanthocyanidins and gallic acid provide local anti-inflammatory effects when applied to inflamed tissues",
         "evidence_level": "clinical",
         "dosage_notes": "Decoction applied topically as needed for localized inflammation"
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "bark",
+        "preparation": "Tincture",
+        "efficacy_notes": "Astringent and hemostatic herb that strengthens blood vessel integrity and reduces bleeding.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily; also effective topically."
       }
     ],
     "compound_names": [
@@ -19350,6 +21254,14 @@
         "efficacy_notes": "Oak bark baths are a traditional European remedy for weeping eczema, excessive sweating, and hemorrhoids",
         "evidence_level": "clinical",
         "dosage_notes": "500 grams of bark decocted and added to a sitz bath or full bath; soak for 15-20 minutes"
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Powerful astringent rich in tannins that strengthens blood vessel walls and reduces bleeding tendency.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried bark simmered 15 minutes, taken 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -19958,6 +21870,14 @@
         "efficacy_notes": "The nervine relaxant properties help release the physical manifestation of stress held as muscular tension, particularly in the shoulders, neck, and abdomen",
         "evidence_level": "traditional",
         "dosage_notes": "Tincture of 2-3 mL taken 3 times daily during periods of high stress"
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "bark",
+        "preparation": "Tincture",
+        "efficacy_notes": "Potent uterine antispasmodic that reduces the severe cramping and pelvic pain characteristic of endometriosis.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-5 ml tincture every 3-4 hours during acute pain, or 2 ml three times daily as maintenance."
       }
     ],
     "compound_names": [
@@ -20063,6 +21983,22 @@
         "efficacy_notes": "Research shows paeoniflorin modulates estrogen and androgen levels and is used in clinical protocols for polycystic ovarian syndrome and hormonal acne",
         "evidence_level": "clinical",
         "dosage_notes": "Tincture of 3-5 mL taken 2-3 times daily for several months as a hormonal balancing protocol"
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Paeoniflorin modulates aromatase activity and reduces testosterone levels, a key therapeutic action for PCOS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "6-15 g dried root simmered for 20 minutes, taken daily. Often combined with licorice."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "root",
+        "preparation": "Decoction",
+        "efficacy_notes": "Paeoniflorin reduces inflammatory prostaglandins and modulates estrogen metabolism, addressing root causes of endometrial proliferation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "6-15 g dried root simmered for 20 minutes, taken daily."
       }
     ],
     "compound_names": [
@@ -20172,6 +22108,14 @@
         "efficacy_notes": "Berberine demonstrates broad-spectrum antifungal activity against Candida species and other pathogenic fungi, both internally and topically",
         "evidence_level": "clinical",
         "dosage_notes": "Tincture of 3-5 mL taken 3 times daily for systemic antifungal support, or applied topically for localized infections"
+      },
+      {
+        "ailment": "Psoriatic Arthritis",
+        "plant_part": "root",
+        "preparation": "Tincture",
+        "efficacy_notes": "Berberine and other alkaloids reduce skin cell proliferation and inflammation, addressing the psoriatic skin component.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2-4 ml tincture twice daily, or topical cream for skin lesions."
       }
     ],
     "compound_names": [
@@ -20398,6 +22342,14 @@
         "efficacy_notes": "Promotes menstrual flow in cases of suppressed or delayed menses associated with stress and tension",
         "evidence_level": "traditional",
         "dosage_notes": "2-3 cups of infusion daily during the week before expected menses"
+      },
+      {
+        "ailment": "Anger and Irritability",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Specific for type-A personalities with tension-driven irritability. Releases muscular and emotional holding patterns.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily."
       }
     ],
     "compound_names": [
@@ -20610,6 +22562,14 @@
         "efficacy_notes": "Traditional use for mild hypertension; its hemostatic and circulatory-regulating actions may help normalize vascular tone",
         "evidence_level": "traditional",
         "dosage_notes": "20-30 drops tincture 2-3 times daily; monitor blood pressure regularly"
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "leaf",
+        "preparation": "Tincture",
+        "efficacy_notes": "Potent hemostatic that reduces excessive bleeding through uterine and vascular astringent effects.",
+        "evidence_level": "traditional",
+        "dosage_notes": "2-4 ml tincture 2-3 times daily, or as needed for acute bleeding episodes."
       }
     ],
     "compound_names": [
@@ -20720,6 +22680,22 @@
         "efficacy_notes": "Used as a wash or compress for slow-healing wounds, minor cuts, and skin irritations; tannins promote tissue repair",
         "evidence_level": "ethnobotanical",
         "dosage_notes": "Prepare a strong infusion and apply cooled as a compress or wash 2-3 times daily"
+      },
+      {
+        "ailment": "Bleeding Disorders",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Astringent herb that reduces excessive menstrual and other bleeding through tannin-mediated vascular toning.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Uterine tonic that supports healthy pregnancy and traditionally used to prevent miscarriage in the first trimester.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1 teaspoon dried herb per cup, steeped 10 minutes. Drink 1-2 cups daily."
       }
     ],
     "compound_names": [
@@ -20820,6 +22796,30 @@
         "efficacy_notes": "Rich mineral content including iron, calcium, and manganese provides gentle nutritive support for fatigue related to mineral deficiency",
         "evidence_level": "traditional",
         "dosage_notes": "Prepare as a long infusion (4-8 hours) for maximum mineral extraction; drink 1-2 cups daily"
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Uterine tonic that strengthens and tones pelvic muscles, reducing excessive cramping and supporting healthy uterine function.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Premier pregnancy tonic that tones uterine muscles, prepares for labor, and may reduce labor duration. Safe in second and third trimesters.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. 1-3 cups daily from second trimester."
+      },
+      {
+        "ailment": "Breastfeeding",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Postpartum uterine tonic that supports recovery and provides nutritive support during breastfeeding.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10-15 minutes. Drink 1-3 cups daily."
       }
     ],
     "compound_names": [
@@ -20929,6 +22929,14 @@
         "efficacy_notes": "High antioxidant content and immune-modulating compounds support overall immune resilience",
         "evidence_level": "clinical",
         "dosage_notes": "30-50ml juice daily or equivalent supplemental dose throughout cold season"
+      },
+      {
+        "ailment": "Sjögren's Syndrome",
+        "plant_part": "seed_fruit",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Sea buckthorn oil improves mucosal moisture and has clinical evidence for reducing dry eye symptoms in Sjogren's.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 g sea buckthorn oil daily in capsule form."
       }
     ],
     "compound_names": [
@@ -21157,6 +23165,22 @@
         "efficacy_notes": "In cases where low libido stems from prolactin excess, normalizing prolactin levels may restore healthy sexual desire",
         "evidence_level": "clinical",
         "dosage_notes": "20-40mg standardized extract daily; response may take several months to manifest"
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Regulates pituitary hormones, normalizing the LH:FSH ratio that is often disrupted in PCOS, promoting regular ovulation.",
+        "evidence_level": "clinical",
+        "dosage_notes": "40 drops tincture or 20-40 mg extract each morning."
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "seed_fruit",
+        "preparation": "Tincture",
+        "efficacy_notes": "Modulates progesterone levels through pituitary regulation, helping counteract the estrogen dominance driving endometriosis.",
+        "evidence_level": "clinical",
+        "dosage_notes": "40 drops tincture or 20-40 mg extract each morning."
       }
     ],
     "compound_names": [
@@ -21495,6 +23519,14 @@
         "efficacy_notes": "Analgesic action is especially targeted to pelvic and menstrual pain, with traditional reports of rapid onset of pain relief",
         "evidence_level": "traditional",
         "dosage_notes": "Bark decoction 3-6g in milk, taken during painful episodes up to 3 times daily"
+      },
+      {
+        "ailment": "Endometriosis",
+        "plant_part": "bark",
+        "preparation": "Decoction",
+        "efficacy_notes": "Traditional Ayurvedic uterine tonic with documented anti-estrogenic and anti-inflammatory effects on endometrial tissue.",
+        "evidence_level": "traditional",
+        "dosage_notes": "3-6 g dried bark simmered for 15-20 minutes, taken twice daily."
       }
     ],
     "compound_names": [
@@ -21966,6 +23998,22 @@
         "efficacy_notes": "Gentle enough for nightly use without habituation; especially suited for children's sleep difficulties and age-related sleep disturbances",
         "evidence_level": "traditional",
         "dosage_notes": "1-2 cups of warm infusion 30-60 minutes before bed; safe for long-term nightly use"
+      },
+      {
+        "ailment": "Night Terrors",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Gentle nervine and antispasmodic that calms nighttime anxiety and promotes restful, undisturbed sleep.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink before bed."
+      },
+      {
+        "ailment": "Heart Disease",
+        "plant_part": "flower",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Cardiovascular tonic that reduces blood pressure and supports healthy arterial function through mild vasodilation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried flowers per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [
@@ -22405,6 +24453,14 @@
         "efficacy_notes": "Anti-androgenic effects help clear hormonal acne by reducing sebum production driven by excess androgens. Internal and external use both beneficial.",
         "evidence_level": "clinical",
         "dosage_notes": "2 cups tea daily internally. Cooled tea can also be used as a facial rinse. Allow 1-3 months for skin clearing."
+      },
+      {
+        "ailment": "PCOS (Polycystic Ovary Syndrome)",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Clinical studies show spearmint tea significantly reduces free testosterone and increases LH and FSH, addressing the androgenic component of PCOS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "2 cups spearmint tea daily (1-2 teaspoons dried leaf per cup, steeped 10 minutes)."
       }
     ],
     "compound_names": [
@@ -22507,6 +24563,38 @@
         "efficacy_notes": "Antispasmodic and carminative action relieves nausea. Peppermint aromatherapy studied for post-operative nausea with positive results.",
         "evidence_level": "clinical",
         "dosage_notes": "1 cup peppermint tea sipped slowly. Inhaling peppermint essential oil from a tissue also effective for acute nausea."
+      },
+      {
+        "ailment": "Celiac Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Antispasmodic and carminative actions relieve abdominal cramping, bloating, and intestinal discomfort common in celiac disease.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily between meals."
+      },
+      {
+        "ailment": "Crohn's Disease",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Antispasmodic action relieves intestinal cramping and reduces abdominal pain associated with Crohn's flares.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-2 teaspoons dried leaf per cup, steeped 10 minutes. Drink 2-3 cups daily between meals."
+      },
+      {
+        "ailment": "Irritable Bowel Syndrome",
+        "plant_part": "leaf",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Enteric-coated peppermint oil capsules are clinically proven to reduce IBS symptoms including pain, bloating, and urgency.",
+        "evidence_level": "clinical",
+        "dosage_notes": "0.2-0.4 ml enteric-coated peppermint oil capsules, 2-3 times daily before meals."
+      },
+      {
+        "ailment": "Pregnancy",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Relieves pregnancy-related nausea and digestive discomfort. Generally considered safe in moderate amounts during pregnancy.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1 teaspoon dried leaf per cup, steeped 10 minutes. Drink 1-2 cups daily."
       }
     ],
     "compound_names": [
@@ -22616,6 +24704,38 @@
         "efficacy_notes": "Beta-glucans and cordycepin modulate immune function, enhancing NK cell activity and adaptive immune response.",
         "evidence_level": "clinical",
         "dosage_notes": "2-4 ml dual-extracted tincture twice daily. Consistent use for immune building."
+      },
+      {
+        "ailment": "Chronic Fatigue Syndrome",
+        "plant_part": "fungal_body",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Enhances mitochondrial ATP production and oxygen utilization, directly addressing the energy deficit in CFS.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-3 g dried powder or 500-1000 mg extract daily."
+      },
+      {
+        "ailment": "Adrenal Fatigue",
+        "plant_part": "fungal_body",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Enhances adrenal function and mitochondrial energy production, rebuilding depleted energy reserves.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-3 g dried powder or 500-1000 mg extract daily."
+      },
+      {
+        "ailment": "Autoimmune Conditions",
+        "plant_part": "fungal_body",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Immunomodulatory polysaccharides help rebalance immune function and reduce autoimmune-driven inflammation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-3 g dried powder or 500-1000 mg extract daily."
+      },
+      {
+        "ailment": "Kidney Disease",
+        "plant_part": "fungal_body",
+        "preparation": "Ground/Capsule",
+        "efficacy_notes": "Clinical trials demonstrate improved kidney function, reduced proteinuria, and increased creatinine clearance.",
+        "evidence_level": "clinical",
+        "dosage_notes": "1-3 g dried powder or 500-1000 mg extract daily."
       }
     ],
     "compound_names": [
@@ -22724,6 +24844,14 @@
         "efficacy_notes": "Bitter and aromatic compounds stimulate bile flow, digestive secretions, and peristalsis. Traditional Mediterranean after-meal digestive herb.",
         "evidence_level": "traditional",
         "dosage_notes": "1 cup rosemary tea after meals. Combines well with other digestive herbs like peppermint and ginger."
+      },
+      {
+        "ailment": "Raynaud's Phenomenon",
+        "plant_part": "leaf",
+        "preparation": "Infusion (Tea)",
+        "efficacy_notes": "Circulatory stimulant that improves peripheral blood flow and warms cold extremities through gentle vasodilation.",
+        "evidence_level": "traditional",
+        "dosage_notes": "1-2 teaspoons dried herb per cup, steeped 10-15 minutes. Drink 2-3 cups daily."
       }
     ],
     "compound_names": [

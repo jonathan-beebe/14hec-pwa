@@ -113,6 +113,8 @@ export function registerIpcHandlers(): void {
 
     const presenceEnergetics = db.prepare('SELECT * FROM plant_presence_energetics WHERE plant_id = ?').get(id) || null
 
+    const ethicalPractice = db.prepare('SELECT * FROM ethical_practice WHERE plant_id = ?').get(id) || null
+
     return {
       ...plant,
       parts,
@@ -123,7 +125,8 @@ export function registerIpcHandlers(): void {
       researchNotes,
       contraindications,
       teachings,
-      presenceEnergetics
+      presenceEnergetics,
+      ethicalPractice
     }
   })
 
@@ -402,6 +405,16 @@ export function registerIpcHandlers(): void {
   })
 
   // ── Plant Teachings ──────────────────────────────────
+  ipcMain.handle('db:teachings:getAll', () => {
+    const db = getDb()
+    return db.prepare(`
+      SELECT pt.*, p.common_name, p.latin_name, p.category
+      FROM plant_teachings pt
+      JOIN plants p ON pt.plant_id = p.id
+      ORDER BY p.common_name
+    `).all()
+  })
+
   ipcMain.handle('db:teachings:getByPlantId', (_event, plantId: number) => {
     const db = getDb()
     return db.prepare('SELECT * FROM plant_teachings WHERE plant_id = ?').get(plantId) || null
@@ -411,6 +424,12 @@ export function registerIpcHandlers(): void {
   ipcMain.handle('db:presence:getByPlantId', (_event, plantId: number) => {
     const db = getDb()
     return db.prepare('SELECT * FROM plant_presence_energetics WHERE plant_id = ?').get(plantId) || null
+  })
+
+  // ── Ethical Practice ──────────────────────────────────
+  ipcMain.handle('db:ethicalPractice:getByPlantId', (_event, plantId: number) => {
+    const db = getDb()
+    return db.prepare('SELECT * FROM ethical_practice WHERE plant_id = ?').get(plantId) || null
   })
 
   // ── Journal Prompts ──────────────────────────────────
