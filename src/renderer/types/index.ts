@@ -409,6 +409,35 @@ export interface WellnessPlantRecommendation {
   notes: string | null
 }
 
+export interface PlantHMBSAssociation {
+  id: number
+  plant_id: number
+  domain: 'heart' | 'mind' | 'body' | 'spirit'
+  strength: 'primary' | 'secondary' | 'tertiary'
+  reason: string | null
+  plant_part_affinity: string | null
+}
+
+export interface HMBSPlant {
+  plant_id: number
+  common_name: string
+  latin_name: string
+  category: string
+  domain: 'heart' | 'mind' | 'body' | 'spirit'
+  strength: 'primary' | 'secondary' | 'tertiary'
+  reason: string | null
+  plant_part_affinity: string | null
+  energetic_quality: string | null
+}
+
+export interface HMBSDomainSummary {
+  domain: 'heart' | 'mind' | 'body' | 'spirit'
+  total: number
+  primary: number
+  secondary: number
+  tertiary: number
+}
+
 declare global {
   interface Window {
     api: {
@@ -467,6 +496,11 @@ declare global {
       getWellnessGoalsByCategory: (categoryId: number) => Promise<WellnessGoal[]>
       getWellnessGoalById: (id: number) => Promise<WellnessGoalDetail | null>
       searchWellnessGoals: (search: string) => Promise<WellnessGoal[]>
+
+      // HMBS Associations
+      getHMBSPlants: (domain?: string, strength?: string) => Promise<HMBSPlant[]>
+      getHMBSByPlantId: (plantId: number) => Promise<PlantHMBSAssociation[]>
+      getHMBSSummary: () => Promise<HMBSDomainSummary[]>
     }
   }
 }

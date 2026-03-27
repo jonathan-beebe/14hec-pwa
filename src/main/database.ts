@@ -33,7 +33,8 @@ function createSchema(): void {
     '003-teachings-journal.sql',
     '004-presence-energetics.sql',
     '005-ethical-practice.sql',
-    '006-wellness-goals.sql'
+    '006-wellness-goals.sql',
+    '007-hmbs-associations.sql'
   ]
 
   for (const migration of migrations) {
@@ -51,6 +52,9 @@ function createSchema(): void {
 }
 
 function getEmbeddedSchema(migration: string): string {
+  if (migration === '007-hmbs-associations.sql') {
+    return getEmbeddedHMBSSchema()
+  }
   if (migration === '006-wellness-goals.sql') {
     return getEmbeddedWellnessGoalsSchema()
   }
@@ -463,5 +467,23 @@ CREATE TABLE IF NOT EXISTS plant_presence_energetics (
 );
 
 CREATE INDEX IF NOT EXISTS idx_presence_plant ON plant_presence_energetics(plant_id);
+  `
+}
+
+function getEmbeddedHMBSSchema(): string {
+  return `
+CREATE TABLE IF NOT EXISTS plant_hmbs_associations (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  plant_id INTEGER NOT NULL REFERENCES plants(id),
+  domain TEXT NOT NULL CHECK(domain IN ('heart','mind','body','spirit')),
+  strength TEXT NOT NULL CHECK(strength IN ('primary','secondary','tertiary')) DEFAULT 'primary',
+  reason TEXT,
+  plant_part_affinity TEXT,
+  UNIQUE(plant_id, domain)
+);
+
+CREATE INDEX IF NOT EXISTS idx_hmbs_plant ON plant_hmbs_associations(plant_id);
+CREATE INDEX IF NOT EXISTS idx_hmbs_domain ON plant_hmbs_associations(domain);
+CREATE INDEX IF NOT EXISTS idx_hmbs_strength ON plant_hmbs_associations(strength);
   `
 }

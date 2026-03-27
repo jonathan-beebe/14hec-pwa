@@ -619,6 +619,59 @@ export function registerIpcHandlers(): void {
     `).all(s, s, s, s)
     return goals
   })
+
+// ── HMBS Associations ────────────────────────────────────
+
+  ipcMain.handle('db:hmbs:getPlants', (_event, domain?: string, strength?: string) => {
+    const db = getDb()
+    let sql = `
+      SELECT h.*, p.common_name, p.latin_name, p.category, p.energetic_quality
+      FROM plant_hmbs_associations h
+      JOIN plants p ON h.plant_id = p.id
+    `
+    const conditions: string[] = []
+    const params: any[] = []
+
+    if (domain) {
+      conditions.push('h.domain = ?')
+      params.push(domain)
+    }
+    if (strength) {
+      conditions.push('h.strength = ?')
+      params.push(strength)
+    }
+
+    if (conditions.length > 0) {
+      sql += ' WHERE ' + conditions.join(' AND ')
+    }
+
+    sql += ` ORDER BY CASE h.strength WHEN 'primary' THEN 1 WHEN 'secondary' THEN 2 WHEN 'tertiary' THEN 3 END, p.common_name`
+
+    return db.prepare(sql).all(...params)
+  })
+
+  ipcMain.handle('db:hmbs:getByPlantId', (_event, plantId: number) => {
+    const db = getDb()
+    return db.prepare(`
+      SELECT * FROM plant_hmbs_associations WHERE plant_id = ? ORDER BY
+      CASE strength WHEN 'primary' THEN 1 WHEN 'secondary' THEN 2 WHEN 'tertiary' THEN 3 END
+    `).all(plantId)
+  })
+
+  ipcMain.handle('db:hmbs:getSummary', () => {
+    const db = getDb()
+    return db.prepare(`
+      SELECT
+        domain,
+        COUNT(*) as total,
+        SUM(CASE WHEN strength = 'primary' THEN 1 ELSE 0 END) as primary_count,
+        SUM(CASE WHEN strength = 'secondary' THEN 1 ELSE 0 END) as secondary_count,
+        SUM(CASE WHEN strength = 'tertiary' THEN 1 ELSE 0 END) as tertiary_count
+      FROM plant_hmbs_associations
+      GROUP BY domain
+      ORDER BY CASE domain WHEN 'heart' THEN 1 WHEN 'mind' THEN 2 WHEN 'body' THEN 3 WHEN 'spirit' THEN 4 END
+    `).all()
+  })
 }
 
 /** Shared helper: fetch a body system with all its related data */

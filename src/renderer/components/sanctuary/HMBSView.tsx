@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Page } from '../../App'
-import type { Plant, Ailment } from '../../types'
+import type { Ailment, HMBSPlant, HMBSDomainSummary } from '../../types'
 
 interface HMBSViewProps {
   navigate: (page: Page) => void
@@ -8,6 +8,7 @@ interface HMBSViewProps {
 
 interface HMBSDomain {
   name: string
+  key: 'heart' | 'mind' | 'body' | 'spirit'
   icon: string
   color: string
   textColor: string
@@ -16,7 +17,6 @@ interface HMBSDomain {
   description: string
   bodyAreas: string
   frequency: string
-  supportPlants: string[]
   supportAilments: string[]
   rituals: string[]
   element: string
@@ -25,6 +25,7 @@ interface HMBSDomain {
 const HMBS_DOMAINS: HMBSDomain[] = [
   {
     name: 'Heart',
+    key: 'heart',
     icon: '\u2661',
     color: 'rose',
     textColor: 'text-rose-300',
@@ -33,13 +34,13 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     description: 'The seat of love, compassion, and emotional intelligence. Heart-domain plants open the chest, warm the blood, and cultivate connection. In the Sanctuary, the Heart Room features rose-gold lighting, living rose vines, and water features.',
     bodyAreas: 'Heart, circulatory system, chest, blood, emotional body',
     frequency: '528 Hz - The love frequency',
-    supportPlants: ['Rose', 'Chamomile', 'Lavender', 'Passionflower', 'Blue Lotus'],
     supportAilments: ['Anxiety', 'Grief', 'Depression', 'High blood pressure', 'Stress'],
     rituals: ['Cacao ceremony', 'Heart-opening breathwork', 'Rose water ritual', 'Sound healing at 528 Hz'],
     element: 'Water'
   },
   {
     name: 'Mind',
+    key: 'mind',
     icon: '\u2609',
     color: 'blue',
     textColor: 'text-blue-300',
@@ -48,13 +49,13 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     description: 'Clarity, cognition, and expanded awareness. Mind-domain plants sharpen focus, enhance memory, and support neurological health. The Mind Room features cool blue-white light, rosemary/mint living walls, and binaural beats at 14 Hz.',
     bodyAreas: 'Brain, nervous system, cognitive function, memory, mental clarity',
     frequency: '14 Hz - Alpha-beta transition (the 14 HEC frequency)',
-    supportPlants: ['Rosemary', 'Lavender', 'Sage', 'Psilocybin Mushrooms', 'Reishi'],
     supportAilments: ['Lack of clarity', 'Fatigue', 'Headaches', 'Insomnia', 'Stress'],
     rituals: ['Binaural beat meditation at 14 Hz', 'Neurofeedback sessions', 'Lion\'s mane elixir', 'Rosemary steam inhalation'],
     element: 'Air'
   },
   {
     name: 'Body',
+    key: 'body',
     icon: '\u2618',
     color: 'green',
     textColor: 'text-green-300',
@@ -63,13 +64,13 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     description: 'Physical vitality, strength, and the wisdom of the flesh. Body-domain plants nourish tissues, reduce inflammation, and build resilience. The Body Room features earth tones, heated stone floors, and a communal herbal soaking tub.',
     bodyAreas: 'Muscles, bones, joints, digestive system, immune system, skin',
     frequency: '7.83 Hz - Schumann resonance (Earth\'s heartbeat)',
-    supportPlants: ['Ashwagandha', 'Nettle', 'Ginger', 'Dandelion', 'Comfrey', 'Yarrow'],
     supportAilments: ['Chronic inflammation', 'Digestive stagnation', 'Joint pain', 'Chronic pain', 'Immune deficiency', 'Wound healing'],
     rituals: ['Herbal soaking bath', 'Sauna + cold plunge', 'Bone broth ceremony', 'Earth grounding practice'],
     element: 'Earth'
   },
   {
     name: 'Spirit',
+    key: 'spirit',
     icon: '\u2726',
     color: 'purple',
     textColor: 'text-purple-300',
@@ -78,7 +79,6 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     description: 'Transcendence, intuition, and connection to the infinite. Spirit-domain plants dissolve boundaries, expand consciousness, and open portals to the numinous. The Spirit Room is a dark, womb-like space with indigo/violet light and a star map ceiling.',
     bodyAreas: 'Pineal gland, subtle body, dream life, intuition, transpersonal awareness',
     frequency: '963 Hz - Crown chakra activation',
-    supportPlants: ['Mugwort', 'Blue Lotus', 'Psilocybin Mushrooms', 'Cannabis', 'Ayahuasca', 'Passionflower'],
     supportAilments: ['Spiritual disconnection', 'Dream enhancement', 'Consciousness expansion', 'Existential distress', 'Insomnia'],
     rituals: ['Mugwort dream pillow', 'Float tank immersion', 'Gong bath ceremony', 'Sensory deprivation practice'],
     element: 'Fire/Ether'
@@ -92,18 +92,38 @@ const DOMAIN_CSS_MAP: Record<string, string> = {
   Spirit: 'spirit'
 }
 
+const STRENGTH_LABELS: Record<string, string> = {
+  primary: 'Core',
+  secondary: 'Supporting',
+  tertiary: 'Minor'
+}
+
 export default function HMBSView({ navigate }: HMBSViewProps) {
-  const [plants, setPlants] = useState<Plant[]>([])
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [selectedDomain, setSelectedDomain] = useState<HMBSDomain | null>(null)
+  const [domainPlants, setDomainPlants] = useState<HMBSPlant[]>([])
+  const [summary, setSummary] = useState<HMBSDomainSummary[]>([])
+  const [strengthFilter, setStrengthFilter] = useState<string>('')
 
   useEffect(() => {
-    window.api.getPlants().then(setPlants)
     window.api.getAilments().then(setAilments)
+    window.api.getHMBSSummary().then(setSummary)
   }, [])
 
-  const findPlantByName = (name: string) => plants.find((p) => p.common_name === name)
+  useEffect(() => {
+    if (selectedDomain) {
+      window.api.getHMBSPlants(selectedDomain.key, strengthFilter || undefined).then(setDomainPlants)
+    }
+  }, [selectedDomain, strengthFilter])
+
   const findAilmentByName = (name: string) => ailments.find((a) => a.name.toLowerCase() === name.toLowerCase())
+
+  const getDomainCount = (key: string) => {
+    const s = summary.find((d) => d.domain === key)
+    return s ? s.total : 0
+  }
+
+  const filteredPlants = domainPlants
 
   return (
     <div className="animate-fade-in">
@@ -135,7 +155,10 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
         {HMBS_DOMAINS.map((domain) => (
           <button
             key={domain.name}
-            onClick={() => setSelectedDomain(selectedDomain?.name === domain.name ? null : domain)}
+            onClick={() => {
+              setSelectedDomain(selectedDomain?.name === domain.name ? null : domain)
+              setStrengthFilter('')
+            }}
             className={`hmbs-card hmbs-${DOMAIN_CSS_MAP[domain.name]} text-left ${
               selectedDomain?.name === domain.name ? 'ring-1 ring-inset ring-white/20' : ''
             }`}
@@ -146,7 +169,10 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
                 <span className="text-3xl opacity-50 block mb-2">{domain.icon}</span>
                 <h2 className={`text-xl font-display font-bold ${domain.textColor}`}>{domain.name}</h2>
               </div>
-              <span className={`badge badge-${DOMAIN_CSS_MAP[domain.name]}`}>{domain.element}</span>
+              <div className="flex flex-col items-end gap-1.5">
+                <span className={`badge badge-${DOMAIN_CSS_MAP[domain.name]}`}>{domain.element}</span>
+                <span className="text-[10px] text-earth-500">{getDomainCount(domain.key)} plants</span>
+              </div>
             </div>
             <p className="text-xs text-earth-400 leading-relaxed line-clamp-3">{domain.description}</p>
             <div className="mt-3 flex items-center gap-2">
@@ -179,29 +205,69 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
             </div>
           </div>
 
-          {/* Associated Plants */}
+          {/* Associated Plants — Now database-driven */}
           <div className="card">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-xl opacity-50">{'\u2618'}</span>
-              <h3 className="section-title mb-0">{selectedDomain.name} Plants</h3>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {selectedDomain.supportPlants.map((name) => {
-                const plant = findPlantByName(name)
-                return (
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <span className="text-xl opacity-50">{'\u2618'}</span>
+                <h3 className="section-title mb-0">{selectedDomain.name} Plants</h3>
+                <span className="text-xs text-earth-500">({filteredPlants.length})</span>
+              </div>
+              <div className="flex gap-1.5">
+                {['', 'primary', 'secondary', 'tertiary'].map((s) => (
                   <button
-                    key={name}
-                    onClick={() => plant && navigate({ view: 'plant-detail', id: plant.id })}
-                    disabled={!plant}
-                    className="text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group disabled:opacity-50"
-                    style={{ background: 'rgba(26, 25, 21, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
+                    key={s}
+                    onClick={() => setStrengthFilter(s)}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] transition-all ${
+                      strengthFilter === s
+                        ? `${selectedDomain.textColor}`
+                        : 'text-earth-500 hover:text-earth-300'
+                    }`}
+                    style={{
+                      background: strengthFilter === s ? 'rgba(255,255,255,0.06)' : 'transparent',
+                      border: strengthFilter === s ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent'
+                    }}
                   >
-                    <span className="text-botanical-400 font-medium group-hover:text-botanical-300 transition-colors">{name}</span>
-                    {plant && <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>}
+                    {s === '' ? 'All' : STRENGTH_LABELS[s]}
                   </button>
-                )
-              })}
+                ))}
+              </div>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {filteredPlants.map((p) => (
+                <button
+                  key={p.plant_id}
+                  onClick={() => navigate({ view: 'plant-detail', id: p.plant_id })}
+                  className="text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group"
+                  style={{ background: 'rgba(26, 25, 21, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="min-w-0">
+                      <span className="text-botanical-400 font-medium group-hover:text-botanical-300 transition-colors">{p.common_name}</span>
+                      <span className="text-earth-500 text-xs ml-2 italic">{p.latin_name}</span>
+                    </div>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded ring-1 ring-inset ${
+                      p.strength === 'primary'
+                        ? `bg-${selectedDomain.color}-500/10 text-${selectedDomain.color}-300 ring-${selectedDomain.color}-500/20`
+                        : p.strength === 'secondary'
+                        ? 'bg-earth-700/30 text-earth-300 ring-earth-600/20'
+                        : 'bg-earth-800/30 text-earth-500 ring-earth-700/20'
+                    }`}>
+                      {p.strength}
+                    </span>
+                  </div>
+                  {p.reason && (
+                    <p className="text-xs text-earth-500 mt-1.5 line-clamp-1">{p.reason}</p>
+                  )}
+                  {p.plant_part_affinity && (
+                    <span className="text-[10px] text-earth-600 mt-1 block">Part: {p.plant_part_affinity}</span>
+                  )}
+                </button>
+              ))}
+            </div>
+            {filteredPlants.length === 0 && (
+              <p className="text-earth-500 text-sm text-center py-4">No plants found for this filter.</p>
+            )}
           </div>
 
           {/* Associated Ailments */}
