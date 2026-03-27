@@ -31,7 +31,7 @@ const SEASONS: Season[] = [
     element: 'Air',
     color: 'green',
     textColor: 'text-green-300',
-    gradient: 'linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(61, 138, 94, 0.12), rgba(16, 15, 12, 0.85))',
     signs: ['Aries', 'Taurus', 'Gemini'],
     description: 'The season of renewal and emergence. Plants are at their most vital as sap rises and new growth appears. This is the optimal time for harvesting aerial parts: young leaves, flowers, and fresh shoots.',
     themes: ['Renewal', 'Purification', 'New beginnings', 'Vitality'],
@@ -47,7 +47,7 @@ const SEASONS: Season[] = [
     element: 'Fire',
     color: 'amber',
     textColor: 'text-amber-300',
-    gradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 15, 12, 0.85))',
     signs: ['Cancer', 'Leo', 'Virgo'],
     description: 'Peak solar energy. Plants are in full bloom and at maximum potency. The long days favor solar preparations and drying herbs for winter medicine-making. Harvest flowers at noon on sunny days for peak essential oil content.',
     themes: ['Abundance', 'Solar vitality', 'Full expression', 'Harvest'],
@@ -63,7 +63,7 @@ const SEASONS: Season[] = [
     element: 'Water',
     color: 'orange',
     textColor: 'text-orange-300',
-    gradient: 'linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(16, 15, 12, 0.85))',
     signs: ['Libra', 'Scorpio', 'Sagittarius'],
     description: 'The season of harvest and turning inward. Plant energy descends into roots and seeds. This is the prime time for root harvesting (after the aerial parts have died back) and seed collection for planting and medicine.',
     themes: ['Harvest', 'Introspection', 'Release', 'Preparation'],
@@ -79,7 +79,7 @@ const SEASONS: Season[] = [
     element: 'Earth',
     color: 'blue',
     textColor: 'text-blue-300',
-    gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(16, 15, 12, 0.85))',
     signs: ['Capricorn', 'Aquarius', 'Pisces'],
     description: 'The season of stillness and deep rest. Focus on inner work, dream practice, and building reserves. Plants rest too, but dried and preserved medicines carry us through. Spagyric preparations and long-steeping tinctures are winter work.',
     themes: ['Rest', 'Dream work', 'Deep nourishment', 'Inner vision'],
@@ -134,7 +134,7 @@ export default function SeasonalGuide({ navigate }: SeasonalGuideProps) {
             style={{
               background: activeSeason.name === season.name
                 ? season.gradient
-                : 'rgba(24, 23, 33, 0.65)',
+                : 'rgba(26, 25, 21, 0.65)',
               boxShadow: activeSeason.name === season.name ? `0 0 30px rgba(255,255,255,0.03)` : undefined
             }}
           >
@@ -171,7 +171,7 @@ export default function SeasonalGuide({ navigate }: SeasonalGuideProps) {
 
           <div className="grid grid-cols-2 gap-3 mt-4">
             <div className="rounded-xl p-3"
-                 style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                 style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
               <div className="section-subtitle">Active Signs</div>
               <div className="flex gap-2">
                 {activeSeason.signs.map((signName) => {
@@ -187,7 +187,7 @@ export default function SeasonalGuide({ navigate }: SeasonalGuideProps) {
               </div>
             </div>
             <div className="rounded-xl p-3"
-                 style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                 style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
               <div className="section-subtitle">Body Focus</div>
               <p className="text-sm text-earth-300">{activeSeason.bodyFocus}</p>
             </div>
@@ -218,7 +218,7 @@ export default function SeasonalGuide({ navigate }: SeasonalGuideProps) {
                   onClick={() => plant && navigate({ view: 'plant-detail', id: plant.id })}
                   disabled={!plant}
                   className="text-left rounded-xl p-4 transition-all duration-200 ease-out-expo group disabled:opacity-50"
-                  style={{ background: 'rgba(24, 23, 33, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
+                  style={{ background: 'rgba(26, 25, 21, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
                 >
                   <span className="text-botanical-400 font-display font-medium group-hover:text-botanical-300 transition-colors">{name}</span>
                   {plant && (
@@ -261,9 +261,9 @@ export default function SeasonalGuide({ navigate }: SeasonalGuideProps) {
           <div className="space-y-2">
             {activeSeason.activities.map((activity, i) => (
               <div key={i} className="flex items-center gap-3 rounded-xl p-3"
-                   style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                   style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
                 <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs text-earth-500 font-medium flex-shrink-0"
-                     style={{ background: 'rgba(24, 23, 33, 0.6)', border: '1px solid rgba(255,255,255,0.06)' }}>
+                     style={{ background: 'rgba(26, 25, 21, 0.6)', border: '1px solid rgba(255,255,255,0.06)' }}>
                   {i + 1}
                 </div>
                 <span className="text-sm text-earth-300">{activity}</span>

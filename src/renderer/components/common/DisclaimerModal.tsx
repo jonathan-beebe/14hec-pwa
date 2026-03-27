@@ -7,7 +7,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-earth-950/80 backdrop-blur-md animate-fade-in">
       <div className="max-w-2xl mx-4 max-h-[90vh] overflow-y-auto scrollbar-hidden relative overflow-hidden rounded-3xl animate-scale-in"
            style={{
-             background: 'rgba(13, 12, 20, 0.92)',
+             background: 'rgba(16, 15, 12, 0.92)',
              backdropFilter: 'blur(24px) saturate(160%)',
              WebkitBackdropFilter: 'blur(24px) saturate(160%)',
              border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -22,9 +22,9 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
           <div className="text-center mb-5">
             <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-2.5"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(124, 94, 237, 0.12))',
+                   background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.12), rgba(124, 94, 237, 0.12))',
                    border: '1px solid rgba(255, 255, 255, 0.08)',
-                   boxShadow: '0 0 20px rgba(74, 222, 128, 0.06)'
+                   boxShadow: '0 0 20px rgba(93, 168, 126, 0.06)'
                  }}>
               <span className="text-xl font-display font-bold text-gradient-botanical">14</span>
             </div>
@@ -43,9 +43,9 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             {/* Educational Purpose */}
             <div className="rounded-xl p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.04), rgba(13, 12, 20, 0.65))',
-                   border: '1px solid rgba(74, 222, 128, 0.08)',
-                   boxShadow: 'inset 0 1px 0 0 rgba(74, 222, 128, 0.04)'
+                   background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.04), rgba(16, 15, 12, 0.65))',
+                   border: '1px solid rgba(93, 168, 126, 0.08)',
+                   boxShadow: 'inset 0 1px 0 0 rgba(93, 168, 126, 0.04)'
                  }}>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="text-botanical-500">{'\u2618'}</span>
@@ -62,7 +62,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             {/* Health Disclaimer */}
             <div className="rounded-xl p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(13, 12, 20, 0.65))',
+                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(16, 15, 12, 0.65))',
                    border: '1px solid rgba(245, 158, 11, 0.08)',
                    boxShadow: 'inset 0 1px 0 0 rgba(245, 158, 11, 0.04)'
                  }}>
@@ -94,7 +94,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             {/* Legal Notice */}
             <div className="rounded-xl p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(124, 94, 237, 0.04), rgba(13, 12, 20, 0.65))',
+                   background: 'linear-gradient(135deg, rgba(124, 94, 237, 0.04), rgba(16, 15, 12, 0.65))',
                    border: '1px solid rgba(124, 94, 237, 0.08)',
                    boxShadow: 'inset 0 1px 0 0 rgba(124, 94, 237, 0.04)'
                  }}>

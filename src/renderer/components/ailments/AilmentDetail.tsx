@@ -28,7 +28,7 @@ export default function AilmentDetail({ id, navigate }: AilmentDetailProps) {
   const categoryColor = ailment.category === 'physical' ? 'earth' : ailment.category === 'emotional' ? 'water' : 'air'
 
   const heroOrbColor = ailment.category === 'physical'
-    ? 'rgba(34, 197, 94, 0.3)'
+    ? 'rgba(61, 138, 94, 0.3)'
     : ailment.category === 'emotional'
     ? 'rgba(59, 130, 246, 0.3)'
     : 'rgba(234, 179, 8, 0.3)'
@@ -95,11 +95,7 @@ export default function AilmentDetail({ id, navigate }: AilmentDetailProps) {
             {ailment.plantRecommendations.map((rec, i) => (
               <div
                 key={i}
-                className="rounded-xl p-4 hover:border-earth-700/40 transition-colors"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.04)'
-                }}
+                className="rounded-xl p-4 hover:border-earth-700/40 transition-colors inner-panel"
               >
                 <div className="flex justify-between items-start mb-2">
                   <button

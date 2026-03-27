@@ -75,13 +75,13 @@ export default function PlanetaryTiming() {
   }
 
   const planetGradients: Record<string, string> = {
-    Sun: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(13, 12, 20, 0.85))',
-    Moon: 'linear-gradient(135deg, rgba(147, 197, 253, 0.08), rgba(13, 12, 20, 0.85))',
-    Mercury: 'linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(13, 12, 20, 0.85))',
-    Venus: 'linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(13, 12, 20, 0.85))',
-    Mars: 'linear-gradient(135deg, rgba(248, 113, 113, 0.08), rgba(13, 12, 20, 0.85))',
-    Jupiter: 'linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(13, 12, 20, 0.85))',
-    Saturn: 'linear-gradient(135deg, rgba(156, 163, 175, 0.08), rgba(13, 12, 20, 0.85))'
+    Sun: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 15, 12, 0.85))',
+    Moon: 'linear-gradient(135deg, rgba(147, 197, 253, 0.08), rgba(16, 15, 12, 0.85))',
+    Mercury: 'linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(16, 15, 12, 0.85))',
+    Venus: 'linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(16, 15, 12, 0.85))',
+    Mars: 'linear-gradient(135deg, rgba(248, 113, 113, 0.08), rgba(16, 15, 12, 0.85))',
+    Jupiter: 'linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(16, 15, 12, 0.85))',
+    Saturn: 'linear-gradient(135deg, rgba(156, 163, 175, 0.08), rgba(16, 15, 12, 0.85))'
   }
 
   const planetTextColors: Record<string, string> = {
@@ -174,7 +174,7 @@ export default function PlanetaryTiming() {
               onClick={() => loadPlanetPlants(h.planet)}
               className={`p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[h.planet]}`}
               style={{
-                background: h.isCurrent ? planetBgColors[h.planet] : 'rgba(35, 34, 46, 0.4)',
+                background: h.isCurrent ? planetBgColors[h.planet] : 'rgba(36, 34, 30, 0.4)',
                 border: h.isCurrent ? `1px solid ${planetRingColors[h.planet]}` : '1px solid rgba(255, 255, 255, 0.05)',
                 opacity: h.isCurrent ? 1 : 0.55,
                 boxShadow: h.isCurrent ? `0 0 20px -4px ${planetRingColors[h.planet]}` : 'none'
@@ -206,7 +206,7 @@ export default function PlanetaryTiming() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {selectedPlanetPlants.map((plant: any) => (
                 <div key={plant.id} className="rounded-xl p-3"
-                     style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                     style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <span className="text-botanical-400 font-medium">{plant.common_name}</span>
                   <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
                 </div>
@@ -216,7 +216,7 @@ export default function PlanetaryTiming() {
             <p className="text-earth-600 text-sm">No plants associated with this planet in the current database.</p>
           )}
 
-          <div className="mt-4 rounded-xl p-4" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+          <div className="mt-4 rounded-xl p-4" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
             <div className="section-subtitle">Optimal activities during {selectedPlanetName} hours</div>
             <div className="space-y-1 mt-1">
               {getOptimalActivities(selectedPlanetName).map((act, i) => (

@@ -28,7 +28,7 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     icon: '\u2661',
     color: 'rose',
     textColor: 'text-rose-300',
-    gradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(16, 15, 12, 0.85))',
     glowShadow: '0 0 40px rgba(244, 63, 94, 0.08)',
     description: 'The seat of love, compassion, and emotional intelligence. Heart-domain plants open the chest, warm the blood, and cultivate connection. In the Sanctuary, the Heart Room features rose-gold lighting, living rose vines, and water features.',
     bodyAreas: 'Heart, circulatory system, chest, blood, emotional body',
@@ -43,7 +43,7 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     icon: '\u2609',
     color: 'blue',
     textColor: 'text-blue-300',
-    gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(16, 15, 12, 0.85))',
     glowShadow: '0 0 40px rgba(59, 130, 246, 0.08)',
     description: 'Clarity, cognition, and expanded awareness. Mind-domain plants sharpen focus, enhance memory, and support neurological health. The Mind Room features cool blue-white light, rosemary/mint living walls, and binaural beats at 14 Hz.',
     bodyAreas: 'Brain, nervous system, cognitive function, memory, mental clarity',
@@ -58,8 +58,8 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     icon: '\u2618',
     color: 'green',
     textColor: 'text-green-300',
-    gradient: 'linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(26, 15, 8, 0.85))',
-    glowShadow: '0 0 40px rgba(34, 197, 94, 0.08)',
+    gradient: 'linear-gradient(135deg, rgba(61, 138, 94, 0.12), rgba(16, 15, 12, 0.85))',
+    glowShadow: '0 0 40px rgba(61, 138, 94, 0.08)',
     description: 'Physical vitality, strength, and the wisdom of the flesh. Body-domain plants nourish tissues, reduce inflammation, and build resilience. The Body Room features earth tones, heated stone floors, and a communal herbal soaking tub.',
     bodyAreas: 'Muscles, bones, joints, digestive system, immune system, skin',
     frequency: '7.83 Hz - Schumann resonance (Earth\'s heartbeat)',
@@ -73,7 +73,7 @@ const HMBS_DOMAINS: HMBSDomain[] = [
     icon: '\u2726',
     color: 'purple',
     textColor: 'text-purple-300',
-    gradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(26, 15, 8, 0.85))',
+    gradient: 'linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(16, 15, 12, 0.85))',
     glowShadow: '0 0 40px rgba(168, 85, 247, 0.08)',
     description: 'Transcendence, intuition, and connection to the infinite. Spirit-domain plants dissolve boundaries, expand consciousness, and open portals to the numinous. The Spirit Room is a dark, womb-like space with indigo/violet light and a star map ceiling.',
     bodyAreas: 'Pineal gland, subtle body, dream life, intuition, transpersonal awareness',
@@ -114,7 +114,7 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
 
         <div className="relative">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom, #f43f5e, #3b82f6, #22c55e, #a855f7)' }} />
+            <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom, #f43f5e, #3b82f6, #3d8a5e, #a855f7)' }} />
             <div>
               <h1 className="text-xl font-display font-bold text-gradient-hmbs tracking-wide">
                 Heart {'\u00b7'} Mind {'\u00b7'} Body {'\u00b7'} Spirit
@@ -173,7 +173,7 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
             </div>
             <p className="text-sm text-earth-300 leading-relaxed">{selectedDomain.description}</p>
             <div className="mt-4 rounded-xl p-3"
-                 style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                 style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
               <div className="section-subtitle">Body Areas</div>
               <p className="text-sm text-earth-300">{selectedDomain.bodyAreas}</p>
             </div>
@@ -194,7 +194,7 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
                     onClick={() => plant && navigate({ view: 'plant-detail', id: plant.id })}
                     disabled={!plant}
                     className="text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group disabled:opacity-50"
-                    style={{ background: 'rgba(24, 23, 33, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
+                    style={{ background: 'rgba(26, 25, 21, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}
                   >
                     <span className="text-botanical-400 font-medium group-hover:text-botanical-300 transition-colors">{name}</span>
                     {plant && <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>}
@@ -238,7 +238,7 @@ export default function HMBSView({ navigate }: HMBSViewProps) {
             <div className="space-y-2">
               {selectedDomain.rituals.map((ritual, i) => (
                 <div key={i} className="flex items-center gap-3 rounded-xl p-3"
-                     style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                     style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
                   <div className={`w-2 h-2 rounded-full bg-${selectedDomain.color}-400/50`} />
                   <span className="text-sm text-earth-300">{ritual}</span>
                 </div>

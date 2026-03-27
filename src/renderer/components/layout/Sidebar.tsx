@@ -21,6 +21,7 @@ const navSections: NavSection[] = [
     items: [
       { view: 'plants', label: 'Plants', icon: '\u2618' },
       { view: 'ailments', label: 'Ailments', icon: '\u2695' },
+      { view: 'wellness', label: 'Wellness Goals', icon: '\u2740' },
       { view: 'preparations', label: 'Preparations', icon: '\u2697' },
       { view: 'entheogenic', label: 'Entheogens', icon: '\u2604' },
       { view: 'body-systems', label: 'Body Systems', icon: '\u2B22' }
@@ -54,7 +55,8 @@ const navSections: NavSection[] = [
 const activeViews: Record<string, string> = {
   'plant-detail': 'plants',
   'ailment-detail': 'ailments',
-  'body-system-detail': 'body-systems'
+  'body-system-detail': 'body-systems',
+  'wellness-detail': 'wellness'
 }
 
 export default function Sidebar({ currentView, navigate }: SidebarProps) {
@@ -63,7 +65,7 @@ export default function Sidebar({ currentView, navigate }: SidebarProps) {
   return (
     <aside className="w-60 relative flex flex-col z-10"
            style={{
-             background: 'rgba(13, 12, 20, 0.75)',
+             background: 'rgba(16, 15, 12, 0.82)',
              backdropFilter: 'blur(24px) saturate(150%)',
              WebkitBackdropFilter: 'blur(24px) saturate(150%)',
              borderRight: '1px solid rgba(255, 255, 255, 0.06)'
@@ -74,9 +76,9 @@ export default function Sidebar({ currentView, navigate }: SidebarProps) {
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-xl flex items-center justify-center text-base font-display font-bold"
                style={{
-                 background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.15), rgba(124, 94, 237, 0.15))',
-                 border: '1px solid rgba(74, 222, 128, 0.15)',
-                 boxShadow: '0 0 20px rgba(74, 222, 128, 0.08)'
+                 background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.15), rgba(124, 94, 237, 0.15))',
+                 border: '1px solid rgba(93, 168, 126, 0.15)',
+                 boxShadow: '0 0 20px rgba(93, 168, 126, 0.08)'
                }}>
             <span className="text-gradient-botanical">14</span>
           </div>

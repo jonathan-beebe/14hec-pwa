@@ -97,7 +97,7 @@ function BodySystemsList({ navigate }: { navigate: (page: Page) => void }) {
         <div className="relative">
           <div className="flex items-center gap-4 mb-3">
             <div className="w-1 h-10 rounded-full"
-                 style={{ background: 'linear-gradient(to bottom, #4ade80, #7c5eed)' }} />
+                 style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
             <div>
               <h1 className="text-2xl font-display font-bold text-gradient-botanical tracking-tight">
                 Body Systems
@@ -205,7 +205,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
     ? 'rgba(168, 85, 247, 0.25)'
     : detail.category === 'tissue'
     ? 'rgba(245, 158, 11, 0.25)'
-    : 'rgba(34, 197, 94, 0.25)'
+    : 'rgba(61, 138, 94, 0.25)'
 
   return (
     <div className="max-w-4xl animate-fade-in">
@@ -242,8 +242,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
           </div>
           <div className="flex flex-wrap gap-4">
             {detail.ruling_planet_name && (
-              <div className="rounded-xl p-4 flex-1 min-w-[200px]"
-                   style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+              <div className="rounded-xl p-4 flex-1 min-w-[200px] inner-panel">
                 <div className="text-[10px] text-earth-500 uppercase tracking-[0.15em] mb-2">Ruling Planet</div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl text-celestial-400">{detail.ruling_planet_symbol}</span>
@@ -252,8 +251,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
               </div>
             )}
             {detail.zodiac_sign_name && (
-              <div className="rounded-xl p-4 flex-1 min-w-[200px]"
-                   style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+              <div className="rounded-xl p-4 flex-1 min-w-[200px] inner-panel">
                 <div className="text-[10px] text-earth-500 uppercase tracking-[0.15em] mb-2">Zodiac Sign</div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl text-celestial-400">{detail.zodiac_sign_symbol}</span>
@@ -274,15 +272,13 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
           </div>
           <div className="flex flex-wrap gap-4">
             {detail.tcm_element && (
-              <div className="rounded-xl p-4 flex-1 min-w-[200px]"
-                   style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+              <div className="rounded-xl p-4 flex-1 min-w-[200px] inner-panel">
                 <div className="text-[10px] text-earth-500 uppercase tracking-[0.15em] mb-2">TCM Element</div>
                 <span className="text-sm font-display font-medium text-earth-200">{detail.tcm_element}</span>
               </div>
             )}
             {detail.ayurvedic_dosha && (
-              <div className="rounded-xl p-4 flex-1 min-w-[200px]"
-                   style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+              <div className="rounded-xl p-4 flex-1 min-w-[200px] inner-panel">
                 <div className="text-[10px] text-earth-500 uppercase tracking-[0.15em] mb-2">Ayurvedic Dosha</div>
                 <span className="text-sm font-display font-medium text-earth-200">{detail.ayurvedic_dosha}</span>
               </div>
@@ -306,11 +302,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
                 <button
                   key={`${ailment.body_system_id}-${ailment.ailment_id}`}
                   onClick={() => navigate({ view: 'ailment-detail', id: ailment.ailment_id })}
-                  className="w-full text-left rounded-xl p-4 transition-all duration-200 ease-out-expo group hover:border-earth-700/40"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.04)'
-                  }}
+                  className="w-full text-left rounded-xl p-4 transition-all duration-200 ease-out-expo group hover:border-earth-700/40 inner-panel"
                 >
                   <div className="flex items-start justify-between mb-1">
                     <span className="text-sm text-earth-200 group-hover:text-botanical-400 transition-colors font-display font-medium">
@@ -353,11 +345,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
               return (
                 <div
                   key={corr.id}
-                  className="rounded-xl p-4 transition-colors hover:border-earth-700/40"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.04)'
-                  }}
+                  className="rounded-xl p-4 transition-colors hover:border-earth-700/40 inner-panel"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
@@ -419,11 +407,7 @@ function BodySystemDetailView({ id, navigate }: { id: number; navigate: (page: P
               return (
                 <div
                   key={food.id}
-                  className="rounded-xl p-4 transition-colors hover:border-earth-700/40"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.03)',
-                    border: '1px solid rgba(255, 255, 255, 0.04)'
-                  }}
+                  className="rounded-xl p-4 transition-colors hover:border-earth-700/40 inner-panel"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <span className="text-sm text-earth-200 font-display font-medium">

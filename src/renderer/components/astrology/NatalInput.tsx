@@ -60,9 +60,9 @@ export default function NatalInput({ navigate }: NatalInputProps) {
   }
 
   const roleConfig = {
-    Sun: { color: 'amber', icon: '\u2609', gradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(13, 12, 20, 0.85))' },
-    Moon: { color: 'blue', icon: '\u263D', gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(13, 12, 20, 0.85))' },
-    Rising: { color: 'rose', icon: '\u2191', gradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(13, 12, 20, 0.85))' }
+    Sun: { color: 'amber', icon: '\u2609', gradient: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(16, 15, 12, 0.85))' },
+    Moon: { color: 'blue', icon: '\u263D', gradient: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(16, 15, 12, 0.85))' },
+    Rising: { color: 'rose', icon: '\u2191', gradient: 'linear-gradient(135deg, rgba(244, 63, 94, 0.08), rgba(16, 15, 12, 0.85))' }
   }
 
   return (
@@ -133,11 +133,11 @@ export default function NatalInput({ navigate }: NatalInputProps) {
                 <p className="text-xs text-earth-500 mb-4 italic leading-relaxed">{roleDescriptions[result.role]}</p>
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
-                  <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                     <div className="section-subtitle">Body Areas</div>
                     <div className="text-sm text-earth-300">{result.sign.body_parts_ruled}</div>
                   </div>
-                  <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                  <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                     <div className="section-subtitle">Ruling Planet</div>
                     <div className="text-sm text-earth-300">
                       {result.sign.ruling_planet_symbol} {result.sign.ruling_planet_name}
@@ -155,11 +155,11 @@ export default function NatalInput({ navigate }: NatalInputProps) {
                           onClick={() => navigate({ view: 'plant-detail', id: plant.id })}
                           className="text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group"
                           style={{
-                            background: 'rgba(35, 34, 46, 0.4)',
+                            background: 'rgba(36, 34, 30, 0.4)',
                             border: '1px solid rgba(255, 255, 255, 0.05)'
                           }}
-                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.65)' }}
-                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.4)' }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.65)' }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.4)' }}
                         >
                           <span className="text-botanical-400 font-medium group-hover:text-botanical-300 transition-colors">{plant.common_name}</span>
                           <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
@@ -187,7 +187,7 @@ export default function NatalInput({ navigate }: NatalInputProps) {
             </p>
             <div className="mt-3 flex flex-wrap gap-3">
               {results.map((r) => (
-                <div key={r.role} className="rounded-xl px-3 py-2" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div key={r.role} className="rounded-xl px-3 py-2" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <span className="text-xs text-earth-500">{r.role}:</span>
                   <span className="text-xs text-earth-300 ml-1">{r.sign.body_parts_ruled}</span>
                 </div>

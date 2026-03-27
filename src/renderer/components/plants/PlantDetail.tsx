@@ -42,10 +42,10 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
       <div className="hero-section mb-8"
            style={{
              background: plant.category === 'entheogenic'
-               ? 'linear-gradient(135deg, rgba(52, 28, 115, 0.15) 0%, rgba(13, 12, 20, 0.85) 50%, rgba(124, 94, 237, 0.04) 100%)'
+               ? 'linear-gradient(135deg, rgba(52, 28, 115, 0.15) 0%, rgba(16, 15, 12, 0.85) 50%, rgba(124, 94, 237, 0.04) 100%)'
                : plant.category === 'both'
-               ? 'linear-gradient(135deg, rgba(20, 83, 45, 0.1) 0%, rgba(13, 12, 20, 0.85) 50%, rgba(52, 28, 115, 0.08) 100%)'
-               : 'linear-gradient(135deg, rgba(20, 83, 45, 0.12) 0%, rgba(13, 12, 20, 0.85) 50%, rgba(74, 222, 128, 0.04) 100%)',
+               ? 'linear-gradient(135deg, rgba(26, 90, 58, 0.1) 0%, rgba(16, 15, 12, 0.85) 50%, rgba(52, 28, 115, 0.08) 100%)'
+               : 'linear-gradient(135deg, rgba(26, 90, 58, 0.12) 0%, rgba(16, 15, 12, 0.85) 50%, rgba(93, 168, 126, 0.04) 100%)',
              border: '1px solid rgba(255, 255, 255, 0.06)'
            }}>
         <div className="hero-orb top-0 right-0 w-60 h-60 bg-botanical-500" />
@@ -97,8 +97,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
           </div>
           <div className="space-y-2.5">
             {plant.parts.map((part) => (
-              <div key={part.id} className="rounded-xl p-3.5 transition-colors duration-200 ease-out-expo"
-                   style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+              <div key={part.id} className="inner-panel rounded-xl p-3.5 transition-colors duration-200 ease-out-expo">
                 <div className="text-sm font-medium text-botanical-300 capitalize mb-1.5">
                   {part.part_type.replace('_', ' ')}
                 </div>
@@ -127,8 +126,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
             <div className="mb-4">
               <div className="section-subtitle">Planetary Rulers</div>
               {plant.planetAssociations.map((assoc) => (
-                <div key={assoc.planet_id} className="flex items-center gap-3 mb-2.5 rounded-xl p-3"
-                     style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                <div key={assoc.planet_id} className="inner-panel flex items-center gap-3 mb-2.5 rounded-xl p-3">
                   <span className="text-2xl">{assoc.planet_symbol}</span>
                   <div>
                     <span className="text-earth-200 font-medium">{assoc.planet_name}</span>
@@ -214,8 +212,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
             </div>
             <div className="space-y-2">
               {plant.compounds.map((compound) => (
-                <div key={compound.id} className="rounded-xl p-3 transition-colors duration-200 ease-out-expo"
-                     style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                <div key={compound.id} className="inner-panel rounded-xl p-3 transition-colors duration-200 ease-out-expo">
                   <div className="flex items-center gap-2">
                     <span className="text-earth-200 font-medium text-sm">{compound.name}</span>
                     <span className="text-xs text-earth-600">{compound.compound_type}</span>
@@ -234,7 +231,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
         {plant.teachings && (
           <div className="lg:col-span-2 relative overflow-hidden rounded-2xl p-6"
                style={{
-                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(13, 12, 20, 0.88) 40%, rgba(168, 85, 247, 0.04) 100%)',
+                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(16, 15, 12, 0.88) 40%, rgba(168, 85, 247, 0.04) 100%)',
                  border: '1px solid rgba(245, 158, 11, 0.1)',
                  boxShadow: 'inset 0 1px 0 0 rgba(245, 158, 11, 0.06), 0 0 40px -12px rgba(245, 158, 11, 0.08), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
                }}>
@@ -290,11 +287,11 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
                      style={{
                        background: 'rgba(255, 255, 255, 0.03)',
                        border: '1px solid rgba(255, 255, 255, 0.04)',
-                       borderTop: '2px solid rgba(34, 197, 94, 0.3)'
+                       borderTop: '2px solid rgba(61, 138, 94, 0.3)'
                      }}>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm" style={{ color: 'rgba(34, 197, 94, 0.8)' }}>{'\u2618'}</span>
-                    <span className="text-[11px] uppercase tracking-[0.12em] font-medium" style={{ color: 'rgba(34, 197, 94, 0.7)' }}>
+                    <span className="text-sm" style={{ color: 'rgba(61, 138, 94, 0.8)' }}>{'\u2618'}</span>
+                    <span className="text-[11px] uppercase tracking-[0.12em] font-medium" style={{ color: 'rgba(61, 138, 94, 0.7)' }}>
                       Physical
                     </span>
                   </div>
@@ -343,7 +340,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
         {plant.presenceEnergetics && (
           <div className="lg:col-span-2 relative overflow-hidden rounded-2xl p-6"
                style={{
-                 background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.06) 0%, rgba(13, 12, 20, 0.88) 40%, rgba(148, 163, 184, 0.04) 100%)',
+                 background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.06) 0%, rgba(16, 15, 12, 0.88) 40%, rgba(148, 163, 184, 0.04) 100%)',
                  border: '1px solid rgba(94, 234, 212, 0.10)',
                  boxShadow: 'inset 0 1px 0 0 rgba(94, 234, 212, 0.06), 0 0 40px -12px rgba(94, 234, 212, 0.08), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
                }}>
@@ -368,10 +365,8 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
               {/* 3+2 Dimension Grid */}
               <div className="grid grid-cols-3 gap-3 mb-3">
                 {/* Home Placement */}
-                <div className="rounded-xl p-4 transition-all duration-200 ease-out-expo"
+                <div className="inner-panel-dark rounded-xl p-4 transition-all duration-200 ease-out-expo"
                      style={{
-                       background: 'rgba(13, 12, 20, 0.5)',
-                       border: '1px solid rgba(255, 255, 255, 0.04)',
                        borderTop: '2px solid rgba(94, 234, 212, 0.3)',
                        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.02)'
                      }}>
@@ -385,10 +380,8 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
                 </div>
 
                 {/* Field Interaction */}
-                <div className="rounded-xl p-4 transition-all duration-200 ease-out-expo"
+                <div className="inner-panel-dark rounded-xl p-4 transition-all duration-200 ease-out-expo"
                      style={{
-                       background: 'rgba(13, 12, 20, 0.5)',
-                       border: '1px solid rgba(255, 255, 255, 0.04)',
                        borderTop: '2px solid rgba(167, 139, 250, 0.3)',
                        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.02)'
                      }}>
@@ -402,10 +395,8 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
                 </div>
 
                 {/* Energetic Gift */}
-                <div className="rounded-xl p-4 transition-all duration-200 ease-out-expo"
+                <div className="inner-panel-dark rounded-xl p-4 transition-all duration-200 ease-out-expo"
                      style={{
-                       background: 'rgba(13, 12, 20, 0.5)',
-                       border: '1px solid rgba(255, 255, 255, 0.04)',
                        borderTop: '2px solid rgba(251, 191, 36, 0.3)',
                        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.02)'
                      }}>
@@ -421,10 +412,8 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
 
               <div className="grid grid-cols-2 gap-3 mb-5">
                 {/* Presence Practice */}
-                <div className="rounded-xl p-4 transition-all duration-200 ease-out-expo"
+                <div className="inner-panel-dark rounded-xl p-4 transition-all duration-200 ease-out-expo"
                      style={{
-                       background: 'rgba(13, 12, 20, 0.5)',
-                       border: '1px solid rgba(255, 255, 255, 0.04)',
                        borderTop: '2px solid rgba(244, 114, 182, 0.3)',
                        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.02)'
                      }}>
@@ -438,10 +427,8 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
                 </div>
 
                 {/* Spatial Influence */}
-                <div className="rounded-xl p-4 transition-all duration-200 ease-out-expo"
+                <div className="inner-panel-dark rounded-xl p-4 transition-all duration-200 ease-out-expo"
                      style={{
-                       background: 'rgba(13, 12, 20, 0.5)',
-                       border: '1px solid rgba(255, 255, 255, 0.04)',
                        borderTop: '2px solid rgba(148, 163, 184, 0.3)',
                        boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.02)'
                      }}>
@@ -462,7 +449,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
         {plant.contraindications && plant.contraindications.length > 0 && (
           <div className="card p-5 lg:col-span-2"
                style={{
-                 background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(13, 12, 20, 0.85))',
+                 background: 'linear-gradient(135deg, rgba(220, 38, 38, 0.06), rgba(16, 15, 12, 0.85))',
                  border: '1px solid rgba(220, 38, 38, 0.1)'
                }}>
             <div className="flex items-center gap-3 mb-4">
@@ -515,7 +502,7 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
         {plant.safety_notes && (
           <div className="card p-5"
                style={{
-                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.04), rgba(13, 12, 20, 0.85))',
+                 background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.04), rgba(16, 15, 12, 0.85))',
                  border: '1px solid rgba(245, 158, 11, 0.08)'
                }}>
             <div className="flex items-center gap-3 mb-3">

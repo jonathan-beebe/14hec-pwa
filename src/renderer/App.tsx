@@ -15,6 +15,8 @@ import SeasonalGuide from './components/sanctuary/SeasonalGuide'
 import DoctrineExplorer from './components/sanctuary/DoctrineExplorer'
 import BodySystemsView from './components/bodysystems/BodySystemsView'
 import JournalView from './components/journal/JournalView'
+import WellnessNavigator from './components/wellness/WellnessNavigator'
+import WellnessDetail from './components/wellness/WellnessDetail'
 import Dashboard from './components/Dashboard'
 import DisclaimerModal from './components/common/DisclaimerModal'
 
@@ -36,6 +38,8 @@ export type Page =
   | { view: 'body-systems' }
   | { view: 'body-system-detail'; id: number }
   | { view: 'journal' }
+  | { view: 'wellness' }
+  | { view: 'wellness-detail'; id: number }
 
 export default function App() {
   const [page, setPage] = useState<Page>({ view: 'dashboard' })
@@ -91,6 +95,10 @@ export default function App() {
         return <BodySystemsView id={page.id} navigate={navigate} />
       case 'journal':
         return <JournalView navigate={navigate} />
+      case 'wellness':
+        return <WellnessNavigator navigate={navigate} />
+      case 'wellness-detail':
+        return <WellnessDetail id={page.id} navigate={navigate} />
       default:
         return <Dashboard navigate={navigate} />
     }

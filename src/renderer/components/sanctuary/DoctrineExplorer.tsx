@@ -11,7 +11,7 @@ type TeachingDomain = 'energetic' | 'mental' | 'physical' | 'spiritual'
 const DOMAIN_CONFIG: Record<TeachingDomain, { label: string; color: string; bg: string; border: string; icon: string }> = {
   energetic: { label: 'Energetic', color: 'text-amber-400', bg: 'rgba(245, 158, 11, 0.06)', border: 'rgba(245, 158, 11, 0.1)', icon: '\u2727' },
   mental: { label: 'Mental', color: 'text-blue-400', bg: 'rgba(59, 130, 246, 0.06)', border: 'rgba(59, 130, 246, 0.1)', icon: '\u29BF' },
-  physical: { label: 'Physical', color: 'text-botanical-400', bg: 'rgba(34, 197, 94, 0.06)', border: 'rgba(34, 197, 94, 0.1)', icon: '\u2618' },
+  physical: { label: 'Physical', color: 'text-botanical-400', bg: 'rgba(61, 138, 94, 0.06)', border: 'rgba(61, 138, 94, 0.1)', icon: '\u2618' },
   spiritual: { label: 'Spiritual', color: 'text-celestial-400', bg: 'rgba(168, 85, 247, 0.06)', border: 'rgba(168, 85, 247, 0.1)', icon: '\u2735' }
 }
 
@@ -58,7 +58,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
       {/* Header */}
       <div className="hero-section mb-8"
            style={{
-             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(13, 12, 20, 0.85) 40%, rgba(20, 83, 45, 0.04) 100%)',
+             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(16, 15, 12, 0.85) 40%, rgba(20, 83, 45, 0.04) 100%)',
              border: '1px solid rgba(245, 158, 11, 0.08)'
            }}>
         <div className="hero-orb w-40 h-40 bg-amber-500 top-0 right-0" />
@@ -94,7 +94,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-3 py-2 rounded-lg text-sm text-earth-200 placeholder-earth-600"
-              style={{ background: 'rgba(24, 23, 33, 0.6)', border: '1px solid rgba(255,255,255,0.06)' }}
+              style={{ background: 'rgba(26, 25, 21, 0.6)', border: '1px solid rgba(255,255,255,0.06)' }}
             />
           </div>
 
@@ -108,7 +108,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
                   categoryFilter === cat ? 'text-amber-300' : 'text-earth-500 hover:text-earth-300'
                 }`}
                 style={{
-                  background: categoryFilter === cat ? 'rgba(245, 158, 11, 0.1)' : 'rgba(24, 23, 33, 0.4)',
+                  background: categoryFilter === cat ? 'rgba(245, 158, 11, 0.1)' : 'rgba(26, 25, 21, 0.4)',
                   border: categoryFilter === cat ? '1px solid rgba(245, 158, 11, 0.15)' : '1px solid rgba(255,255,255,0.03)'
                 }}
               >
@@ -125,7 +125,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
                 onClick={() => setSelected(t)}
                 className="w-full text-left p-3 rounded-xl transition-all duration-200 ease-out-expo"
                 style={{
-                  background: selected?.id === t.id ? 'rgba(245, 158, 11, 0.08)' : 'rgba(24, 23, 33, 0.5)',
+                  background: selected?.id === t.id ? 'rgba(245, 158, 11, 0.08)' : 'rgba(26, 25, 21, 0.5)',
                   border: selected?.id === t.id ? '1px solid rgba(245, 158, 11, 0.15)' : '1px solid rgba(255, 255, 255, 0.04)',
                   boxShadow: selected?.id === t.id ? '0 0 24px rgba(245, 158, 11, 0.06)' : undefined
                 }}
@@ -152,7 +152,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
               {/* Plant Header */}
               <div className="glass-panel p-6 mb-4"
                    style={{
-                     background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(13, 12, 20, 0.85))',
+                     background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.06), rgba(16, 15, 12, 0.85))',
                      border: '1px solid rgba(245, 158, 11, 0.08)'
                    }}>
                 <div className="flex items-start justify-between mb-4">
@@ -187,7 +187,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
                         activeDomain === domain ? config.color : 'text-earth-500 hover:text-earth-300'
                       }`}
                       style={{
-                        background: activeDomain === domain ? config.bg : 'rgba(24, 23, 33, 0.4)',
+                        background: activeDomain === domain ? config.bg : 'rgba(26, 25, 21, 0.4)',
                         border: activeDomain === domain ? `1px solid ${config.border}` : '1px solid rgba(255,255,255,0.03)'
                       }}
                     >
@@ -222,7 +222,7 @@ export default function DoctrineExplorer({ navigate }: DoctrineExplorerProps) {
                       onClick={() => setActiveDomain(domain)}
                       className="text-left rounded-xl p-3 transition-all hover:scale-[1.01]"
                       style={{
-                        background: activeDomain === domain ? config.bg : 'rgba(24, 23, 33, 0.4)',
+                        background: activeDomain === domain ? config.bg : 'rgba(26, 25, 21, 0.4)',
                         border: activeDomain === domain ? `1px solid ${config.border}` : '1px solid rgba(255,255,255,0.04)'
                       }}
                     >

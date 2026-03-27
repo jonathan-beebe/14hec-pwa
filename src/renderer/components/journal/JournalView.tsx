@@ -23,7 +23,7 @@ const MOOD_ICONS: Record<string, string> = {
 const MOOD_COLORS: Record<string, string> = {
   grateful: 'rgba(244, 63, 94, 0.7)',
   curious: 'rgba(59, 130, 246, 0.7)',
-  peaceful: 'rgba(34, 197, 94, 0.7)',
+  peaceful: 'rgba(61, 138, 94, 0.7)',
   energized: 'rgba(251, 191, 36, 0.7)',
   reflective: 'rgba(124, 94, 237, 0.7)',
   challenged: 'rgba(245, 158, 11, 0.7)',
@@ -325,7 +325,7 @@ export default function JournalView({ navigate }: JournalViewProps) {
 
         <div className="card p-8 mb-4"
              style={{
-               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(24, 23, 33, 0.65) 100%)',
+               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(26, 25, 21, 0.65) 100%)',
                borderColor: 'rgba(245, 158, 11, 0.06)'
              }}>
           <div className="flex items-start justify-between mb-4">
@@ -496,8 +496,8 @@ export default function JournalView({ navigate }: JournalViewProps) {
             {/* Plant selector */}
             <div className="card p-4"
                  style={{
-                   background: 'rgba(24, 23, 33, 0.5)',
-                   borderColor: 'rgba(74, 222, 128, 0.06)'
+                   background: 'rgba(26, 25, 21, 0.5)',
+                   borderColor: 'rgba(93, 168, 126, 0.06)'
                  }}>
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2 block">
                 {'\u2618'} Associated Plant
@@ -517,7 +517,7 @@ export default function JournalView({ navigate }: JournalViewProps) {
             {/* Mood selector */}
             <div className="card p-4"
                  style={{
-                   background: 'rgba(24, 23, 33, 0.5)',
+                   background: 'rgba(26, 25, 21, 0.5)',
                    borderColor: 'rgba(124, 94, 237, 0.06)'
                  }}>
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2.5 block">
@@ -550,7 +550,7 @@ export default function JournalView({ navigate }: JournalViewProps) {
             {/* Season (auto-detected) */}
             <div className="card p-4"
                  style={{
-                   background: 'rgba(24, 23, 33, 0.5)',
+                   background: 'rgba(26, 25, 21, 0.5)',
                    borderColor: 'rgba(255, 255, 255, 0.04)'
                  }}>
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">
@@ -564,7 +564,7 @@ export default function JournalView({ navigate }: JournalViewProps) {
             {prompts.length > 0 && (
               <div className="card p-4"
                    style={{
-                     background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03), rgba(24, 23, 33, 0.5))',
+                     background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03), rgba(26, 25, 21, 0.5))',
                      borderColor: 'rgba(245, 158, 11, 0.08)'
                    }}>
                 <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2.5 block">
@@ -612,7 +612,7 @@ export default function JournalView({ navigate }: JournalViewProps) {
       {/* Header */}
       <div className="hero-section mb-8"
            style={{
-             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(13, 12, 20, 0.88) 40%, rgba(124, 94, 237, 0.03) 100%)',
+             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(16, 15, 12, 0.88) 40%, rgba(124, 94, 237, 0.03) 100%)',
              border: '1px solid rgba(245, 158, 11, 0.06)'
            }}>
         <div className="hero-orb w-72 h-72 -top-36 right-0 bg-amber-400" style={{ opacity: 0.08 }} />

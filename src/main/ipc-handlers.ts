@@ -551,6 +551,74 @@ export function registerIpcHandlers(): void {
     db.prepare('DELETE FROM journal_entries WHERE id = ?').run(id)
     return { success: true }
   })
+
+  // ── Wellness Goals ──────────────────────────────────────
+  ipcMain.handle('db:wellness:getCategories', () => {
+    const db = getDb()
+    const categories = db.prepare(`
+      SELECT wc.*, COUNT(wg.id) as goal_count
+      FROM wellness_categories wc
+      LEFT JOIN wellness_goals wg ON wc.id = wg.category_id
+      GROUP BY wc.id
+      ORDER BY wc.sort_order
+    `).all()
+    return categories
+  })
+
+  ipcMain.handle('db:wellness:getGoalsByCategory', (_event, categoryId: number) => {
+    const db = getDb()
+    const goals = db.prepare(`
+      SELECT wg.*, wc.name as category_name, wc.slug as category_slug,
+             COUNT(pwg.id) as plant_count
+      FROM wellness_goals wg
+      JOIN wellness_categories wc ON wg.category_id = wc.id
+      LEFT JOIN plant_wellness_goals pwg ON wg.id = pwg.wellness_goal_id
+      WHERE wg.category_id = ?
+      GROUP BY wg.id
+      ORDER BY wg.name
+    `).all(categoryId)
+    return goals
+  })
+
+  ipcMain.handle('db:wellness:getGoalById', (_event, id: number) => {
+    const db = getDb()
+    const goal = db.prepare(`
+      SELECT wg.*, wc.name as category_name, wc.slug as category_slug, wc.icon as category_icon
+      FROM wellness_goals wg
+      JOIN wellness_categories wc ON wg.category_id = wc.id
+      WHERE wg.id = ?
+    `).get(id)
+    if (!goal) return null
+
+    const plantRecommendations = db.prepare(`
+      SELECT pwg.*, p.id as plant_id, p.common_name, p.latin_name, p.category as plant_category,
+             pp.part_type, pr.name as preparation_name
+      FROM plant_wellness_goals pwg
+      JOIN plants p ON pwg.plant_id = p.id
+      LEFT JOIN plant_parts pp ON pwg.plant_part_id = pp.id
+      LEFT JOIN preparations pr ON pwg.preparation_id = pr.id
+      WHERE pwg.wellness_goal_id = ?
+      ORDER BY p.common_name
+    `).all(id)
+
+    return { ...goal, plantRecommendations }
+  })
+
+  ipcMain.handle('db:wellness:search', (_event, search: string) => {
+    const db = getDb()
+    const s = `%${search}%`
+    const goals = db.prepare(`
+      SELECT wg.*, wc.name as category_name, wc.slug as category_slug, wc.icon as category_icon,
+             COUNT(pwg.id) as plant_count
+      FROM wellness_goals wg
+      JOIN wellness_categories wc ON wg.category_id = wc.id
+      LEFT JOIN plant_wellness_goals pwg ON wg.id = pwg.wellness_goal_id
+      WHERE wg.name LIKE ? OR wg.description LIKE ? OR wg.desired_outcome LIKE ? OR wc.name LIKE ?
+      GROUP BY wg.id
+      ORDER BY wc.sort_order, wg.name
+    `).all(s, s, s, s)
+    return goals
+  })
 }
 
 /** Shared helper: fetch a body system with all its related data */

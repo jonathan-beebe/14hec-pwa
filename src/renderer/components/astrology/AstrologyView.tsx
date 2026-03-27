@@ -41,7 +41,7 @@ export default function AstrologyView({ navigate }: AstrologyViewProps) {
     fire: 'border-red-500/15 shadow-[inset_0_1px_0_0_rgba(239,68,68,0.06),0_0_1px_rgba(239,68,68,0.2),0_4px_24px_-4px_rgba(0,0,0,0.3)]',
     water: 'border-blue-500/15 shadow-[inset_0_1px_0_0_rgba(59,130,246,0.06),0_0_1px_rgba(59,130,246,0.2),0_4px_24px_-4px_rgba(0,0,0,0.3)]',
     air: 'border-yellow-500/15 shadow-[inset_0_1px_0_0_rgba(234,179,8,0.06),0_0_1px_rgba(234,179,8,0.2),0_4px_24px_-4px_rgba(0,0,0,0.3)]',
-    earth: 'border-green-500/15 shadow-[inset_0_1px_0_0_rgba(34,197,94,0.06),0_0_1px_rgba(34,197,94,0.2),0_4px_24px_-4px_rgba(0,0,0,0.3)]'
+    earth: 'border-green-500/15 shadow-[inset_0_1px_0_0_rgba(61,138,94,0.06),0_0_1px_rgba(61,138,94,0.2),0_4px_24px_-4px_rgba(0,0,0,0.3)]'
   }
 
   return (
@@ -162,17 +162,17 @@ export default function AstrologyView({ navigate }: AstrologyViewProps) {
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-5">
-                <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <div className="section-subtitle">Ruling Planet</div>
                   <div className="text-earth-200">
                     {selectedSign.ruling_planet_symbol} {selectedSign.ruling_planet_name}
                   </div>
                 </div>
-                <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <div className="section-subtitle">Date Range</div>
                   <div className="text-earth-200">{selectedSign.date_range_start} to {selectedSign.date_range_end}</div>
                 </div>
-                <div className="col-span-2 rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div className="col-span-2 rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <div className="section-subtitle">Body Parts Ruled</div>
                   <div className="text-earth-200 text-sm">{selectedSign.body_parts_ruled}</div>
                 </div>
@@ -190,11 +190,11 @@ export default function AstrologyView({ navigate }: AstrologyViewProps) {
                         onClick={() => navigate({ view: 'plant-detail', id: plant.id })}
                         className="w-full text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group"
                         style={{
-                          background: 'rgba(35, 34, 46, 0.4)',
+                          background: 'rgba(36, 34, 30, 0.4)',
                           border: '1px solid rgba(255, 255, 255, 0.05)'
                         }}
-                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.65)' }}
-                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.4)' }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.65)' }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.4)' }}
                       >
                         <span className="text-botanical-400 group-hover:text-botanical-300 transition-colors">{plant.common_name}</span>
                         <span className="text-earth-500 text-sm ml-2 italic">{plant.latin_name}</span>
@@ -217,11 +217,11 @@ export default function AstrologyView({ navigate }: AstrologyViewProps) {
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-5">
-                <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <div className="section-subtitle">Body Systems</div>
                   <div className="text-earth-200 text-sm">{selectedPlanet.body_systems}</div>
                 </div>
-                <div className="rounded-xl p-3" style={{ background: 'rgba(35, 34, 46, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
+                <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <div className="section-subtitle">Energetic Quality</div>
                   <div className="text-earth-200 text-sm">{selectedPlanet.energetic_quality}</div>
                 </div>
@@ -239,11 +239,11 @@ export default function AstrologyView({ navigate }: AstrologyViewProps) {
                         onClick={() => navigate({ view: 'plant-detail', id: plant.id })}
                         className="w-full text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group"
                         style={{
-                          background: 'rgba(35, 34, 46, 0.4)',
+                          background: 'rgba(36, 34, 30, 0.4)',
                           border: '1px solid rgba(255, 255, 255, 0.05)'
                         }}
-                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.65)' }}
-                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(35, 34, 46, 0.4)' }}
+                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.65)' }}
+                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(36, 34, 30, 0.4)' }}
                       >
                         <span className="text-botanical-400 group-hover:text-botanical-300 transition-colors">{plant.common_name}</span>
                         <span className="text-earth-500 text-sm ml-2 italic">{plant.latin_name}</span>

@@ -244,7 +244,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
 
       {/* Safety Banner */}
       <div className="glass-panel p-4 mb-6"
-           style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(13, 12, 20, 0.8))', border: '1px solid rgba(245, 158, 11, 0.08)' }}>
+           style={{ background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(16, 15, 12, 0.8))', border: '1px solid rgba(245, 158, 11, 0.08)' }}>
         <div className="flex items-start gap-3">
           <span className="text-sm text-amber-500/70 mt-0.5">{'\u26A0'}</span>
           <div>
@@ -271,7 +271,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                 style={{
                   background: selectedPlant?.id === plant.id
                     ? 'rgba(124, 94, 237, 0.1)'
-                    : 'rgba(24, 23, 33, 0.5)',
+                    : 'rgba(26, 25, 21, 0.5)',
                   border: selectedPlant?.id === plant.id
                     ? '1px solid rgba(124, 94, 237, 0.2)'
                     : '1px solid rgba(255, 255, 255, 0.04)',
@@ -297,13 +297,13 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                 className="w-full text-left p-3.5 rounded-xl transition-all duration-200 ease-out-expo"
                 style={{
                   background: selectedProtocol?.name === protocol.name
-                    ? 'rgba(74, 222, 128, 0.08)'
-                    : 'rgba(24, 23, 33, 0.5)',
+                    ? 'rgba(93, 168, 126, 0.08)'
+                    : 'rgba(26, 25, 21, 0.5)',
                   border: selectedProtocol?.name === protocol.name
-                    ? '1px solid rgba(74, 222, 128, 0.15)'
+                    ? '1px solid rgba(93, 168, 126, 0.15)'
                     : '1px solid rgba(255, 255, 255, 0.04)',
                   boxShadow: selectedProtocol?.name === protocol.name
-                    ? '0 0 24px rgba(74, 222, 128, 0.06)'
+                    ? '0 0 24px rgba(93, 168, 126, 0.06)'
                     : undefined
                 }}
               >
@@ -344,7 +344,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                       .filter((c) => c.psychoactive)
                       .map((compound) => (
                         <div key={compound.id} className="rounded-xl p-3"
-                             style={{ background: 'rgba(24, 23, 33, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                             style={{ background: 'rgba(26, 25, 21, 0.5)', border: '1px solid rgba(255,255,255,0.04)' }}>
                           <div className="text-sm text-celestial-300 font-medium">{compound.name}</div>
                           <div className="text-xs text-earth-500">{compound.compound_type}</div>
                           <p className="text-xs text-earth-400 mt-1 leading-relaxed">{compound.pharmacological_action}</p>
@@ -359,7 +359,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                   <div className="section-subtitle mb-2">Celestial Governance</div>
                   {selectedPlant.planetAssociations.map((assoc) => (
                     <div key={assoc.planet_id} className="flex items-center gap-3 mb-2 rounded-xl p-3"
-                         style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                         style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
                       <span className="text-xl">{assoc.planet_symbol}</span>
                       <span className="text-earth-200">{assoc.planet_name}</span>
                       {assoc.notes && <span className="text-xs text-earth-500">- {assoc.notes}</span>}
@@ -376,7 +376,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                       .filter((a) => a.evidence_level === 'clinical')
                       .map((assoc) => (
                         <div key={assoc.id} className="rounded-xl p-3"
-                             style={{ background: 'rgba(34, 197, 94, 0.05)', border: '1px solid rgba(34, 197, 94, 0.1)' }}>
+                             style={{ background: 'rgba(61, 138, 94, 0.05)', border: '1px solid rgba(61, 138, 94, 0.1)' }}>
                           <div className="text-sm text-green-300">{assoc.ailment_name}</div>
                           <p className="text-xs text-earth-400 mt-1 leading-relaxed">{assoc.efficacy_notes}</p>
                         </div>
@@ -398,7 +398,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
 
               {selectedPlant.doctrine_of_signatures && (
                 <div className="rounded-xl p-4"
-                     style={{ background: 'rgba(24, 23, 33, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
+                     style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
                   <div className="section-subtitle mb-1">Doctrine of Signatures</div>
                   <p className="text-xs text-earth-400 italic leading-relaxed">{selectedPlant.doctrine_of_signatures}</p>
                 </div>
@@ -428,7 +428,7 @@ export default function EntheogenicGuide({ navigate }: EntheogenicGuideProps) {
                     )}
                     {/* Timeline dot */}
                     <div className="absolute left-0 top-1 w-[15px] h-[15px] rounded-full border-2 border-botanical-600 bg-earth-950"
-                         style={{ boxShadow: '0 0 8px rgba(74, 222, 128, 0.2)' }} />
+                         style={{ boxShadow: '0 0 8px rgba(93, 168, 126, 0.2)' }} />
                     <div className="text-xs text-botanical-500 mb-1 font-medium">{phase.duration}</div>
                     <h4 className="text-sm font-display font-semibold text-earth-200 mb-1.5">{phase.name}</h4>
                     <p className="text-xs text-earth-400 leading-relaxed">{phase.guidance}</p>

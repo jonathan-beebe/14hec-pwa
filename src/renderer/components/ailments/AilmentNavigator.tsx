@@ -76,7 +76,7 @@ export default function AilmentNavigator({ navigate }: AilmentNavigatorProps) {
                     ? 'text-botanical-200 shadow-glow-botanical'
                     : 'bg-earth-800/40 text-earth-400 hover:text-earth-200'
                 }`}
-                style={filterCategory === cat ? { background: 'linear-gradient(135deg, rgba(21, 128, 61, 0.3), rgba(22, 101, 52, 0.3))' } : undefined}
+                style={filterCategory === cat ? { background: 'linear-gradient(135deg, rgba(45, 112, 72, 0.3), rgba(35, 90, 58, 0.3))' } : undefined}
               >
                 {label}
               </button>
