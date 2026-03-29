@@ -34,7 +34,8 @@ function createSchema(): void {
     '004-presence-energetics.sql',
     '005-ethical-practice.sql',
     '006-wellness-goals.sql',
-    '007-hmbs-associations.sql'
+    '007-hmbs-associations.sql',
+    '008-collections.sql'
   ]
 
   for (const migration of migrations) {
@@ -52,6 +53,9 @@ function createSchema(): void {
 }
 
 function getEmbeddedSchema(migration: string): string {
+  if (migration === '008-collections.sql') {
+    return getEmbeddedCollectionsSchema()
+  }
   if (migration === '007-hmbs-associations.sql') {
     return getEmbeddedHMBSSchema()
   }
@@ -485,5 +489,31 @@ CREATE TABLE IF NOT EXISTS plant_hmbs_associations (
 CREATE INDEX IF NOT EXISTS idx_hmbs_plant ON plant_hmbs_associations(plant_id);
 CREATE INDEX IF NOT EXISTS idx_hmbs_domain ON plant_hmbs_associations(domain);
 CREATE INDEX IF NOT EXISTS idx_hmbs_strength ON plant_hmbs_associations(strength);
+  `
+}
+
+function getEmbeddedCollectionsSchema(): string {
+  return `
+-- Plant Collections: personal groupings of plants for quick reference
+CREATE TABLE IF NOT EXISTS collections (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  description TEXT,
+  icon TEXT DEFAULT '🌿',
+  color TEXT DEFAULT 'botanical',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS collection_plants (
+  collection_id INTEGER NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
+  plant_id INTEGER NOT NULL REFERENCES plants(id),
+  notes TEXT,
+  added_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (collection_id, plant_id)
+);
+
+CREATE INDEX IF NOT EXISTS idx_collection_plants_collection ON collection_plants(collection_id);
+CREATE INDEX IF NOT EXISTS idx_collection_plants_plant ON collection_plants(plant_id);
   `
 }

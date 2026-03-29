@@ -361,6 +361,30 @@ export interface BodySystemPlantPart {
   notes: string | null
 }
 
+// ── Collections ──────────────────────────────────────
+export interface Collection {
+  id: number
+  name: string
+  description: string | null
+  icon: string
+  color: string
+  plant_count: number
+  created_at: string
+  updated_at: string
+}
+
+export interface CollectionDetail extends Omit<Collection, 'plant_count'> {
+  plants: (Plant & { collection_notes: string | null; added_at: string })[]
+}
+
+export interface CollectionForPlant {
+  id: number
+  name: string
+  icon: string
+  color: string
+  contains_plant: number
+}
+
 // ── Wellness Goals ──────────────────────────────────────
 export interface WellnessCategory {
   id: number
@@ -490,6 +514,16 @@ declare global {
         entry_date?: string | null
       }) => Promise<{ success: boolean }>
       deleteJournalEntry: (id: number) => Promise<{ success: boolean }>
+
+      // Collections
+      getCollections: () => Promise<Collection[]>
+      getCollectionById: (id: number) => Promise<CollectionDetail | null>
+      createCollection: (data: { name: string; description?: string | null; icon?: string | null; color?: string | null }) => Promise<{ id: number }>
+      updateCollection: (id: number, updates: { name?: string; description?: string | null; icon?: string | null; color?: string | null }) => Promise<{ success: boolean }>
+      deleteCollection: (id: number) => Promise<{ success: boolean }>
+      addPlantToCollection: (collectionId: number, plantId: number, notes?: string) => Promise<{ success: boolean }>
+      removePlantFromCollection: (collectionId: number, plantId: number) => Promise<{ success: boolean }>
+      getCollectionsForPlant: (plantId: number) => Promise<CollectionForPlant[]>
 
       // Wellness Goals
       getWellnessCategories: () => Promise<WellnessCategory[]>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Page } from '../App'
-import type { Plant, Ailment, ZodiacSign } from '../types'
+import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 
 interface DashboardProps {
   navigate: (page: Page) => void
@@ -10,12 +10,14 @@ export default function Dashboard({ navigate }: DashboardProps) {
   const [plants, setPlants] = useState<Plant[]>([])
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
+  const [collections, setCollections] = useState<Collection[]>([])
   const [search, setSearch] = useState('')
 
   useEffect(() => {
     window.api.getPlants().then(setPlants)
     window.api.getAilments().then(setAilments)
     window.api.getZodiacSigns().then(setSigns)
+    window.api.getCollections().then(setCollections).catch(() => {})
   }, [])
 
   const filteredPlants = search
@@ -324,6 +326,37 @@ export default function Dashboard({ navigate }: DashboardProps) {
           </div>
         </button>
       </div>
+
+      {/* My Collections */}
+      {collections.length > 0 && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="section-title mb-0">My Collections</h2>
+            <button onClick={() => navigate({ view: 'collections' })} className="btn-ghost text-xs">
+              View all {'\u2192'}
+            </button>
+          </div>
+          <div className="grid grid-cols-4 gap-3">
+            {collections.slice(0, 4).map((col) => (
+              <button
+                key={col.id}
+                onClick={() => navigate({ view: 'collection-detail', id: col.id })}
+                className="card text-left cursor-pointer group"
+              >
+                <div className="text-xl mb-2 opacity-40 group-hover:opacity-70 transition-opacity duration-200">
+                  {col.icon || '\u2618'}
+                </div>
+                <div className="text-sm font-display font-medium text-earth-200 group-hover:text-botanical-400 transition-colors">
+                  {col.name}
+                </div>
+                <div className="text-[10px] text-earth-500 mt-1">
+                  {col.plant_count} {col.plant_count === 1 ? 'plant' : 'plants'}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Quick Access Lists */}
       <div className="grid grid-cols-2 gap-4">

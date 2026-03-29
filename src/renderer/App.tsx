@@ -15,6 +15,7 @@ import SeasonalGuide from './components/sanctuary/SeasonalGuide'
 import DoctrineExplorer from './components/sanctuary/DoctrineExplorer'
 import BodySystemsView from './components/bodysystems/BodySystemsView'
 import JournalView from './components/journal/JournalView'
+import CollectionsView from './components/collections/CollectionsView'
 import WellnessNavigator from './components/wellness/WellnessNavigator'
 import WellnessDetail from './components/wellness/WellnessDetail'
 import Dashboard from './components/Dashboard'
@@ -38,6 +39,8 @@ export type Page =
   | { view: 'body-systems' }
   | { view: 'body-system-detail'; id: number }
   | { view: 'journal' }
+  | { view: 'collections' }
+  | { view: 'collection-detail'; id: number }
   | { view: 'wellness' }
   | { view: 'wellness-detail'; id: number }
 
@@ -95,6 +98,10 @@ export default function App() {
         return <BodySystemsView id={page.id} navigate={navigate} />
       case 'journal':
         return <JournalView navigate={navigate} />
+      case 'collections':
+        return <CollectionsView navigate={navigate} />
+      case 'collection-detail':
+        return <CollectionsView id={page.id} navigate={navigate} />
       case 'wellness':
         return <WellnessNavigator navigate={navigate} />
       case 'wellness-detail':

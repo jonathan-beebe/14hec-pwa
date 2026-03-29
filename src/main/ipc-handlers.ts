@@ -552,6 +552,108 @@ export function registerIpcHandlers(): void {
     return { success: true }
   })
 
+  // ── Collections ──────────────────────────────────────
+  ipcMain.handle('db:collections:getAll', () => {
+    const db = getDb()
+    const collections = db.prepare(`
+      SELECT c.*, COUNT(cp.plant_id) as plant_count
+      FROM collections c
+      LEFT JOIN collection_plants cp ON c.id = cp.collection_id
+      GROUP BY c.id
+      ORDER BY c.updated_at DESC
+    `).all()
+    return collections
+  })
+
+  ipcMain.handle('db:collections:getById', (_event, id: number) => {
+    const db = getDb()
+    const collection = db.prepare('SELECT * FROM collections WHERE id = ?').get(id)
+    if (!collection) return null
+
+    const plants = db.prepare(`
+      SELECT p.*, cp.notes as collection_notes, cp.added_at
+      FROM collection_plants cp
+      JOIN plants p ON cp.plant_id = p.id
+      WHERE cp.collection_id = ?
+      ORDER BY cp.added_at DESC
+    `).all(id)
+
+    return { ...collection, plants }
+  })
+
+  ipcMain.handle('db:collections:create', (_event, data: {
+    name: string
+    description?: string | null
+    icon?: string | null
+    color?: string | null
+  }) => {
+    const db = getDb()
+    const result = db.prepare(`
+      INSERT INTO collections (name, description, icon, color)
+      VALUES (@name, @description, @icon, @color)
+    `).run({
+      name: data.name,
+      description: data.description ?? null,
+      icon: data.icon ?? '🌿',
+      color: data.color ?? 'botanical'
+    })
+    return { id: result.lastInsertRowid }
+  })
+
+  ipcMain.handle('db:collections:update', (_event, id: number, updates: {
+    name?: string
+    description?: string | null
+    icon?: string | null
+    color?: string | null
+  }) => {
+    const db = getDb()
+    const fields: string[] = []
+    const params: any = { id }
+
+    if (updates.name !== undefined) { fields.push('name = @name'); params.name = updates.name }
+    if (updates.description !== undefined) { fields.push('description = @description'); params.description = updates.description }
+    if (updates.icon !== undefined) { fields.push('icon = @icon'); params.icon = updates.icon }
+    if (updates.color !== undefined) { fields.push('color = @color'); params.color = updates.color }
+
+    fields.push('updated_at = CURRENT_TIMESTAMP')
+
+    db.prepare(`UPDATE collections SET ${fields.join(', ')} WHERE id = @id`).run(params)
+    return { success: true }
+  })
+
+  ipcMain.handle('db:collections:delete', (_event, id: number) => {
+    const db = getDb()
+    db.prepare('DELETE FROM collections WHERE id = ?').run(id)
+    return { success: true }
+  })
+
+  ipcMain.handle('db:collections:addPlant', (_event, collectionId: number, plantId: number, notes?: string) => {
+    const db = getDb()
+    db.prepare(`
+      INSERT OR IGNORE INTO collection_plants (collection_id, plant_id, notes)
+      VALUES (?, ?, ?)
+    `).run(collectionId, plantId, notes ?? null)
+    db.prepare('UPDATE collections SET updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(collectionId)
+    return { success: true }
+  })
+
+  ipcMain.handle('db:collections:removePlant', (_event, collectionId: number, plantId: number) => {
+    const db = getDb()
+    db.prepare('DELETE FROM collection_plants WHERE collection_id = ? AND plant_id = ?').run(collectionId, plantId)
+    db.prepare('UPDATE collections SET updated_at = CURRENT_TIMESTAMP WHERE id = ?').run(collectionId)
+    return { success: true }
+  })
+
+  ipcMain.handle('db:collections:getForPlant', (_event, plantId: number) => {
+    const db = getDb()
+    return db.prepare(`
+      SELECT c.*, CASE WHEN cp.plant_id IS NOT NULL THEN 1 ELSE 0 END as contains_plant
+      FROM collections c
+      LEFT JOIN collection_plants cp ON c.id = cp.collection_id AND cp.plant_id = ?
+      ORDER BY c.name
+    `).all(plantId)
+  })
+
   // ── Wellness Goals ──────────────────────────────────────
   ipcMain.handle('db:wellness:getCategories', () => {
     const db = getDb()

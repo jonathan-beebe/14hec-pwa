@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { Page } from '../../App'
-import type { PlantDetail as PlantDetailType } from '../../types'
+import type { PlantDetail as PlantDetailType, CollectionForPlant } from '../../types'
 
 interface PlantDetailProps {
   id: number
@@ -9,10 +9,23 @@ interface PlantDetailProps {
 
 export default function PlantDetail({ id, navigate }: PlantDetailProps) {
   const [plant, setPlant] = useState<PlantDetailType | null>(null)
+  const [collections, setCollections] = useState<CollectionForPlant[]>([])
+  const [showCollections, setShowCollections] = useState(false)
 
   useEffect(() => {
     window.api.getPlantById(id).then(setPlant)
+    window.api.getCollectionsForPlant(id).then(setCollections).catch(() => {})
   }, [id])
+
+  async function toggleCollection(collectionId: number, currentlyIn: boolean) {
+    if (currentlyIn) {
+      await window.api.removePlantFromCollection(collectionId, id)
+    } else {
+      await window.api.addPlantToCollection(collectionId, id)
+    }
+    const updated = await window.api.getCollectionsForPlant(id)
+    setCollections(updated)
+  }
 
   if (!plant) {
     return (
@@ -56,7 +69,73 @@ export default function PlantDetail({ id, navigate }: PlantDetailProps) {
             <p className="text-lg text-earth-500 italic font-display mt-1">{plant.latin_name}</p>
             <p className="text-sm text-earth-600 mt-1">{plant.family}</p>
           </div>
-          <span className={`badge badge-${plant.category} text-sm`}>{plant.category}</span>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            {/* Add to Collection */}
+            <div className="relative">
+              <button
+                onClick={() => setShowCollections(!showCollections)}
+                className="btn-ghost text-xs flex items-center gap-1.5"
+                style={{
+                  background: collections.some(c => c.contains_plant) ? 'rgba(244, 63, 94, 0.08)' : undefined,
+                  borderColor: collections.some(c => c.contains_plant) ? 'rgba(244, 63, 94, 0.15)' : undefined,
+                  color: collections.some(c => c.contains_plant) ? 'rgba(244, 63, 94, 0.8)' : undefined
+                }}
+              >
+                {'\u2661'} {collections.some(c => c.contains_plant) ? 'Saved' : 'Save'}
+              </button>
+              {showCollections && (
+                <div className="absolute right-0 top-full mt-2 w-64 bg-glass-dense rounded-xl overflow-hidden shadow-depth-xl z-30 animate-fade-in-down"
+                     style={{ border: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                  <div className="p-3 border-b" style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}>
+                    <span className="text-[10px] text-earth-500 uppercase tracking-[0.12em] font-medium">
+                      Add to Collection
+                    </span>
+                  </div>
+                  {collections.length === 0 ? (
+                    <div className="p-4 text-center">
+                      <p className="text-earth-500 text-xs mb-2">No collections yet</p>
+                      <button
+                        onClick={() => { setShowCollections(false); navigate({ view: 'collections' }) }}
+                        className="text-xs text-botanical-400 hover:text-botanical-300 transition-colors"
+                      >
+                        Create one {'\u2192'}
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="max-h-48 overflow-y-auto">
+                      {collections.map((col) => (
+                        <button
+                          key={col.id}
+                          onClick={() => toggleCollection(col.id, !!col.contains_plant)}
+                          className="w-full text-left px-4 py-2.5 flex items-center gap-3 transition-colors duration-100"
+                          style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.03)' }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)' }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                        >
+                          <span className="text-sm opacity-50">{col.icon}</span>
+                          <span className="text-earth-200 text-xs flex-1">{col.name}</span>
+                          {col.contains_plant ? (
+                            <span className="text-botanical-400 text-xs">{'\u2713'}</span>
+                          ) : (
+                            <span className="text-earth-600 text-xs">+</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  <div className="p-2 border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.06)' }}>
+                    <button
+                      onClick={() => { setShowCollections(false); navigate({ view: 'collections' }) }}
+                      className="w-full text-center text-[10px] text-earth-500 hover:text-earth-300 py-1.5 transition-colors"
+                    >
+                      Manage Collections
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+            <span className={`badge badge-${plant.category} text-sm`}>{plant.category}</span>
+          </div>
         </div>
         <p className="text-earth-300 mt-4 leading-relaxed relative">{plant.description}</p>
         {plant.category === 'entheogenic' && (

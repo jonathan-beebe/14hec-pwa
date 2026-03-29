@@ -24,7 +24,8 @@ const navSections: NavSection[] = [
       { view: 'wellness', label: 'Wellness Goals', icon: '\u2740' },
       { view: 'preparations', label: 'Preparations', icon: '\u2697' },
       { view: 'entheogenic', label: 'Entheogens', icon: '\u2604' },
-      { view: 'body-systems', label: 'Body Systems', icon: '\u2B22' }
+      { view: 'body-systems', label: 'Body Systems', icon: '\u2B22' },
+      { view: 'collections', label: 'My Collections', icon: '\u2661' }
     ]
   },
   {
@@ -56,6 +57,7 @@ const activeViews: Record<string, string> = {
   'plant-detail': 'plants',
   'ailment-detail': 'ailments',
   'body-system-detail': 'body-systems',
+  'collection-detail': 'collections',
   'wellness-detail': 'wellness'
 }
 

@@ -4,7 +4,7 @@
   "description": "14 HEC — Herbal, Energetic, Celestial Plant Intelligence System",
   "main": "./out/main/index.js",
   "scripts": {
-    "dev": "electron-vite dev",
+    "dev": "electron-vite dev -- --no-sandbox",
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "postinstall": "electron-builder install-app-deps"

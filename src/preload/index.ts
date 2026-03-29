@@ -48,6 +48,16 @@ const api = {
   updateJournalEntry: (id: number, updates: any) => ipcRenderer.invoke('db:journal:updateEntry', id, updates),
   deleteJournalEntry: (id: number) => ipcRenderer.invoke('db:journal:deleteEntry', id),
 
+  // Collections
+  getCollections: () => ipcRenderer.invoke('db:collections:getAll'),
+  getCollectionById: (id: number) => ipcRenderer.invoke('db:collections:getById', id),
+  createCollection: (data: any) => ipcRenderer.invoke('db:collections:create', data),
+  updateCollection: (id: number, updates: any) => ipcRenderer.invoke('db:collections:update', id, updates),
+  deleteCollection: (id: number) => ipcRenderer.invoke('db:collections:delete', id),
+  addPlantToCollection: (collectionId: number, plantId: number, notes?: string) => ipcRenderer.invoke('db:collections:addPlant', collectionId, plantId, notes),
+  removePlantFromCollection: (collectionId: number, plantId: number) => ipcRenderer.invoke('db:collections:removePlant', collectionId, plantId),
+  getCollectionsForPlant: (plantId: number) => ipcRenderer.invoke('db:collections:getForPlant', plantId),
+
   // Wellness Goals
   getWellnessCategories: () => ipcRenderer.invoke('db:wellness:getCategories'),
   getWellnessGoalsByCategory: (categoryId: number) => ipcRenderer.invoke('db:wellness:getGoalsByCategory', categoryId),
