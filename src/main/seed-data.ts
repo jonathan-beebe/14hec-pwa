@@ -32,6 +32,7 @@ export function seedDatabase(db: Database.Database): void {
     seedTeachingsAndJournal(db)
     seedEthicalPractice(db)
     seedWellnessGoals(db)
+    seedHMBSAssociations(db)
   })
 
   transaction()
@@ -531,6 +532,31 @@ function seedWellnessGoals(db: Database.Database): void {
         evidence_level: mapping.evidence_level || 'traditional',
         dosage_notes: mapping.dosage_notes || null
       })
+    }
+  }
+}
+
+function seedHMBSAssociations(db: Database.Database): void {
+  const data = loadJson('hmbs-associations.json')
+  const getPlant = db.prepare('SELECT id FROM plants WHERE common_name = ?')
+
+  const stmt = db.prepare(`
+    INSERT OR IGNORE INTO plant_hmbs_associations (plant_id, domain, strength, reason, plant_part_affinity)
+    VALUES (@plant_id, @domain, @strength, @reason, @plant_part_affinity)
+  `)
+
+  for (const entry of data) {
+    const plant = getPlant.get(entry.plant) as { id: number } | undefined
+    if (plant && entry.associations) {
+      for (const assoc of entry.associations) {
+        stmt.run({
+          plant_id: plant.id,
+          domain: assoc.domain,
+          strength: assoc.strength || 'primary',
+          reason: assoc.reason || null,
+          plant_part_affinity: assoc.plant_part_affinity || null
+        })
+      }
     }
   }
 }

@@ -1,0 +1,3296 @@
+[
+  {
+    "plant": "African Dream Root",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Traditional Xhosa dream medicine; opens vivid prophetic dreaming and ancestral communication",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "African Potato",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Agrimony",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Aloe Vera",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Amla",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Andrographis",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Angelica",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Arnica",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Artichoke",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Ashoka Tree",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Sacred to the heart in Ayurveda; calms emotional grief and stabilizes the emotional body",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Ashwagandha",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Astragalus",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Ayahuasca",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Powerful visionary brew; dissolves ego boundaries and opens access to transpersonal consciousness",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Baobab",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Basil",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Bay Laurel",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Belladonna",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Betel Nut",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Birch",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Black Cohosh",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Black Pepper",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Black Walnut",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Bloodroot",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Blue Lotus",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Ancient Egyptian sacrament; induces meditative bliss and opens the third eye",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Blue Vervain",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Bobinsana",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Amazonian heart medicine; softens emotional armoring and opens capacity for compassion",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Brahmi",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Premier Ayurvedic brain tonic; enhances memory, concentration, and cognitive function",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Buchu",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Burdock",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Cacao",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Heart-opening ceremonial medicine; contains theobromine that dilates blood vessels and releases endorphins",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Calendula",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Cannabis",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Expands perception, enhances meditation, and opens creative and spiritual channels",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Caraway",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Cardamom",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Cat's Claw",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Cayenne Pepper",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Celery Seed",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Chaga",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Chamomile",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Chaparral",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Chaste Tree",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Chicory",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Chinese Skullcap",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Cinnamon",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Cleavers",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Clove",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Coffee",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Powerful CNS stimulant; enhances alertness, focus, and cognitive performance via caffeine",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports kidney function and fluid balance",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Coleus",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Comfrey",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Cordyceps",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Coriander",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Cramp Bark",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Cumin",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Damiana",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Dandelion",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Datura",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Boundary-dissolving spirit plant; used in shamanic traditions for visionary journeying",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Devil's Claw",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Dill",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Dong Quai",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Nourishes and invigorates blood, supports heart and circulatory system, eases emotional tension",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Dream Herb",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Mexican dream herb; enhances dream vividness, lucidity, and recall",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Echinacea",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Elderberry",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Elderflower",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Elecampane",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Ephedra",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "stem"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "stem"
+      }
+    ]
+  },
+  {
+    "plant": "Eucalyptus",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Eyebright",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Fennel",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Fenugreek",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Feverfew",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Fly Agaric",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Siberian shamanic sacrament; induces trance states and spirit communication",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Frankincense",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Sacred resin; elevates consciousness, purifies space, and opens crown chakra in meditation",
+        "plant_part_affinity": "resin_sap"
+      },
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "resin_sap"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "resin_sap"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "resin_sap"
+      }
+    ]
+  },
+  {
+    "plant": "Garlic",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Gentian",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Ginger",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Ginkgo",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Improves cerebral blood flow; enhances memory, focus, and cognitive function in aging brains",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Ginseng",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Goldenseal",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Gotu Kola",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Renowned nootropic; regenerates neural tissue, enhances memory, and calms the mind",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Grape Seed",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Green Tea",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "L-theanine promotes calm focus; improves attention and cognitive function without jitters",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Guarana",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Sustained mental stimulation; enhances alertness and cognitive performance",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports physical health and bodily vitality",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Guayusa",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Balanced stimulant; promotes mental clarity and focused awareness without anxiety",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Guggul",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "resin_sap"
+      }
+    ]
+  },
+  {
+    "plant": "Hawaiian Baby Woodrose",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Contains LSA; opens perception to expanded spiritual awareness",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Hawthorn",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Premier cardiovascular tonic; strengthens heart muscle, regulates blood pressure, and heals emotional heartbreak",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "He Shou Wu",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports blood health and circulatory function",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Helichrysum",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Henbane",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Ancient oracle plant; used in European traditions for trance and divination",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Hibiscus",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Lowers blood pressure, rich in heart-protective anthocyanins, cools excess heat in the blood",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports kidney function and fluid balance",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Holy Basil",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Hoodia",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports physical health and bodily vitality",
+        "plant_part_affinity": "stem"
+      }
+    ]
+  },
+  {
+    "plant": "Hops",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Horse Chestnut",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Horseradish",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Iboga",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Bwiti initiatory sacrament; provides profound introspective visions and spiritual rebirth",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Jasmine",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Sensual heart-opener; calms anxiety, lifts depression, and cultivates emotional warmth and connection",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Juniper",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Jurema",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Brazilian visionary root; opens doorways to the spirit world in indigenous traditions",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Kanna",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Heart-opening empathogen; dissolves emotional barriers and opens spiritual connection",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Kava",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Khat",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Kratom",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Lady's Mantle",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Lavender",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Lemon Balm",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Calms anxious mind while improving memory and cognitive function; balances nervous system",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Lemongrass",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Licorice",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Linden",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Deeply calming nervine with strong affinity for emotional heart; eases grief and anxiety",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Lion's Mane",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Stimulates nerve growth factor (NGF); supports brain health, memory, and cognitive clarity",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Long Pepper",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Maca",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Magnolia Bark",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Maitake",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Mandrake",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Ancient magical root; used in ritual and ceremony for spirit contact and transformation",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Mangosteen",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Mapacho",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Shamanic tobacco; used for energetic protection, prayer, and spirit communication",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports physical health and bodily vitality",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Marjoram",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports blood health and circulatory function",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Marshmallow",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Meadowsweet",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Milk Thistle",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Moringa",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Morning Glory",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Aztec sacrament containing LSA; opens perception to luminous spiritual dimensions",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Motherwort",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Calms heart palpitations, eases anxiety, and supports the emotional heart of mothers",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Mugwort",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Opens dream channels and enhances psychic sensitivity and intuitive awareness",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Muira Puama",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Mullein",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Mustard",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Myrrh",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "resin_sap"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "resin_sap"
+      }
+    ]
+  },
+  {
+    "plant": "Neem",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Nettle",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Nigella",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Noni",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Nutmeg",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "In high doses, mildly psychoactive; traditionally used for meditation enhancement",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Oak",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Olive Leaf",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Oregano",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Oregon Grape",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Osha",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Parsley",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Passionflower",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Pau d'Arco",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Peppermint",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Stimulates mental clarity; improves alertness and cognitive performance through aromatic compounds",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Peyote Cactus",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Native American sacrament; opens the heart to divine love and cosmic consciousness",
+        "plant_part_affinity": "whole"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "whole"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "whole"
+      }
+    ]
+  },
+  {
+    "plant": "Pine",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Plantain",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Psilocybin Mushrooms",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Powerful consciousness expander; dissolves default mode network and opens mystical awareness",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Pygeum",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Raspberry Leaf",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Red Buckeye",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Red Clover",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Blood-building and purifying; supports cardiovascular health through isoflavone content",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Reishi",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "fungal_body"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Rhodiola",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Adaptogen that enhances mental performance under stress; improves focus and reduces mental fatigue",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Rooibos",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Rose",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Quintessential heart medicine; opens emotional body, supports cardiovascular health, and cultivates self-love",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Rosemary",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Pierces mental fog; enhances memory and concentration through improved cerebral circulation",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Rue",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Saffron",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Uplifts mood, eases depression, and supports cardiovascular health with antioxidant compounds",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Sage",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Salvia Divinorum",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Mazatec divination plant; induces profound dissociative visionary states",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports physical health and bodily vitality",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "San Pedro Cactus",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Andean heart medicine; opens empathic awareness and connection to nature spirits",
+        "plant_part_affinity": "stem"
+      },
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "stem"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "stem"
+      }
+    ]
+  },
+  {
+    "plant": "Sananga",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Amazonian eye medicine; purifies vision on physical and spiritual levels",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Sassafras",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports blood health and circulatory function",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Saw Palmetto",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Schisandra",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Sea Buckthorn",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Shatavari",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Shepherd's Purse",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Skullcap",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Calms nervous system excess; reduces anxiety and racing thoughts while supporting brain health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Slippery Elm",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Solomon's Seal",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Spearmint",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "St. John's Wort",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Star Anise",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Stevia",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Suma",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Sun Opener",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "Enhances mental clarity and opens awareness to subtle spiritual perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Sutherlandia",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Sweet Wormwood",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Syrian Rue",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "MAO-inhibiting visionary seed; potentiates spiritual experiences and dream work",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  },
+  {
+    "plant": "Tarragon",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Thyme",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Tobacco",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Sacred offering plant; used in ceremony for prayer, protection, and spirit connection",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports physical health and bodily vitality",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Turkey Tail",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "fungal_body"
+      }
+    ]
+  },
+  {
+    "plant": "Turmeric",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "tertiary",
+        "reason": "Indirectly supports cardiovascular health and emotional wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "mind",
+        "strength": "tertiary",
+        "reason": "Mildly supports cognitive function and mental wellbeing",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Uva Ursi",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Valerian",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Relaxes muscle tension and relieves physical spasms",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Vervain",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Tonifies and strengthens the physical body, building vital reserves",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Watercress",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "White Peony",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "root"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports blood health and circulatory function",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "White Sage",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Ceremonial purification herb; clears stagnant energy and opens sacred space",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "White Willow",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Wild Cherry",
+    "associations": [
+      {
+        "domain": "heart",
+        "strength": "secondary",
+        "reason": "Calms emotional turbulence and supports heart health",
+        "plant_part_affinity": "bark"
+      },
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports respiratory health and lung function",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Wild Dagga",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Mildly euphoric; supports meditation, relaxation, and gentle spiritual opening",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "tertiary",
+        "reason": "Has minor physical applications alongside its primary uses",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Wild Lettuce",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "resin_sap"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "resin_sap"
+      }
+    ]
+  },
+  {
+    "plant": "Wild Yam",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Witch Hazel",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "bark"
+      }
+    ]
+  },
+  {
+    "plant": "Woad",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Strengthens immune system and builds physical resilience",
+        "plant_part_affinity": "root"
+      }
+    ]
+  },
+  {
+    "plant": "Wood Betony",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "secondary",
+        "reason": "Supports nervous system health and mental balance",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Wormwood",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "secondary",
+        "reason": "Supports spiritual awareness and subtle perception",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Yarrow",
+    "associations": [
+      {
+        "domain": "body",
+        "strength": "primary",
+        "reason": "Supports digestive function and metabolic health",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Yerba Mate",
+    "associations": [
+      {
+        "domain": "mind",
+        "strength": "primary",
+        "reason": "Stimulating yet grounding; promotes mental clarity, focus, and sustained concentration",
+        "plant_part_affinity": "leaf"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Supports kidney function and fluid balance",
+        "plant_part_affinity": "leaf"
+      }
+    ]
+  },
+  {
+    "plant": "Ylang Ylang",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "tertiary",
+        "reason": "Supports meditative awareness and subtle spiritual sensitivity",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "heart",
+        "strength": "primary",
+        "reason": "Calms rapid heartbeat, reduces blood pressure, and opens the heart to joy and sensuality",
+        "plant_part_affinity": "flower"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Reduces inflammation and supports tissue healing",
+        "plant_part_affinity": "flower"
+      }
+    ]
+  },
+  {
+    "plant": "Yopo",
+    "associations": [
+      {
+        "domain": "spirit",
+        "strength": "primary",
+        "reason": "South American snuff; induces rapid visionary states and spirit communication",
+        "plant_part_affinity": "seed_fruit"
+      },
+      {
+        "domain": "body",
+        "strength": "secondary",
+        "reason": "Heals wounds and tonifies tissues through astringent action",
+        "plant_part_affinity": "seed_fruit"
+      }
+    ]
+  }
+]

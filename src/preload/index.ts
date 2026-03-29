@@ -52,7 +52,12 @@ const api = {
   getWellnessCategories: () => ipcRenderer.invoke('db:wellness:getCategories'),
   getWellnessGoalsByCategory: (categoryId: number) => ipcRenderer.invoke('db:wellness:getGoalsByCategory', categoryId),
   getWellnessGoalById: (id: number) => ipcRenderer.invoke('db:wellness:getGoalById', id),
-  searchWellnessGoals: (search: string) => ipcRenderer.invoke('db:wellness:search', search)
+  searchWellnessGoals: (search: string) => ipcRenderer.invoke('db:wellness:search', search),
+
+  // HMBS Associations
+  getHMBSPlants: (domain?: string, strength?: string) => ipcRenderer.invoke('db:hmbs:getPlants', domain, strength),
+  getHMBSByPlantId: (plantId: number) => ipcRenderer.invoke('db:hmbs:getByPlantId', plantId),
+  getHMBSSummary: () => ipcRenderer.invoke('db:hmbs:getSummary')
 }
 
 contextBridge.exposeInMainWorld('api', api)
