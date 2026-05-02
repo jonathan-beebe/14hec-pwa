@@ -36,7 +36,7 @@ export function Subsection({
   return (
     <div className="flex gap-8">
       <div className={`${LABEL_COL} pt-1`}>
-        <h3 className="text-[11px] uppercase tracking-[0.18em] text-earth-500 font-system font-medium">
+        <h3 className="text-[11px] uppercase tracking-[0.18em] -mr-[0.18em] text-earth-500 font-system font-medium">
           {title}
         </h3>
       </div>

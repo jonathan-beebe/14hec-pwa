@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { AilmentDetail as AilmentDetailType } from '@/types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function AilmentDetail() {
   const { id } = useParams()
@@ -33,12 +34,12 @@ export default function AilmentDetail() {
 
   return (
     <div className="max-w-4xl animate-fade-in">
-      <button
-        onClick={() => navigate('/ailments')}
-        className="btn-ghost mb-4 inline-flex items-center gap-1"
+      <Button.Ghost
+        route="/ailments"
+        className="mb-4 inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Ailments
-      </button>
+      </Button.Ghost>
 
       {/* Header */}
       <div className="hero-section mb-8">

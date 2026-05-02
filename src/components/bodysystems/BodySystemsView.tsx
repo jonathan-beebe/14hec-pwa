@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { BodySystem, BodySystemDetail } from '@/types'
+import Button from '@/components/design-system/atoms/Button'
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; ring: string }> = {
   organ:     { bg: 'bg-rose-500/10',   text: 'text-rose-300',   ring: 'ring-rose-500/20' },
@@ -208,12 +209,12 @@ function BodySystemDetailView({ id }: { id: number }) {
   return (
     <div className="max-w-4xl animate-fade-in">
       {/* Back button */}
-      <button
-        onClick={() => navigate('/body-systems')}
-        className="btn-ghost mb-4 inline-flex items-center gap-1"
+      <Button.Ghost
+        route="/body-systems"
+        className="mb-4 inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Body Systems
-      </button>
+      </Button.Ghost>
 
       {/* Hero header */}
       <div className="hero-section mb-8">

@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { api } from '@/data/api'
 import type { Plant, JournalEntry, JournalPrompt } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 type ViewMode = 'list' | 'new' | 'edit' | 'view'
 
@@ -251,9 +252,9 @@ export default function JournalView() {
                 Begin your record of plant relationships and inner exploration
               </p>
             )}
-            <button onClick={startNewEntry} className="btn-primary mt-6">
+            <Button.Primary onClick={startNewEntry} className="mt-6">
               Write Your First Entry
-            </button>
+            </Button.Primary>
           </div>
         ) : (
           <div className="space-y-2.5">
@@ -315,9 +316,9 @@ export default function JournalView() {
     if (!editingEntry) return null
     return (
       <div className="animate-fade-in">
-        <button onClick={() => { resetForm(); setViewMode('list') }} className="btn-ghost mb-4 inline-flex items-center gap-1">
+        <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }} className="mb-4 inline-flex items-center gap-1">
           {'\u2190'} Back to Journal
-        </button>
+        </Button.Ghost>
 
         <div className="card p-8 mb-4"
              style={{
@@ -374,9 +375,9 @@ export default function JournalView() {
         </div>
 
         <div className="flex items-center gap-3">
-          <button onClick={() => startEditEntry(editingEntry)} className="btn-primary">
+          <Button.Primary onClick={() => startEditEntry(editingEntry)}>
             Edit Entry
-          </button>
+          </Button.Primary>
           {showDeleteConfirm === editingEntry.id ? (
             <div className="flex items-center gap-2">
               <span className="text-xs text-earth-400">Are you sure?</span>
@@ -387,17 +388,17 @@ export default function JournalView() {
               >
                 Yes, delete
               </button>
-              <button onClick={() => setShowDeleteConfirm(null)} className="btn-ghost text-xs">
+              <Button.Ghost onClick={() => setShowDeleteConfirm(null)} className="text-xs">
                 Cancel
-              </button>
+              </Button.Ghost>
             </div>
           ) : (
-            <button
+            <Button.Ghost
               onClick={() => setShowDeleteConfirm(editingEntry.id)}
-              className="btn-ghost text-xs text-earth-500 hover:text-red-400"
+              className="text-xs text-earth-500 hover:text-red-400"
             >
               Delete
-            </button>
+            </Button.Ghost>
           )}
         </div>
       </div>
@@ -409,9 +410,9 @@ export default function JournalView() {
     const isEdit = viewMode === 'edit'
     return (
       <div className="animate-fade-in">
-        <button onClick={() => { resetForm(); setViewMode('list') }} className="btn-ghost mb-4 inline-flex items-center gap-1">
+        <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }} className="mb-4 inline-flex items-center gap-1">
           {'\u2190'} Back to Journal
-        </button>
+        </Button.Ghost>
 
         <div className="mb-6">
           <h2 className="text-xl font-display font-bold text-earth-100 tracking-wide">
@@ -474,16 +475,15 @@ export default function JournalView() {
 
             {/* Save button */}
             <div className="flex items-center gap-3">
-              <button
+              <Button.Primary
                 onClick={saveEntry}
                 disabled={!title.trim() || !content.trim() || saving}
-                className="btn-primary"
               >
                 {saving ? 'Saving...' : isEdit ? 'Update Entry' : 'Save Entry'}
-              </button>
-              <button onClick={() => { resetForm(); setViewMode('list') }} className="btn-ghost">
+              </Button.Primary>
+              <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }}>
                 Cancel
-              </button>
+              </Button.Ghost>
             </div>
           </div>
 
@@ -625,9 +625,9 @@ export default function JournalView() {
             </p>
           </div>
           {viewMode === 'list' && (
-            <button onClick={startNewEntry} className="btn-primary flex-shrink-0">
+            <Button.Primary onClick={startNewEntry} className="flex-shrink-0">
               + New Entry
-            </button>
+            </Button.Primary>
           )}
         </div>
         <div className="divider-gradient mt-6" />

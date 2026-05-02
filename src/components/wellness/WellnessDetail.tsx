@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { WellnessGoalDetail as WellnessGoalDetailType } from '@/types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function WellnessDetail() {
   const { id } = useParams()
@@ -25,12 +26,12 @@ export default function WellnessDetail() {
 
   return (
     <div className="max-w-4xl animate-fade-in">
-      <button
-        onClick={() => navigate('/wellness')}
-        className="btn-ghost mb-4 inline-flex items-center gap-1"
+      <Button.Ghost
+        route="/wellness"
+        className="mb-4 inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Wellness Goals
-      </button>
+      </Button.Ghost>
 
       {/* Header */}
       <div className="hero-section mb-8">

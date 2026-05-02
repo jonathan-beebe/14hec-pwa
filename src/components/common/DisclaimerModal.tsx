@@ -1,3 +1,5 @@
+import Button from '@/components/design-system/atoms/Button'
+
 interface DisclaimerModalProps {
   onAccept: () => void
 }
@@ -128,12 +130,12 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
             </p>
           </div>
 
-          <button
+          <Button.Primary
             onClick={onAccept}
-            className="btn-primary w-full py-3"
+            className="w-full py-3"
           >
             I Understand {'\u2014'} Enter 14 HEC
-          </button>
+          </Button.Primary>
         </div>
       </div>
     </div>

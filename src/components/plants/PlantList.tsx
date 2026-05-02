@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, PlanetData, ZodiacSign } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function PlantList() {
   const navigate = useNavigate()
@@ -91,9 +92,9 @@ export default function PlantList() {
             <option value="earth">Earth</option>
           </select>
           {hasFilters && (
-            <button onClick={clearFilters} className="btn-ghost text-xs">
+            <Button.Ghost onClick={clearFilters} className="text-xs">
               Clear filters
-            </button>
+            </Button.Ghost>
           )}
         </div>
       </div>
@@ -124,9 +125,9 @@ export default function PlantList() {
           <div className="text-3xl mb-2 opacity-20">{'\u2618'}</div>
           <p className="text-sm text-earth-500">No plants found matching your filters.</p>
           {hasFilters && (
-            <button onClick={clearFilters} className="btn-ghost text-xs mt-3 text-botanical-400/60 hover:text-botanical-300">
+            <Button.Ghost onClick={clearFilters} className="text-xs mt-3 text-botanical-400/60 hover:text-botanical-300">
               Clear all filters
-            </button>
+            </Button.Ghost>
           )}
         </div>
       )}

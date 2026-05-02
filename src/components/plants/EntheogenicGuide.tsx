@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, PlantDetail as PlantDetailType, EthicalPractice } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 interface JourneyProtocol {
   name: string
@@ -211,7 +211,6 @@ function EthicalPracticePanel({ data }: { data: EthicalPractice }) {
 }
 
 export default function EntheogenicGuide() {
-  const navigate = useNavigate()
   const [entheogenicPlants, setEntheogenicPlants] = useState<Plant[]>([])
   const [selectedPlant, setSelectedPlant] = useState<PlantDetailType | null>(null)
   const [selectedProtocol, setSelectedProtocol] = useState<JourneyProtocol | null>(null)
@@ -324,12 +323,12 @@ export default function EntheogenicGuide() {
                   <h2 className="text-xl font-display font-bold text-celestial-400">{selectedPlant.common_name}</h2>
                   <p className="text-sm text-earth-500 italic">{selectedPlant.latin_name}</p>
                 </div>
-                <button
-                  onClick={() => navigate(`/plants/${selectedPlant.id}`)}
-                  className="btn-ghost text-xs"
+                <Button.Ghost
+                  route={`/plants/${selectedPlant.id}`}
+                  className="text-xs"
                 >
                   Full profile {'\u2192'}
-                </button>
+                </Button.Ghost>
               </div>
 
               <p className="text-sm text-earth-300 mb-5 leading-relaxed">{selectedPlant.description}</p>

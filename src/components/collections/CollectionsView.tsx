@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Collection, CollectionDetail } from '@/types'
+import Button from '@/components/design-system/atoms/Button'
 
 type ViewMode = 'list' | 'detail' | 'new' | 'edit'
 
@@ -167,9 +168,9 @@ export default function CollectionsView() {
             <p className="text-earth-500 text-xs font-display italic">
               Create your first collection to organize plants that matter to you
             </p>
-            <button onClick={() => navigate('/collections/new')} className="btn-primary mt-6">
+            <Button.Primary route="/collections/new" className="mt-6">
               Create Your First Collection
-            </button>
+            </Button.Primary>
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-3">
@@ -231,9 +232,9 @@ export default function CollectionsView() {
     const colorStyle = getColorStyle(detail.color)
     return (
       <div className="animate-fade-in">
-        <button onClick={() => navigate('/collections')} className="btn-ghost mb-4 inline-flex items-center gap-1">
+        <Button.Ghost route="/collections" className="mb-4 inline-flex items-center gap-1">
           {'\u2190'} All Collections
-        </button>
+        </Button.Ghost>
 
         <div className="rounded-2xl p-6 mb-6"
              style={{
@@ -257,9 +258,9 @@ export default function CollectionsView() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <button onClick={() => navigate(`/collections/${detail.id}/edit`)} className="btn-ghost text-xs">
+              <Button.Ghost route={`/collections/${detail.id}/edit`} className="text-xs">
                 Edit
-              </button>
+              </Button.Ghost>
               {showDeleteConfirm === detail.id ? (
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-earth-400">Delete?</span>
@@ -270,17 +271,17 @@ export default function CollectionsView() {
                   >
                     Yes
                   </button>
-                  <button onClick={() => setShowDeleteConfirm(null)} className="btn-ghost text-xs">
+                  <Button.Ghost onClick={() => setShowDeleteConfirm(null)} className="text-xs">
                     No
-                  </button>
+                  </Button.Ghost>
                 </div>
               ) : (
-                <button
+                <Button.Ghost
                   onClick={() => setShowDeleteConfirm(detail.id)}
-                  className="btn-ghost text-xs text-earth-500 hover:text-red-400"
+                  className="text-xs text-earth-500 hover:text-red-400"
                 >
                   Delete
-                </button>
+                </Button.Ghost>
               )}
             </div>
           </div>
@@ -294,9 +295,9 @@ export default function CollectionsView() {
             <p className="text-earth-500 text-xs font-display italic">
               Browse plants and add them to this collection from their detail page
             </p>
-            <button onClick={() => navigate('/plants')} className="btn-primary mt-4">
+            <Button.Primary route="/plants" className="mt-4">
               Browse Plants
-            </button>
+            </Button.Primary>
           </div>
         ) : (
           <div className="space-y-2">
@@ -353,12 +354,12 @@ export default function CollectionsView() {
     }
     return (
       <div className="animate-fade-in max-w-2xl">
-        <button
+        <Button.Ghost
           onClick={cancel}
-          className="btn-ghost mb-4 inline-flex items-center gap-1"
+          className="mb-4 inline-flex items-center gap-1"
         >
           {'\u2190'} Back
-        </button>
+        </Button.Ghost>
 
         <div className="mb-6">
           <h2 className="text-xl font-display font-bold text-earth-100 tracking-wide">
@@ -456,16 +457,15 @@ export default function CollectionsView() {
 
           {/* Actions */}
           <div className="flex items-center gap-3 pt-2">
-            <button
+            <Button.Primary
               onClick={saveCollection}
               disabled={!formName.trim() || saving}
-              className="btn-primary"
             >
               {saving ? 'Saving...' : isEdit ? 'Update Collection' : 'Create Collection'}
-            </button>
-            <button onClick={cancel} className="btn-ghost">
+            </Button.Primary>
+            <Button.Ghost onClick={cancel}>
               Cancel
-            </button>
+            </Button.Ghost>
           </div>
         </div>
       </div>
@@ -498,9 +498,9 @@ export default function CollectionsView() {
             </p>
           </div>
           {viewMode === 'list' && (
-            <button onClick={() => navigate('/collections/new')} className="btn-primary flex-shrink-0">
+            <Button.Primary route="/collections/new" className="flex-shrink-0">
               + New Collection
-            </button>
+            </Button.Primary>
           )}
         </div>
         <div className="divider-gradient mt-6" />
