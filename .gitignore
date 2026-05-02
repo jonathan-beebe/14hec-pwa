@@ -1,28 +1,5 @@
-# Dependencies
 node_modules/
-
-# Build output
-out/
 dist/
-
-# Database (generated per-machine from seed data)
-*.db
-*.db-wal
-*.db-shm
-
-# OS files
 .DS_Store
-Thumbs.db
-
-# Editor / IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Environment
-.env
-.env.local
-
-# Claude Code personal sessions (shared launch.json stays)
-.claude/settings.local.json
+*.local
+__local__/

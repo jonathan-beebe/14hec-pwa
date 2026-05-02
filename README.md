@@ -1,56 +1,83 @@
-# 14 HEC — Plant Intelligence System
+# 14 HEC — Plant Intelligence System (PWA)
 
-A desktop application for exploring herbal, energetic, and celestial plant intelligence. Cross-references 207+ plants with ailments, astrology, body systems, and traditional teachings.
+A Progressive Web App for exploring herbal, energetic, and celestial plant intelligence. Cross-references 207+ plants with ailments, astrology, body systems, and traditional teachings.
 
-Built with Electron 33, React 18, TypeScript, SQLite, and Tailwind CSS.
+Share it with anyone by sending them a link — no app store, no downloads. Installable on home screen, launches full screen, works offline.
+
+Built with Vite, React 18, TypeScript, Tailwind CSS, and vite-plugin-pwa. Ported from the [Electron desktop app](../14hec/).
 
 ## Quick Start
 
 ```bash
-# 1. Clone the repository
-git clone git@github.com:YOUR-ORG/14hec.git
-cd 14hec
+# 1. Install dependencies
+npm install
 
-# 2. Run first-time setup
-bash scripts/setup.sh
-
-# 3. Start the app
+# 2. Start the dev server
 npm run dev
 ```
 
-The database is created automatically on first launch from seed data.
+Opens at `http://localhost:5173/`. All plant data is bundled — no database setup needed.
 
-## Daily Workflow
-
-```bash
-# Get the latest changes from everyone
-bash scripts/sync.sh
-
-# Create your work branch
-git checkout -b yourname/what-you-are-working-on
-
-# ... work with Claude Code ...
-
-# Save your work
-git add .
-git commit -m "Description of what you did"
-
-# Push for others to see
-bash scripts/publish.sh
-```
-
-When your feature is ready, create a Pull Request on GitHub to merge into `main`.
-
-## Resetting the Database
-
-After someone changes the seed data (JSON files in `src/seed/`), reset your database:
+## Commands
 
 ```bash
-rm ~/Library/Application\ Support/14hec/14hec.db*
-npm run dev
+npm run dev       # Start dev server with hot reload
+npm run build     # Production build (TypeScript check + Vite build)
+npm run preview   # Preview the production build locally
 ```
 
-The app rebuilds the database from seed files on launch.
+## Architecture
+
+```
+src/
+  main.tsx                    # React root with BrowserRouter
+  App.tsx                     # Route definitions (19 views)
+  styles/globals.css          # Tailwind directives + custom design system
+  types/index.ts              # All TypeScript interfaces
+  data/
+    db.ts                     # In-memory database from seed JSON
+    api.ts                    # 60+ query methods (drop-in replacement for Electron IPC)
+    journal-store.ts          # Journal entries in localStorage
+    seed/                     # 11 JSON data files (source of truth)
+  components/
+    Dashboard.tsx             # Landing page with stats and navigation
+    layout/                   # Layout (Outlet wrapper), Sidebar (Link-based nav)
+    plants/                   # PlantList, PlantDetail, EntheogenicGuide
+    ailments/                 # AilmentNavigator, AilmentDetail
+    astrology/                # AstrologyView, NatalInput, PlanetaryTiming
+    bodysystems/              # BodySystemsView (list + detail)
+    journal/                  # JournalView (localStorage CRUD)
+    sanctuary/                # HMBSView, SeasonalGuide, DoctrineExplorer
+    crossref/                 # CrossReference (multi-axis query)
+    preparations/             # PreparationMatrix
+    wellness/                 # WellnessNavigator, WellnessDetail
+    common/                   # DisclaimerModal, UpdateBanner
+```
+
+### Data Layer
+
+All plant data is bundled as JSON and loaded into memory on page load. No SQLite, no IndexedDB, no server — the full dataset (~3.2 MB, ~677 KB gzipped) ships with the app.
+
+- **`db.ts`** imports the 11 seed JSON files, assigns IDs, and builds indexed `Map` structures for fast lookup
+- **`api.ts`** exports the same method signatures as the Electron `window.api`, so components use the same async patterns
+- **`journal-store.ts`** persists journal entries (the only mutable data) to `localStorage`
+
+### Routing
+
+Every view has a URL via react-router-dom v6. Detail views use path params (`/plants/:id`, `/ailments/:id`, etc.). The sidebar uses `<Link>` components with `useLocation()` for active state.
+
+### PWA
+
+- Installable in standalone mode (web app manifest with `display: standalone`)
+- Service worker precaches all assets for offline use
+- When a new version is deployed, an update banner appears with "Update" and "Dismiss" buttons
+- Google Fonts cached for 1 year via workbox runtime caching
+
+## Updating Seed Data
+
+The seed JSON files in `src/data/seed/` are the source of truth for all plant data. After editing them, restart the dev server or rebuild — the data is bundled at build time, so changes appear immediately.
+
+No database reset step needed (unlike the Electron app).
 
 ## Using Claude Code
 
@@ -63,4 +90,3 @@ Open a Claude Code session in the project directory. Claude will automatically r
 - **Rafa** — Co-founder
 
 Coordination docs, design assets, and releases live in the shared Google Drive folder.
-# Relational-Alchemy
