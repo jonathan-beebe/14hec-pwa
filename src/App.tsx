@@ -22,6 +22,7 @@ import WellnessNavigator from './components/wellness/WellnessNavigator'
 import WellnessDetail from './components/wellness/WellnessDetail'
 import DisclaimerModal from './components/common/DisclaimerModal'
 import UpdateBanner from './components/common/UpdateBanner'
+import DesignSystem from './components/design-system/DesignSystem'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -76,6 +77,7 @@ export default function App() {
           <Route path="/collections/:id/edit" element={<CollectionsView />} />
           <Route path="/wellness" element={<WellnessNavigator />} />
           <Route path="/wellness/:id" element={<WellnessDetail />} />
+          <Route path="/design-system" element={<DesignSystem />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
