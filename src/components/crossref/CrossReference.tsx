@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment, ZodiacSign, PlanetData, Preparation, CrossRefResult, ContraindicationResult } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function CrossReference() {
   const navigate = useNavigate()
@@ -168,13 +169,13 @@ export default function CrossReference() {
         </div>
 
         <div className="flex gap-3">
-          <button onClick={runQuery} disabled={!hasAnyFilter} className="btn-primary">
+          <Button.Primary onClick={runQuery} disabled={!hasAnyFilter}>
             Search Correspondences
-          </button>
+          </Button.Primary>
           {hasAnyFilter && (
-            <button onClick={clearAll} className="btn-ghost">
+            <Button.Ghost onClick={clearAll}>
               Clear all
-            </button>
+            </Button.Ghost>
           )}
         </div>
       </div>

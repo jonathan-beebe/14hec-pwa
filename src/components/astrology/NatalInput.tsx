@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { ZodiacSign, Plant } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 interface NatalProfile {
   sunSign: number | ''
@@ -98,13 +99,12 @@ export default function NatalInput() {
           ))}
         </div>
 
-        <button
+        <Button.Celestial
           onClick={generateMap}
           disabled={!profile.sunSign && !profile.moonSign && !profile.risingSign}
-          className="btn-celestial"
         >
           Generate Plant Map
-        </button>
+        </Button.Celestial>
       </div>
 
       {/* Results */}

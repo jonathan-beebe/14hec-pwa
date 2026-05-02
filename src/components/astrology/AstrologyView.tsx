@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { ZodiacSign, PlanetData, Plant } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function AstrologyView() {
   const navigate = useNavigate()
@@ -80,17 +81,17 @@ export default function AstrologyView() {
       {/* Tab Toggle */}
       <div className="flex gap-2 mb-5">
         {(['zodiac', 'planets'] as const).map((t) => (
-          <button
+          <Button.Celestial
             key={t}
             onClick={() => setTab(t)}
-            className={`btn-celestial ${
+            className={
               tab === t
                 ? ''
                 : '!bg-none !shadow-none bg-earth-800/40 !text-earth-400 hover:!text-earth-200'
-            }`}
+            }
           >
             {t === 'zodiac' ? 'Zodiac Signs' : 'Planets'}
-          </button>
+          </Button.Celestial>
         ))}
       </div>
 

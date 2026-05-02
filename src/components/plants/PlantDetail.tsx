@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { PlantDetail as PlantDetailType, CollectionForPlant } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 export default function PlantDetail() {
   const navigate = useNavigate()
@@ -44,12 +45,12 @@ export default function PlantDetail() {
   return (
     <div className="max-w-5xl animate-fade-in">
       {/* Back button */}
-      <button
-        onClick={() => navigate('/plants')}
-        className="btn-ghost mb-4 inline-flex items-center gap-1"
+      <Button.Ghost
+        route="/plants"
+        className="mb-4 inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Plants
-      </button>
+      </Button.Ghost>
 
       {/* Header */}
       <div className="hero-section mb-8"
@@ -72,9 +73,9 @@ export default function PlantDetail() {
           <div className="flex items-center gap-2 flex-shrink-0">
             {/* Add to Collection */}
             <div className="relative">
-              <button
+              <Button.Ghost
                 onClick={() => setShowCollections(!showCollections)}
-                className="btn-ghost text-xs flex items-center gap-1.5"
+                className="text-xs flex items-center gap-1.5"
                 style={{
                   background: collections.some(c => c.contains_plant) ? 'rgba(244, 63, 94, 0.08)' : undefined,
                   borderColor: collections.some(c => c.contains_plant) ? 'rgba(244, 63, 94, 0.15)' : undefined,
@@ -82,7 +83,7 @@ export default function PlantDetail() {
                 }}
               >
                 {'\u2661'} {collections.some(c => c.contains_plant) ? 'Saved' : 'Save'}
-              </button>
+              </Button.Ghost>
               {showCollections && (
                 <div className="absolute right-0 top-full mt-2 w-64 bg-glass-dense rounded-xl overflow-hidden shadow-depth-xl z-30 animate-fade-in-down"
                      style={{ border: '1px solid rgba(255, 255, 255, 0.08)' }}>

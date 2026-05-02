@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
+import Button from '@/components/design-system/atoms/Button'
 
 const viewToPath: Record<string, string> = {
   dashboard: '/',
@@ -139,9 +140,9 @@ export default function Dashboard() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-3">
           <h2 className="section-title mb-0">Sanctuary Domains</h2>
-          <button onClick={() => navigate('/hmbs')} className="btn-ghost text-xs">
+          <Button.Ghost route="/hmbs" className="text-xs">
             Explore all {'\u2192'}
-          </button>
+          </Button.Ghost>
         </div>
         <div className="grid grid-cols-4 gap-3">
           {[
@@ -348,9 +349,9 @@ export default function Dashboard() {
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
             <h2 className="section-title mb-0">My Collections</h2>
-            <button onClick={() => navigate('/collections')} className="btn-ghost text-xs">
+            <Button.Ghost route="/collections" className="text-xs">
               View all {'\u2192'}
-            </button>
+            </Button.Ghost>
           </div>
           <div className="grid grid-cols-4 gap-3">
             {collections.slice(0, 4).map((col) => (

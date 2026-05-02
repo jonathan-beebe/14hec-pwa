@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { PlantTeachingWithPlant } from '../../types'
+import Button from '@/components/design-system/atoms/Button'
 
 type TeachingDomain = 'energetic' | 'mental' | 'physical' | 'spiritual'
 
@@ -13,7 +13,6 @@ const DOMAIN_CONFIG: Record<TeachingDomain, { label: string; color: string; bg: 
 }
 
 export default function DoctrineExplorer() {
-  const navigate = useNavigate()
   const [teachings, setTeachings] = useState<PlantTeachingWithPlant[]>([])
   const [selected, setSelected] = useState<PlantTeachingWithPlant | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
@@ -158,12 +157,12 @@ export default function DoctrineExplorer() {
                     <h2 className="text-2xl font-display font-bold text-amber-300">{selected.common_name}</h2>
                     <p className="text-sm text-earth-500 italic">{selected.latin_name}</p>
                   </div>
-                  <button
-                    onClick={() => navigate(`/plants/${selected.plant_id}`)}
-                    className="btn-ghost text-xs"
+                  <Button.Ghost
+                    route={`/plants/${selected.plant_id}`}
+                    className="text-xs"
                   >
                     Full profile {'\u2192'}
-                  </button>
+                  </Button.Ghost>
                 </div>
 
                 {/* Activation Principle */}
