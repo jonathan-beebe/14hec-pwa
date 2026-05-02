@@ -59,7 +59,8 @@ module.exports = {
       fontFamily: {
         display: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
         body: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
-        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace']
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+        system: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif']
       },
       animation: {
         'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',

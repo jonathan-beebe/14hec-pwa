@@ -13,11 +13,11 @@ const navItems = [
 export default function DesignSystem() {
   return (
     <div className="max-w-5xl">
-      <header className="mb-8">
+      <header className="mb-8 font-system">
         <p className="text-[10px] tracking-[0.25em] uppercase text-earth-500 mb-2">
           Internal {'·'} Dev only
         </p>
-        <h1 className="text-3xl font-display font-bold text-gradient-botanical tracking-tight">
+        <h1 className="text-3xl font-bold text-earth-100 tracking-tight">
           Design System
         </h1>
         <p className="text-earth-400 text-sm mt-2">
@@ -25,7 +25,7 @@ export default function DesignSystem() {
         </p>
       </header>
 
-      <nav className="mb-10 flex flex-wrap gap-2">
+      <nav className="mb-10 flex flex-wrap gap-2 font-system">
         {navItems.map((item) => (
           <a
             key={item.id}
