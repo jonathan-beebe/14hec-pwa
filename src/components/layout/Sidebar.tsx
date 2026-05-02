@@ -45,7 +45,15 @@ const navSections: NavSection[] = [
     items: [
       { view: 'crossref', route: '/crossref', label: 'Cross-Reference', icon: '\u29D6' }
     ]
-  }
+  },
+  ...(import.meta.env.DEV
+    ? [{
+        label: 'Dev',
+        items: [
+          { view: 'design-system', route: '/design-system', label: 'Design System', icon: '\u25A3' }
+        ]
+      }]
+    : []),
 ]
 
 function isActive(pathname: string, route: string): boolean {
