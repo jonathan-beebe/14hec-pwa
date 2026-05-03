@@ -55,9 +55,11 @@ export default function Dashboard() {
   return (
     <div className="max-w-6xl">
       {/* Hero Section */}
-      <div className="hero-section mb-8">
-        <div className="hero-orb w-96 h-96 -top-48 right-0 bg-botanical-500" />
-        <div className="hero-orb w-72 h-72 -bottom-36 -left-24 bg-celestial-500" style={{ opacity: 0.1 }} />
+      <div className="hero-section mb-8 !overflow-visible">
+        <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
+          <div className="hero-orb w-96 h-96 -top-48 right-0 bg-botanical-500" />
+          <div className="hero-orb w-72 h-72 -bottom-36 -left-24 bg-celestial-500" style={{ opacity: 0.1 }} />
+        </div>
 
         <div className="relative">
           <div className="flex items-center gap-4 mb-4">
