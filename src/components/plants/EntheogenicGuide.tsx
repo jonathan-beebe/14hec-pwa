@@ -231,7 +231,7 @@ export default function EntheogenicGuide() {
   }
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in lg:h-[calc(100vh-3rem)] lg:flex lg:flex-col">
       <div className="mb-6">
         <h1 className="text-xl font-display font-bold text-gradient-celestial tracking-wide">Entheogenic Journey Guide</h1>
         <p className="text-sm text-earth-500 mt-1">
@@ -255,9 +255,9 @@ export default function EntheogenicGuide() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:flex-1 lg:min-h-0">
         {/* Plant Selection */}
-        <div className="lg:col-span-1">
+        <div className="lg:col-span-1 lg:overflow-y-auto lg:pr-2">
           <div className="section-subtitle mb-3">Entheogenic Plants</div>
           <div className="space-y-2 mb-6">
             {entheogenicPlants.map((plant) => (
@@ -315,7 +315,7 @@ export default function EntheogenicGuide() {
         </div>
 
         {/* Detail Panel */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 lg:overflow-y-auto lg:pr-2">
           {selectedPlant && (
             <div className="card-glow-celestial animate-fade-in">
               <div className="flex justify-between items-start mb-4">
