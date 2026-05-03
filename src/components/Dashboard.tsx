@@ -4,6 +4,8 @@ import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
+import StatCard from '@/components/design-system/components/StatCard'
+import DomainCard from '@/components/design-system/components/DomainCard'
 
 const viewToPath: Record<string, string> = {
   dashboard: '/',
@@ -113,27 +115,20 @@ export default function Dashboard() {
       {/* Bento Grid — Stats + HMBS combined */}
       <div className="grid grid-cols-4 gap-3 mb-8">
         {/* Stats */}
-        {[
-          { label: 'Plants', count: plants.length, color: 'botanical', view: 'plants' as const, icon: '\u2618' },
-          { label: 'Ailments', count: ailments.length, color: 'celestial', view: 'ailments' as const, icon: '\u2695' },
-          { label: 'Zodiac Signs', count: signs.length, color: 'gold', view: 'astrology' as const, icon: '\u2609' },
-          { label: 'Cross-Ref', count: null, color: 'botanical', view: 'crossref' as const, icon: '\u29D6' }
-        ].map((stat) => (
-          <button
+        {([
+          { label: 'Plants', count: plants.length, tone: 'botanical', view: 'plants', icon: '\u2618' },
+          { label: 'Ailments', count: ailments.length, tone: 'celestial', view: 'ailments', icon: '\u2695' },
+          { label: 'Zodiac Signs', count: signs.length, tone: 'gold', view: 'astrology', icon: '\u2609' },
+          { label: 'Cross-Ref', count: '\u29D6', tone: 'botanical', view: 'crossref', icon: '\u29D6' },
+        ] as const).map((stat) => (
+          <StatCard
             key={stat.label}
-            onClick={() => navigate(viewToPath[stat.view])}
-            className="card text-center cursor-pointer group"
-          >
-            <div className="text-xl mb-2 opacity-40 group-hover:opacity-70 transition-opacity duration-200">{stat.icon}</div>
-            <div className={`stat-number ${
-              stat.color === 'botanical' ? 'text-botanical-400' :
-              stat.color === 'celestial' ? 'text-celestial-400' :
-              'text-gold-400'
-            }`}>
-              {stat.count !== null ? stat.count : '\u29D6'}
-            </div>
-            <div className="text-[10px] text-earth-500 mt-1.5 tracking-[0.1em] uppercase">{stat.label}</div>
-          </button>
+            to={viewToPath[stat.view]}
+            tone={stat.tone}
+            icon={stat.icon}
+            count={stat.count}
+            label={stat.label}
+          />
         ))}
       </div>
 
@@ -146,23 +141,20 @@ export default function Dashboard() {
           </Button.Ghost>
         </div>
         <div className="grid grid-cols-4 gap-3">
-          {[
-            { domain: 'Heart', icon: '\u2661', color: 'heart', textColor: 'text-rose-300', desc: 'Love, connection, empathy' },
-            { domain: 'Mind', icon: '\u2609', color: 'mind', textColor: 'text-blue-300', desc: 'Clarity, focus, cognition' },
-            { domain: 'Body', icon: '\u2618', color: 'body', textColor: 'text-green-300', desc: 'Vitality, strength, healing' },
-            { domain: 'Spirit', icon: '\u2726', color: 'spirit', textColor: 'text-purple-300', desc: 'Transcendence, intuition' }
-          ].map((d) => (
-            <button
+          {([
+            { title: 'Heart', icon: '\u2661', domain: 'heart', desc: 'Love, connection, empathy' },
+            { title: 'Mind', icon: '\u2609', domain: 'mind', desc: 'Clarity, focus, cognition' },
+            { title: 'Body', icon: '\u2618', domain: 'body', desc: 'Vitality, strength, healing' },
+            { title: 'Spirit', icon: '\u2726', domain: 'spirit', desc: 'Transcendence, intuition' },
+          ] as const).map((d) => (
+            <DomainCard
               key={d.domain}
-              onClick={() => navigate('/hmbs')}
-              className={`hmbs-${d.color} hmbs-card`}
-            >
-              <div className="text-2xl mb-2 opacity-50">{d.icon}</div>
-              <div className={`text-sm font-display font-semibold ${d.textColor}`}>
-                {d.domain}
-              </div>
-              <p className="text-[10px] text-earth-500 mt-1 leading-relaxed">{d.desc}</p>
-            </button>
+              to="/hmbs"
+              domain={d.domain}
+              icon={d.icon}
+              title={d.title}
+              description={d.desc}
+            />
           ))}
         </div>
       </div>
