@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import Button from '@/components/design-system/atoms/Button'
+import LinkCard from '@/components/design-system/components/LinkCard'
 
 const viewToPath: Record<string, string> = {
   dashboard: '/',
@@ -220,17 +221,13 @@ export default function Dashboard() {
           { view: 'planetary-timing' as const, icon: '\u231A', title: 'Planetary Timing', desc: 'Optimal hours for harvesting and preparation' },
           { view: 'entheogenic' as const, icon: '\u2604', title: 'Entheogenic Guide', desc: 'Sacred plant medicine protocols and integration' }
         ].map((feature) => (
-          <button
+          <LinkCard.Celestial
             key={feature.view}
-            onClick={() => navigate(viewToPath[feature.view])}
-            className="card-glow-celestial text-left cursor-pointer group"
-          >
-            <div className="text-xl mb-3 opacity-40 group-hover:opacity-70 transition-opacity duration-200">{feature.icon}</div>
-            <div className="text-sm font-display font-medium text-celestial-400 group-hover:text-celestial-300 transition-colors">
-              {feature.title}
-            </div>
-            <p className="text-[10px] text-earth-500 mt-1.5 leading-relaxed">{feature.desc}</p>
-          </button>
+            to={viewToPath[feature.view]}
+            icon={feature.icon}
+            title={feature.title}
+            caption={feature.desc}
+          />
         ))}
       </div>
 
@@ -286,17 +283,13 @@ export default function Dashboard() {
           { view: 'preparations' as const, icon: '\u2697', title: 'Preparations', desc: 'Methods for herbal extraction' },
           { view: 'body-systems' as const, icon: '\u2B22', title: 'Body Systems', desc: 'Organs & systems mapped to plants and planets' }
         ].map((feature) => (
-          <button
+          <LinkCard.Botanical
             key={feature.view}
-            onClick={() => navigate(viewToPath[feature.view])}
-            className="card-glow-botanical text-left cursor-pointer group"
-          >
-            <div className="text-xl mb-3 opacity-40 group-hover:opacity-70 transition-opacity duration-200">{feature.icon}</div>
-            <div className="text-sm font-display font-medium text-botanical-400 group-hover:text-botanical-300 transition-colors">
-              {feature.title}
-            </div>
-            <p className="text-[10px] text-earth-500 mt-1.5 leading-relaxed">{feature.desc}</p>
-          </button>
+            to={viewToPath[feature.view]}
+            icon={feature.icon}
+            title={feature.title}
+            caption={feature.desc}
+          />
         ))}
       </div>
 
@@ -355,21 +348,13 @@ export default function Dashboard() {
           </div>
           <div className="grid grid-cols-4 gap-3">
             {collections.slice(0, 4).map((col) => (
-              <button
+              <LinkCard.Plain
                 key={col.id}
-                onClick={() => navigate(`/collections/${col.id}`)}
-                className="card text-left cursor-pointer group"
-              >
-                <div className="text-xl mb-2 opacity-40 group-hover:opacity-70 transition-opacity duration-200">
-                  {col.icon || '\u2618'}
-                </div>
-                <div className="text-sm font-display font-medium text-earth-200 group-hover:text-botanical-400 transition-colors">
-                  {col.name}
-                </div>
-                <div className="text-[10px] text-earth-500 mt-1">
-                  {col.plant_count} {col.plant_count === 1 ? 'plant' : 'plants'}
-                </div>
-              </button>
+                to={`/collections/${col.id}`}
+                icon={col.icon || '\u2618'}
+                title={col.name}
+                caption={`${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
+              />
             ))}
           </div>
         </div>
