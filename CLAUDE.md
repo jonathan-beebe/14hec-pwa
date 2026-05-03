@@ -149,6 +149,47 @@ Premium dark theme with glassmorphism. Custom Tailwind color palettes:
 - `teal/silver` — presence energetics, living with plants
 - HMBS domains: heart (rose), mind (blue), body (green), spirit (purple)
 
+## Testing & TDD
+
+We use **Vitest + React Testing Library**. The framework is set up; the discipline is the work.
+
+### TDD-on-refactor philosophy
+Before changing non-trivial code: ask what behaviors must not regress, write tests
+that capture them, confirm green, then refactor, then confirm green again. New
+behavior begins as a failing test that the refactor turns green.
+
+This protects against silent regressions and forces you to articulate intent
+before changing code. The flow:
+
+1. **Identify** — what behaviors must this change preserve? What new behavior is being added?
+2. **Test first** — write characterization tests (passing, against current code) for behaviors to protect; write failing tests for any new behavior.
+3. **Change** — refactor or implement.
+4. **Verify** — re-run tests. Previously-green tests stay green. Previously-red new-behavior tests are now green.
+
+### Conventions
+- **Real data over fixtures.** Tests import the real `src/data/api.ts` and the real seed JSON. No mocks unless isolation truly cannot be achieved otherwise.
+- **No non-null assertions (`!`).** After `expect(x).not.toBeNull()`, narrow with `if (!x) throw new Error('...')` so TypeScript narrows the type and the failure message is informative.
+- **Colocate tests** next to the source: `Foo.tsx` → `Foo.test.tsx`, `api.ts` → `api.test.ts`.
+- **Integration tests use scoped route tables** — only the routes the test exercises, never the full `App.tsx` tree. Use `renderWithRouter` from `@/test/render`.
+- **Query by role first**, then label, then text. Avoid querying by class. Use `findBy*` for async-rendered content; reach for manual `waitFor` only when `findBy*` cannot express the condition.
+- **Prefer `userEvent` over `fireEvent`** — closer to real user behavior. Always `userEvent.setup()` first.
+- **jsdom is not a browser.** It cannot validate layout, CSS, or service-worker behavior. Don't try to test those here — that is the line where Playwright (not currently installed) would take over.
+
+### Commands
+```
+npm test          # watch mode
+npm run test:run  # single CI-style run
+npm run test:ui   # browser dashboard with DOM snapshots
+```
+
+### Skills (entry points for agentic flows)
+- `/test-unit <target>` — write a unit test for a function or module
+- `/test-integration <flow>` — write an integration test for a user flow
+- `/test-verify [pattern]` — run tests and interpret results
+- `/tdd-refactor <change>` — full identify → test → change → verify workflow
+
+Canonical examples: `src/data/api.test.ts` (unit), `src/components/Dashboard.test.tsx` (integration).
+
 ## Adding a New Feature (checklist)
 1. Add seed data JSON in `src/data/seed/` if needed
 2. Update `src/data/db.ts` to import and index the new data
