@@ -5,47 +5,60 @@ import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
 
 function useSphereAttributes(config: PlanetVisual) {
   return useMemo(() => {
-    const positions = new Float32Array(config.particleCount * 3)
-    const colors = new Float32Array(config.particleCount * 3)
-    for (let i = 0; i < config.particleCount; i++) {
+    const n = config.particleCount
+    const positions = new Float32Array(n * 3)
+    const colors = new Float32Array(n * 3)
+    const dirs = new Float32Array(n * 3)
+    const baseRadii = new Float32Array(n)
+    const phases = new Float32Array(n)
+    for (let i = 0; i < n; i++) {
       const u = Math.random()
       const v = Math.random()
       const theta = 2 * Math.PI * u
       const phi = Math.acos(2 * v - 1)
+      const dx = Math.sin(phi) * Math.cos(theta)
+      const dy = Math.cos(phi)
+      const dz = Math.sin(phi) * Math.sin(theta)
       const r = (0.97 + Math.random() * 0.03) * config.bodyScale
-      const x = r * Math.sin(phi) * Math.cos(theta)
-      const y = r * Math.cos(phi)
-      const z = r * Math.sin(phi) * Math.sin(theta)
-      positions[i * 3 + 0] = x
-      positions[i * 3 + 1] = y
-      positions[i * 3 + 2] = z
-      const nx = x / config.bodyScale
-      const ny = y / config.bodyScale
-      const nz = z / config.bodyScale
-      const [cr, cg, cb] = config.colorAt(nx, ny, nz)
+      dirs[i * 3 + 0] = dx
+      dirs[i * 3 + 1] = dy
+      dirs[i * 3 + 2] = dz
+      baseRadii[i] = r
+      phases[i] = Math.random() * Math.PI * 2
+      positions[i * 3 + 0] = dx * r
+      positions[i * 3 + 1] = dy * r
+      positions[i * 3 + 2] = dz * r
+      const [cr, cg, cb] = config.colorAt(dx, dy, dz)
       colors[i * 3 + 0] = cr
       colors[i * 3 + 1] = cg
       colors[i * 3 + 2] = cb
     }
-    return { positions, colors }
+    return { positions, colors, dirs, baseRadii, phases }
   }, [config])
 }
 
 function useRingAttributes(ring: RingConfig, bodyScale: number) {
   return useMemo(() => {
-    const positions = new Float32Array(ring.particleCount * 3)
-    const colors = new Float32Array(ring.particleCount * 3)
+    const n = ring.particleCount
+    const positions = new Float32Array(n * 3)
+    const colors = new Float32Array(n * 3)
+    const baseRadii = new Float32Array(n)
+    const baseThetas = new Float32Array(n)
+    const baseYs = new Float32Array(n)
+    const phases = new Float32Array(n)
     const thickness = ring.thickness ?? 0.01
-    for (let i = 0; i < ring.particleCount; i++) {
+    for (let i = 0; i < n; i++) {
       const t = Math.random()
       const r = (ring.inner + t * (ring.outer - ring.inner)) * bodyScale
       const theta = 2 * Math.PI * Math.random()
-      const x = r * Math.cos(theta)
-      const z = r * Math.sin(theta)
       const y = (Math.random() - 0.5) * thickness * bodyScale
-      positions[i * 3 + 0] = x
+      baseRadii[i] = r
+      baseThetas[i] = theta
+      baseYs[i] = y
+      phases[i] = Math.random() * Math.PI * 2
+      positions[i * 3 + 0] = r * Math.cos(theta)
       positions[i * 3 + 1] = y
-      positions[i * 3 + 2] = z
+      positions[i * 3 + 2] = r * Math.sin(theta)
       const dim = t > 0.55 && t < 0.62 ? 0.35 : 1.0
       const fade = 0.85 + Math.random() * 0.25
       const [cr, cg, cb] = ring.color
@@ -54,15 +67,32 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
       colors[i * 3 + 1] = (cg + j) * dim * fade
       colors[i * 3 + 2] = (cb + j) * dim * fade
     }
-    return { positions, colors }
+    return { positions, colors, baseRadii, baseThetas, baseYs, phases }
   }, [ring, bodyScale])
 }
 
+const BODY_WOBBLE_FREQ = 1.4
+const BODY_WOBBLE_AMP = 0.015
+const RING_WOBBLE_FREQ = 1.1
+const RING_WOBBLE_AMP = 0.018
+
 function PlanetBody({ config }: { config: PlanetVisual }) {
   const ref = useRef<THREE.Points>(null!)
-  const { positions, colors } = useSphereAttributes(config)
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * config.rotationSpeed
+  const { positions, colors, dirs, baseRadii, phases } = useSphereAttributes(config)
+  const amp = config.bodyScale * BODY_WOBBLE_AMP
+  useFrame((state, delta) => {
+    if (!ref.current) return
+    ref.current.rotation.y += delta * config.rotationSpeed
+    const t = state.clock.elapsedTime
+    const n = config.particleCount
+    for (let i = 0; i < n; i++) {
+      const r = baseRadii[i] + Math.sin(t * BODY_WOBBLE_FREQ + phases[i]) * amp
+      positions[i * 3 + 0] = dirs[i * 3 + 0] * r
+      positions[i * 3 + 1] = dirs[i * 3 + 1] * r
+      positions[i * 3 + 2] = dirs[i * 3 + 2] * r
+    }
+    const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
+    attr.needsUpdate = true
   })
   return (
     <points ref={ref}>
@@ -100,9 +130,23 @@ function PlanetRing({
   pointSize: number
 }) {
   const ref = useRef<THREE.Points>(null!)
-  const { positions, colors } = useRingAttributes(ring, bodyScale)
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * speed
+  const { positions, colors, baseRadii, baseThetas, baseYs, phases } =
+    useRingAttributes(ring, bodyScale)
+  const amp = bodyScale * RING_WOBBLE_AMP
+  useFrame((state, delta) => {
+    if (!ref.current) return
+    ref.current.rotation.y += delta * speed
+    const t = state.clock.elapsedTime
+    const n = ring.particleCount
+    for (let i = 0; i < n; i++) {
+      const r = baseRadii[i] + Math.sin(t * RING_WOBBLE_FREQ + phases[i]) * amp
+      const theta = baseThetas[i]
+      positions[i * 3 + 0] = r * Math.cos(theta)
+      positions[i * 3 + 1] = baseYs[i]
+      positions[i * 3 + 2] = r * Math.sin(theta)
+    }
+    const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
+    attr.needsUpdate = true
   })
   return (
     <points ref={ref}>
