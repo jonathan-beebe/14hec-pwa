@@ -6,6 +6,16 @@ import { sampleGlyph, pairByAngle } from './glyphSampler'
 
 const GLYPH_SCALE_RATIO = 0.85
 const MORPH_LAMBDA = 7
+const SPARKLE_BASE = 0.5
+const SPARKLE_AMP = 0.5
+const SPARKLE_FREQ_1 = 1.7
+const SPARKLE_FREQ_2 = 2.7
+
+function sparkle(t: number, phase: number) {
+  const s1 = Math.sin(t * SPARKLE_FREQ_1 + phase * 1.7)
+  const s2 = Math.sin(t * SPARKLE_FREQ_2 + phase * 0.9)
+  return SPARKLE_BASE + SPARKLE_AMP * s1 * s2
+}
 
 type MorphRef = MutableRefObject<number>
 
@@ -14,6 +24,7 @@ function useSphereAttributes(config: PlanetVisual) {
     const n = config.particleCount
     const positions = new Float32Array(n * 3)
     const colors = new Float32Array(n * 3)
+    const baseColors = new Float32Array(n * 3)
     const dirs = new Float32Array(n * 3)
     const baseRadii = new Float32Array(n)
     const phases = new Float32Array(n)
@@ -35,13 +46,16 @@ function useSphereAttributes(config: PlanetVisual) {
       positions[i * 3 + 1] = dy * r
       positions[i * 3 + 2] = dz * r
       const [cr, cg, cb] = config.colorAt(dx, dy, dz)
-      colors[i * 3 + 0] = cr
-      colors[i * 3 + 1] = cg
-      colors[i * 3 + 2] = cb
+      baseColors[i * 3 + 0] = cr
+      baseColors[i * 3 + 1] = cg
+      baseColors[i * 3 + 2] = cb
+      colors[i * 3 + 0] = cr * SPARKLE_BASE
+      colors[i * 3 + 1] = cg * SPARKLE_BASE
+      colors[i * 3 + 2] = cb * SPARKLE_BASE
     }
     const glyphPoints = sampleGlyph(config.glyph, n, config.bodyScale * GLYPH_SCALE_RATIO)
     const glyphTargets = pairByAngle(dirs, glyphPoints, n)
-    return { positions, colors, dirs, baseRadii, phases, glyphTargets }
+    return { positions, colors, baseColors, dirs, baseRadii, phases, glyphTargets }
   }, [config])
 }
 
@@ -50,6 +64,7 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
     const n = ring.particleCount
     const positions = new Float32Array(n * 3)
     const colors = new Float32Array(n * 3)
+    const baseColors = new Float32Array(n * 3)
     const baseRadii = new Float32Array(n)
     const baseThetas = new Float32Array(n)
     const baseYs = new Float32Array(n)
@@ -71,11 +86,17 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
       const fade = 0.85 + Math.random() * 0.25
       const [cr, cg, cb] = ring.color
       const j = (Math.random() - 0.5) * 0.06
-      colors[i * 3 + 0] = (cr + j) * dim * fade
-      colors[i * 3 + 1] = (cg + j) * dim * fade
-      colors[i * 3 + 2] = (cb + j) * dim * fade
+      const br = (cr + j) * dim * fade
+      const bg = (cg + j) * dim * fade
+      const bb = (cb + j) * dim * fade
+      baseColors[i * 3 + 0] = br
+      baseColors[i * 3 + 1] = bg
+      baseColors[i * 3 + 2] = bb
+      colors[i * 3 + 0] = br * SPARKLE_BASE
+      colors[i * 3 + 1] = bg * SPARKLE_BASE
+      colors[i * 3 + 2] = bb * SPARKLE_BASE
     }
-    return { positions, colors, baseRadii, baseThetas, baseYs, phases }
+    return { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases }
   }, [ring, bodyScale])
 }
 
@@ -96,7 +117,7 @@ function PlanetBody({
   const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
   const targetYawRef = useRef<number | null>(null)
-  const { positions, colors, dirs, baseRadii, phases, glyphTargets } =
+  const { positions, colors, baseColors, dirs, baseRadii, phases, glyphTargets } =
     useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
   useFrame((state, delta) => {
@@ -133,9 +154,15 @@ function PlanetBody({
       positions[i * 3 + 0] = sx + (tx - sx) * m
       positions[i * 3 + 1] = sy + (ty - sy) * m
       positions[i * 3 + 2] = sz + (tz - sz) * m
+      const s = sparkle(t, phases[i])
+      colors[i * 3 + 0] = baseColors[i * 3 + 0] * s
+      colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
+      colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
     }
     const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
+    const cAttr = ref.current.geometry.attributes.color as THREE.BufferAttribute
+    cAttr.needsUpdate = true
   })
   return (
     <points ref={ref}>
@@ -177,7 +204,7 @@ function PlanetRing({
 }) {
   const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
-  const { positions, colors, baseRadii, baseThetas, baseYs, phases } =
+  const { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases } =
     useRingAttributes(ring, bodyScale)
   const amp = bodyScale * RING_WOBBLE_AMP
   useFrame((state, delta) => {
@@ -194,9 +221,15 @@ function PlanetRing({
       positions[i * 3 + 0] = r * Math.cos(theta)
       positions[i * 3 + 1] = baseYs[i]
       positions[i * 3 + 2] = r * Math.sin(theta)
+      const s = sparkle(t, phases[i])
+      colors[i * 3 + 0] = baseColors[i * 3 + 0] * s
+      colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
+      colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
     }
     const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
+    const cAttr = ref.current.geometry.attributes.color as THREE.BufferAttribute
+    cAttr.needsUpdate = true
     if (matRef.current) matRef.current.opacity = RING_BASE_OPACITY * inv
   })
   return (
