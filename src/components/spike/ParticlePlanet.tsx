@@ -130,16 +130,18 @@ function PlanetRing({
 
 function PlanetSelf({ config }: { config: PlanetVisual }) {
   return (
-    <group rotation-z={config.axisTilt}>
-      <PlanetBody config={config} />
-      {config.ring && (
-        <PlanetRing
-          ring={config.ring}
-          bodyScale={config.bodyScale}
-          speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
-          pointSize={config.pointSize}
-        />
-      )}
+    <group rotation-z={config.axisRoll ?? 0}>
+      <group rotation-x={config.axisTilt}>
+        <PlanetBody config={config} />
+        {config.ring && (
+          <PlanetRing
+            ring={config.ring}
+            bodyScale={config.bodyScale}
+            speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
+            pointSize={config.pointSize}
+          />
+        )}
+      </group>
     </group>
   )
 }
@@ -150,9 +152,11 @@ function Satellite({ sat }: { sat: SatelliteConfig }) {
     if (orbitRef.current) orbitRef.current.rotation.y += delta * sat.orbitSpeed
   })
   return (
-    <group ref={orbitRef} rotation-y={sat.phase ?? 0}>
-      <group position={[sat.orbitRadius, 0, 0]}>
-        <PlanetSelf config={sat.body} />
+    <group rotation-x={sat.inclination ?? 0}>
+      <group ref={orbitRef} rotation-y={sat.phase ?? 0}>
+        <group position={[sat.orbitRadius, 0, 0]}>
+          <PlanetSelf config={sat.body} />
+        </group>
       </group>
     </group>
   )

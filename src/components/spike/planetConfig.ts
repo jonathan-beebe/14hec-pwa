@@ -12,6 +12,8 @@ export interface SatelliteConfig {
   body: PlanetVisual
   orbitRadius: number
   orbitSpeed: number
+  /** Tilt of the orbit plane (radians); positive tips the near side downward. */
+  inclination?: number
   phase?: number
 }
 
@@ -23,6 +25,8 @@ export interface PlanetVisual {
   particleCount: number
   pointSize: number
   axisTilt: number
+  /** Additional Z-axis roll in radians (positive raises the right side). */
+  axisRoll?: number
   rotationSpeed: number
   ringRotationSpeed?: number
   /** Per-particle color: returns RGB in 0..1. Inputs in unit-sphere local space. */
@@ -121,6 +125,7 @@ export const earth: PlanetVisual = {
       body: moon,
       orbitRadius: 1.7,
       orbitSpeed: 0.55,
+      inclination: 0.18,
     },
   ],
 }
@@ -192,7 +197,8 @@ export const saturn: PlanetVisual = {
   bodyScale: 0.62,
   particleCount: 4000,
   pointSize: 1.3,
-  axisTilt: 0.47,
+  axisTilt: 0.22,
+  axisRoll: 0.18,
   rotationSpeed: 0.09,
   ringRotationSpeed: 0.04,
   colorAt: (_x, y, _z) => {
