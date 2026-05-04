@@ -47,6 +47,23 @@ const noise3 = (x: number, y: number, z: number, freq = 5) =>
     Math.cos(y * (freq - 0.9) - z * (freq + 0.4) + 0.7) +
   Math.sin(x * (freq - 2) - z * (freq + 1.3) + 2.1)
 
+const spot = (
+  x: number,
+  y: number,
+  z: number,
+  dir: [number, number, number],
+  tightness = 6,
+) => {
+  const d = x * dir[0] + y * dir[1] + z * dir[2]
+  return d > 0 ? Math.pow(d, tightness) : 0
+}
+
+const tint = (c: RGB, t: RGB, k: number): RGB => [
+  c[0] + t[0] * k,
+  c[1] + t[1] * k,
+  c[2] + t[2] * k,
+]
+
 export const mercury: PlanetVisual = {
   name: 'Mercury',
   height: 50,
@@ -58,9 +75,13 @@ export const mercury: PlanetVisual = {
   glyph: '☿',
   colorAt: (x, y, z) => {
     const n = noise3(x, y, z, 6)
-    if (n > 0.5) return jitter([0.62, 0.55, 0.46], 0.06)
-    if (n > -0.2) return jitter([0.52, 0.47, 0.40], 0.06)
-    return jitter([0.40, 0.36, 0.32], 0.05)
+    let base: RGB
+    if (n > 0.5) base = [0.62, 0.55, 0.46]
+    else if (n > -0.2) base = [0.52, 0.47, 0.40]
+    else base = [0.40, 0.36, 0.32]
+    const caloris = spot(x, y, z, [0.7, 0.35, 0.6], 6)
+    base = tint(base, [0.40, 0.28, 0.18], caloris * 0.7)
+    return jitter(base, 0.06)
   },
 }
 
@@ -88,7 +109,9 @@ export const venus: PlanetVisual = {
       [0.94, 0.82, 0.54],
       [0.88, 0.76, 0.48],
     ]
-    return jitter(palette[band % palette.length], 0.05)
+    const equator = Math.max(0, 1 - Math.abs(y) * 1.4)
+    const base = tint(palette[band % palette.length], [0.10, -0.06, -0.18], equator * 0.30)
+    return jitter(base, 0.05)
   },
 }
 
@@ -120,11 +143,16 @@ export const earth: PlanetVisual = {
   rotationSpeed: 0.18,
   glyph: '♁',
   colorAt: (x, y, z) => {
-    if (Math.abs(y) > 0.86) return jitter([0.88, 0.92, 0.96], 0.05)
+    if (Math.abs(y) > 0.86) return jitter([0.90, 0.95, 1.00], 0.05)
+    if (Math.abs(y) > 0.74) {
+      const aurora = noise3(x, y, z, 9)
+      if (aurora > 0.6) return jitter([0.30, 0.78, 0.55], 0.10)
+      if (aurora < -0.7) return jitter([0.55, 0.30, 0.78], 0.08)
+    }
     const n = noise3(x, y, z, 5)
-    if (n > 0.55) return jitter([0.32, 0.55, 0.30], 0.08)
-    if (n > 0.05) return jitter([0.55, 0.50, 0.32], 0.08)
-    return jitter([0.18, 0.36, 0.62], 0.06)
+    if (n > 0.55) return jitter([0.22, 0.62, 0.28], 0.08)
+    if (n > 0.05) return jitter([0.62, 0.52, 0.28], 0.08)
+    return jitter([0.10, 0.42, 0.82], 0.06)
   },
   satellites: [
     {
@@ -146,11 +174,17 @@ export const mars: PlanetVisual = {
   rotationSpeed: 0.16,
   glyph: '♂',
   colorAt: (x, y, z) => {
-    if (Math.abs(y) > 0.88) return jitter([0.92, 0.92, 0.94], 0.05)
+    if (Math.abs(y) > 0.88) return jitter([0.88, 0.94, 1.00], 0.05)
     const n = noise3(x, y, z, 6)
-    if (n > 0.4) return jitter([0.58, 0.30, 0.20], 0.07)
-    if (n > -0.3) return jitter([0.78, 0.42, 0.28], 0.06)
-    return jitter([0.65, 0.36, 0.24], 0.06)
+    let base: RGB
+    if (n > 0.4) base = [0.58, 0.30, 0.20]
+    else if (n > -0.3) base = [0.82, 0.44, 0.26]
+    else base = [0.68, 0.36, 0.22]
+    const tharsis = spot(x, y, z, [0.6, 0.2, 0.7], 5)
+    base = tint(base, [0.30, 0.20, 0.05], tharsis * 0.75)
+    const valles = spot(x, y, z, [-0.5, -0.05, 0.85], 14)
+    base = tint(base, [-0.22, -0.12, -0.06], valles * 0.7)
+    return jitter(base, 0.07)
   },
 }
 
@@ -180,10 +214,13 @@ export const jupiter: PlanetVisual = {
   axisTilt: 0.05,
   rotationSpeed: 0.12,
   glyph: '♃',
-  colorAt: (_x, y, _z) => {
+  colorAt: (x, y, z) => {
     const bandPos = (y + 1) * (jupiterBands.length / 2)
     const band = Math.min(jupiterBands.length - 1, Math.floor(bandPos))
-    return jitter(jupiterBands[band], 0.07)
+    let base: RGB = [...jupiterBands[band]] as RGB
+    const grs = spot(x, y, z, [0.85, -0.34, 0.40], 14)
+    base = tint(base, [0.10, -0.30, -0.40], grs * 0.95)
+    return jitter(base, 0.07)
   },
 }
 
@@ -213,7 +250,11 @@ export const saturn: PlanetVisual = {
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (saturnBands.length / 2)
     const band = Math.min(saturnBands.length - 1, Math.floor(bandPos))
-    return jitter(saturnBands[band], 0.05)
+    let base: RGB = [...saturnBands[band]] as RGB
+    if (y > 0.78) {
+      base = tint(base, [-0.25, -0.05, 0.25], (y - 0.78) * 4)
+    }
+    return jitter(base, 0.06)
   },
   ring: {
     inner: 1.40,
@@ -233,12 +274,15 @@ export const uranus: PlanetVisual = {
   axisTilt: 1.71,
   rotationSpeed: 0.14,
   glyph: '♅',
-  colorAt: (_x, y, _z) => {
-    const base: RGB = [0.62, 0.86, 0.92]
+  colorAt: (x, y, z) => {
+    const base: RGB = [0.55, 0.90, 0.96]
     const bandPos = (y + 1) * 4
     const band = Math.floor(bandPos)
-    const shift = band % 2 === 0 ? 0 : -0.05
-    return jitter([base[0] + shift, base[1] + shift, base[2] + shift], 0.04)
+    const shift = band % 2 === 0 ? 0 : -0.06
+    let c: RGB = [base[0] + shift, base[1] + shift, base[2] + shift]
+    const polar = spot(x, y, z, [0, 1, 0], 4) + spot(x, y, z, [0, -1, 0], 4)
+    c = tint(c, [0.22, -0.12, 0.12], polar * 0.6)
+    return jitter(c, 0.05)
   },
 }
 
@@ -262,10 +306,15 @@ export const neptune: PlanetVisual = {
   axisTilt: 0.49,
   rotationSpeed: 0.13,
   glyph: '♆',
-  colorAt: (_x, y, _z) => {
+  colorAt: (x, y, z) => {
     const bandPos = (y + 1) * (neptuneBands.length / 2)
     const band = Math.min(neptuneBands.length - 1, Math.floor(bandPos))
-    return jitter(neptuneBands[band], 0.05)
+    let base: RGB = [...neptuneBands[band]] as RGB
+    const dark = spot(x, y, z, [-0.5, -0.30, 0.80], 14)
+    base = tint(base, [-0.18, -0.22, -0.22], dark * 0.7)
+    const aurora = spot(x, y, z, [0, 0.90, 0.30], 5)
+    base = tint(base, [-0.06, 0.32, 0.10], aurora * 0.85)
+    return jitter(base, 0.06)
   },
 }
 
@@ -280,9 +329,15 @@ export const pluto: PlanetVisual = {
   glyph: '♇',
   colorAt: (x, y, z) => {
     const n = noise3(x, y, z, 5)
-    if (n > 0.4) return jitter([0.78, 0.65, 0.50], 0.06)
-    if (n > -0.2) return jitter([0.62, 0.54, 0.44], 0.06)
-    return jitter([0.48, 0.42, 0.36], 0.05)
+    let base: RGB
+    if (n > 0.4) base = [0.78, 0.65, 0.50]
+    else if (n > -0.2) base = [0.62, 0.54, 0.44]
+    else base = [0.48, 0.42, 0.36]
+    const tombaugh = spot(x, y, z, [0.4, -0.1, 0.9], 4)
+    base = tint(base, [0.26, 0.18, 0.18], tombaugh * 0.75)
+    const methane = spot(x, y, z, [-0.4, 0.3, -0.85], 8)
+    base = tint(base, [-0.10, 0.0, 0.22], methane * 0.5)
+    return jitter(base, 0.05)
   },
 }
 
