@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import ParticlePlanet from './ParticlePlanet'
 import { allPlanets } from './planetConfig'
 import { api } from '@/data/api'
@@ -8,9 +8,11 @@ import Text from '@/components/design-system/atoms/Text'
 
 type PlanetDetail = PlanetData & { plants?: Plant[] }
 
+const slug = (name: string) => name.toLowerCase()
+
 export default function PlanetsSpike() {
   const navigate = useNavigate()
-  const [selectedName, setSelectedName] = useState<string | null>(null)
+  const { planetName } = useParams<{ planetName?: string }>()
   const [planets, setPlanets] = useState<PlanetData[]>([])
   const [detail, setDetail] = useState<PlanetDetail | null>(null)
 
@@ -18,29 +20,28 @@ export default function PlanetsSpike() {
     api.getPlanets().then(setPlanets)
   }, [])
 
-  const idByName = useMemo(
-    () => new Map(planets.map((p) => [p.name, p.id])),
+  const planetBySlug = useMemo(
+    () => new Map(planets.map((p) => [slug(p.name), p])),
     [planets],
   )
 
+  const selectedPlanet = planetName ? planetBySlug.get(planetName.toLowerCase()) : undefined
+  const selectedName = selectedPlanet?.name ?? null
+  const selectedId = selectedPlanet?.id
+
   useEffect(() => {
-    if (!selectedName) {
-      setDetail(null)
-      return
-    }
-    const id = idByName.get(selectedName)
-    if (id === undefined) {
+    if (selectedId === undefined) {
       setDetail(null)
       return
     }
     let cancelled = false
-    api.getPlanetById(id).then((d) => {
+    api.getPlanetById(selectedId).then((d) => {
       if (!cancelled) setDetail(d)
     })
     return () => {
       cancelled = true
     }
-  }, [selectedName, idByName])
+  }, [selectedId])
 
   return (
     <div className="animate-fade-in">
@@ -51,7 +52,7 @@ export default function PlanetsSpike() {
               key={p.name}
               config={p}
               selected={selectedName === p.name}
-              onSelect={() => setSelectedName(p.name)}
+              onSelect={() => navigate(`/spike/planets/${slug(p.name)}`)}
             />
           ))}
         </div>

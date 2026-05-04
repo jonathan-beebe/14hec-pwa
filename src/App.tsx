@@ -80,6 +80,7 @@ export default function App() {
           <Route path="/wellness/:id" element={<WellnessDetail />} />
           <Route path="/design-system" element={<DesignSystem />} />
           <Route path="/spike/planets" element={<PlanetsSpike />} />
+          <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
