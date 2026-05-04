@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { PlantDetail as PlantDetailType, CollectionForPlant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function PlantDetail() {
   const navigate = useNavigate()
@@ -66,7 +67,7 @@ export default function PlantDetail() {
 
         <div className="relative flex items-start justify-between">
           <div>
-            <h1 className="text-3xl font-display font-bold text-botanical-400 tracking-wide">{plant.common_name}</h1>
+            <Text.Display className="text-botanical-400 tracking-wide">{plant.common_name}</Text.Display>
             <p className="text-lg text-earth-500 italic font-display mt-1">{plant.latin_name}</p>
             <p className="text-sm text-earth-600 mt-1">{plant.family}</p>
           </div>
@@ -163,7 +164,7 @@ export default function PlantDetail() {
           <div className="lg:col-span-2 card-glow-botanical p-5">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-2xl opacity-50">{'\u2638'}</span>
-              <h2 className="section-title mb-0">Doctrine of Signatures</h2>
+              <Text.SectionTitle className="mb-0">Doctrine of Signatures</Text.SectionTitle>
             </div>
             <p className="text-earth-300 text-sm italic leading-relaxed pl-10">{plant.doctrine_of_signatures}</p>
           </div>
@@ -173,7 +174,7 @@ export default function PlantDetail() {
         <div className="card p-5">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2618'}</span>
-            <h2 className="section-title mb-0">Plant Parts</h2>
+            <Text.SectionTitle className="mb-0">Plant Parts</Text.SectionTitle>
           </div>
           <div className="space-y-2.5">
             {plant.parts.map((part) => (
@@ -200,11 +201,11 @@ export default function PlantDetail() {
         <div className="card-glow-celestial p-5">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2609'}</span>
-            <h2 className="section-title mb-0">Astrology</h2>
+            <Text.SectionTitle className="mb-0">Astrology</Text.SectionTitle>
           </div>
           {plant.planetAssociations.length > 0 && (
             <div className="mb-4">
-              <div className="section-subtitle">Planetary Rulers</div>
+              <Text.SectionLabel>Planetary Rulers</Text.SectionLabel>
               {plant.planetAssociations.map((assoc) => (
                 <div key={assoc.planet_id} className="inner-panel flex items-center gap-3 mb-2.5 rounded-xl p-3">
                   <span className="text-2xl">{assoc.planet_symbol}</span>
@@ -219,7 +220,7 @@ export default function PlantDetail() {
           )}
           {plant.zodiacAssociations.length > 0 && (
             <div>
-              <div className="section-subtitle">Zodiac Signs</div>
+              <Text.SectionLabel>Zodiac Signs</Text.SectionLabel>
               <div className="flex flex-wrap gap-2">
                 {plant.zodiacAssociations.map((assoc) => (
                   <span
@@ -239,7 +240,7 @@ export default function PlantDetail() {
         <div className="card p-5 lg:col-span-2">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2695'}</span>
-            <h2 className="section-title mb-0">Ailments & Preparations</h2>
+            <Text.SectionTitle className="mb-0">Ailments & Preparations</Text.SectionTitle>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -288,7 +289,7 @@ export default function PlantDetail() {
           <div className="card p-5">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xl opacity-50">{'\u269B'}</span>
-              <h2 className="section-title mb-0">Active Compounds</h2>
+              <Text.SectionTitle className="mb-0">Active Compounds</Text.SectionTitle>
             </div>
             <div className="space-y-2">
               {plant.compounds.map((compound) => (
@@ -322,7 +323,7 @@ export default function PlantDetail() {
             <div className="relative">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl opacity-60" style={{ color: 'rgba(251, 191, 36, 0.8)' }}>{'\u2726'}</span>
-                <h2 className="section-title mb-0 text-gradient-gold">What This Plant Teaches</h2>
+                <Text.SectionTitle className="mb-0 text-gradient-gold">What This Plant Teaches</Text.SectionTitle>
               </div>
               <p className="text-earth-400 text-xs italic mb-5 pl-10 font-display">
                 "Plants don't add to us {'\u2014'} they activate what is already within us."
@@ -431,12 +432,12 @@ export default function PlantDetail() {
             <div className="relative">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl opacity-60" style={{ color: 'rgba(94, 234, 212, 0.8)' }}>{'\u2734'}</span>
-                <h2 className="section-title mb-0" style={{
+                <Text.SectionTitle className="mb-0" style={{
                   background: 'linear-gradient(135deg, #5eead4, #94a3b8)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text'
-                }}>Living Presence</h2>
+                }}>Living Presence</Text.SectionTitle>
               </div>
               <p className="text-earth-400 text-xs italic mb-5 pl-10 font-display">
                 When we live with plants, their field becomes part of ours {'\u2014'} no consumption needed.
@@ -534,7 +535,7 @@ export default function PlantDetail() {
                }}>
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xl text-red-400">{'\u26D4'}</span>
-              <h2 className="section-title text-red-300 mb-0">Contraindications</h2>
+              <Text.SectionTitle className="text-red-300 mb-0">Contraindications</Text.SectionTitle>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -587,7 +588,7 @@ export default function PlantDetail() {
                }}>
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xl text-amber-500">{'\u26A0'}</span>
-              <h2 className="section-title text-amber-400 mb-0">Safety Notes</h2>
+              <Text.SectionTitle className="text-amber-400 mb-0">Safety Notes</Text.SectionTitle>
             </div>
             <p className="text-earth-300 text-sm leading-relaxed">{plant.safety_notes}</p>
           </div>

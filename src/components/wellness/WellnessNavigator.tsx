@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { WellnessCategory, WellnessGoal } from '@/types'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function WellnessNavigator() {
   const navigate = useNavigate()
@@ -43,7 +44,7 @@ export default function WellnessNavigator() {
   return (
     <div className="animate-fade-in">
       <div className="mb-4">
-        <h1 className="text-xl font-display font-bold text-earth-100">Wellness Goals</h1>
+        <Text.PageTitle>Wellness Goals</Text.PageTitle>
         <p className="text-sm text-earth-500">
           {categories.length} categories {'\u00b7'} {totalGoals} goals {'\u2014'} explore what you want to strengthen, improve, or protect
         </p>
@@ -70,9 +71,9 @@ export default function WellnessNavigator() {
       {/* Search Results */}
       {isSearching && (
         <div className="mb-8">
-          <h2 className="section-subtitle mb-3 text-sm">
+          <Text.SectionLabel as="h2" className="mb-3 text-sm">
             {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for "{search}"
-          </h2>
+          </Text.SectionLabel>
           {searchResults.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {searchResults.map((goal) => (

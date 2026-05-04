@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment } from '@/types'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function AilmentNavigator() {
   const navigate = useNavigate()
@@ -38,7 +39,7 @@ export default function AilmentNavigator() {
   return (
     <div className="animate-fade-in">
       <div className="mb-4">
-        <h1 className="text-xl font-display font-bold text-earth-100">Ailments</h1>
+        <Text.PageTitle>Ailments</Text.PageTitle>
         <p className="text-sm text-earth-500">{ailments.length} conditions in database</p>
       </div>
 
@@ -89,9 +90,9 @@ export default function AilmentNavigator() {
           .sort(([a], [b]) => a.localeCompare(b))
           .map(([system, items]) => (
             <div key={system}>
-              <h2 className="section-subtitle mb-3 text-sm">
+              <Text.SectionLabel as="h2" className="mb-3 text-sm">
                 {system}
-              </h2>
+              </Text.SectionLabel>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                 {items.map((ailment) => (
                   <button

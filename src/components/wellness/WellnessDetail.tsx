@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { WellnessGoalDetail as WellnessGoalDetailType } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function WellnessDetail() {
   const { id } = useParams()
@@ -42,7 +43,7 @@ export default function WellnessDetail() {
             <span className="text-lg opacity-50">{goal.category_icon}</span>
             <span className="text-[10px] text-earth-500 uppercase tracking-[0.15em]">{goal.category_name}</span>
           </div>
-          <h1 className="text-3xl font-display font-bold text-earth-100 mb-2">{goal.name}</h1>
+          <Text.Display className="mb-2">{goal.name}</Text.Display>
           <p className="text-earth-300 leading-relaxed">{goal.description}</p>
 
           {goal.desired_outcome && (
@@ -89,7 +90,7 @@ export default function WellnessDetail() {
       <div className="card">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-xl opacity-50">{'\u2618'}</span>
-          <h2 className="section-title mb-0">Plant Allies</h2>
+          <Text.SectionTitle className="mb-0">Plant Allies</Text.SectionTitle>
           <span className="text-xs text-earth-500">({goal.plantRecommendations.length} plants)</span>
         </div>
         {goal.plantRecommendations.length > 0 ? (

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '@/data/api'
 import type { PlanetData, Plant } from '../../types'
+import Text from '@/components/design-system/atoms/Text'
 
 const CHALDEAN_ORDER = ['Saturn', 'Jupiter', 'Mars', 'Sun', 'Venus', 'Mercury', 'Moon']
 const DAY_RULERS = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn']
@@ -118,7 +119,7 @@ export default function PlanetaryTiming() {
   return (
     <div className="max-w-4xl animate-fade-in">
       <div className="mb-5">
-        <h1 className="text-xl font-display font-bold text-earth-100">Planetary Timing</h1>
+        <Text.PageTitle>Planetary Timing</Text.PageTitle>
         <p className="text-xs text-earth-500 mt-0.5">
           Optimal times for harvesting, preparing, and taking plant medicines
         </p>
@@ -132,7 +133,7 @@ export default function PlanetaryTiming() {
         ].map((item) => (
           <div key={item.label} className="card-glow-celestial"
                style={{ background: planetGradients[item.planet] }}>
-            <div className="section-subtitle">{item.label}</div>
+            <Text.SectionLabel>{item.label}</Text.SectionLabel>
             <div className="flex items-center gap-3 mt-2">
               <span className="text-4xl animate-pulse-slow">{planetSymbols[item.planet]}</span>
               <div>
@@ -165,7 +166,7 @@ export default function PlanetaryTiming() {
       <div className="card mb-5">
         <div className="flex items-center gap-3 mb-3">
           <span className="text-xl opacity-50">{'\u231A'}</span>
-          <h3 className="section-title mb-0">Today's Planetary Hours</h3>
+          <Text.SectionTitle as="h3" className="mb-0">Today's Planetary Hours</Text.SectionTitle>
         </div>
         <p className="text-xs text-earth-600 mb-4">Simplified model: sunrise at 6:00 AM. Each hour is governed by a planet in Chaldean sequence.</p>
         <div className="grid grid-cols-6 gap-3">
@@ -198,7 +199,7 @@ export default function PlanetaryTiming() {
         <div className="card-glow-botanical animate-fade-in-up">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-2xl">{planetSymbols[selectedPlanetName]}</span>
-            <h3 className="section-title mb-0">{selectedPlanetName}-Aligned Plants</h3>
+            <Text.SectionTitle as="h3" className="mb-0">{selectedPlanetName}-Aligned Plants</Text.SectionTitle>
           </div>
           <p className="text-xs text-earth-500 mb-4">
             These plants are best harvested, prepared, or taken during {selectedPlanetName} hours and days.
@@ -218,7 +219,7 @@ export default function PlanetaryTiming() {
           )}
 
           <div className="mt-4 rounded-xl p-4" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-            <div className="section-subtitle">Optimal activities during {selectedPlanetName} hours</div>
+            <Text.SectionLabel>Optimal activities during {selectedPlanetName} hours</Text.SectionLabel>
             <div className="space-y-1 mt-1">
               {getOptimalActivities(selectedPlanetName).map((act, i) => (
                 <p key={i} className="text-xs text-earth-400">{act}</p>

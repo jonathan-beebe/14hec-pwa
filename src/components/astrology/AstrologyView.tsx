@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { ZodiacSign, PlanetData, Plant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function AstrologyView() {
   const navigate = useNavigate()
@@ -46,7 +47,7 @@ export default function AstrologyView() {
   return (
     <div className="animate-fade-in">
       <div className="mb-5">
-        <h1 className="text-xl font-display font-bold text-earth-100">Astrology</h1>
+        <Text.PageTitle>Astrology</Text.PageTitle>
         <p className="text-xs text-earth-500 mt-0.5">Celestial correspondences for plant medicine</p>
       </div>
 
@@ -152,7 +153,7 @@ export default function AstrologyView() {
               <div className="flex items-center gap-4 mb-5">
                 <span className="text-5xl">{selectedSign.symbol}</span>
                 <div>
-                  <h2 className="text-xl font-display font-bold text-earth-100">{selectedSign.name}</h2>
+                  <Text.PageTitle as="h2">{selectedSign.name}</Text.PageTitle>
                   <div className="flex gap-2 mt-1.5">
                     <span className={`badge badge-${selectedSign.element}`}>{selectedSign.element}</span>
                     <span className="badge bg-earth-800/50 text-earth-300 ring-1 ring-inset ring-earth-600/20">{selectedSign.modality}</span>
@@ -162,17 +163,17 @@ export default function AstrologyView() {
 
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <div className="section-subtitle">Ruling Planet</div>
+                  <Text.SectionLabel>Ruling Planet</Text.SectionLabel>
                   <div className="text-earth-200">
                     {selectedSign.ruling_planet_symbol} {selectedSign.ruling_planet_name}
                   </div>
                 </div>
                 <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <div className="section-subtitle">Date Range</div>
+                  <Text.SectionLabel>Date Range</Text.SectionLabel>
                   <div className="text-earth-200">{selectedSign.date_range_start} to {selectedSign.date_range_end}</div>
                 </div>
                 <div className="col-span-2 rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <div className="section-subtitle">Body Parts Ruled</div>
+                  <Text.SectionLabel>Body Parts Ruled</Text.SectionLabel>
                   <div className="text-earth-200 text-sm">{selectedSign.body_parts_ruled}</div>
                 </div>
               </div>
@@ -181,7 +182,7 @@ export default function AstrologyView() {
 
               {selectedSign.plants && selectedSign.plants.length > 0 && (
                 <div>
-                  <div className="section-subtitle">Associated Plants</div>
+                  <Text.SectionLabel>Associated Plants</Text.SectionLabel>
                   <div className="space-y-2">
                     {selectedSign.plants.map((plant: any) => (
                       <button
@@ -210,18 +211,18 @@ export default function AstrologyView() {
               <div className="flex items-center gap-4 mb-5">
                 <span className="text-5xl">{selectedPlanet.symbol}</span>
                 <div>
-                  <h2 className="text-xl font-display font-bold text-earth-100">{selectedPlanet.name}</h2>
+                  <Text.PageTitle as="h2">{selectedPlanet.name}</Text.PageTitle>
                   <p className="text-sm text-earth-500">{selectedPlanet.associated_signs}</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3 mb-5">
                 <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <div className="section-subtitle">Body Systems</div>
+                  <Text.SectionLabel>Body Systems</Text.SectionLabel>
                   <div className="text-earth-200 text-sm">{selectedPlanet.body_systems}</div>
                 </div>
                 <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <div className="section-subtitle">Energetic Quality</div>
+                  <Text.SectionLabel>Energetic Quality</Text.SectionLabel>
                   <div className="text-earth-200 text-sm">{selectedPlanet.energetic_quality}</div>
                 </div>
               </div>
@@ -230,7 +231,7 @@ export default function AstrologyView() {
 
               {selectedPlanet.plants && selectedPlanet.plants.length > 0 && (
                 <div>
-                  <div className="section-subtitle">Ruled Plants</div>
+                  <Text.SectionLabel>Ruled Plants</Text.SectionLabel>
                   <div className="space-y-2">
                     {selectedPlanet.plants.map((plant: any) => (
                       <button

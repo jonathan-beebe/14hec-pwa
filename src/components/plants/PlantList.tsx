@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, PlanetData, ZodiacSign } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function PlantList() {
   const navigate = useNavigate()
@@ -44,7 +45,7 @@ export default function PlantList() {
     <div className="animate-fade-in">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h1 className="text-xl font-display font-bold text-earth-100">Plants</h1>
+          <Text.PageTitle>Plants</Text.PageTitle>
           <span className="badge badge-conventional">{plants.length}</span>
         </div>
       </div>
@@ -108,7 +109,7 @@ export default function PlantList() {
             className="card p-4 text-left cursor-pointer group"
           >
             <div className="flex justify-between items-start mb-1.5">
-              <h3 className="text-sm font-display font-semibold text-botanical-400 group-hover:text-botanical-300 transition-colors duration-200 ease-out-expo">{plant.common_name}</h3>
+              <Text.CardTitle className="text-botanical-400 group-hover:text-botanical-300 transition-colors duration-200 ease-out-expo">{plant.common_name}</Text.CardTitle>
               <span className={`badge badge-${plant.category}`}>{plant.category}</span>
             </div>
             <p className="text-xs text-earth-500 italic mb-1.5">{plant.latin_name}</p>

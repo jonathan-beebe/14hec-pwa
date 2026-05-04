@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, ZodiacSign } from '../../types'
+import Text from '@/components/design-system/atoms/Text'
 
 interface Season {
   name: string
@@ -114,7 +115,7 @@ export default function SeasonalGuide() {
   return (
     <div className="animate-fade-in">
       <div className="mb-6">
-        <h1 className="text-xl font-display font-bold text-earth-100 tracking-wide">Seasonal Guide</h1>
+        <Text.PageTitle>Seasonal Guide</Text.PageTitle>
         <p className="text-sm text-earth-500 mt-1">Plants aligned with the rhythms of the year</p>
       </div>
 
@@ -158,7 +159,7 @@ export default function SeasonalGuide() {
           <div className="flex items-center gap-4 mb-4">
             <span className="text-5xl opacity-40">{activeSeason.icon}</span>
             <div>
-              <h2 className={`text-2xl font-display font-bold ${activeSeason.textColor}`}>{activeSeason.name}</h2>
+              <Text.Heading className={activeSeason.textColor}>{activeSeason.name}</Text.Heading>
               <div className="flex gap-2 mt-1">
                 <span className={`badge badge-${activeSeason.element.toLowerCase()}`}>{activeSeason.element}</span>
                 <span className="text-xs text-earth-500">{activeSeason.months}</span>
@@ -170,7 +171,7 @@ export default function SeasonalGuide() {
           <div className="grid grid-cols-2 gap-3 mt-4">
             <div className="rounded-xl p-3"
                  style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
-              <div className="section-subtitle">Active Signs</div>
+              <Text.SectionLabel>Active Signs</Text.SectionLabel>
               <div className="flex gap-2">
                 {activeSeason.signs.map((signName) => {
                   const sign = signs.find((s) => s.name === signName)
@@ -186,7 +187,7 @@ export default function SeasonalGuide() {
             </div>
             <div className="rounded-xl p-3"
                  style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
-              <div className="section-subtitle">Body Focus</div>
+              <Text.SectionLabel>Body Focus</Text.SectionLabel>
               <p className="text-sm text-earth-300">{activeSeason.bodyFocus}</p>
             </div>
           </div>
@@ -205,7 +206,7 @@ export default function SeasonalGuide() {
         <div className="card">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2618'}</span>
-            <h3 className="section-title mb-0">{activeSeason.name} Plants</h3>
+            <Text.SectionTitle as="h3" className="mb-0">{activeSeason.name} Plants</Text.SectionTitle>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {activeSeason.plantFocus.map((name) => {
@@ -235,7 +236,7 @@ export default function SeasonalGuide() {
         <div className="card">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2697'}</span>
-            <h3 className="section-title mb-0">Recommended Preparations</h3>
+            <Text.SectionTitle as="h3" className="mb-0">Recommended Preparations</Text.SectionTitle>
           </div>
           <div className="flex flex-wrap gap-3">
             {activeSeason.preparationFocus.map((prep) => (
@@ -254,7 +255,7 @@ export default function SeasonalGuide() {
         <div className="card">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2741'}</span>
-            <h3 className="section-title mb-0">Seasonal Activities</h3>
+            <Text.SectionTitle as="h3" className="mb-0">Seasonal Activities</Text.SectionTitle>
           </div>
           <div className="space-y-2">
             {activeSeason.activities.map((activity, i) => (
