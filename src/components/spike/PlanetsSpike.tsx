@@ -46,7 +46,7 @@ export default function PlanetsSpike() {
   return (
     <div className="animate-fade-in">
       <div className="overflow-x-auto">
-        <div className="flex items-end gap-2 px-8 py-12 mx-auto justify-center">
+        <div className="flex items-end gap-2 px-8 py-12 w-max mx-auto">
           {allPlanets.map((p) => (
             <ParticlePlanet
               key={p.name}
