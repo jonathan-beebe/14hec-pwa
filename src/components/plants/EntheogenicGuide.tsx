@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { api } from '@/data/api'
 import type { Plant, PlantDetail as PlantDetailType, EthicalPractice } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 interface JourneyProtocol {
   name: string
@@ -177,7 +178,7 @@ function EthicalPracticePanel({ data }: { data: EthicalPractice }) {
 
   return (
     <div className="mt-5">
-      <div className="section-subtitle mb-3">Ethical Practice Guide</div>
+      <Text.SectionLabel className="mb-3">Ethical Practice Guide</Text.SectionLabel>
       {/* Tab bar */}
       <div className="flex flex-wrap gap-1.5 mb-4">
         {ETHICAL_TABS.map((tab) => (
@@ -233,7 +234,7 @@ export default function EntheogenicGuide() {
   return (
     <div className="animate-fade-in lg:h-[calc(100vh-3rem)] lg:flex lg:flex-col">
       <div className="mb-6">
-        <h1 className="text-xl font-display font-bold text-gradient-celestial tracking-wide">Entheogenic Journey Guide</h1>
+        <Text.PageTitle className="text-gradient-celestial">Entheogenic Journey Guide</Text.PageTitle>
         <p className="text-sm text-earth-500 mt-1">
           Sacred plant medicine guidance: preparation, set & setting, and integration
         </p>
@@ -258,7 +259,7 @@ export default function EntheogenicGuide() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 lg:flex-1 lg:min-h-0">
         {/* Plant Selection */}
         <div className="lg:col-span-1 lg:overflow-y-auto lg:pr-2">
-          <div className="section-subtitle mb-3">Entheogenic Plants</div>
+          <Text.SectionLabel className="mb-3">Entheogenic Plants</Text.SectionLabel>
           <div className="space-y-2 mb-6">
             {entheogenicPlants.map((plant) => (
               <button
@@ -285,7 +286,7 @@ export default function EntheogenicGuide() {
           </div>
 
           {/* Protocol Selection */}
-          <div className="section-subtitle mb-3">Journey Protocols</div>
+          <Text.SectionLabel className="mb-3">Journey Protocols</Text.SectionLabel>
           <div className="space-y-2">
             {INTEGRATION_PROTOCOLS.map((protocol) => (
               <button
@@ -320,7 +321,7 @@ export default function EntheogenicGuide() {
             <div className="card-glow-celestial animate-fade-in">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h2 className="text-xl font-display font-bold text-celestial-400">{selectedPlant.common_name}</h2>
+                  <Text.PageTitle as="h2" className="text-celestial-400">{selectedPlant.common_name}</Text.PageTitle>
                   <p className="text-sm text-earth-500 italic">{selectedPlant.latin_name}</p>
                 </div>
                 <Button.Ghost
@@ -335,7 +336,7 @@ export default function EntheogenicGuide() {
 
               {selectedPlant.compounds.filter((c) => c.psychoactive).length > 0 && (
                 <div className="mb-5">
-                  <div className="section-subtitle mb-2">Psychoactive Compounds</div>
+                  <Text.SectionLabel className="mb-2">Psychoactive Compounds</Text.SectionLabel>
                   <div className="space-y-2">
                     {selectedPlant.compounds
                       .filter((c) => c.psychoactive)
@@ -353,7 +354,7 @@ export default function EntheogenicGuide() {
 
               {selectedPlant.planetAssociations.length > 0 && (
                 <div className="mb-5">
-                  <div className="section-subtitle mb-2">Celestial Governance</div>
+                  <Text.SectionLabel className="mb-2">Celestial Governance</Text.SectionLabel>
                   {selectedPlant.planetAssociations.map((assoc) => (
                     <div key={assoc.planet_id} className="flex items-center gap-3 mb-2 rounded-xl p-3"
                          style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
@@ -367,7 +368,7 @@ export default function EntheogenicGuide() {
 
               {selectedPlant.ailmentAssociations.filter((a) => a.evidence_level === 'clinical').length > 0 && (
                 <div className="mb-5">
-                  <div className="section-subtitle mb-2">Clinical Evidence</div>
+                  <Text.SectionLabel className="mb-2">Clinical Evidence</Text.SectionLabel>
                   <div className="space-y-2">
                     {selectedPlant.ailmentAssociations
                       .filter((a) => a.evidence_level === 'clinical')
@@ -396,7 +397,7 @@ export default function EntheogenicGuide() {
               {selectedPlant.doctrine_of_signatures && (
                 <div className="rounded-xl p-4"
                      style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
-                  <div className="section-subtitle mb-1">Doctrine of Signatures</div>
+                  <Text.SectionLabel className="mb-1">Doctrine of Signatures</Text.SectionLabel>
                   <p className="text-xs text-earth-400 italic leading-relaxed">{selectedPlant.doctrine_of_signatures}</p>
                 </div>
               )}
@@ -412,7 +413,7 @@ export default function EntheogenicGuide() {
             <div className="card-glow-botanical animate-fade-in">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-xl opacity-50">{selectedProtocol.icon}</span>
-                <h2 className="text-xl font-display font-bold text-botanical-400">{selectedProtocol.name}</h2>
+                <Text.PageTitle as="h2" className="text-botanical-400">{selectedProtocol.name}</Text.PageTitle>
               </div>
               <p className="text-sm text-earth-400 mb-6 leading-relaxed">{selectedProtocol.description}</p>
 
@@ -427,7 +428,7 @@ export default function EntheogenicGuide() {
                     <div className="absolute left-0 top-1 w-[15px] h-[15px] rounded-full border-2 border-botanical-600 bg-earth-950"
                          style={{ boxShadow: '0 0 8px rgba(93, 168, 126, 0.2)' }} />
                     <div className="text-xs text-botanical-500 mb-1 font-medium">{phase.duration}</div>
-                    <h4 className="text-sm font-display font-semibold text-earth-200 mb-1.5">{phase.name}</h4>
+                    <Text.CardTitle as="h4" className="text-earth-200 mb-1.5">{phase.name}</Text.CardTitle>
                     <p className="text-xs text-earth-400 leading-relaxed">{phase.guidance}</p>
                   </div>
                 ))}

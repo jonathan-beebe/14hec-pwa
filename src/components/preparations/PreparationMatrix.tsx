@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { api } from '@/data/api'
 import type { Preparation } from '../../types'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function PreparationMatrix() {
   const [preparations, setPreparations] = useState<Preparation[]>([])
@@ -13,7 +14,7 @@ export default function PreparationMatrix() {
   return (
     <div className="animate-fade-in">
       <div className="mb-4">
-        <h1 className="text-xl font-display font-bold text-earth-100">Preparation Methods</h1>
+        <Text.PageTitle>Preparation Methods</Text.PageTitle>
         <p className="text-sm text-earth-500">How plant material is processed determines bioavailability</p>
       </div>
 
@@ -68,7 +69,7 @@ export default function PreparationMatrix() {
         <div className="card-glow-botanical animate-fade-in-up">
           <div className="flex items-center gap-3 mb-3">
             <span className="text-xl opacity-50">{'\u2697'}</span>
-            <h2 className="section-title mb-0">{selected.name}</h2>
+            <Text.SectionTitle className="mb-0">{selected.name}</Text.SectionTitle>
           </div>
           <div className="grid grid-cols-3 gap-3 mb-4">
             {[
@@ -78,7 +79,7 @@ export default function PreparationMatrix() {
             ].map((item) => (
               <div key={item.label} className="rounded-xl p-3"
                    style={{ background: 'rgba(255, 255, 255, 0.03)' }}>
-                <div className="section-subtitle">{item.label}</div>
+                <Text.SectionLabel>{item.label}</Text.SectionLabel>
                 <div className="text-earth-200 text-sm">{item.value}</div>
               </div>
             ))}
@@ -86,7 +87,7 @@ export default function PreparationMatrix() {
 
           {selected.general_instructions && (
             <div className="mb-4">
-              <div className="section-subtitle mb-2">Instructions</div>
+              <Text.SectionLabel className="mb-2">Instructions</Text.SectionLabel>
               <div className="rounded-xl p-4 space-y-1.5"
                    style={{ background: 'rgba(255, 255, 255, 0.03)' }}>
                 {selected.general_instructions.split('\n').map((step, i) => (

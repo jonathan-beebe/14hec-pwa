@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { AilmentDetail as AilmentDetailType } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function AilmentDetail() {
   const { id } = useParams()
@@ -47,7 +48,7 @@ export default function AilmentDetail() {
         <div className="hero-orb w-40 h-40 -bottom-10 -left-10" style={{ background: heroOrbColor, animationDelay: '2s' }} />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-display font-bold text-earth-100">{ailment.name}</h1>
+            <Text.Display>{ailment.name}</Text.Display>
             <span className={`badge badge-${categoryColor}`}>{ailment.category}</span>
           </div>
           <p className="text-sm text-earth-500">{ailment.body_system}</p>
@@ -66,7 +67,7 @@ export default function AilmentDetail() {
         <div className="card-glow-celestial mb-6">
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl opacity-50">{'\u2609'}</span>
-            <h2 className="section-title mb-0">Astrological Associations</h2>
+            <Text.SectionTitle className="mb-0">Astrological Associations</Text.SectionTitle>
           </div>
           <div className="flex flex-wrap gap-3">
             {ailment.planetAssociations.map((assoc) => (
@@ -87,7 +88,7 @@ export default function AilmentDetail() {
       <div className="card">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-xl opacity-50">{'\u2618'}</span>
-          <h2 className="section-title mb-0">Plant Recommendations</h2>
+          <Text.SectionTitle className="mb-0">Plant Recommendations</Text.SectionTitle>
         </div>
         {ailment.plantRecommendations.length > 0 ? (
           <div className="space-y-3">
@@ -145,7 +146,7 @@ export default function AilmentDetail() {
         >
           <div className="flex items-center gap-3 mb-4">
             <span className="text-xl text-red-400">{'\u26D4'}</span>
-            <h2 className="section-title text-red-300 mb-0">Plants to Avoid</h2>
+            <Text.SectionTitle className="text-red-300 mb-0">Plants to Avoid</Text.SectionTitle>
           </div>
           <div className="space-y-3">
             {ailment.plantsToAvoid.map((plant, i) => (

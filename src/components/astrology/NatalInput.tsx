@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { ZodiacSign, Plant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 interface NatalProfile {
   sunSign: number | ''
@@ -67,7 +68,7 @@ export default function NatalInput() {
   return (
     <div className="max-w-4xl animate-fade-in">
       <div className="mb-5">
-        <h1 className="text-xl font-display font-bold text-earth-100">Astro-Botanical Chart</h1>
+        <Text.PageTitle>Astro-Botanical Chart</Text.PageTitle>
         <p className="text-xs text-earth-500 mt-0.5">
           Input your Sun, Moon, and Rising signs to generate a personalized plant map
         </p>
@@ -118,9 +119,9 @@ export default function NatalInput() {
                 <div className="flex items-center gap-4 mb-4">
                   <span className="text-4xl">{result.sign.symbol}</span>
                   <div>
-                    <h3 className="text-lg font-display font-semibold text-earth-100">
+                    <Text.Subheading>
                       {config.icon} {result.role} in {result.sign.name}
-                    </h3>
+                    </Text.Subheading>
                     <div className="flex gap-2 mt-1.5">
                       <span className={`badge badge-${result.sign.element}`}>{result.sign.element}</span>
                       <span className="badge bg-earth-800/50 text-earth-300 ring-1 ring-inset ring-earth-600/20">{result.sign.modality}</span>
@@ -132,11 +133,11 @@ export default function NatalInput() {
 
                 <div className="grid grid-cols-2 gap-3 mb-4">
                   <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <div className="section-subtitle">Body Areas</div>
+                    <Text.SectionLabel>Body Areas</Text.SectionLabel>
                     <div className="text-sm text-earth-300">{result.sign.body_parts_ruled}</div>
                   </div>
                   <div className="rounded-xl p-3" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                    <div className="section-subtitle">Ruling Planet</div>
+                    <Text.SectionLabel>Ruling Planet</Text.SectionLabel>
                     <div className="text-sm text-earth-300">
                       {result.sign.ruling_planet_symbol} {result.sign.ruling_planet_name}
                     </div>
@@ -145,7 +146,7 @@ export default function NatalInput() {
 
                 {result.plants.length > 0 ? (
                   <div>
-                    <div className="section-subtitle mb-2">Aligned Plants</div>
+                    <Text.SectionLabel className="mb-2">Aligned Plants</Text.SectionLabel>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                       {result.plants.map((plant: any) => (
                         <button
@@ -176,7 +177,7 @@ export default function NatalInput() {
           <div className="card-glow-celestial">
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xl opacity-50">{'\u2726'}</span>
-              <h3 className="text-lg font-display font-semibold text-celestial-300">Chart Synthesis</h3>
+              <Text.Subheading className="text-celestial-300">Chart Synthesis</Text.Subheading>
             </div>
             <p className="text-sm text-earth-400 leading-relaxed">
               Your unique combination of placements suggests attention to the body systems governed by your signs.

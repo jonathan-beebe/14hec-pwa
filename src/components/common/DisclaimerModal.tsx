@@ -1,4 +1,5 @@
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 interface DisclaimerModalProps {
   onAccept: () => void
@@ -30,7 +31,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
                  }}>
               <span className="text-xl font-display font-bold text-gradient-botanical">14</span>
             </div>
-            <h1 className="text-xl font-display font-bold text-gradient-botanical tracking-wide">14 HEC</h1>
+            <Text.PageTitle className="text-gradient-botanical">14 HEC</Text.PageTitle>
             <p className="text-[10px] text-earth-500 tracking-[0.2em] uppercase mt-1">Herbal {'\u00b7'} Energetic {'\u00b7'} Celestial</p>
             <div className="divider-gradient mt-3" />
           </div>
@@ -51,7 +52,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
                  }}>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="text-botanical-500">{'\u2618'}</span>
-                <h3 className="text-sm font-display font-semibold text-botanical-300">Educational Reference</h3>
+                <Text.CardTitle className="text-botanical-300">Educational Reference</Text.CardTitle>
               </div>
               <p className="text-xs text-earth-400 leading-relaxed">
                 14 HEC is an independent educational reference database providing information about plants,
@@ -70,7 +71,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
                  }}>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="text-amber-500">{'\u2695'}</span>
-                <h3 className="text-sm font-display font-semibold text-amber-400">Health Information Notice</h3>
+                <Text.CardTitle className="text-amber-400">Health Information Notice</Text.CardTitle>
               </div>
               <div className="space-y-2 text-xs text-earth-400 leading-relaxed">
                 <p>
@@ -102,7 +103,7 @@ export default function DisclaimerModal({ onAccept }: DisclaimerModalProps) {
                  }}>
               <div className="flex items-center gap-2 mb-2.5">
                 <span className="text-celestial-400">{'\u2696'}</span>
-                <h3 className="text-sm font-display font-semibold text-celestial-300">Legal Awareness</h3>
+                <Text.CardTitle className="text-celestial-300">Legal Awareness</Text.CardTitle>
               </div>
               <div className="space-y-2 text-xs text-earth-400 leading-relaxed">
                 <p>

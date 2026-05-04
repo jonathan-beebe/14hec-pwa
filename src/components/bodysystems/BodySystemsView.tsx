@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { BodySystem, BodySystemDetail } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; ring: string }> = {
   organ:     { bg: 'bg-rose-500/10',   text: 'text-rose-300',   ring: 'ring-rose-500/20' },
@@ -97,9 +98,9 @@ function BodySystemsList() {
             <div className="w-1 h-10 rounded-full"
                  style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
             <div>
-              <h1 className="text-2xl font-display font-bold text-gradient-botanical tracking-tight">
+              <Text.Heading className="text-gradient-botanical">
                 Body Systems
-              </h1>
+              </Text.Heading>
               <p className="text-earth-400 text-sm mt-1">
                 Organs, systems, glands & tissues {'\u2014'} mapped to plants, planets & ancient wisdom
               </p>
@@ -130,9 +131,9 @@ function BodySystemsList() {
                   style={{ animationDelay: `${i * 0.04}s` }}
                 >
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-sm font-display font-semibold text-earth-100 group-hover:text-botanical-400 transition-colors">
+                    <Text.CardTitle className="group-hover:text-botanical-400 transition-colors">
                       {sys.name}
-                    </h3>
+                    </Text.CardTitle>
                     <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium tracking-wide ring-1 ring-inset ${catStyle.bg} ${catStyle.text} ${catStyle.ring}`}>
                       {sys.category}
                     </span>
@@ -222,7 +223,7 @@ function BodySystemDetailView({ id }: { id: number }) {
         <div className="hero-orb w-40 h-40 -bottom-10 -left-10" style={{ background: heroOrbColor, animationDelay: '2s' }} />
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-3xl font-display font-bold text-earth-100">{detail.name}</h1>
+            <Text.Display>{detail.name}</Text.Display>
             <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-medium tracking-wide ring-1 ring-inset ${catStyle.bg} ${catStyle.text} ${catStyle.ring}`}>
               {detail.category}
             </span>

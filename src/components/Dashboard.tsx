@@ -6,6 +6,7 @@ import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
 import StatCard from '@/components/design-system/components/StatCard'
 import DomainCard from '@/components/design-system/components/DomainCard'
+import Text from '@/components/design-system/atoms/Text'
 
 const viewToPath: Record<string, string> = {
   dashboard: '/',
@@ -66,9 +67,9 @@ export default function Dashboard() {
             <div className="w-1 h-12 rounded-full"
                  style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
             <div>
-              <h1 className="text-3xl font-display font-bold text-gradient-botanical tracking-tight">
+              <Text.Display className="text-gradient-botanical">
                 14 HEC Plant Intelligence
-              </h1>
+              </Text.Display>
               <p className="text-earth-400 text-sm mt-1">
                 Herbal {'\u00b7'} Energetic {'\u00b7'} Celestial {'\u2014'} Cross-reference plants, ailments, and astrology
               </p>
@@ -137,7 +138,7 @@ export default function Dashboard() {
       {/* HMBS Domains */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="section-title mb-0">Sanctuary Domains</h2>
+          <Text.SectionTitle className="mb-0">Sanctuary Domains</Text.SectionTitle>
           <Button.Ghost route="/hmbs" className="text-xs">
             Explore all {'\u2192'}
           </Button.Ghost>
@@ -179,9 +180,9 @@ export default function Dashboard() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-[10px] text-earth-500 uppercase tracking-[0.2em] mb-1">Plant of the Day</div>
-                <h3 className="text-lg font-display font-semibold text-botanical-400 group-hover:text-botanical-300 transition-colors">
+                <Text.Subheading className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
                   {featuredPlant.common_name}
-                </h3>
+                </Text.Subheading>
                 <p className="text-xs text-earth-500 italic mb-2">{featuredPlant.latin_name}</p>
                 <p className="text-earth-300 text-sm leading-relaxed line-clamp-2">{featuredPlant.description}</p>
               </div>
@@ -335,7 +336,7 @@ export default function Dashboard() {
       {collections.length > 0 && (
         <div className="mb-8">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="section-title mb-0">My Collections</h2>
+            <Text.SectionTitle className="mb-0">My Collections</Text.SectionTitle>
             <Button.Ghost route="/collections" className="text-xs">
               View all {'\u2192'}
             </Button.Ghost>
@@ -357,7 +358,7 @@ export default function Dashboard() {
       {/* Quick Access Lists */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <h3 className="section-title">Recent Plants</h3>
+          <Text.SectionTitle as="h3">Recent Plants</Text.SectionTitle>
           <div className="space-y-1.5">
             {plants.slice(0, 5).map((plant, i) => (
               <button
@@ -375,7 +376,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div>
-          <h3 className="section-title">Common Ailments</h3>
+          <Text.SectionTitle as="h3">Common Ailments</Text.SectionTitle>
           <div className="space-y-1.5">
             {ailments.slice(0, 5).map((ailment, i) => (
               <button

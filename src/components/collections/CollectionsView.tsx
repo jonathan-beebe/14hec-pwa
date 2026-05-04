@@ -3,6 +3,7 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Collection, CollectionDetail } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 type ViewMode = 'list' | 'detail' | 'new' | 'edit'
 
@@ -200,9 +201,9 @@ export default function CollectionsView() {
                         {collection.icon || '\u2618'}
                       </span>
                       <div>
-                        <h3 className={`text-sm font-display font-semibold ${colorStyle.text} group-hover:opacity-90 transition-opacity`}>
+                        <Text.CardTitle className={`${colorStyle.text} group-hover:opacity-90 transition-opacity`}>
                           {collection.name}
-                        </h3>
+                        </Text.CardTitle>
                         <span className="text-[10px] text-earth-500">
                           {collection.plant_count} {collection.plant_count === 1 ? 'plant' : 'plants'}
                         </span>
@@ -246,9 +247,9 @@ export default function CollectionsView() {
             <div className="flex items-center gap-4">
               <span className="text-3xl opacity-50">{detail.icon || '\u2618'}</span>
               <div>
-                <h2 className={`text-xl font-display font-bold ${colorStyle.text} tracking-wide`}>
+                <Text.PageTitle as="h2" className={colorStyle.text}>
                   {detail.name}
-                </h2>
+                </Text.PageTitle>
                 {detail.description && (
                   <p className="text-earth-400 text-sm mt-1">{detail.description}</p>
                 )}
@@ -362,9 +363,9 @@ export default function CollectionsView() {
         </Button.Ghost>
 
         <div className="mb-6">
-          <h2 className="text-xl font-display font-bold text-earth-100 tracking-wide">
+          <Text.PageTitle as="h2">
             {isEdit ? 'Edit Collection' : 'New Collection'}
-          </h2>
+          </Text.PageTitle>
           <p className="text-earth-500 text-xs mt-1">
             {isEdit ? 'Update your collection details' : 'Group plants that share a purpose, season, or meaning to you'}
           </p>
@@ -488,10 +489,10 @@ export default function CollectionsView() {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl opacity-40">{'\u2661'}</span>
-              <h1 className="text-2xl font-display font-bold tracking-wide"
+              <Text.Heading
                   style={{ background: 'linear-gradient(135deg, #f43f5e, #4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 My Collections
-              </h1>
+              </Text.Heading>
             </div>
             <p className="text-earth-400 text-sm pl-10">
               Personal groupings of plants that share a purpose, season, or meaning

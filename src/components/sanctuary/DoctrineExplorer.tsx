@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { api } from '@/data/api'
 import type { PlantTeachingWithPlant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 type TeachingDomain = 'energetic' | 'mental' | 'physical' | 'spiritual'
 
@@ -64,9 +65,9 @@ export default function DoctrineExplorer() {
           <div className="flex items-center gap-3 mb-3">
             <div className="w-1 h-10 rounded-full bg-gradient-to-b from-amber-400 to-botanical-500" />
             <div>
-              <h1 className="text-xl font-display font-bold text-gradient-gold tracking-wide">
+              <Text.PageTitle className="text-gradient-gold">
                 Doctrine of Plant Teachings
-              </h1>
+              </Text.PageTitle>
               <p className="text-earth-400 text-sm mt-1">
                 What each plant activates within you {'\u2014'} energetic, mental, physical, and spiritual teachings for all {teachings.length} plants
               </p>
@@ -81,7 +82,7 @@ export default function DoctrineExplorer() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
         {/* Left Panel: Plant List */}
         <div className="lg:col-span-1">
-          <div className="section-subtitle mb-3">Plant Teachings ({filtered.length})</div>
+          <Text.SectionLabel className="mb-3">Plant Teachings ({filtered.length})</Text.SectionLabel>
 
           {/* Search */}
           <div className="mb-3">
@@ -154,7 +155,7 @@ export default function DoctrineExplorer() {
                    }}>
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-2xl font-display font-bold text-amber-300">{selected.common_name}</h2>
+                    <Text.Heading className="text-amber-300">{selected.common_name}</Text.Heading>
                     <p className="text-sm text-earth-500 italic">{selected.latin_name}</p>
                   </div>
                   <Button.Ghost
@@ -168,7 +169,7 @@ export default function DoctrineExplorer() {
                 {/* Activation Principle */}
                 <div className="rounded-xl p-4 mb-4"
                      style={{ background: 'rgba(245, 158, 11, 0.05)', border: '1px solid rgba(245, 158, 11, 0.1)' }}>
-                  <div className="section-subtitle mb-1.5 text-amber-400/70">{'\u2726'} Activation Principle</div>
+                  <Text.SectionLabel className="mb-1.5 text-amber-400/70">{'\u2726'} Activation Principle</Text.SectionLabel>
                   <p className="text-sm text-earth-200 leading-relaxed font-display italic">
                     {selected.activation_principle}
                   </p>
@@ -200,9 +201,9 @@ export default function DoctrineExplorer() {
                        background: DOMAIN_CONFIG[activeDomain].bg,
                        border: `1px solid ${DOMAIN_CONFIG[activeDomain].border}`
                      }}>
-                  <div className={`section-subtitle mb-2 ${DOMAIN_CONFIG[activeDomain].color}`}>
+                  <Text.SectionLabel className={`mb-2 ${DOMAIN_CONFIG[activeDomain].color}`}>
                     {DOMAIN_CONFIG[activeDomain].icon} {DOMAIN_CONFIG[activeDomain].label} Teaching
-                  </div>
+                  </Text.SectionLabel>
                   <p className="text-sm text-earth-300 leading-relaxed">
                     {getTeachingText(selected, activeDomain)}
                   </p>
@@ -211,7 +212,7 @@ export default function DoctrineExplorer() {
 
               {/* All Teachings Overview */}
               <div className="card">
-                <div className="section-subtitle mb-3">All Four Teachings</div>
+                <Text.SectionLabel className="mb-3">All Four Teachings</Text.SectionLabel>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {(Object.entries(DOMAIN_CONFIG) as [TeachingDomain, typeof DOMAIN_CONFIG.energetic][]).map(([domain, config]) => (
                     <button

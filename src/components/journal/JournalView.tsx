@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { api } from '@/data/api'
 import type { Plant, JournalEntry, JournalPrompt } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 type ViewMode = 'list' | 'new' | 'edit' | 'view'
 
@@ -268,9 +269,9 @@ export default function JournalView() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-sm font-display font-semibold text-earth-100 group-hover:text-botanical-400 transition-colors truncate">
+                      <Text.CardTitle className="group-hover:text-botanical-400 transition-colors truncate">
                         {entry.title}
-                      </h3>
+                      </Text.CardTitle>
                       {entry.mood && (
                         <span
                           className="text-xs flex-shrink-0"
@@ -327,9 +328,9 @@ export default function JournalView() {
              }}>
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h2 className="text-2xl font-display font-bold text-earth-100 tracking-wide mb-1">
+              <Text.Heading className="mb-1">
                 {editingEntry.title}
-              </h2>
+              </Text.Heading>
               <div className="flex items-center gap-3">
                 <span className="text-xs text-earth-500">{formatDate(editingEntry.created_at)}</span>
                 {editingEntry.plant_name && (
@@ -415,9 +416,9 @@ export default function JournalView() {
         </Button.Ghost>
 
         <div className="mb-6">
-          <h2 className="text-xl font-display font-bold text-earth-100 tracking-wide">
+          <Text.PageTitle as="h2">
             {isEdit ? 'Edit Entry' : 'New Journal Entry'}
-          </h2>
+          </Text.PageTitle>
           <p className="text-earth-500 text-xs mt-1">
             {isEdit ? 'Refine your reflections' : 'Take a moment. Breathe. Write what comes.'}
           </p>
@@ -618,7 +619,7 @@ export default function JournalView() {
           <div>
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl opacity-40">{'\u270E'}</span>
-              <h1 className="text-2xl font-display font-bold text-gradient-gold tracking-wide">Plant Journal</h1>
+              <Text.Heading className="text-gradient-gold">Plant Journal</Text.Heading>
             </div>
             <p className="text-earth-400 text-sm pl-10">
               Your living record of plant relationships and consciousness exploration

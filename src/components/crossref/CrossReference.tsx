@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment, ZodiacSign, PlanetData, Preparation, CrossRefResult, ContraindicationResult } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
+import Text from '@/components/design-system/atoms/Text'
 
 export default function CrossReference() {
   const navigate = useNavigate()
@@ -84,7 +85,7 @@ export default function CrossReference() {
   return (
     <div className="animate-fade-in">
       <div className="mb-4">
-        <h1 className="text-xl font-display font-bold text-earth-100">Cross-Reference Engine</h1>
+        <Text.PageTitle>Cross-Reference Engine</Text.PageTitle>
         <p className="text-sm text-earth-500">Enter from any axis to discover plant correspondences</p>
       </div>
 
@@ -92,7 +93,7 @@ export default function CrossReference() {
       <div className="glass-panel p-4 mb-5">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
           <div>
-            <label className="section-subtitle block mb-1.5">Ailment / Condition</label>
+            <Text.SectionLabel as="label" className="block mb-1.5">Ailment / Condition</Text.SectionLabel>
             <select
               value={selectedAilment}
               onChange={(e) => setSelectedAilment(e.target.value ? Number(e.target.value) : '')}
@@ -106,7 +107,7 @@ export default function CrossReference() {
           </div>
 
           <div>
-            <label className="section-subtitle block mb-1.5">Zodiac Sign</label>
+            <Text.SectionLabel as="label" className="block mb-1.5">Zodiac Sign</Text.SectionLabel>
             <select
               value={selectedSign}
               onChange={(e) => setSelectedSign(e.target.value ? Number(e.target.value) : '')}
@@ -120,7 +121,7 @@ export default function CrossReference() {
           </div>
 
           <div>
-            <label className="section-subtitle block mb-1.5">Ruling Planet</label>
+            <Text.SectionLabel as="label" className="block mb-1.5">Ruling Planet</Text.SectionLabel>
             <select
               value={selectedPlanet}
               onChange={(e) => setSelectedPlanet(e.target.value)}
@@ -134,7 +135,7 @@ export default function CrossReference() {
           </div>
 
           <div>
-            <label className="section-subtitle block mb-1.5">Plant Part</label>
+            <Text.SectionLabel as="label" className="block mb-1.5">Plant Part</Text.SectionLabel>
             <select
               value={selectedPart}
               onChange={(e) => setSelectedPart(e.target.value)}
@@ -154,7 +155,7 @@ export default function CrossReference() {
           </div>
 
           <div>
-            <label className="section-subtitle block mb-1.5">Preparation Method</label>
+            <Text.SectionLabel as="label" className="block mb-1.5">Preparation Method</Text.SectionLabel>
             <select
               value={selectedPrep}
               onChange={(e) => setSelectedPrep(e.target.value ? Number(e.target.value) : '')}
@@ -192,7 +193,7 @@ export default function CrossReference() {
           {/* Recommended Plants */}
           <div className="flex items-center gap-2 mb-3">
             <span className="text-botanical-500">{'\u2618'}</span>
-            <h2 className="text-lg font-display font-semibold text-earth-200">Recommended Plants</h2>
+            <Text.Subheading as="h2" className="text-earth-200">Recommended Plants</Text.Subheading>
             <span className="text-sm text-earth-500">
               {Object.keys(grouped).length} found
             </span>
@@ -254,7 +255,7 @@ export default function CrossReference() {
             <div className="mt-6">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-red-400">{'\u26A0'}</span>
-                <h2 className="text-lg font-display font-semibold text-red-300">Plants to Avoid</h2>
+                <Text.Subheading as="h2" className="text-red-300">Plants to Avoid</Text.Subheading>
                 <span className="text-sm text-earth-500">
                   {Object.keys(avoidGrouped).length} found
                 </span>

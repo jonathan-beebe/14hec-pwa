@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment, HMBSPlant, HMBSDomainSummary } from '../../types'
+import Text from '@/components/design-system/atoms/Text'
 
 interface HMBSDomain {
   name: string
@@ -134,9 +135,9 @@ export default function HMBSView() {
           <div className="flex items-center gap-3 mb-3">
             <div className="w-1 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom, #f43f5e, #3b82f6, #3d8a5e, #a855f7)' }} />
             <div>
-              <h1 className="text-xl font-display font-bold text-gradient-hmbs tracking-wide">
+              <Text.PageTitle className="text-gradient-hmbs">
                 Heart {'\u00b7'} Mind {'\u00b7'} Body {'\u00b7'} Spirit
-              </h1>
+              </Text.PageTitle>
               <p className="text-earth-400 text-sm mt-1">
                 The four domains of the Sanctuary {'\u2014'} each a doorway into plant intelligence
               </p>
@@ -165,7 +166,7 @@ export default function HMBSView() {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <span className="text-3xl opacity-50 block mb-2">{domain.icon}</span>
-                <h2 className={`text-xl font-display font-bold ${domain.textColor}`}>{domain.name}</h2>
+                <Text.PageTitle as="h2" className={domain.textColor}>{domain.name}</Text.PageTitle>
               </div>
               <div className="flex flex-col items-end gap-1.5">
                 <span className={`badge badge-${DOMAIN_CSS_MAP[domain.name]}`}>{domain.element}</span>
@@ -189,16 +190,16 @@ export default function HMBSView() {
             <div className="flex items-center gap-4 mb-4">
               <span className="text-5xl opacity-40">{selectedDomain.icon}</span>
               <div>
-                <h2 className={`text-2xl font-display font-bold ${selectedDomain.textColor}`}>
+                <Text.Heading className={selectedDomain.textColor}>
                   The {selectedDomain.name} Domain
-                </h2>
+                </Text.Heading>
                 <p className="text-xs text-earth-500 mt-1">{selectedDomain.frequency}</p>
               </div>
             </div>
             <p className="text-sm text-earth-300 leading-relaxed">{selectedDomain.description}</p>
             <div className="mt-4 rounded-xl p-3"
                  style={{ background: 'rgba(26, 25, 21, 0.4)', border: '1px solid rgba(255,255,255,0.04)' }}>
-              <div className="section-subtitle">Body Areas</div>
+              <Text.SectionLabel>Body Areas</Text.SectionLabel>
               <p className="text-sm text-earth-300">{selectedDomain.bodyAreas}</p>
             </div>
           </div>
@@ -208,7 +209,7 @@ export default function HMBSView() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <span className="text-xl opacity-50">{'\u2618'}</span>
-                <h3 className="section-title mb-0">{selectedDomain.name} Plants</h3>
+                <Text.SectionTitle as="h3" className="mb-0">{selectedDomain.name} Plants</Text.SectionTitle>
                 <span className="text-xs text-earth-500">({filteredPlants.length})</span>
               </div>
               <div className="flex gap-1.5">
@@ -272,7 +273,7 @@ export default function HMBSView() {
           <div className="card">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xl opacity-50">{'\u2695'}</span>
-              <h3 className="section-title mb-0">{selectedDomain.name} Ailments</h3>
+              <Text.SectionTitle as="h3" className="mb-0">{selectedDomain.name} Ailments</Text.SectionTitle>
             </div>
             <div className="flex flex-wrap gap-3">
               {selectedDomain.supportAilments.map((name) => {
@@ -296,7 +297,7 @@ export default function HMBSView() {
           <div className="card">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-xl opacity-50">{'\u2638'}</span>
-              <h3 className="section-title mb-0">Sanctuary Rituals</h3>
+              <Text.SectionTitle as="h3" className="mb-0">Sanctuary Rituals</Text.SectionTitle>
             </div>
             <p className="text-xs text-earth-500 mb-4">Practices for the {selectedDomain.name} Room in the physical sanctuary</p>
             <div className="space-y-2">
