@@ -31,6 +31,8 @@ export interface PlanetVisual {
   ringRotationSpeed?: number
   /** Per-particle color: returns RGB in 0..1. Inputs in unit-sphere local space. */
   colorAt: (x: number, y: number, z: number) => RGB
+  /** Astrological glyph the particles morph into on hover/tap. */
+  glyph: string
   ring?: RingConfig
   satellites?: SatelliteConfig[]
 }
@@ -53,6 +55,7 @@ export const mercury: PlanetVisual = {
   pointSize: 1.2,
   axisTilt: 0.04,
   rotationSpeed: 0.10,
+  glyph: '☿',
   colorAt: (x, y, z) => {
     const n = noise3(x, y, z, 6)
     if (n > 0.5) return jitter([0.62, 0.55, 0.46], 0.06)
@@ -69,6 +72,7 @@ export const venus: PlanetVisual = {
   pointSize: 1.2,
   axisTilt: 3.10, // ~177° — Venus rotates retrograde
   rotationSpeed: 0.05,
+  glyph: '♀',
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * 5
     const band = Math.floor(bandPos)
@@ -96,6 +100,7 @@ export const moon: PlanetVisual = {
   pointSize: 1.0,
   axisTilt: 0.10,
   rotationSpeed: 0.04,
+  glyph: '☽',
   colorAt: (x, y, z) => {
     const n = noise3(x, y, z, 7)
     if (n > 0.4) return jitter([0.50, 0.49, 0.47], 0.05)
@@ -113,6 +118,7 @@ export const earth: PlanetVisual = {
   pointSize: 1.2,
   axisTilt: 0.41,
   rotationSpeed: 0.18,
+  glyph: '♁',
   colorAt: (x, y, z) => {
     if (Math.abs(y) > 0.86) return jitter([0.88, 0.92, 0.96], 0.05)
     const n = noise3(x, y, z, 5)
@@ -138,6 +144,7 @@ export const mars: PlanetVisual = {
   pointSize: 1.2,
   axisTilt: 0.44,
   rotationSpeed: 0.16,
+  glyph: '♂',
   colorAt: (x, y, z) => {
     if (Math.abs(y) > 0.88) return jitter([0.92, 0.92, 0.94], 0.05)
     const n = noise3(x, y, z, 6)
@@ -172,6 +179,7 @@ export const jupiter: PlanetVisual = {
   pointSize: 1.4,
   axisTilt: 0.05,
   rotationSpeed: 0.12,
+  glyph: '♃',
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (jupiterBands.length / 2)
     const band = Math.min(jupiterBands.length - 1, Math.floor(bandPos))
@@ -201,6 +209,7 @@ export const saturn: PlanetVisual = {
   axisRoll: 0.18,
   rotationSpeed: 0.09,
   ringRotationSpeed: 0.04,
+  glyph: '♄',
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (saturnBands.length / 2)
     const band = Math.min(saturnBands.length - 1, Math.floor(bandPos))
@@ -223,6 +232,7 @@ export const uranus: PlanetVisual = {
   pointSize: 1.3,
   axisTilt: 1.71,
   rotationSpeed: 0.14,
+  glyph: '♅',
   colorAt: (_x, y, _z) => {
     const base: RGB = [0.62, 0.86, 0.92]
     const bandPos = (y + 1) * 4
@@ -251,6 +261,7 @@ export const neptune: PlanetVisual = {
   pointSize: 1.3,
   axisTilt: 0.49,
   rotationSpeed: 0.13,
+  glyph: '♆',
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (neptuneBands.length / 2)
     const band = Math.min(neptuneBands.length - 1, Math.floor(bandPos))
@@ -266,6 +277,7 @@ export const pluto: PlanetVisual = {
   pointSize: 1.2,
   axisTilt: 2.10, // ~120° — Pluto's odd tilt
   rotationSpeed: 0.08,
+  glyph: '♇',
   colorAt: (x, y, z) => {
     const n = noise3(x, y, z, 5)
     if (n > 0.4) return jitter([0.78, 0.65, 0.50], 0.06)

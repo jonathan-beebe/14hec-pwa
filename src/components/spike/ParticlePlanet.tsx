@@ -1,7 +1,13 @@
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, useState, type MutableRefObject } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
+import { sampleGlyph, pairByAngle } from './glyphSampler'
+
+const GLYPH_SCALE_RATIO = 0.85
+const MORPH_LAMBDA = 7
+
+type MorphRef = MutableRefObject<number>
 
 function useSphereAttributes(config: PlanetVisual) {
   return useMemo(() => {
@@ -33,7 +39,9 @@ function useSphereAttributes(config: PlanetVisual) {
       colors[i * 3 + 1] = cg
       colors[i * 3 + 2] = cb
     }
-    return { positions, colors, dirs, baseRadii, phases }
+    const glyphPoints = sampleGlyph(config.glyph, n, config.bodyScale * GLYPH_SCALE_RATIO)
+    const glyphTargets = pairByAngle(dirs, glyphPoints, n)
+    return { positions, colors, dirs, baseRadii, phases, glyphTargets }
   }, [config])
 }
 
@@ -75,21 +83,40 @@ const BODY_WOBBLE_FREQ = 1.4
 const BODY_WOBBLE_AMP = 0.015
 const RING_WOBBLE_FREQ = 1.1
 const RING_WOBBLE_AMP = 0.018
+const BODY_BASE_OPACITY = 0.95
+const RING_BASE_OPACITY = 0.9
 
-function PlanetBody({ config }: { config: PlanetVisual }) {
+function PlanetBody({
+  config,
+  morphRef,
+}: {
+  config: PlanetVisual
+  morphRef: MorphRef
+}) {
   const ref = useRef<THREE.Points>(null!)
-  const { positions, colors, dirs, baseRadii, phases } = useSphereAttributes(config)
+  const matRef = useRef<THREE.PointsMaterial>(null!)
+  const { positions, colors, dirs, baseRadii, phases, glyphTargets } =
+    useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
   useFrame((state, delta) => {
     if (!ref.current) return
-    ref.current.rotation.y += delta * config.rotationSpeed
+    const m = morphRef.current
+    const inv = 1 - m
+    ref.current.rotation.y += delta * config.rotationSpeed * inv
     const t = state.clock.elapsedTime
+    const wobble = amp * inv
     const n = config.particleCount
     for (let i = 0; i < n; i++) {
-      const r = baseRadii[i] + Math.sin(t * BODY_WOBBLE_FREQ + phases[i]) * amp
-      positions[i * 3 + 0] = dirs[i * 3 + 0] * r
-      positions[i * 3 + 1] = dirs[i * 3 + 1] * r
-      positions[i * 3 + 2] = dirs[i * 3 + 2] * r
+      const r = baseRadii[i] + Math.sin(t * BODY_WOBBLE_FREQ + phases[i]) * wobble
+      const sx = dirs[i * 3 + 0] * r
+      const sy = dirs[i * 3 + 1] * r
+      const sz = dirs[i * 3 + 2] * r
+      const tx = glyphTargets[i * 3 + 0]
+      const ty = glyphTargets[i * 3 + 1]
+      const tz = glyphTargets[i * 3 + 2]
+      positions[i * 3 + 0] = sx + (tx - sx) * m
+      positions[i * 3 + 1] = sy + (ty - sy) * m
+      positions[i * 3 + 2] = sz + (tz - sz) * m
     }
     const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
@@ -107,11 +134,12 @@ function PlanetBody({ config }: { config: PlanetVisual }) {
         />
       </bufferGeometry>
       <pointsMaterial
+        ref={matRef}
         size={config.pointSize}
         sizeAttenuation={false}
         vertexColors
         transparent
-        opacity={0.95}
+        opacity={BODY_BASE_OPACITY}
         depthWrite={false}
       />
     </points>
@@ -123,23 +151,29 @@ function PlanetRing({
   bodyScale,
   speed,
   pointSize,
+  morphRef,
 }: {
   ring: RingConfig
   bodyScale: number
   speed: number
   pointSize: number
+  morphRef: MorphRef
 }) {
   const ref = useRef<THREE.Points>(null!)
+  const matRef = useRef<THREE.PointsMaterial>(null!)
   const { positions, colors, baseRadii, baseThetas, baseYs, phases } =
     useRingAttributes(ring, bodyScale)
   const amp = bodyScale * RING_WOBBLE_AMP
   useFrame((state, delta) => {
     if (!ref.current) return
-    ref.current.rotation.y += delta * speed
+    const m = morphRef.current
+    const inv = 1 - m
+    ref.current.rotation.y += delta * speed * inv
     const t = state.clock.elapsedTime
+    const wobble = amp * inv
     const n = ring.particleCount
     for (let i = 0; i < n; i++) {
-      const r = baseRadii[i] + Math.sin(t * RING_WOBBLE_FREQ + phases[i]) * amp
+      const r = baseRadii[i] + Math.sin(t * RING_WOBBLE_FREQ + phases[i]) * wobble
       const theta = baseThetas[i]
       positions[i * 3 + 0] = r * Math.cos(theta)
       positions[i * 3 + 1] = baseYs[i]
@@ -147,6 +181,7 @@ function PlanetRing({
     }
     const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
+    if (matRef.current) matRef.current.opacity = RING_BASE_OPACITY * inv
   })
   return (
     <points ref={ref}>
@@ -161,57 +196,89 @@ function PlanetRing({
         />
       </bufferGeometry>
       <pointsMaterial
+        ref={matRef}
         size={pointSize}
         sizeAttenuation={false}
         vertexColors
         transparent
-        opacity={0.9}
+        opacity={RING_BASE_OPACITY}
         depthWrite={false}
       />
     </points>
   )
 }
 
-function PlanetSelf({ config }: { config: PlanetVisual }) {
+function PlanetSelf({
+  config,
+  morphRef,
+}: {
+  config: PlanetVisual
+  morphRef: MorphRef
+}) {
+  const tiltRef = useRef<THREE.Group>(null!)
+  useFrame(() => {
+    if (!tiltRef.current) return
+    const inv = 1 - morphRef.current
+    tiltRef.current.rotation.x = config.axisTilt * inv
+    tiltRef.current.rotation.z = (config.axisRoll ?? 0) * inv
+  })
   return (
-    <group rotation-z={config.axisRoll ?? 0}>
-      <group rotation-x={config.axisTilt}>
-        <PlanetBody config={config} />
-        {config.ring && (
-          <PlanetRing
-            ring={config.ring}
-            bodyScale={config.bodyScale}
-            speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
-            pointSize={config.pointSize}
-          />
-        )}
-      </group>
+    <group ref={tiltRef}>
+      <PlanetBody config={config} morphRef={morphRef} />
+      {config.ring && (
+        <PlanetRing
+          ring={config.ring}
+          bodyScale={config.bodyScale}
+          speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
+          pointSize={config.pointSize}
+          morphRef={morphRef}
+        />
+      )}
     </group>
   )
 }
 
-function Satellite({ sat }: { sat: SatelliteConfig }) {
+function Satellite({ sat, morphRef }: { sat: SatelliteConfig; morphRef: MorphRef }) {
   const orbitRef = useRef<THREE.Group>(null!)
+  const wrapRef = useRef<THREE.Group>(null!)
+  const innerMorphRef = useRef(0)
   useFrame((_, delta) => {
-    if (orbitRef.current) orbitRef.current.rotation.y += delta * sat.orbitSpeed
+    const inv = 1 - morphRef.current
+    if (orbitRef.current) orbitRef.current.rotation.y += delta * sat.orbitSpeed * inv
+    if (wrapRef.current) wrapRef.current.scale.setScalar(inv)
   })
   return (
-    <group rotation-x={sat.inclination ?? 0}>
+    <group ref={wrapRef} rotation-x={sat.inclination ?? 0}>
       <group ref={orbitRef} rotation-y={sat.phase ?? 0}>
         <group position={[sat.orbitRadius, 0, 0]}>
-          <PlanetSelf config={sat.body} />
+          <PlanetSelf config={sat.body} morphRef={innerMorphRef} />
         </group>
       </group>
     </group>
   )
 }
 
-function PlanetScene({ config }: { config: PlanetVisual }) {
+function PlanetScene({
+  config,
+  morphTarget,
+}: {
+  config: PlanetVisual
+  morphTarget: number
+}) {
+  const morphRef = useRef(0)
+  useFrame((_, delta) => {
+    morphRef.current = THREE.MathUtils.damp(
+      morphRef.current,
+      morphTarget,
+      MORPH_LAMBDA,
+      delta,
+    )
+  })
   return (
     <>
-      <PlanetSelf config={config} />
+      <PlanetSelf config={config} morphRef={morphRef} />
       {config.satellites?.map((sat) => (
-        <Satellite key={sat.body.name} sat={sat} />
+        <Satellite key={sat.body.name} sat={sat} morphRef={morphRef} />
       ))}
     </>
   )
@@ -220,15 +287,33 @@ function PlanetScene({ config }: { config: PlanetVisual }) {
 export default function ParticlePlanet({ config }: { config: PlanetVisual }) {
   const width = config.width ?? config.height
   const height = config.height
+  const [engaged, setEngaged] = useState(false)
+  const engagedByClick = useRef(false)
+
+  const handleEnter = () => setEngaged(true)
+  const handleLeave = () => {
+    if (!engagedByClick.current) setEngaged(false)
+  }
+  const handleClick = () => {
+    engagedByClick.current = !engagedByClick.current
+    setEngaged(engagedByClick.current)
+  }
+
   return (
     <div className="flex flex-col items-center gap-2">
-      <div style={{ width, height }}>
+      <div
+        style={{ width, height }}
+        className="cursor-pointer select-none touch-manipulation"
+        onPointerEnter={handleEnter}
+        onPointerLeave={handleLeave}
+        onClick={handleClick}
+      >
         <Canvas
           camera={{ position: [0, 0, 4], fov: 30 }}
           dpr={[1, 2]}
           gl={{ alpha: true, antialias: true }}
         >
-          <PlanetScene config={config} />
+          <PlanetScene config={config} morphTarget={engaged ? 1 : 0} />
         </Canvas>
       </div>
       <div className="text-[10px] uppercase tracking-widest text-earth-500">
