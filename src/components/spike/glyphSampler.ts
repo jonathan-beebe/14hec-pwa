@@ -2,18 +2,22 @@ const GLYPH_CANVAS_SIZE = 256
 const GLYPH_FONT_RATIO = 0.78
 const ALPHA_THRESHOLD = 80
 
-export function sampleGlyph(
-  glyph: string,
-  count: number,
-  scale: number,
-): Float32Array {
-  const out = new Float32Array(count * 3)
+export type GlyphProfile = {
+  opaqueX: Int16Array
+  opaqueY: Int16Array
+  cx: number
+  cy: number
+  norm: number
+  scale: number
+}
+
+export function prepareGlyphProfile(glyph: string, scale: number): GlyphProfile | null {
   const size = GLYPH_CANVAS_SIZE
   const canvas = document.createElement('canvas')
   canvas.width = size
   canvas.height = size
   const ctx = canvas.getContext('2d')
-  if (!ctx) return fillCircle(out, count, scale)
+  if (!ctx) return null
 
   ctx.clearRect(0, 0, size, size)
   ctx.fillStyle = '#fff'
@@ -23,8 +27,8 @@ export function sampleGlyph(
   ctx.fillText(glyph, size / 2, size / 2)
 
   const data = ctx.getImageData(0, 0, size, size).data
-  const opaqueX: number[] = []
-  const opaqueY: number[] = []
+  const xs: number[] = []
+  const ys: number[] = []
   let minX = size
   let maxX = 0
   let minY = size
@@ -32,8 +36,8 @@ export function sampleGlyph(
   for (let py = 0; py < size; py++) {
     for (let px = 0; px < size; px++) {
       if (data[(py * size + px) * 4 + 3] > ALPHA_THRESHOLD) {
-        opaqueX.push(px)
-        opaqueY.push(py)
+        xs.push(px)
+        ys.push(py)
         if (px < minX) minX = px
         if (px > maxX) maxX = px
         if (py < minY) minY = py
@@ -42,20 +46,49 @@ export function sampleGlyph(
     }
   }
 
-  if (opaqueX.length === 0) return fillCircle(out, count, scale)
+  if (xs.length === 0) return null
 
   const cx = (minX + maxX) / 2
   const cy = (minY + maxY) / 2
   const halfExtent = Math.max(maxX - minX, maxY - minY) / 2
   const norm = halfExtent > 0 ? scale / halfExtent : scale
 
+  return {
+    opaqueX: Int16Array.from(xs),
+    opaqueY: Int16Array.from(ys),
+    cx,
+    cy,
+    norm,
+    scale,
+  }
+}
+
+export function sampleFromProfile(
+  profile: GlyphProfile | null,
+  count: number,
+  out: Float32Array = new Float32Array(count * 3),
+): Float32Array {
+  if (!profile) return fillCircle(out, count, 1)
+  const { opaqueX, opaqueY, cx, cy, norm } = profile
+  const len = opaqueX.length
   for (let i = 0; i < count; i++) {
-    const idx = (Math.random() * opaqueX.length) | 0
+    const idx = (Math.random() * len) | 0
     out[i * 3 + 0] = (opaqueX[idx] - cx) * norm
     out[i * 3 + 1] = -(opaqueY[idx] - cy) * norm
     out[i * 3 + 2] = 0
   }
   return out
+}
+
+export function sampleGlyph(
+  glyph: string,
+  count: number,
+  scale: number,
+): Float32Array {
+  const profile = prepareGlyphProfile(glyph, scale)
+  const out = new Float32Array(count * 3)
+  if (!profile) return fillCircle(out, count, scale)
+  return sampleFromProfile(profile, count, out)
 }
 
 function fillCircle(out: Float32Array, count: number, scale: number): Float32Array {
@@ -72,12 +105,18 @@ function fillCircle(out: Float32Array, count: number, scale: number): Float32Arr
 /**
  * Re-orders glyph points so that paired[i] is the target for sphere particle i.
  * Pairs by polar angle (XY projection) so the morph reads as a swirl into shape
- * rather than chaos. O(n log n) — cheap at the particle counts in use.
+ * rather than chaos. `rotationOffset` shifts the glyph-side ordering by k slots:
+ * the swirl read is preserved (still angle-sorted on both sides), but every
+ * sphere particle lands on a different glyph pixel than last time — that is
+ * what makes successive morphs feel different rather than identical.
+ * O(n log n) — cheap at the particle counts in use.
  */
 export function pairByAngle(
   dirs: Float32Array,
   glyphPoints: Float32Array,
   n: number,
+  rotationOffset = 0,
+  out: Float32Array = new Float32Array(n * 3),
 ): Float32Array {
   const sphereOrder = new Array<number>(n)
   const glyphOrder = new Array<number>(n)
@@ -92,13 +131,13 @@ export function pairByAngle(
   sphereOrder.sort((a, b) => sphereAngle[a] - sphereAngle[b])
   glyphOrder.sort((a, b) => glyphAngle[a] - glyphAngle[b])
 
-  const paired = new Float32Array(n * 3)
-  for (let k = 0; k < n; k++) {
-    const sIdx = sphereOrder[k]
-    const gIdx = glyphOrder[k]
-    paired[sIdx * 3 + 0] = glyphPoints[gIdx * 3 + 0]
-    paired[sIdx * 3 + 1] = glyphPoints[gIdx * 3 + 1]
-    paired[sIdx * 3 + 2] = glyphPoints[gIdx * 3 + 2]
+  const k = ((rotationOffset % n) + n) % n
+  for (let i = 0; i < n; i++) {
+    const sIdx = sphereOrder[i]
+    const gIdx = glyphOrder[(i + k) % n]
+    out[sIdx * 3 + 0] = glyphPoints[gIdx * 3 + 0]
+    out[sIdx * 3 + 1] = glyphPoints[gIdx * 3 + 1]
+    out[sIdx * 3 + 2] = glyphPoints[gIdx * 3 + 2]
   }
-  return paired
+  return out
 }

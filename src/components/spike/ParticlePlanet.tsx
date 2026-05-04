@@ -2,7 +2,7 @@ import { useMemo, useRef, useState, type MutableRefObject } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
-import { sampleGlyph, pairByAngle } from './glyphSampler'
+import { prepareGlyphProfile, sampleFromProfile, pairByAngle } from './glyphSampler'
 
 const GLYPH_SCALE_RATIO = 0.85
 const MORPH_LAMBDA = 7
@@ -10,6 +10,7 @@ const SPARKLE_BASE = 0.5
 const SPARKLE_AMP = 0.5
 const SPARKLE_FREQ_1 = 1.7
 const SPARKLE_FREQ_2 = 2.7
+const MORPH_IDLE_EPSILON = 0.01
 
 function sparkle(t: number, phase: number) {
   const s1 = Math.sin(t * SPARKLE_FREQ_1 + phase * 1.7)
@@ -53,9 +54,28 @@ function useSphereAttributes(config: PlanetVisual) {
       colors[i * 3 + 1] = cg * SPARKLE_BASE
       colors[i * 3 + 2] = cb * SPARKLE_BASE
     }
-    const glyphPoints = sampleGlyph(config.glyph, n, config.bodyScale * GLYPH_SCALE_RATIO)
-    const glyphTargets = pairByAngle(dirs, glyphPoints, n)
-    return { positions, colors, baseColors, dirs, baseRadii, phases, glyphTargets }
+    // Profile + scratch are retained so each engagement can re-roll the glyph
+    // sample and pairing in place — keeps the morph from looking identical
+    // every time without allocating on the hot path.
+    const glyphProfile = prepareGlyphProfile(
+      config.glyph,
+      config.bodyScale * GLYPH_SCALE_RATIO,
+    )
+    const glyphScratch = new Float32Array(n * 3)
+    const glyphTargets = new Float32Array(n * 3)
+    sampleFromProfile(glyphProfile, n, glyphScratch)
+    pairByAngle(dirs, glyphScratch, n, 0, glyphTargets)
+    return {
+      positions,
+      colors,
+      baseColors,
+      dirs,
+      baseRadii,
+      phases,
+      glyphProfile,
+      glyphScratch,
+      glyphTargets,
+    }
   }, [config])
 }
 
@@ -117,12 +137,34 @@ function PlanetBody({
   const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
   const targetYawRef = useRef<number | null>(null)
-  const { positions, colors, baseColors, dirs, baseRadii, phases, glyphTargets } =
-    useSphereAttributes(config)
+  const prevMorphRef = useRef(0)
+  const {
+    positions,
+    colors,
+    baseColors,
+    dirs,
+    baseRadii,
+    phases,
+    glyphProfile,
+    glyphScratch,
+    glyphTargets,
+  } = useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
   useFrame((state, delta) => {
     if (!ref.current) return
     const m = morphRef.current
+    const prevM = prevMorphRef.current
+    // Re-roll glyph targets on the trailing edge of the morph (settling back
+    // to idle). Doing it here — not on engage — guarantees we never swap
+    // targets mid-flight, which would snap particles. Next engagement then
+    // pulls from a fresh sample with a fresh angular pairing rotation.
+    if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
+      const n = config.particleCount
+      sampleFromProfile(glyphProfile, n, glyphScratch)
+      const k = (Math.random() * n) | 0
+      pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
+    }
+    prevMorphRef.current = m
     const inv = 1 - m
     if (m < 0.001) {
       targetYawRef.current = null
