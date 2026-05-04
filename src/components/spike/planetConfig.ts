@@ -64,6 +64,28 @@ const tint = (c: RGB, t: RGB, k: number): RGB => [
   c[2] + t[2] * k,
 ]
 
+export const sun: PlanetVisual = {
+  name: 'Sun',
+  height: 200,
+  bodyScale: 1.0,
+  particleCount: 9000,
+  pointSize: 1.5,
+  axisTilt: 0.13,
+  rotationSpeed: 0.06,
+  glyph: '☉',
+  colorAt: (x, y, z) => {
+    const n = noise3(x, y, z, 8)
+    let base: RGB
+    if (n > 0.5) base = [1.00, 0.94, 0.55]
+    else if (n > 0.0) base = [1.00, 0.78, 0.28]
+    else base = [0.96, 0.55, 0.16]
+    const sunspot1 = spot(x, y, z, [0.55, 0.20, 0.75], 14)
+    const sunspot2 = spot(x, y, z, [-0.45, 0.10, -0.85], 16)
+    base = tint(base, [-0.55, -0.42, -0.20], (sunspot1 + sunspot2) * 0.8)
+    return jitter(base, 0.06)
+  },
+}
+
 export const mercury: PlanetVisual = {
   name: 'Mercury',
   height: 50,
@@ -117,10 +139,10 @@ export const venus: PlanetVisual = {
 
 export const moon: PlanetVisual = {
   name: 'Moon',
-  height: 30,
-  bodyScale: 0.27,
-  particleCount: 450,
-  pointSize: 1.0,
+  height: 44,
+  bodyScale: 1.0,
+  particleCount: 1300,
+  pointSize: 1.2,
   axisTilt: 0.10,
   rotationSpeed: 0.04,
   glyph: '☽',
@@ -130,38 +152,6 @@ export const moon: PlanetVisual = {
     if (n > -0.4) return jitter([0.78, 0.77, 0.74], 0.05)
     return jitter([0.65, 0.64, 0.61], 0.05)
   },
-}
-
-export const earth: PlanetVisual = {
-  name: 'Earth',
-  height: 70,
-  width: 200,
-  bodyScale: 1.0,
-  particleCount: 2900,
-  pointSize: 1.2,
-  axisTilt: 0.41,
-  rotationSpeed: 0.18,
-  glyph: '♁',
-  colorAt: (x, y, z) => {
-    if (Math.abs(y) > 0.86) return jitter([0.90, 0.95, 1.00], 0.05)
-    if (Math.abs(y) > 0.74) {
-      const aurora = noise3(x, y, z, 9)
-      if (aurora > 0.6) return jitter([0.30, 0.78, 0.55], 0.10)
-      if (aurora < -0.7) return jitter([0.55, 0.30, 0.78], 0.08)
-    }
-    const n = noise3(x, y, z, 5)
-    if (n > 0.55) return jitter([0.22, 0.62, 0.28], 0.08)
-    if (n > 0.05) return jitter([0.62, 0.52, 0.28], 0.08)
-    return jitter([0.10, 0.42, 0.82], 0.06)
-  },
-  satellites: [
-    {
-      body: moon,
-      orbitRadius: 1.7,
-      orbitSpeed: 0.55,
-      inclination: 0.18,
-    },
-  ],
 }
 
 export const mars: PlanetVisual = {
@@ -342,9 +332,10 @@ export const pluto: PlanetVisual = {
 }
 
 export const allPlanets: PlanetVisual[] = [
+  sun,
+  moon,
   mercury,
   venus,
-  earth,
   mars,
   jupiter,
   saturn,

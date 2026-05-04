@@ -375,29 +375,28 @@ function PlanetScene({
   )
 }
 
-export default function ParticlePlanet({ config }: { config: PlanetVisual }) {
+export default function ParticlePlanet({
+  config,
+  selected = false,
+  onSelect,
+}: {
+  config: PlanetVisual
+  selected?: boolean
+  onSelect?: () => void
+}) {
   const width = config.width ?? config.height
   const height = config.height
-  const [engaged, setEngaged] = useState(false)
-  const engagedByClick = useRef(false)
-
-  const handleEnter = () => setEngaged(true)
-  const handleLeave = () => {
-    if (!engagedByClick.current) setEngaged(false)
-  }
-  const handleClick = () => {
-    engagedByClick.current = !engagedByClick.current
-    setEngaged(engagedByClick.current)
-  }
+  const [hovered, setHovered] = useState(false)
+  const engaged = selected || hovered
 
   return (
     <div className="flex flex-col items-center gap-2">
       <div
         style={{ width, height }}
         className="cursor-pointer select-none touch-manipulation"
-        onPointerEnter={handleEnter}
-        onPointerLeave={handleLeave}
-        onClick={handleClick}
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
+        onClick={onSelect}
       >
         <Canvas
           camera={{ position: [0, 0, 4], fov: 30 }}
@@ -407,7 +406,11 @@ export default function ParticlePlanet({ config }: { config: PlanetVisual }) {
           <PlanetScene config={config} morphTarget={engaged ? 1 : 0} />
         </Canvas>
       </div>
-      <div className="text-[10px] uppercase tracking-widest text-earth-500">
+      <div
+        className={`text-[10px] uppercase tracking-widest transition-colors ${
+          selected ? 'text-celestial-300' : 'text-earth-500'
+        }`}
+      >
         {config.name}
       </div>
     </div>
