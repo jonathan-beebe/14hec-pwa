@@ -95,6 +95,7 @@ function PlanetBody({
 }) {
   const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
+  const targetYawRef = useRef<number | null>(null)
   const { positions, colors, dirs, baseRadii, phases, glyphTargets } =
     useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
@@ -102,7 +103,22 @@ function PlanetBody({
     if (!ref.current) return
     const m = morphRef.current
     const inv = 1 - m
-    ref.current.rotation.y += delta * config.rotationSpeed * inv
+    if (m < 0.001) {
+      targetYawRef.current = null
+      ref.current.rotation.y += delta * config.rotationSpeed
+    } else {
+      if (targetYawRef.current === null) {
+        const TWO_PI = Math.PI * 2
+        targetYawRef.current =
+          Math.round(ref.current.rotation.y / TWO_PI) * TWO_PI
+      }
+      ref.current.rotation.y = THREE.MathUtils.damp(
+        ref.current.rotation.y,
+        targetYawRef.current,
+        MORPH_LAMBDA,
+        delta,
+      )
+    }
     const t = state.clock.elapsedTime
     const wobble = amp * inv
     const n = config.particleCount
