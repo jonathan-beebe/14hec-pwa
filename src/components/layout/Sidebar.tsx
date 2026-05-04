@@ -50,7 +50,8 @@ const navSections: NavSection[] = [
     ? [{
         label: 'Dev',
         items: [
-          { view: 'design-system', route: '/design-system', label: 'Design System', icon: '\u25A3' }
+          { view: 'design-system', route: '/design-system', label: 'Design System', icon: '\u25A3' },
+          { view: 'spike-planets', route: '/spike/planets', label: 'Planets Spike', icon: '\u2644' }
         ]
       }]
     : []),

@@ -1,7 +1,7 @@
 import { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import type { PlanetVisual, RingConfig } from './planetConfig'
+import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
 
 function useSphereAttributes(config: PlanetVisual) {
   return useMemo(() => {
@@ -128,7 +128,7 @@ function PlanetRing({
   )
 }
 
-function PlanetScene({ config }: { config: PlanetVisual }) {
+function PlanetSelf({ config }: { config: PlanetVisual }) {
   return (
     <group rotation-z={config.axisTilt}>
       <PlanetBody config={config} />
@@ -141,6 +141,31 @@ function PlanetScene({ config }: { config: PlanetVisual }) {
         />
       )}
     </group>
+  )
+}
+
+function Satellite({ sat }: { sat: SatelliteConfig }) {
+  const orbitRef = useRef<THREE.Group>(null!)
+  useFrame((_, delta) => {
+    if (orbitRef.current) orbitRef.current.rotation.y += delta * sat.orbitSpeed
+  })
+  return (
+    <group ref={orbitRef} rotation-y={sat.phase ?? 0}>
+      <group position={[sat.orbitRadius, 0, 0]}>
+        <PlanetSelf config={sat.body} />
+      </group>
+    </group>
+  )
+}
+
+function PlanetScene({ config }: { config: PlanetVisual }) {
+  return (
+    <>
+      <PlanetSelf config={config} />
+      {config.satellites?.map((sat) => (
+        <Satellite key={sat.body.name} sat={sat} />
+      ))}
+    </>
   )
 }
 

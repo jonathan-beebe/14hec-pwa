@@ -1,14 +1,13 @@
 import ParticlePlanet from './ParticlePlanet'
-import { earth, jupiter, saturn, uranus } from './planetConfig'
+import { allPlanets } from './planetConfig'
 
 export default function PlanetsSpike() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center">
-      <div className="flex items-end gap-12">
-        <ParticlePlanet config={earth} />
-        <ParticlePlanet config={uranus} />
-        <ParticlePlanet config={saturn} />
-        <ParticlePlanet config={jupiter} />
+    <div className="min-h-[80vh] flex items-center overflow-x-auto">
+      <div className="flex items-end gap-6 px-8 py-12 mx-auto">
+        {allPlanets.map((p) => (
+          <ParticlePlanet key={p.name} config={p} />
+        ))}
       </div>
     </div>
   )
