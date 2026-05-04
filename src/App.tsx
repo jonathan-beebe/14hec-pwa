@@ -23,6 +23,7 @@ import WellnessDetail from './components/wellness/WellnessDetail'
 import DisclaimerModal from './components/common/DisclaimerModal'
 import UpdateBanner from './components/common/UpdateBanner'
 import DesignSystem from './components/design-system/DesignSystem'
+import PlanetsSpike from './components/spike/PlanetsSpike'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -78,6 +79,8 @@ export default function App() {
           <Route path="/wellness" element={<WellnessNavigator />} />
           <Route path="/wellness/:id" element={<WellnessDetail />} />
           <Route path="/design-system" element={<DesignSystem />} />
+          <Route path="/spike/planets" element={<PlanetsSpike />} />
+          <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
