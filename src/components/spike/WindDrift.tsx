@@ -7,13 +7,14 @@ import { prepareGlyphProfile, type GlyphProfile } from './glyphSampler'
 export const WIND_ENABLED = true
 
 const GLYPH_SCALE_RATIO = 0.85
-const POOL_FRACTION = 0.07
-const POOL_MIN = 48
-const POOL_MAX = 800
+const POOL_FRACTION = 0.04
+const POOL_MIN = 200
+const POOL_MAX = 2000
 
 // Wind blows along world +x. Gust modulates speed; direction wobble veers it
-// gently around the Y axis; vertical wobble lifts/dips it. All in world space —
-// drift particles do NOT inherit the planet's spin, tilt, or satellite orbit.
+// gently around the Y axis; vertical wobble lifts/dips it. Wind is one global
+// field — every source sees the same vector, so sand from one planet drifts
+// past the next.
 const WIND_BASE_SPEED = 0.32
 const WIND_GUST_FREQ = 0.7
 const WIND_GUST_AMP = 0.4
@@ -38,7 +39,7 @@ const FADE_TAIL_EXP = 0.55
 const UPWIND_BIAS = 0.7
 const MAX_ATTEMPTS = 4
 
-const POINT_SIZE_RATIO = 0.85
+const DRIFT_POINT_SIZE = 1.1
 
 type PointsRef = MutableRefObject<THREE.Points | null>
 
@@ -55,10 +56,9 @@ type Pool = {
   velJitter: Float32Array
   life: Float32Array
   lifespan: Float32Array
-  glyphProfile: GlyphProfile | null
 }
 
-function makePool(config: PlanetVisual, size: number): Pool {
+function makePool(size: number): Pool {
   const positions = new Float32Array(size * 3)
   const colors = new Float32Array(size * 3)
   const baseColors = new Float32Array(size * 3)
@@ -66,44 +66,73 @@ function makePool(config: PlanetVisual, size: number): Pool {
   const life = new Float32Array(size)
   const lifespan = new Float32Array(size)
   for (let i = 0; i < size; i++) {
-    // Lifespans are randomized so the pool desyncs naturally after the first
-    // cycle; life starts at lifespan so every slot respawns on frame 1, when
-    // body/ring matrixWorld is finally available.
+    // Lifespans randomized so the pool desyncs naturally; life starts at
+    // lifespan so every slot respawns on frame 1 when matrixWorld is ready.
     lifespan[i] = LIFESPAN_MIN + Math.random() * (LIFESPAN_MAX - LIFESPAN_MIN)
     life[i] = lifespan[i]
     velJitter[i * 3 + 0] = (Math.random() - 0.5) * VEL_JITTER_X
     velJitter[i * 3 + 1] = (Math.random() - 0.5) * VEL_JITTER_Y
     velJitter[i * 3 + 2] = (Math.random() - 0.5) * VEL_JITTER_Z
   }
-  const glyphProfile = prepareGlyphProfile(
-    config.glyph,
-    config.bodyScale * GLYPH_SCALE_RATIO,
-  )
-  return { positions, colors, baseColors, velJitter, life, lifespan, glyphProfile }
+  return { positions, colors, baseColors, velJitter, life, lifespan }
 }
 
-export type WindDriftProps = {
+export type WindSource = {
   config: PlanetVisual
   morphRef: MutableRefObject<number>
   bodyRef: PointsRef
   ringRef: PointsRef
 }
 
-export default function WindDrift({
-  config,
-  morphRef,
-  bodyRef,
-  ringRef,
-}: WindDriftProps) {
-  const ringCount = config.ring?.particleCount ?? 0
-  const total = config.particleCount + ringCount
+type SourcePacket = WindSource & {
+  glyphProfile: GlyphProfile | null
+  bodyCount: number
+  ringCount: number
+  totalCount: number
+  ringFraction: number
+}
+
+export type WindDriftProps = {
+  sources: WindSource[]
+}
+
+export default function WindDrift({ sources }: WindDriftProps) {
+  const packets: SourcePacket[] = useMemo(
+    () =>
+      sources.map((s) => {
+        const ringCount = s.config.ring?.particleCount ?? 0
+        const totalCount = s.config.particleCount + ringCount
+        return {
+          ...s,
+          glyphProfile: prepareGlyphProfile(
+            s.config.glyph,
+            s.config.bodyScale * GLYPH_SCALE_RATIO,
+          ),
+          bodyCount: s.config.particleCount,
+          ringCount,
+          totalCount,
+          ringFraction: totalCount > 0 ? ringCount / totalCount : 0,
+        }
+      }),
+    [sources],
+  )
+
+  // Cumulative weights for sampling sources proportional to their particle count.
+  const { cumWeights, totalWeight } = useMemo(() => {
+    const arr = new Float32Array(packets.length)
+    let s = 0
+    for (let i = 0; i < packets.length; i++) {
+      s += packets[i].totalCount
+      arr[i] = s
+    }
+    return { cumWeights: arr, totalWeight: s }
+  }, [packets])
+
   const poolSize = Math.max(
     POOL_MIN,
-    Math.min(POOL_MAX, Math.round(total * POOL_FRACTION)),
+    Math.min(POOL_MAX, Math.round(totalWeight * POOL_FRACTION)),
   )
-  const ringFraction = ringCount / total
-
-  const pool = useMemo(() => makePool(config, poolSize), [config, poolSize])
+  const pool = useMemo(() => makePool(poolSize), [poolSize])
   const tmp = useMemo(() => new THREE.Vector3(), [])
   const pointsRef = useRef<THREE.Points>(null!)
 
@@ -118,20 +147,16 @@ export default function WindDrift({
       WIND_GUST_AMP_2 * Math.sin(t * WIND_GUST_FREQ_2 + 1.7)
     const vertical = Math.sin(t * WIND_VERTICAL_FREQ + 1.3) * WIND_VERTICAL_AMP
     // Clamp so a deep gust trough doesn't reverse the wind.
-    const speed = WIND_BASE_SPEED * config.bodyScale * Math.max(0.2, gust)
+    const speed = WIND_BASE_SPEED * Math.max(0.2, gust)
     const wx = Math.cos(dirAngle) * speed
     const wy = vertical * speed
     const wz = Math.sin(dirAngle) * speed
-
-    const morph = morphRef.current
-    const body = bodyRef.current
-    const ring = ringRef.current
 
     for (let i = 0; i < poolSize; i++) {
       const li = pool.life[i] + delta
       const ls = pool.lifespan[i]
       if (li >= ls) {
-        respawn(i, pool, config, morph, body, ring, ringFraction, tmp)
+        respawn(i, pool, packets, cumWeights, totalWeight, tmp)
       } else {
         pool.life[i] = li
         const vx = wx + pool.velJitter[i * 3 + 0]
@@ -162,7 +187,7 @@ export default function WindDrift({
         <bufferAttribute attach="attributes-color" args={[pool.colors, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        size={config.pointSize * POINT_SIZE_RATIO}
+        size={DRIFT_POINT_SIZE}
         sizeAttenuation={false}
         vertexColors
         transparent
@@ -173,38 +198,60 @@ export default function WindDrift({
   )
 }
 
+function pickSourceIndex(cumWeights: Float32Array, totalWeight: number): number {
+  const r = Math.random() * totalWeight
+  for (let i = 0; i < cumWeights.length; i++) {
+    if (r < cumWeights[i]) return i
+  }
+  return cumWeights.length - 1
+}
+
 function respawn(
   i: number,
   pool: Pool,
-  config: PlanetVisual,
-  morph: number,
-  body: THREE.Points | null,
-  ring: THREE.Points | null,
-  ringFraction: number,
+  packets: SourcePacket[],
+  cumWeights: Float32Array,
+  totalWeight: number,
   tmp: THREE.Vector3,
 ) {
-  const useRing =
-    ring !== null && config.ring !== undefined && Math.random() < ringFraction
+  if (totalWeight <= 0) {
+    pool.life[i] = pool.lifespan[i]
+    return
+  }
+
   let r = 0,
     g = 0,
     b = 0
+  let sampled = false
 
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    const packet = packets[pickSourceIndex(cumWeights, totalWeight)]
+    const useRing =
+      packet.ringCount > 0 &&
+      packet.ringRef.current !== null &&
+      Math.random() < packet.ringFraction
+
     if (useRing) {
-      const ringCfg = config.ring!
+      const ring = packet.ringRef.current
+      if (!ring) continue
+      const ringCfg = packet.config.ring!
       const f = Math.random()
       const radius =
-        (ringCfg.inner + f * (ringCfg.outer - ringCfg.inner)) * config.bodyScale
+        (ringCfg.inner + f * (ringCfg.outer - ringCfg.inner)) * packet.config.bodyScale
       const theta = Math.random() * Math.PI * 2
-      const yJ = (Math.random() - 0.5) * (ringCfg.thickness ?? 0.01) * config.bodyScale
+      const yJ =
+        (Math.random() - 0.5) * (ringCfg.thickness ?? 0.01) * packet.config.bodyScale
       tmp.set(radius * Math.cos(theta), yJ, radius * Math.sin(theta))
-      tmp.applyMatrix4(ring!.matrixWorld)
+      tmp.applyMatrix4(ring.matrixWorld)
       const [cr, cg, cb] = ringCfg.color
       const j = (Math.random() - 0.5) * 0.06
       r = cr + j
       g = cg + j
       b = cb + j
-    } else if (body !== null) {
+      sampled = true
+    } else {
+      const body = packet.bodyRef.current
+      if (!body) continue
       const u = Math.random()
       const v = Math.random()
       const theta = 2 * Math.PI * u
@@ -212,14 +259,15 @@ function respawn(
       const dx = Math.sin(phi) * Math.cos(theta)
       const dy = Math.cos(phi)
       const dz = Math.sin(phi) * Math.sin(theta)
-      const radius = config.bodyScale * (0.97 + Math.random() * 0.03)
+      const radius = packet.config.bodyScale * (0.97 + Math.random() * 0.03)
       let bx = dx * radius
       let by = dy * radius
       let bz = dz * radius
+      const morph = packet.morphRef.current
       // When morphed, lift sand from the glyph silhouette instead of the
       // sphere — keeps the symbol shedding too. Glyph z is 0 (flat).
-      if (morph > 0.001 && pool.glyphProfile) {
-        const gp = pool.glyphProfile
+      if (morph > 0.001 && packet.glyphProfile) {
+        const gp = packet.glyphProfile
         const idx = (Math.random() * gp.opaqueX.length) | 0
         const gx = (gp.opaqueX[idx] - gp.cx) * gp.norm
         const gy = -(gp.opaqueY[idx] - gp.cy) * gp.norm
@@ -228,19 +276,22 @@ function respawn(
         bz = bz + (0 - bz) * morph
       }
       tmp.set(bx, by, bz).applyMatrix4(body.matrixWorld)
-      const [cr, cg, cb] = config.colorAt(dx, dy, dz)
+      const [cr, cg, cb] = packet.config.colorAt(dx, dy, dz)
       r = cr
       g = cg
       b = cb
-    } else {
-      // No source available yet (refs not attached on frame 0). Leave the
-      // slot at end-of-life so the next frame retries the spawn.
-      pool.life[i] = pool.lifespan[i]
-      return
+      sampled = true
     }
-    // Upwind bias is on world-space x: reject the leeward face most of the
-    // time, so retried samples tend toward the windward face.
+
+    // Upwind bias: prefer windward (world -x) spawns. Reject downwind samples
+    // most of the time, retrying with a fresh source pick.
     if (tmp.x <= 0 || Math.random() > UPWIND_BIAS) break
+  }
+
+  if (!sampled) {
+    // No source had a ready ref — defer to next frame.
+    pool.life[i] = pool.lifespan[i]
+    return
   }
 
   pool.positions[i * 3 + 0] = tmp.x

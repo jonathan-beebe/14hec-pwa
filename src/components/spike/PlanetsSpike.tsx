@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import ParticlePlanet from './ParticlePlanet'
+import PlanetField from './PlanetField'
 import { allPlanets } from './planetConfig'
 import { api } from '@/data/api'
 import type { PlanetData, Plant } from '@/types'
@@ -45,18 +45,11 @@ export default function PlanetsSpike() {
 
   return (
     <div className="animate-fade-in">
-      <div className="overflow-x-auto">
-        <div className="flex items-end gap-2 px-8 py-12 w-max mx-auto">
-          {allPlanets.map((p) => (
-            <ParticlePlanet
-              key={p.name}
-              config={p}
-              selected={selectedName === p.name}
-              onSelect={() => navigate(`/spike/planets/${slug(p.name)}`)}
-            />
-          ))}
-        </div>
-      </div>
+      <PlanetField
+        planets={allPlanets}
+        selectedName={selectedName}
+        onSelect={(p) => navigate(`/spike/planets/${slug(p.name)}`)}
+      />
 
       <div className="px-8 pb-12 max-w-4xl mx-auto">
         {detail ? (

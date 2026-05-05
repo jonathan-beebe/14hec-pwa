@@ -1,9 +1,8 @@
-import { useMemo, useRef, useState, type MutableRefObject } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { useMemo, useRef, type MutableRefObject } from 'react'
+import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
 import { prepareGlyphProfile, sampleFromProfile, pairByAngle } from './glyphSampler'
-import WindDrift, { WIND_ENABLED } from './WindDrift'
 
 const GLYPH_SCALE_RATIO = 0.85
 const MORPH_LAMBDA = 7
@@ -13,14 +12,23 @@ const SPARKLE_FREQ_1 = 1.7
 const SPARKLE_FREQ_2 = 2.7
 const MORPH_IDLE_EPSILON = 0.01
 
+const BODY_WOBBLE_FREQ = 1.4
+const BODY_WOBBLE_AMP = 0.015
+const RING_WOBBLE_FREQ = 1.1
+const RING_WOBBLE_AMP = 0.018
+const BODY_BASE_OPACITY = 0.95
+const RING_BASE_OPACITY = 0.9
+
+export { MORPH_LAMBDA }
+
 function sparkle(t: number, phase: number) {
   const s1 = Math.sin(t * SPARKLE_FREQ_1 + phase * 1.7)
   const s2 = Math.sin(t * SPARKLE_FREQ_2 + phase * 0.9)
   return SPARKLE_BASE + SPARKLE_AMP * s1 * s2
 }
 
-type MorphRef = MutableRefObject<number>
-type PointsRef = MutableRefObject<THREE.Points | null>
+export type MorphRef = MutableRefObject<number>
+export type PointsRef = MutableRefObject<THREE.Points | null>
 
 function useSphereAttributes(config: PlanetVisual) {
   return useMemo(() => {
@@ -121,13 +129,6 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
     return { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases }
   }, [ring, bodyScale])
 }
-
-const BODY_WOBBLE_FREQ = 1.4
-const BODY_WOBBLE_AMP = 0.015
-const RING_WOBBLE_FREQ = 1.1
-const RING_WOBBLE_AMP = 0.018
-const BODY_BASE_OPACITY = 0.95
-const RING_BASE_OPACITY = 0.9
 
 function PlanetBody({
   config,
@@ -364,27 +365,22 @@ function Satellite({ sat, morphRef }: { sat: SatelliteConfig; morphRef: MorphRef
   )
 }
 
-function PlanetScene({
+/**
+ * One planet + ring + satellites, scene-only (no Canvas). The owning scene
+ * supplies morph + body/ring refs so a global wind field can read matrixWorld
+ * for spawn positions, and so engagement state can come from picker hover.
+ */
+export default function PlanetCluster({
   config,
-  morphTarget,
+  morphRef,
+  bodyRef,
+  ringRef,
 }: {
   config: PlanetVisual
-  morphTarget: number
+  morphRef: MorphRef
+  bodyRef: PointsRef
+  ringRef: PointsRef
 }) {
-  const morphRef = useRef(0)
-  // Body / ring refs live at scene root so WindDrift can read matrixWorld for
-  // spawn positions — drift is in world space and must not inherit the
-  // planet's spin or tilt.
-  const bodyRef = useRef<THREE.Points | null>(null)
-  const ringRef = useRef<THREE.Points | null>(null)
-  useFrame((_, delta) => {
-    morphRef.current = THREE.MathUtils.damp(
-      morphRef.current,
-      morphTarget,
-      MORPH_LAMBDA,
-      delta,
-    )
-  })
   return (
     <>
       <PlanetSelf
@@ -396,56 +392,6 @@ function PlanetScene({
       {config.satellites?.map((sat) => (
         <Satellite key={sat.body.name} sat={sat} morphRef={morphRef} />
       ))}
-      {WIND_ENABLED && (
-        <WindDrift
-          config={config}
-          morphRef={morphRef}
-          bodyRef={bodyRef}
-          ringRef={ringRef}
-        />
-      )}
     </>
-  )
-}
-
-export default function ParticlePlanet({
-  config,
-  selected = false,
-  onSelect,
-}: {
-  config: PlanetVisual
-  selected?: boolean
-  onSelect?: () => void
-}) {
-  const width = config.width ?? config.height
-  const height = config.height
-  const [hovered, setHovered] = useState(false)
-  const engaged = selected || hovered
-
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div
-        style={{ width, height }}
-        className="cursor-pointer select-none touch-manipulation"
-        onPointerEnter={() => setHovered(true)}
-        onPointerLeave={() => setHovered(false)}
-        onClick={onSelect}
-      >
-        <Canvas
-          camera={{ position: [0, 0, 4], fov: 30 }}
-          dpr={[1, 2]}
-          gl={{ alpha: true, antialias: true }}
-        >
-          <PlanetScene config={config} morphTarget={engaged ? 1 : 0} />
-        </Canvas>
-      </div>
-      <div
-        className={`text-[10px] uppercase tracking-widest transition-colors ${
-          selected ? 'text-celestial-300' : 'text-earth-500'
-        }`}
-      >
-        {config.name}
-      </div>
-    </div>
   )
 }
