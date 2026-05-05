@@ -248,8 +248,23 @@ function respawn(
       const theta = Math.random() * Math.PI * 2
       const yJ =
         (Math.random() - 0.5) * (ringCfg.thickness ?? 0.01) * packet.config.bodyScale
-      tmp.set(radius * Math.cos(theta), yJ, radius * Math.sin(theta))
-      tmp.applyMatrix4(ring.matrixWorld)
+      let bx = radius * Math.cos(theta)
+      let by = yJ
+      let bz = radius * Math.sin(theta)
+      // When morphed, the visible ring particles are at glyph positions, not
+      // ring positions. Shift wind spawns to match so grains don't appear
+      // out of an invisible ring shape.
+      const morph = packet.morphRef.current
+      if (morph > 0.001 && packet.glyphProfile) {
+        const gp = packet.glyphProfile
+        const idx = (Math.random() * gp.opaqueX.length) | 0
+        const gx = (gp.opaqueX[idx] - gp.cx) * gp.norm
+        const gy = -(gp.opaqueY[idx] - gp.cy) * gp.norm
+        bx = bx + (gx - bx) * morph
+        by = by + (gy - by) * morph
+        bz = bz + (0 - bz) * morph
+      }
+      tmp.set(bx, by, bz).applyMatrix4(ring.matrixWorld)
       const [cr, cg, cb] = ringCfg.color
       const j = (Math.random() - 0.5) * 0.06
       r = cr + j

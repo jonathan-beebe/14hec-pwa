@@ -89,7 +89,7 @@ function useSphereAttributes(config: PlanetVisual) {
   }, [config])
 }
 
-function useRingAttributes(ring: RingConfig, bodyScale: number) {
+function useRingAttributes(ring: RingConfig, bodyScale: number, glyph: string) {
   return useMemo(() => {
     const n = ring.particleCount
     const positions = new Float32Array(n * 3)
@@ -99,6 +99,10 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
     const baseThetas = new Float32Array(n)
     const baseYs = new Float32Array(n)
     const phases = new Float32Array(n)
+    // Synthetic dirs in the ring's plane (theta → unit XY) so pairByAngle
+    // matches each ring particle to a glyph point with a similar angle —
+    // makes the morph read as a swirl into shape rather than chaos.
+    const dirs = new Float32Array(n * 3)
     const thickness = ring.thickness ?? 0.01
     for (let i = 0; i < n; i++) {
       const t = Math.random()
@@ -109,6 +113,9 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
       baseThetas[i] = theta
       baseYs[i] = y
       phases[i] = Math.random() * Math.PI * 2
+      dirs[i * 3 + 0] = Math.cos(theta)
+      dirs[i * 3 + 1] = Math.sin(theta)
+      dirs[i * 3 + 2] = 0
       positions[i * 3 + 0] = r * Math.cos(theta)
       positions[i * 3 + 1] = y
       positions[i * 3 + 2] = r * Math.sin(theta)
@@ -126,8 +133,25 @@ function useRingAttributes(ring: RingConfig, bodyScale: number) {
       colors[i * 3 + 1] = bg * SPARKLE_BASE
       colors[i * 3 + 2] = bb * SPARKLE_BASE
     }
-    return { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases }
-  }, [ring, bodyScale])
+    const glyphProfile = prepareGlyphProfile(glyph, bodyScale * GLYPH_SCALE_RATIO)
+    const glyphScratch = new Float32Array(n * 3)
+    const glyphTargets = new Float32Array(n * 3)
+    sampleFromProfile(glyphProfile, n, glyphScratch)
+    pairByAngle(dirs, glyphScratch, n, 0, glyphTargets)
+    return {
+      positions,
+      colors,
+      baseColors,
+      baseRadii,
+      baseThetas,
+      baseYs,
+      phases,
+      dirs,
+      glyphProfile,
+      glyphScratch,
+      glyphTargets,
+    }
+  }, [ring, bodyScale, glyph])
 }
 
 function PlanetBody({
@@ -239,6 +263,7 @@ function PlanetBody({
 function PlanetRing({
   ring,
   bodyScale,
+  glyph,
   speed,
   pointSize,
   morphRef,
@@ -246,30 +271,76 @@ function PlanetRing({
 }: {
   ring: RingConfig
   bodyScale: number
+  glyph: string
   speed: number
   pointSize: number
   morphRef: MorphRef
   pointsRef: PointsRef
 }) {
-  const matRef = useRef<THREE.PointsMaterial>(null!)
-  const { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases } =
-    useRingAttributes(ring, bodyScale)
+  const targetYawRef = useRef<number | null>(null)
+  const prevMorphRef = useRef(0)
+  const {
+    positions,
+    colors,
+    baseColors,
+    baseRadii,
+    baseThetas,
+    baseYs,
+    phases,
+    dirs,
+    glyphProfile,
+    glyphScratch,
+    glyphTargets,
+  } = useRingAttributes(ring, bodyScale, glyph)
   const amp = bodyScale * RING_WOBBLE_AMP
   useFrame((state, delta) => {
     const points = pointsRef.current
     if (!points) return
     const m = morphRef.current
+    const prevM = prevMorphRef.current
+    // Re-roll glyph pairing on the trailing edge of the morph — same pattern
+    // the body uses, so successive engagements look fresh rather than identical.
+    if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
+      const n = ring.particleCount
+      sampleFromProfile(glyphProfile, n, glyphScratch)
+      const k = (Math.random() * n) | 0
+      pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
+    }
+    prevMorphRef.current = m
     const inv = 1 - m
-    points.rotation.y += delta * speed * inv
+    // Anchor yaw to a multiple of 2π during morph so the glyph (defined in
+    // local XY) lands camera-facing instead of yawed off by a stale rotation.
+    if (m < 0.001) {
+      targetYawRef.current = null
+      points.rotation.y += delta * speed
+    } else {
+      if (targetYawRef.current === null) {
+        const TWO_PI = Math.PI * 2
+        targetYawRef.current =
+          Math.round(points.rotation.y / TWO_PI) * TWO_PI
+      }
+      points.rotation.y = THREE.MathUtils.damp(
+        points.rotation.y,
+        targetYawRef.current,
+        MORPH_LAMBDA,
+        delta,
+      )
+    }
     const t = state.clock.elapsedTime
     const wobble = amp * inv
     const n = ring.particleCount
     for (let i = 0; i < n; i++) {
       const r = baseRadii[i] + Math.sin(t * RING_WOBBLE_FREQ + phases[i]) * wobble
       const theta = baseThetas[i]
-      positions[i * 3 + 0] = r * Math.cos(theta)
-      positions[i * 3 + 1] = baseYs[i]
-      positions[i * 3 + 2] = r * Math.sin(theta)
+      const sx = r * Math.cos(theta)
+      const sy = baseYs[i]
+      const sz = r * Math.sin(theta)
+      const tx = glyphTargets[i * 3 + 0]
+      const ty = glyphTargets[i * 3 + 1]
+      const tz = glyphTargets[i * 3 + 2]
+      positions[i * 3 + 0] = sx + (tx - sx) * m
+      positions[i * 3 + 1] = sy + (ty - sy) * m
+      positions[i * 3 + 2] = sz + (tz - sz) * m
       const s = sparkle(t, phases[i])
       colors[i * 3 + 0] = baseColors[i * 3 + 0] * s
       colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
@@ -279,7 +350,6 @@ function PlanetRing({
     attr.needsUpdate = true
     const cAttr = points.geometry.attributes.color as THREE.BufferAttribute
     cAttr.needsUpdate = true
-    if (matRef.current) matRef.current.opacity = RING_BASE_OPACITY * inv
   })
   return (
     <points ref={pointsRef}>
@@ -294,7 +364,6 @@ function PlanetRing({
         />
       </bufferGeometry>
       <pointsMaterial
-        ref={matRef}
         size={pointSize}
         sizeAttenuation={false}
         vertexColors
@@ -335,6 +404,7 @@ function PlanetSelf({
         <PlanetRing
           ring={config.ring}
           bodyScale={config.bodyScale}
+          glyph={config.glyph}
           speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
           pointSize={config.pointSize}
           morphRef={morphRef}
