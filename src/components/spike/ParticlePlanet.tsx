@@ -3,6 +3,7 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
 import { prepareGlyphProfile, sampleFromProfile, pairByAngle } from './glyphSampler'
+import WindDrift, { WIND_ENABLED } from './WindDrift'
 
 const GLYPH_SCALE_RATIO = 0.85
 const MORPH_LAMBDA = 7
@@ -19,6 +20,7 @@ function sparkle(t: number, phase: number) {
 }
 
 type MorphRef = MutableRefObject<number>
+type PointsRef = MutableRefObject<THREE.Points | null>
 
 function useSphereAttributes(config: PlanetVisual) {
   return useMemo(() => {
@@ -130,11 +132,12 @@ const RING_BASE_OPACITY = 0.9
 function PlanetBody({
   config,
   morphRef,
+  pointsRef,
 }: {
   config: PlanetVisual
   morphRef: MorphRef
+  pointsRef: PointsRef
 }) {
-  const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
   const targetYawRef = useRef<number | null>(null)
   const prevMorphRef = useRef(0)
@@ -151,7 +154,8 @@ function PlanetBody({
   } = useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
   useFrame((state, delta) => {
-    if (!ref.current) return
+    const points = pointsRef.current
+    if (!points) return
     const m = morphRef.current
     const prevM = prevMorphRef.current
     // Re-roll glyph targets on the trailing edge of the morph (settling back
@@ -168,15 +172,15 @@ function PlanetBody({
     const inv = 1 - m
     if (m < 0.001) {
       targetYawRef.current = null
-      ref.current.rotation.y += delta * config.rotationSpeed
+      points.rotation.y += delta * config.rotationSpeed
     } else {
       if (targetYawRef.current === null) {
         const TWO_PI = Math.PI * 2
         targetYawRef.current =
-          Math.round(ref.current.rotation.y / TWO_PI) * TWO_PI
+          Math.round(points.rotation.y / TWO_PI) * TWO_PI
       }
-      ref.current.rotation.y = THREE.MathUtils.damp(
-        ref.current.rotation.y,
+      points.rotation.y = THREE.MathUtils.damp(
+        points.rotation.y,
         targetYawRef.current,
         MORPH_LAMBDA,
         delta,
@@ -201,13 +205,13 @@ function PlanetBody({
       colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
       colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
     }
-    const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
+    const attr = points.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
-    const cAttr = ref.current.geometry.attributes.color as THREE.BufferAttribute
+    const cAttr = points.geometry.attributes.color as THREE.BufferAttribute
     cAttr.needsUpdate = true
   })
   return (
-    <points ref={ref}>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -237,23 +241,25 @@ function PlanetRing({
   speed,
   pointSize,
   morphRef,
+  pointsRef,
 }: {
   ring: RingConfig
   bodyScale: number
   speed: number
   pointSize: number
   morphRef: MorphRef
+  pointsRef: PointsRef
 }) {
-  const ref = useRef<THREE.Points>(null!)
   const matRef = useRef<THREE.PointsMaterial>(null!)
   const { positions, colors, baseColors, baseRadii, baseThetas, baseYs, phases } =
     useRingAttributes(ring, bodyScale)
   const amp = bodyScale * RING_WOBBLE_AMP
   useFrame((state, delta) => {
-    if (!ref.current) return
+    const points = pointsRef.current
+    if (!points) return
     const m = morphRef.current
     const inv = 1 - m
-    ref.current.rotation.y += delta * speed * inv
+    points.rotation.y += delta * speed * inv
     const t = state.clock.elapsedTime
     const wobble = amp * inv
     const n = ring.particleCount
@@ -268,14 +274,14 @@ function PlanetRing({
       colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
       colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
     }
-    const attr = ref.current.geometry.attributes.position as THREE.BufferAttribute
+    const attr = points.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
-    const cAttr = ref.current.geometry.attributes.color as THREE.BufferAttribute
+    const cAttr = points.geometry.attributes.color as THREE.BufferAttribute
     cAttr.needsUpdate = true
     if (matRef.current) matRef.current.opacity = RING_BASE_OPACITY * inv
   })
   return (
-    <points ref={ref}>
+    <points ref={pointsRef}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -302,11 +308,19 @@ function PlanetRing({
 function PlanetSelf({
   config,
   morphRef,
+  bodyRef,
+  ringRef,
 }: {
   config: PlanetVisual
   morphRef: MorphRef
+  bodyRef?: PointsRef
+  ringRef?: PointsRef
 }) {
   const tiltRef = useRef<THREE.Group>(null!)
+  const internalBodyRef = useRef<THREE.Points | null>(null)
+  const internalRingRef = useRef<THREE.Points | null>(null)
+  const effBodyRef = bodyRef ?? internalBodyRef
+  const effRingRef = ringRef ?? internalRingRef
   useFrame(() => {
     if (!tiltRef.current) return
     const inv = 1 - morphRef.current
@@ -315,7 +329,7 @@ function PlanetSelf({
   })
   return (
     <group ref={tiltRef}>
-      <PlanetBody config={config} morphRef={morphRef} />
+      <PlanetBody config={config} morphRef={morphRef} pointsRef={effBodyRef} />
       {config.ring && (
         <PlanetRing
           ring={config.ring}
@@ -323,6 +337,7 @@ function PlanetSelf({
           speed={config.ringRotationSpeed ?? config.rotationSpeed * 0.5}
           pointSize={config.pointSize}
           morphRef={morphRef}
+          pointsRef={effRingRef}
         />
       )}
     </group>
@@ -357,6 +372,11 @@ function PlanetScene({
   morphTarget: number
 }) {
   const morphRef = useRef(0)
+  // Body / ring refs live at scene root so WindDrift can read matrixWorld for
+  // spawn positions — drift is in world space and must not inherit the
+  // planet's spin or tilt.
+  const bodyRef = useRef<THREE.Points | null>(null)
+  const ringRef = useRef<THREE.Points | null>(null)
   useFrame((_, delta) => {
     morphRef.current = THREE.MathUtils.damp(
       morphRef.current,
@@ -367,10 +387,23 @@ function PlanetScene({
   })
   return (
     <>
-      <PlanetSelf config={config} morphRef={morphRef} />
+      <PlanetSelf
+        config={config}
+        morphRef={morphRef}
+        bodyRef={bodyRef}
+        ringRef={ringRef}
+      />
       {config.satellites?.map((sat) => (
         <Satellite key={sat.body.name} sat={sat} morphRef={morphRef} />
       ))}
+      {WIND_ENABLED && (
+        <WindDrift
+          config={config}
+          morphRef={morphRef}
+          bodyRef={bodyRef}
+          ringRef={ringRef}
+        />
+      )}
     </>
   )
 }
