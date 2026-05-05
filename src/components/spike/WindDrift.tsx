@@ -138,6 +138,13 @@ export default function WindDrift({ sources }: WindDriftProps) {
 
   useFrame((state, delta) => {
     if (!pointsRef.current) return
+    // useFrame fires before R3F's scene.updateMatrixWorld(), so on frame 1
+    // every source's matrixWorld is still the identity. Without this, the
+    // initial respawn would clump every grain at the world origin.
+    for (const packet of packets) {
+      packet.bodyRef.current?.updateWorldMatrix(true, false)
+      packet.ringRef.current?.updateWorldMatrix(true, false)
+    }
     const t = state.clock.elapsedTime
 
     const dirAngle = Math.sin(t * WIND_DIR_FREQ) * WIND_DIR_AMP
