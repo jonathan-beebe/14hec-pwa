@@ -7,9 +7,9 @@ import { prepareGlyphProfile, type GlyphProfile } from './glyphSampler'
 export const WIND_ENABLED = true
 
 const GLYPH_SCALE_RATIO = 0.85
-const POOL_FRACTION = 0.05
-const POOL_MIN = 32
-const POOL_MAX = 600
+const POOL_FRACTION = 0.07
+const POOL_MIN = 48
+const POOL_MAX = 800
 
 // Wind blows along world +x. Gust modulates speed; direction wobble veers it
 // gently around the Y axis; vertical wobble lifts/dips it. All in world space —
@@ -24,12 +24,15 @@ const WIND_DIR_AMP = 0.20
 const WIND_VERTICAL_FREQ = 0.09
 const WIND_VERTICAL_AMP = 0.07
 
-const LIFESPAN_MIN = 1.0
-const LIFESPAN_MAX = 2.0
-const VEL_JITTER_X = 0.08
-const VEL_JITTER_Y = 0.06
-const VEL_JITTER_Z = 0.06
-const FADE_IN = 0.12
+const LIFESPAN_MIN = 1.5
+const LIFESPAN_MAX = 5.0
+const VEL_JITTER_X = 0.18
+const VEL_JITTER_Y = 0.10
+const VEL_JITTER_Z = 0.10
+const FADE_IN = 0.10
+// Tail exponent < 1 gives a soft, long fade-out: rapid drop at first, then a
+// slow asymptote toward zero — sparse grains drifting into the distance.
+const FADE_TAIL_EXP = 0.55
 // Reject downwind spawns this fraction of the time, retrying up to MAX_ATTEMPTS.
 // Net effect: ~80% of grains lift from the windward face.
 const UPWIND_BIAS = 0.7
@@ -41,7 +44,8 @@ type PointsRef = MutableRefObject<THREE.Points | null>
 
 function fade(p: number) {
   if (p < FADE_IN) return p / FADE_IN
-  return Math.max(0, 1 - (p - FADE_IN) / (1 - FADE_IN))
+  const u = (p - FADE_IN) / (1 - FADE_IN)
+  return Math.max(0, 1 - Math.pow(u, FADE_TAIL_EXP))
 }
 
 type Pool = {
