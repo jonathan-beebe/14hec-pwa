@@ -70,19 +70,19 @@ const tonePrimaryClass: Record<InfoTileTone, string> = {
  */
 const toneFrameClass: Record<InfoTileTone, string> = {
   botanical:
-    'bg-gradient-to-br from-botanical-500/10 to-transparent to-[33%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
+    'bg-gradient-to-br from-botanical-500/20 to-transparent to-[33%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
   celestial:
-    'bg-gradient-to-br from-celestial-500/10 to-transparent to-[33%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
+    'bg-gradient-to-br from-celestial-500/20 to-transparent to-[33%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
   gold:
-    'bg-gradient-to-br from-gold-500/10 to-transparent to-[33%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
+    'bg-gradient-to-br from-gold-500/20 to-transparent to-[33%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
   heart:
-    'bg-gradient-to-br from-rose-500/10 to-transparent to-[33%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
+    'bg-gradient-to-br from-rose-500/20 to-transparent to-[33%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
   mind:
-    'bg-gradient-to-br from-blue-500/10 to-transparent to-[33%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
+    'bg-gradient-to-br from-blue-500/20 to-transparent to-[33%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
   body:
-    'bg-gradient-to-br from-green-500/10 to-transparent to-[33%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
+    'bg-gradient-to-br from-green-500/20 to-transparent to-[33%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
   spirit:
-    'bg-gradient-to-br from-purple-500/10 to-transparent to-[33%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
+    'bg-gradient-to-br from-purple-500/20 to-transparent to-[33%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
 }
 
 /**
@@ -128,13 +128,19 @@ function InfoTile({
   // focus-visible:ring-botanical-400 overrides the global :focus-visible
   // ring (botanical-500/40, ~1.7:1 against the card surface) with a solid
   // botanical-400 ring (~7:1) — meets WCAG 1.4.11 non-text contrast.
-  // motion-reduce:* disables the card's hover-lift transform and 300ms
-  // transition for users with prefers-reduced-motion.
+  // hover:transform-none cancels .card:hover's translateY lift — the tone
+  // border + glow already signal hover; the focus ring covers keyboard.
   // overflow-hidden clips the sand canvas to the card's rounded corners
   // (no effect on the focus ring, which uses outset box-shadow).
   const focusClass =
-    'focus-visible:ring-botanical-400 motion-reduce:transition-none motion-reduce:hover:transform-none'
-  const cardClass = `card flex items-center gap-4 group overflow-hidden ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
+    'focus-visible:ring-botanical-400 hover:transform-none motion-reduce:transition-none'
+  // shadow-[...] overrides .card's resting box-shadow with a stronger drop
+  // (deeper offset, wider blur, higher alpha) while preserving the inset
+  // top-edge highlight. On hover, hover:shadow-glow-X from toneFrameClass
+  // takes over (utility-layer specificity wins), unchanged.
+  const liftClass =
+    'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),_0_10px_28px_-6px_rgba(0,0,0,0.7)]'
+  const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
   // is tinted by the icon-slot's text color (the wrapper is rendered into
