@@ -41,6 +41,11 @@ const MAX_ATTEMPTS = 4
 
 const DRIFT_POINT_SIZE = 1.1
 
+// Fraction of wind grains painted white instead of base color — bright
+// glints in the trailing dust. Boost is fixed per slot (variety, no
+// flicker); respawns rotate the visible sparkles over time.
+const SPARKLE_FRACTION = 0.05
+
 type PointsRef = MutableRefObject<THREE.Points | null>
 
 function fade(p: number) {
@@ -56,6 +61,8 @@ type Pool = {
   velJitter: Float32Array
   life: Float32Array
   lifespan: Float32Array
+  isSparkle: Uint8Array
+  sparkleBoost: Float32Array
 }
 
 function makePool(size: number): Pool {
@@ -65,6 +72,8 @@ function makePool(size: number): Pool {
   const velJitter = new Float32Array(size * 3)
   const life = new Float32Array(size)
   const lifespan = new Float32Array(size)
+  const isSparkle = new Uint8Array(size)
+  const sparkleBoost = new Float32Array(size)
   for (let i = 0; i < size; i++) {
     // Lifespans randomized so the pool desyncs naturally; life starts at
     // lifespan so every slot respawns on frame 1 when matrixWorld is ready.
@@ -74,7 +83,30 @@ function makePool(size: number): Pool {
     velJitter[i * 3 + 1] = (Math.random() - 0.5) * VEL_JITTER_Y
     velJitter[i * 3 + 2] = (Math.random() - 0.5) * VEL_JITTER_Z
   }
-  return { positions, colors, baseColors, velJitter, life, lifespan }
+
+  // Tag exactly SPARKLE_FRACTION of slots as sparkle. Shuffled-range pick
+  // guarantees an exact count (vs. per-particle rng() drift).
+  const sparkleCount = Math.round(size * SPARKLE_FRACTION)
+  const order = shuffledRange(size)
+  for (let k = 0; k < sparkleCount; k++) {
+    const idx = order[k]
+    isSparkle[idx] = 1
+    sparkleBoost[idx] = Math.random()
+  }
+
+  return { positions, colors, baseColors, velJitter, life, lifespan, isSparkle, sparkleBoost }
+}
+
+function shuffledRange(n: number): Int32Array {
+  const order = new Int32Array(n)
+  for (let i = 0; i < n; i++) order[i] = i
+  for (let i = n - 1; i > 0; i--) {
+    const j = (Math.random() * (i + 1)) | 0
+    const tmp = order[i]
+    order[i] = order[j]
+    order[j] = tmp
+  }
+  return order
 }
 
 export type WindSource = {
@@ -173,9 +205,20 @@ export default function WindDrift({ sources }: WindDriftProps) {
         pool.positions[i * 3 + 1] += vy * delta
         pool.positions[i * 3 + 2] += vz * delta
         const a = fade(li / ls)
-        pool.colors[i * 3 + 0] = pool.baseColors[i * 3 + 0] * a
-        pool.colors[i * 3 + 1] = pool.baseColors[i * 3 + 1] * a
-        pool.colors[i * 3 + 2] = pool.baseColors[i * 3 + 2] * a
+        if (pool.isSparkle[i]) {
+          // Sparkle: paint white with a per-particle boost so each glint has
+          // its own stable peak brightness (variety, no flicker). Brightness
+          // lerps from the grain's current life alpha up to that ceiling, so
+          // the sparkle still fades in/out with its life curve.
+          const boost = a + (1 - a) * pool.sparkleBoost[i]
+          pool.colors[i * 3 + 0] = boost
+          pool.colors[i * 3 + 1] = boost
+          pool.colors[i * 3 + 2] = boost
+        } else {
+          pool.colors[i * 3 + 0] = pool.baseColors[i * 3 + 0] * a
+          pool.colors[i * 3 + 1] = pool.baseColors[i * 3 + 1] * a
+          pool.colors[i * 3 + 2] = pool.baseColors[i * 3 + 2] * a
+        }
       }
     }
 
@@ -200,6 +243,7 @@ export default function WindDrift({ sources }: WindDriftProps) {
         transparent
         opacity={1}
         depthWrite={false}
+        blending={THREE.AdditiveBlending}
       />
     </points>
   )
