@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useNavigate, useOutlet } from 'react-router-dom'
 import Button from '../atoms/Button'
 import { Icon } from '../atoms/Icon'
@@ -24,6 +24,13 @@ export interface ListDetailLayoutProps {
    * a borderless presentation.
    */
   dividers?: boolean
+  /**
+   * Identifier of the currently shown detail. When this value changes, the
+   * detail pane's scroll position is reset to the top. Pass the URL
+   * pathname, the selected id, or any value that uniquely identifies the
+   * active detail.
+   */
+  detailKey?: string | number | null
 }
 
 /**
@@ -45,9 +52,15 @@ export default function ListDetailLayout({
   emptyDetail,
   onBack,
   dividers = true,
+  detailKey,
 }: ListDetailLayoutProps) {
   const isDetailActive = detail !== null && detail !== undefined
   const sidebarBorder = dividers ? 'lg:border-r lg:border-white/5' : ''
+  const detailRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    if (detailRef.current) detailRef.current.scrollTop = 0
+  }, [detailKey])
 
   return (
     <div className="lg:h-full lg:flex lg:flex-col">
@@ -65,6 +78,7 @@ export default function ListDetailLayout({
         </aside>
 
         <section
+          ref={detailRef}
           className={`${isDetailActive ? 'block' : 'hidden'} lg:block lg:flex-1 lg:overflow-y-auto`}
         >
           {isDetailActive && onBack && <MobileBackBar onBack={onBack} divider={dividers} />}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useNavigate, useOutlet } from 'react-router-dom'
+import { NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
@@ -116,6 +116,7 @@ export default function EntheogenicGuide() {
   const [plants, setPlants] = useState<Plant[]>([])
   const detail = useOutlet()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     api.getPlants({ category: 'entheogenic' }).then((entheogenic) => {
@@ -134,6 +135,7 @@ export default function EntheogenicGuide() {
       emptyDetail={<EmptyState />}
       onBack={() => navigate('/entheogens')}
       dividers={false}
+      detailKey={pathname}
     />
   )
 }
