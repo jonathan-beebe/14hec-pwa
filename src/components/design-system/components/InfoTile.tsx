@@ -102,12 +102,14 @@ const toneFrameClass: Record<InfoTileTone, string> = {
  * <InfoTile.Heart to="/hmbs" icon="♡" primary="Heart"
  *   secondary="Love, connection, empathy" />
  */
-// Body silhouette geometry. p-5 (20px) + half of w-24 (48px) puts the body
-// center at x=68 from the card's padding-box left edge. The mask cutoff
-// keeps the body fully opaque through ~130px and fades the wind tail to
-// transparent before it reaches the text — independent of card width.
+// Body silhouette geometry. The icon slot uses `-ml-2` (-8px) to pull
+// the glyph 8px into the card's left padding, so the visible icon center
+// sits at x = 20 (p-5) − 8 (-ml-2) + 48 (half of w-24) = 60 from the
+// card's border-box left edge. The mask cutoff keeps the body fully
+// opaque through ~130px and fades the wind tail to transparent before
+// it reaches the text — independent of card width.
 const SAND_BODY_SIZE = 96
-const SAND_BODY_OFFSET_X = 68
+const SAND_BODY_OFFSET_X = 60
 const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 130px, transparent 100%)'
 
 function InfoTile({
@@ -142,7 +144,7 @@ function InfoTile({
   return (
     <Link to={to} className={cardClass} aria-label={ariaLabel}>
       {sandActive && (
-        // text-7xl matches the static icon-slot's font-size — the
+        // text-8xl matches the static icon-slot's font-size — the
         // sampler reads the canvas's computed font-family + font-size so
         // canvas falls through the same character-resolution chain as
         // CSS. Without it the canvas paints at the body default (16px)
@@ -151,7 +153,7 @@ function InfoTile({
         // first available font (⚕ is the most visible offender).
         <div
           aria-hidden="true"
-          className={`absolute inset-0 z-0 pointer-events-none text-7xl ${tonePrimaryClass[tone]}`}
+          className={`absolute inset-0 z-0 pointer-events-none text-8xl ${tonePrimaryClass[tone]}`}
           style={{
             maskImage: SAND_MASK_GRADIENT,
             WebkitMaskImage: SAND_MASK_GRADIENT,
@@ -165,9 +167,13 @@ function InfoTile({
         </div>
       )}
       {icon !== undefined && (
+        // text-8xl gives a 96px em-box that exactly matches the w-24
+        // slot — no horizontal slack inside the slot. -ml-2 pulls the
+        // slot 8px into the card's left padding so the visible glyph
+        // sits closer to the card edge.
         <div
           aria-hidden="true"
-          className={`w-24 text-7xl flex items-center justify-center shrink-0 ${
+          className={`w-24 text-8xl flex items-center justify-center shrink-0 -ml-2 ${
             sandActive
               ? 'invisible'
               : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tonePrimaryClass[tone]}`
