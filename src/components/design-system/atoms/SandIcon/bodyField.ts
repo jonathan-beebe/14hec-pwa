@@ -13,13 +13,13 @@ const BODY = {
   // At density 1.0 every opaque source pixel gets one particle; values
   // > 1.0 add random extras for grainier thickness at small icon sizes.
   density: 1.5,
-  min: 200,
-  max: 1500,
+  min: 1200,
+  max: 4200,
   // Per-particle drift speed in CSS px/sec, multiplied by DPR at runtime
   // so visual speed stays consistent across DPRs.
-  flowSpeed: { min: 0.5, max: 3.0 },
+  flowSpeed: { min: 0.2, max: 1.6 },
   // Seconds between random velocity re-rolls. Smaller → twitchier paths.
-  reroll: { min: 0.8, max: 2.5 },
+  reroll: { min: 3.0, max: 10.0 },
   alpha: 230,
 }
 

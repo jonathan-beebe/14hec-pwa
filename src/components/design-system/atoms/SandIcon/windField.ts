@@ -11,10 +11,10 @@ import type { GlyphSample } from './glyphSampler'
 
 const WIND = {
   // Pool size = body count * fraction, clamped.
-  fraction: 0.5,
+  fraction: 0.8,
   min: 100,
-  max: 800,
-  baseSpeedPx: 35,
+  max: 2400,
+  baseSpeedPx: 15,
   gust: {
     freq: 0.7,
     amp: 0.4,
@@ -28,7 +28,7 @@ const WIND = {
   dir: { freq: 0.13, amp: 0.20 },
   // Phase offset decorrelates vertical drift from horizontal gusts.
   vertical: { freq: 0.09, amp: 0.07, phase: 1.3 },
-  lifespan: { min: 1.5, max: 5.0 },
+  lifespan: { min: 1.5, max: 25.0 },
   // Per-particle velocity jitter in CSS px/sec, scaled by DPR at runtime.
   // Lighter than sand-headline's headline since the source silhouette is
   // ~10x smaller.
