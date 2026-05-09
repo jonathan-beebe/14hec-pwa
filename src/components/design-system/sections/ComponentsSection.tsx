@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Section, Subsection } from '../primitives'
 import LinkCard from '../components/LinkCard'
 import StatCard from '../components/StatCard'
@@ -6,6 +7,12 @@ import InfoTile from '../components/InfoTile'
 import { Icon } from '../atoms/Icon'
 
 export default function ComponentsSection() {
+  const [showSand, setShowSand] = useState(true)
+
+  const segBase = 'px-2.5 py-1 text-[11px] font-system transition-colors'
+  const segActive = 'bg-earth-700/60 text-earth-100'
+  const segInactive = 'text-earth-400 hover:text-earth-200'
+
   return (
     <Section id="components" title="Components">
       <Subsection title="LinkCard">
@@ -55,30 +62,49 @@ export default function ComponentsSection() {
           tiles (Heart, Mind, Body, Spirit) omit <code>aria-label</code>:
           the visible primary + secondary text already names the link.
         </p>
-        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
-          Static icons
+        <div className="flex items-center gap-3 mb-2">
+          <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500">
+            Icon variant
+          </div>
+          <div
+            role="group"
+            aria-label="Icon variant"
+            className="inline-flex rounded-md border border-earth-700/60 overflow-hidden"
+          >
+            <button
+              type="button"
+              onClick={() => setShowSand(false)}
+              aria-pressed={!showSand}
+              className={`${segBase} ${!showSand ? segActive : segInactive}`}
+            >
+              Static
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowSand(true)}
+              aria-pressed={showSand}
+              className={`${segBase} border-l border-earth-700/60 ${showSand ? segActive : segInactive}`}
+            >
+              Sand
+            </button>
+          </div>
+        </div>
+        <div className="text-[10px] text-earth-500 font-system mb-3 leading-relaxed">
+          Drifting particles + wind tail; falls back to static when reduced motion is on.
         </div>
         <div className="grid grid-cols-3 gap-3 mb-6">
-          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}    primary={207} secondary="Plants"   aria-label="207 plants in the library" />
-          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />} primary={75}  secondary="Ailments" aria-label="75 ailments catalogued" />
-          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}         primary={12}  secondary="Zodiac"   aria-label="12 zodiac signs" />
-        </div>
-        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
-          Sand icons (drifting particles + wind tail; falls back to static when reduced motion is on)
-        </div>
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}    sandIcon={Icon.Shamrock.source}    primary={207} secondary="Plants"   aria-label="207 plants in the library" />
-          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />} sandIcon={Icon.Aesculapius.source} primary={75}  secondary="Ailments" aria-label="75 ailments catalogued" />
-          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}         sandIcon={Icon.Sun.source}         primary={12}  secondary="Zodiac"   aria-label="12 zodiac signs" />
+          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}    sandIcon={showSand ? Icon.Shamrock.source    : undefined} primary={207} secondary="Plants"   aria-label="207 plants in the library" />
+          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />} sandIcon={showSand ? Icon.Aesculapius.source : undefined} primary={75}  secondary="Ailments" aria-label="75 ailments catalogued" />
+          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}         sandIcon={showSand ? Icon.Sun.source         : undefined} primary={12}  secondary="Zodiac"   aria-label="12 zodiac signs" />
         </div>
         <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
           Domain tiles
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <InfoTile.Heart  to="/design-system" icon={<Icon.Heart />}         primary="Heart"  secondary="Love, connection, empathy" />
-          <InfoTile.Mind   to="/design-system" icon={<Icon.Atom />}          primary="Mind"   secondary="Clarity, focus, cognition" />
-          <InfoTile.Body   to="/design-system" icon={<Icon.Ankh />}          primary="Body"   secondary="Vitality, strength, healing" />
-          <InfoTile.Spirit to="/design-system" icon={<Icon.StarFourPoint />} primary="Spirit" secondary="Transcendence, intuition" />
+          <InfoTile.Heart  to="/design-system" icon={<Icon.Heart />}         sandIcon={showSand ? Icon.Heart.source         : undefined} primary="Heart"  secondary="Love, connection, empathy" />
+          <InfoTile.Mind   to="/design-system" icon={<Icon.Atom />}          sandIcon={showSand ? Icon.Atom.source          : undefined} primary="Mind"   secondary="Clarity, focus, cognition" />
+          <InfoTile.Body   to="/design-system" icon={<Icon.Ankh />}          sandIcon={showSand ? Icon.Ankh.source          : undefined} primary="Body"   secondary="Vitality, strength, healing" />
+          <InfoTile.Spirit to="/design-system" icon={<Icon.StarFourPoint />} sandIcon={showSand ? Icon.StarFourPoint.source : undefined} primary="Spirit" secondary="Transcendence, intuition" />
         </div>
       </Subsection>
     </Section>
