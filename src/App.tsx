@@ -13,6 +13,8 @@ import PlanetaryTiming from './components/astrology/PlanetaryTiming'
 import PreparationMatrix from './components/preparations/PreparationMatrix'
 import CrossReference from './components/crossref/CrossReference'
 import EntheogenicGuide from './components/plants/EntheogenicGuide'
+import EntheogenicPlantDetail from './components/plants/EntheogenicPlantDetail'
+import EntheogenicProtocolDetail from './components/plants/EntheogenicProtocolDetail'
 import HMBSView from './components/sanctuary/HMBSView'
 import SeasonalGuide from './components/sanctuary/SeasonalGuide'
 import DoctrineExplorer from './components/sanctuary/DoctrineExplorer'
@@ -62,6 +64,10 @@ export default function App() {
             <Route index element={null} />
             <Route path=":id" element={<ListDetailDemoDetail />} />
           </Route>
+          <Route path="/entheogens" element={<EntheogenicGuide />}>
+            <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
+            <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />
+          </Route>
 
           {/* Standard pages — wrapped in the page gutter */}
           <Route element={<PageGutter />}>
@@ -75,7 +81,6 @@ export default function App() {
             <Route path="/planetary-timing" element={<PlanetaryTiming />} />
             <Route path="/preparations" element={<PreparationMatrix />} />
             <Route path="/crossref" element={<CrossReference />} />
-            <Route path="/entheogens" element={<EntheogenicGuide />} />
             <Route path="/hmbs" element={<HMBSView />} />
             <Route path="/seasonal" element={<SeasonalGuide />} />
             <Route path="/doctrine" element={<DoctrineExplorer />} />
