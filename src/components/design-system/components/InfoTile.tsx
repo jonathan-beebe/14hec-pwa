@@ -97,13 +97,13 @@ const toneFrameClass: Record<InfoTileTone, string> = {
  * <InfoTile.Heart to="/hmbs" icon="♡" primary="Heart"
  *   secondary="Love, connection, empathy" />
  */
-// Body silhouette geometry. p-5 (20px) + half of w-12 (24px) puts the body
-// center at x=44 from the card's padding-box left edge. The mask cutoff
-// keeps the body fully opaque through ~75px and fades the wind tail to
+// Body silhouette geometry. p-5 (20px) + half of w-24 (48px) puts the body
+// center at x=68 from the card's padding-box left edge. The mask cutoff
+// keeps the body fully opaque through ~130px and fades the wind tail to
 // transparent before it reaches the text — independent of card width.
-const SAND_BODY_SIZE = 48
-const SAND_BODY_OFFSET_X = 44
-const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 75px, transparent 100%)'
+const SAND_BODY_SIZE = 96
+const SAND_BODY_OFFSET_X = 68
+const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 130px, transparent 100%)'
 
 function InfoTile({
   to,
@@ -155,7 +155,7 @@ function InfoTile({
       {icon !== undefined && (
         <div
           aria-hidden="true"
-          className={`w-12 text-4xl flex items-center justify-center shrink-0 ${
+          className={`w-24 text-7xl flex items-center justify-center shrink-0 ${
             sandActive
               ? 'invisible'
               : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tonePrimaryClass[tone]}`
