@@ -1,0 +1,145 @@
+import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
+
+/**
+ * Tone defines the primary content's color. The card frame is neutral for
+ * all tones — only the top-right large content shifts.
+ */
+export type InfoTileTone =
+  | 'botanical'
+  | 'celestial'
+  | 'gold'
+  | 'heart'
+  | 'mind'
+  | 'body'
+  | 'spirit'
+
+export interface InfoTileProps {
+  /** Internal SPA route. Rendered as a real `<a>` (react-router `<Link>`). */
+  to: string
+  tone?: InfoTileTone
+  icon?: ReactNode
+  /** Large top-right content: stat number, domain name, or any ReactNode. */
+  primary: ReactNode
+  /** Small bottom-right descriptive text: label or caption. */
+  secondary?: ReactNode
+  className?: string
+}
+
+type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
+
+const tonePrimaryClass: Record<InfoTileTone, string> = {
+  botanical: 'text-botanical-300',
+  celestial: 'text-celestial-300',
+  gold: 'text-gold-300',
+  heart: 'text-rose-300',
+  mind: 'text-blue-300',
+  body: 'text-green-300',
+  spirit: 'text-purple-300',
+}
+
+/**
+ * Per-tone frame tint: a gradient overlay on the card base, a tone-tinted
+ * border, and a tone-glow shadow on hover. Layers on top of `.card`'s glass
+ * frame; both `background-color` (from .card) and `background-image` (from
+ * the Tailwind gradient utility) coexist, so the tint appears over the dark
+ * base.
+ */
+const toneFrameClass: Record<InfoTileTone, string> = {
+  botanical:
+    'bg-gradient-to-br from-botanical-500/10 to-transparent border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
+  celestial:
+    'bg-gradient-to-br from-celestial-500/10 to-transparent border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
+  gold:
+    'bg-gradient-to-br from-gold-500/10 to-transparent border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
+  heart:
+    'bg-gradient-to-br from-rose-500/10 to-transparent border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
+  mind:
+    'bg-gradient-to-br from-blue-500/10 to-transparent border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
+  body:
+    'bg-gradient-to-br from-green-500/10 to-transparent border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
+  spirit:
+    'bg-gradient-to-br from-purple-500/10 to-transparent border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
+}
+
+/**
+ * Two-column navigation tile: icon on the left, primary + secondary text on
+ * the right. Merges the StatCard (count + label) and DomainCard (domain +
+ * description) shapes into one component. Frame is the neutral `card`
+ * class for every tone; tone shifts only the primary text color.
+ *
+ * Renders `<Link>` (anchor) so middle-click, ⌘-click, right-click → "Open
+ * in new tab", and screen-reader "link" semantics all work.
+ *
+ * Prefer the variant subcomponents at call sites:
+ *   `<InfoTile.Botanical>`, `<InfoTile.Heart>`, etc.
+ *
+ * @example
+ * <InfoTile.Botanical to="/plants" icon="☘" primary={207} secondary="Plants" />
+ * <InfoTile.Heart to="/hmbs" icon="♡" primary="Heart"
+ *   secondary="Love, connection, empathy" />
+ */
+function InfoTile({
+  to,
+  tone = 'botanical',
+  icon,
+  primary,
+  secondary,
+  className,
+}: InfoTileProps) {
+  const cardClass = `card flex items-center gap-4 group ${toneFrameClass[tone]}${className ? ` ${className}` : ''}`
+  return (
+    <Link to={to} className={cardClass}>
+      {icon !== undefined && (
+        <div
+          className={`w-12 text-4xl flex items-center justify-center opacity-60 group-hover:opacity-90 transition-opacity duration-200 shrink-0 ${tonePrimaryClass[tone]}`}
+        >
+          {icon}
+        </div>
+      )}
+      <div className="flex flex-col min-w-0">
+        <div
+          className={`text-2xl font-system font-semibold tracking-tight tabular-nums ${tonePrimaryClass[tone]}`}
+        >
+          {primary}
+        </div>
+        {secondary !== undefined && (
+          <div className="text-xs text-white leading-relaxed mt-0.5">
+            {secondary}
+          </div>
+        )}
+      </div>
+    </Link>
+  )
+}
+
+const Botanical = (props: VariantInfoTileProps) => <InfoTile {...props} tone="botanical" />
+Botanical.displayName = 'InfoTile.Botanical'
+
+const Celestial = (props: VariantInfoTileProps) => <InfoTile {...props} tone="celestial" />
+Celestial.displayName = 'InfoTile.Celestial'
+
+const Gold = (props: VariantInfoTileProps) => <InfoTile {...props} tone="gold" />
+Gold.displayName = 'InfoTile.Gold'
+
+const Heart = (props: VariantInfoTileProps) => <InfoTile {...props} tone="heart" />
+Heart.displayName = 'InfoTile.Heart'
+
+const Mind = (props: VariantInfoTileProps) => <InfoTile {...props} tone="mind" />
+Mind.displayName = 'InfoTile.Mind'
+
+const Body = (props: VariantInfoTileProps) => <InfoTile {...props} tone="body" />
+Body.displayName = 'InfoTile.Body'
+
+const Spirit = (props: VariantInfoTileProps) => <InfoTile {...props} tone="spirit" />
+Spirit.displayName = 'InfoTile.Spirit'
+
+export default Object.assign(InfoTile, {
+  Botanical,
+  Celestial,
+  Gold,
+  Heart,
+  Mind,
+  Body,
+  Spirit,
+})
