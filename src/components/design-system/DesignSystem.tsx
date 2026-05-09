@@ -12,7 +12,7 @@ const navItems = [
 
 export default function DesignSystem() {
   return (
-    <div className="max-w-5xl px-8 py-6">
+    <div className="max-w-5xl">
       <header className="mb-8 font-system">
         <p className="text-[10px] tracking-[0.25em] uppercase text-earth-500 mb-2">
           Internal {'·'} Dev only

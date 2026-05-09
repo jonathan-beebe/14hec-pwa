@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Layout from './components/layout/Layout'
+import PageGutter from './components/layout/PageGutter'
 import Dashboard from './components/Dashboard'
 import PlantList from './components/plants/PlantList'
 import PlantDetail from './components/plants/PlantDetail'
@@ -56,37 +57,42 @@ export default function App() {
       {showDisclaimer && <DisclaimerModal onAccept={acceptDisclaimer} />}
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/plants" element={<PlantList />} />
-          <Route path="/plants/:id" element={<PlantDetail />} />
-          <Route path="/ailments" element={<AilmentNavigator />} />
-          <Route path="/ailments/:id" element={<AilmentDetail />} />
-          <Route path="/astrology" element={<AstrologyView />} />
-          <Route path="/natal-chart" element={<NatalInput />} />
-          <Route path="/planetary-timing" element={<PlanetaryTiming />} />
-          <Route path="/preparations" element={<PreparationMatrix />} />
-          <Route path="/crossref" element={<CrossReference />} />
-          <Route path="/entheogens" element={<EntheogenicGuide />} />
-          <Route path="/hmbs" element={<HMBSView />} />
-          <Route path="/seasonal" element={<SeasonalGuide />} />
-          <Route path="/doctrine" element={<DoctrineExplorer />} />
-          <Route path="/body-systems" element={<BodySystemsView />} />
-          <Route path="/body-systems/:id" element={<BodySystemsView />} />
-          <Route path="/journal" element={<JournalView />} />
-          <Route path="/collections" element={<CollectionsView />} />
-          <Route path="/collections/new" element={<CollectionsView />} />
-          <Route path="/collections/:id" element={<CollectionsView />} />
-          <Route path="/collections/:id/edit" element={<CollectionsView />} />
-          <Route path="/wellness" element={<WellnessNavigator />} />
-          <Route path="/wellness/:id" element={<WellnessDetail />} />
-          <Route path="/design-system" element={<DesignSystem />} />
+          {/* Canonical viewport-owning layouts — no page gutter */}
           <Route path="/design-system/layouts/list-detail" element={<ListDetailDemo />}>
             <Route index element={null} />
             <Route path=":id" element={<ListDetailDemoDetail />} />
           </Route>
-          <Route path="/spike/planets" element={<PlanetsSpike />} />
-          <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
+
+          {/* Standard pages — wrapped in the page gutter */}
+          <Route element={<PageGutter />}>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/plants" element={<PlantList />} />
+            <Route path="/plants/:id" element={<PlantDetail />} />
+            <Route path="/ailments" element={<AilmentNavigator />} />
+            <Route path="/ailments/:id" element={<AilmentDetail />} />
+            <Route path="/astrology" element={<AstrologyView />} />
+            <Route path="/natal-chart" element={<NatalInput />} />
+            <Route path="/planetary-timing" element={<PlanetaryTiming />} />
+            <Route path="/preparations" element={<PreparationMatrix />} />
+            <Route path="/crossref" element={<CrossReference />} />
+            <Route path="/entheogens" element={<EntheogenicGuide />} />
+            <Route path="/hmbs" element={<HMBSView />} />
+            <Route path="/seasonal" element={<SeasonalGuide />} />
+            <Route path="/doctrine" element={<DoctrineExplorer />} />
+            <Route path="/body-systems" element={<BodySystemsView />} />
+            <Route path="/body-systems/:id" element={<BodySystemsView />} />
+            <Route path="/journal" element={<JournalView />} />
+            <Route path="/collections" element={<CollectionsView />} />
+            <Route path="/collections/new" element={<CollectionsView />} />
+            <Route path="/collections/:id" element={<CollectionsView />} />
+            <Route path="/collections/:id/edit" element={<CollectionsView />} />
+            <Route path="/wellness" element={<WellnessNavigator />} />
+            <Route path="/wellness/:id" element={<WellnessDetail />} />
+            <Route path="/design-system" element={<DesignSystem />} />
+            <Route path="/spike/planets" element={<PlanetsSpike />} />
+            <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
         </Route>
       </Routes>
     </>
