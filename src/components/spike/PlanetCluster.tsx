@@ -23,6 +23,11 @@ const RING_BASE_OPACITY = 0.9
 // the far side dims toward this floor. Adds 3D form to a flat point cloud.
 const DEPTH_MIN = 0.15
 
+// Fraction of body particles tagged as bright glints. Same idea as the
+// wind-drift sparkle fraction: stable per-particle boost (no flicker),
+// depth-gated so they only show on the camera-facing side.
+const BODY_SPARKLE_FRACTION = 0.07
+
 export { MORPH_LAMBDA }
 
 function sparkle(t: number, phase: number) {
@@ -43,6 +48,8 @@ function useSphereAttributes(config: PlanetVisual) {
     const dirs = new Float32Array(n * 3)
     const baseRadii = new Float32Array(n)
     const phases = new Float32Array(n)
+    const isSparkle = new Uint8Array(n)
+    const sparkleBoost = new Float32Array(n)
     for (let i = 0; i < n; i++) {
       const u = Math.random()
       const v = Math.random()
@@ -67,6 +74,10 @@ function useSphereAttributes(config: PlanetVisual) {
       colors[i * 3 + 0] = cr * SPARKLE_BASE
       colors[i * 3 + 1] = cg * SPARKLE_BASE
       colors[i * 3 + 2] = cb * SPARKLE_BASE
+      if (Math.random() < BODY_SPARKLE_FRACTION) {
+        isSparkle[i] = 1
+        sparkleBoost[i] = Math.random()
+      }
     }
     // Profile + scratch are retained so each engagement can re-roll the glyph
     // sample and pairing in place — keeps the morph from looking identical
@@ -86,6 +97,8 @@ function useSphereAttributes(config: PlanetVisual) {
       dirs,
       baseRadii,
       phases,
+      isSparkle,
+      sparkleBoost,
       glyphProfile,
       glyphScratch,
       glyphTargets,
@@ -177,6 +190,8 @@ function PlanetBody({
     dirs,
     baseRadii,
     phases,
+    isSparkle,
+    sparkleBoost,
     glyphProfile,
     glyphScratch,
     glyphTargets,
@@ -250,10 +265,21 @@ function PlanetBody({
       else if (nz > 1) nz = 1
       const depth = DEPTH_MIN + (1 - DEPTH_MIN) * ((nz + 1) * 0.5)
       const s = sparkle(t, phases[i])
-      const k = s * depth
-      colors[i * 3 + 0] = baseColors[i * 3 + 0] * k
-      colors[i * 3 + 1] = baseColors[i * 3 + 1] * k
-      colors[i * 3 + 2] = baseColors[i * 3 + 2] * k
+      if (isSparkle[i]) {
+        // White glint: per-particle boost gives stable peak brightness;
+        // depth gates it to the camera-facing hemisphere so sparkles fade
+        // out as they rotate to the back. The existing sparkle() oscillator
+        // adds a soft twinkle on top.
+        const k = sparkleBoost[i] * depth * s
+        colors[i * 3 + 0] = k
+        colors[i * 3 + 1] = k
+        colors[i * 3 + 2] = k
+      } else {
+        const k = s * depth
+        colors[i * 3 + 0] = baseColors[i * 3 + 0] * k
+        colors[i * 3 + 1] = baseColors[i * 3 + 1] * k
+        colors[i * 3 + 2] = baseColors[i * 3 + 2] * k
+      }
     }
     const attr = points.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
