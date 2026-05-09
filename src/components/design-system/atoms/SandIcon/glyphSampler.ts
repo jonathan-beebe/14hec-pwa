@@ -12,10 +12,11 @@ import type { ReactNode } from 'react'
 import type { IconSource } from '../Icon'
 
 const ALPHA_THRESHOLD = 80
-const GLYPH_FONT_RATIO = 0.78
-// Ordered for symbol-glyph coverage on the platforms we support; falls
-// back to a serif so something always renders.
-const GLYPH_FONT_FAMILY =
+// Used only when the caller doesn't pass a font shorthand. Ordered for
+// symbol-glyph coverage on the platforms we support; falls back to a
+// serif so something always renders.
+const DEFAULT_GLYPH_FONT_RATIO = 0.78
+const DEFAULT_GLYPH_FONT_FAMILY =
   '"Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", serif'
 
 export type GlyphSample = {
@@ -31,10 +32,24 @@ export type GlyphSample = {
   dpr: number
 }
 
+export type SampleOptions = {
+  /**
+   * CSS font shorthand applied to the canvas before fillText. Use the
+   * caller's *resolved* font (typically read from
+   * `getComputedStyle(targetEl).font` or constructed from
+   * fontStyle/Weight/Size/Family) so canvas falls through the same
+   * character-resolution chain as CSS — matching what the static DOM
+   * glyph would render. Only used by the glyph path. Sized in canvas
+   * pixels (multiply CSS px by DPR).
+   */
+  font?: string
+}
+
 export async function sampleSource(
   source: IconSource,
   bodySizeCss: number,
   dpr: number,
+  options: SampleOptions = {},
 ): Promise<GlyphSample | null> {
   const w = Math.max(1, Math.round(bodySizeCss * dpr))
   const h = w
@@ -46,7 +61,7 @@ export async function sampleSource(
   ctx.clearRect(0, 0, w, h)
 
   if (source.kind === 'glyph') {
-    paintGlyph(ctx, source.glyph, w, h)
+    paintGlyph(ctx, source.glyph, w, h, options.font)
   } else {
     const ok = await paintSvg(ctx, source.viewBox, source.children, w, h)
     if (!ok) return null
@@ -61,11 +76,14 @@ function paintGlyph(
   glyph: string,
   w: number,
   h: number,
+  font: string | undefined,
 ): void {
   ctx.fillStyle = '#fff'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
-  ctx.font = `${Math.round(w * GLYPH_FONT_RATIO)}px ${GLYPH_FONT_FAMILY}`
+  ctx.font =
+    font ??
+    `${Math.round(w * DEFAULT_GLYPH_FONT_RATIO)}px ${DEFAULT_GLYPH_FONT_FAMILY}`
   ctx.fillText(glyph, w / 2, h / 2)
 }
 

@@ -137,9 +137,16 @@ function InfoTile({
   return (
     <Link to={to} className={cardClass} aria-label={ariaLabel}>
       {sandActive && (
+        // text-7xl matches the static icon-slot's font-size — the
+        // sampler reads the canvas's computed font-family + font-size so
+        // canvas falls through the same character-resolution chain as
+        // CSS. Without it the canvas paints at the body default (16px)
+        // and selects a different fallback font, and the sand silhouette
+        // disagrees with the static DOM glyph for codepoints not in the
+        // first available font (⚕ is the most visible offender).
         <div
           aria-hidden="true"
-          className={`absolute inset-0 z-0 pointer-events-none ${tonePrimaryClass[tone]}`}
+          className={`absolute inset-0 z-0 pointer-events-none text-7xl ${tonePrimaryClass[tone]}`}
           style={{
             maskImage: SAND_MASK_GRADIENT,
             WebkitMaskImage: SAND_MASK_GRADIENT,

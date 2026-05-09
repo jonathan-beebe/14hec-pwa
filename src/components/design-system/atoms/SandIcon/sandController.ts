@@ -121,6 +121,25 @@ export class SandController {
     this.color = parseColor(cs)
   }
 
+  // Build a CSS font shorthand from the canvas's computed style so the
+  // glyph sampler's fillText falls through the same character-resolution
+  // chain as the static DOM glyph it shadows. Without this, the canvas
+  // hard-codes a font stack that disagrees with CSS for any codepoint
+  // not in the first available font (e.g. ⚕ resolves to one symbol font
+  // via CSS, a different one in the canvas, and the silhouettes diverge).
+  // The caller is responsible for ensuring the canvas inherits the same
+  // font-size as the static DOM glyph it shadows.
+  private computeFont(dpr: number): string | undefined {
+    const cs = getComputedStyle(this.canvas)
+    const sizeCss = parseFloat(cs.fontSize)
+    if (!Number.isFinite(sizeCss) || sizeCss <= 0) return undefined
+    const sizePx = Math.round(sizeCss * dpr)
+    const style = cs.fontStyle || 'normal'
+    const weight = cs.fontWeight || '400'
+    const family = cs.fontFamily || 'sans-serif'
+    return `${style} ${weight} ${sizePx}px ${family}`
+  }
+
   private async resample(): Promise<void> {
     const rect = this.canvas.getBoundingClientRect()
     const cssW = Math.ceil(rect.width)
@@ -138,7 +157,12 @@ export class SandController {
     if (sampleChanged) {
       // Tag this resample so a later one supersedes if both are in flight.
       const seq = ++this.resampleSeq
-      const sample = await sampleSource(this.options.source, this.options.bodySize, dpr)
+      const sample = await sampleSource(
+        this.options.source,
+        this.options.bodySize,
+        dpr,
+        { font: this.computeFont(dpr) },
+      )
       if (this.destroyed || seq !== this.resampleSeq) return
       this.sample = sample
       this.lastSampleKey = sampleKey
