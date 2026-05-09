@@ -139,6 +139,40 @@ export default function AtomsSection() {
               </div>
             </div>
           ))}
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+              Accessibility
+            </div>
+            <p className="text-earth-400 text-xs font-system mb-3 leading-relaxed">
+              Decorative by default — the wrapper is <code>aria-hidden</code>,
+              so screen readers skip it. When an icon stands alone (no
+              adjacent text label), pass <code>label</code>: the wrapper
+              becomes <code>role="img"</code> with that name, and unicode
+              glyph names like "white heart suit" no longer leak through.
+              Don't pass <code>label</code> when the icon sits next to a
+              visible text label that already names it.
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="card flex flex-col items-center gap-3 py-5 text-earth-300">
+                <Icon.Heart size={48} />
+                <code className="text-[10px] uppercase tracking-[0.18em] text-earth-500 text-center break-all">
+                  &lt;Icon.Heart /&gt;
+                </code>
+                <span className="text-[10px] text-earth-500 text-center">
+                  decorative — SR skips it
+                </span>
+              </div>
+              <div className="card flex flex-col items-center gap-3 py-5 text-earth-300">
+                <Icon.Heart size={48} label="Heart" />
+                <code className="text-[10px] uppercase tracking-[0.18em] text-earth-500 text-center break-all">
+                  &lt;Icon.Heart label="Heart" /&gt;
+                </code>
+                <span className="text-[10px] text-earth-500 text-center">
+                  meaningful — SR announces "Heart, image"
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </Subsection>
     </Section>

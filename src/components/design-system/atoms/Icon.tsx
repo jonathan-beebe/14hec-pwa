@@ -17,26 +17,40 @@ import type { HTMLAttributes, ReactNode } from 'react'
  * Canonical sizes: 16 / 20 / 24. Default inherits the parent's font-size.
  * Pass `size` for fixed pixels or use Tailwind text-* on a parent.
  *
- * Decorative by default (aria-hidden). When an icon carries meaning on
- * its own, pass `aria-label` and `aria-hidden={false}`.
+ * Accessibility: decorative by default. The wrapper carries `aria-hidden`
+ * and the SVG glyph has no accessible name, so screen readers skip it.
+ * When the icon carries meaning on its own (no adjacent text label), pass
+ * `label` — the wrapper becomes `role="img"` with that aria-label, and
+ * unicode glyph names like "white heart suit" are no longer leaked.
  */
 
-export interface IconProps extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
+export interface IconProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, 'children' | 'aria-hidden' | 'aria-label' | 'role'> {
   /** Pixel size override. Omit to inherit the parent's font-size. */
   size?: number
+  /**
+   * Accessible name. When set, the icon announces as an image with this
+   * label. When omitted (default), the icon is hidden from assistive tech.
+   * Do not pass when the icon sits next to a visible text label that
+   * already names it — that would cause a duplicate announcement.
+   */
+  label?: string
 }
 
 interface GlyphIconProps extends IconProps {
   glyph: string
 }
 
-function GlyphIcon({ size, glyph, style, ...rest }: GlyphIconProps) {
+function GlyphIcon({ size, glyph, style, label, ...rest }: GlyphIconProps) {
   const sizeStyle = size !== undefined ? { fontSize: size } : null
+  const a11y = label
+    ? { role: 'img' as const, 'aria-label': label }
+    : { 'aria-hidden': true as const }
   return (
     <span
-      aria-hidden="true"
       style={{ lineHeight: 1, ...sizeStyle, ...style }}
       {...rest}
+      {...a11y}
     >
       {glyph}
     </span>
@@ -48,13 +62,16 @@ interface SvgIconProps extends IconProps {
   viewBox?: string
 }
 
-function SvgIcon({ size, style, children, viewBox = '0 0 24 24', ...rest }: SvgIconProps) {
+function SvgIcon({ size, style, children, viewBox = '0 0 24 24', label, ...rest }: SvgIconProps) {
   const sizeStyle = size !== undefined ? { fontSize: size } : null
+  const a11y = label
+    ? { role: 'img' as const, 'aria-label': label }
+    : { 'aria-hidden': true as const }
   return (
     <span
-      aria-hidden="true"
       style={{ lineHeight: 1, display: 'inline-flex', ...sizeStyle, ...style }}
       {...rest}
+      {...a11y}
     >
       <svg
         width="1em"

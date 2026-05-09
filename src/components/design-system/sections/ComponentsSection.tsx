@@ -49,10 +49,16 @@ export default function ComponentsSection() {
       </Subsection>
 
       <Subsection title="InfoTile">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          Numeric tiles pass <code>aria-label</code> so screen readers hear
+          "207 plants in the library" instead of just "207, Plants." Text
+          tiles (Heart, Mind, Body, Spirit) omit <code>aria-label</code>:
+          the visible primary + secondary text already names the link.
+        </p>
         <div className="grid grid-cols-3 gap-3">
-          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}      primary={207}    secondary="Plants" />
-          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />}   primary={75}     secondary="Ailments" />
-          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}           primary={12}     secondary="Zodiac" />
+          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}      primary={207}    secondary="Plants"   aria-label="207 plants in the library" />
+          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />}   primary={75}     secondary="Ailments" aria-label="75 ailments catalogued" />
+          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}           primary={12}     secondary="Zodiac"   aria-label="12 zodiac signs" />
           <InfoTile.Heart     to="/design-system" icon={<Icon.Heart />}         primary="Heart"  secondary="Love, connection, empathy" />
           <InfoTile.Mind      to="/design-system" icon={<Icon.Atom />}          primary="Mind"   secondary="Clarity, focus, cognition" />
           <InfoTile.Body      to="/design-system" icon={<Icon.Ankh />}          primary="Body"   secondary="Vitality, strength, healing" />

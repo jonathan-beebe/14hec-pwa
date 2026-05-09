@@ -24,6 +24,13 @@ export interface InfoTileProps {
   /** Small bottom-right descriptive text: label or caption. */
   secondary?: ReactNode
   className?: string
+  /**
+   * Explicit accessible name for the link. Use when `primary` or `secondary`
+   * is non-textual (a number alone, a component, an icon), so screen-reader
+   * users hear a meaningful name instead of just "207". When omitted, the
+   * link's name is derived from visible primary + secondary text.
+   */
+  'aria-label'?: string
 }
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
@@ -86,13 +93,22 @@ function InfoTile({
   primary,
   secondary,
   className,
+  'aria-label': ariaLabel,
 }: InfoTileProps) {
-  const cardClass = `card flex items-center gap-4 group ${toneFrameClass[tone]}${className ? ` ${className}` : ''}`
+  // focus-visible:ring-botanical-400 overrides the global :focus-visible
+  // ring (botanical-500/40, ~1.7:1 against the card surface) with a solid
+  // botanical-400 ring (~7:1) — meets WCAG 1.4.11 non-text contrast.
+  // motion-reduce:* disables the card's hover-lift transform and 300ms
+  // transition for users with prefers-reduced-motion.
+  const focusClass =
+    'focus-visible:ring-botanical-400 motion-reduce:transition-none motion-reduce:hover:transform-none'
+  const cardClass = `card flex items-center gap-4 group ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
   return (
-    <Link to={to} className={cardClass}>
+    <Link to={to} className={cardClass} aria-label={ariaLabel}>
       {icon !== undefined && (
         <div
-          className={`w-12 text-4xl flex items-center justify-center opacity-60 group-hover:opacity-90 transition-opacity duration-200 shrink-0 ${tonePrimaryClass[tone]}`}
+          aria-hidden="true"
+          className={`w-12 text-4xl flex items-center justify-center opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none shrink-0 ${tonePrimaryClass[tone]}`}
         >
           {icon}
         </div>
