@@ -18,6 +18,12 @@ export interface ListDetailLayoutProps {
   emptyDetail?: ReactNode
   /** Called when the mobile back button is pressed. */
   onBack?: () => void
+  /**
+   * Render hairline dividers between regions (sidebar/detail seam, mobile
+   * back-bar baseline). Default `true`. Set `false` when the consumer prefers
+   * a borderless presentation.
+   */
+  dividers?: boolean
 }
 
 /**
@@ -38,8 +44,10 @@ export default function ListDetailLayout({
   detail,
   emptyDetail,
   onBack,
+  dividers = true,
 }: ListDetailLayoutProps) {
   const isDetailActive = detail !== null && detail !== undefined
+  const sidebarBorder = dividers ? 'lg:border-r lg:border-white/5' : ''
 
   return (
     <div className="lg:h-full lg:flex lg:flex-col">
@@ -51,7 +59,7 @@ export default function ListDetailLayout({
 
       <div className="lg:flex lg:flex-1 lg:min-h-0">
         <aside
-          className={`${isDetailActive ? 'hidden' : 'block'} lg:block lg:w-[30%] lg:max-w-[360px] lg:overflow-y-auto lg:border-r lg:border-white/5`}
+          className={`${isDetailActive ? 'hidden' : 'block'} lg:block lg:w-[30%] lg:max-w-[360px] lg:overflow-y-auto ${sidebarBorder}`}
         >
           {list}
         </aside>
@@ -59,7 +67,7 @@ export default function ListDetailLayout({
         <section
           className={`${isDetailActive ? 'block' : 'hidden'} lg:block lg:flex-1 lg:overflow-y-auto`}
         >
-          {isDetailActive && onBack && <MobileBackBar onBack={onBack} />}
+          {isDetailActive && onBack && <MobileBackBar onBack={onBack} divider={dividers} />}
           {isDetailActive ? detail : emptyDetail}
         </section>
       </div>
@@ -67,9 +75,10 @@ export default function ListDetailLayout({
   )
 }
 
-function MobileBackBar({ onBack }: { onBack: () => void }) {
+function MobileBackBar({ onBack, divider }: { onBack: () => void; divider: boolean }) {
+  const borderClass = divider ? 'border-b border-white/5' : ''
   return (
-    <div className="lg:hidden sticky top-0 z-10 bg-earth-950/90 backdrop-blur border-b border-white/5 px-2 py-1.5">
+    <div className={`lg:hidden sticky top-0 z-10 bg-earth-950/90 backdrop-blur ${borderClass} px-2 py-1.5`}>
       <Button.Ghost onClick={onBack} aria-label="Back to list">
         <Icon.ArrowLeft className="mr-1.5" /> Back
       </Button.Ghost>
