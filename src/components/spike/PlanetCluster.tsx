@@ -19,6 +19,10 @@ const RING_WOBBLE_AMP = 0.018
 const BODY_BASE_OPACITY = 0.95
 const RING_BASE_OPACITY = 0.9
 
+// Particles on the camera-facing side of the sphere paint at full color;
+// the far side dims toward this floor. Adds 3D form to a flat point cloud.
+const DEPTH_MIN = 0.15
+
 export { MORPH_LAMBDA }
 
 function sparkle(t: number, phase: number) {
@@ -211,6 +215,19 @@ function PlanetBody({
         delta,
       )
     }
+    // Refresh matrixWorld so depth shading reflects the rotation.y just set
+    // (and any tilt set by PlanetSelf this frame). Third row of the upper-3x3
+    // (column-major: e[2], e[6], e[10]) maps a local offset to its world-z
+    // component; column length gives uniform scale → world sphere radius.
+    points.updateWorldMatrix(true, false)
+    const e = points.matrixWorld.elements
+    const m20 = e[2]
+    const m21 = e[6]
+    const m22 = e[10]
+    const c0 = e[8]
+    const c1 = e[9]
+    const worldScale = Math.sqrt(c0 * c0 + c1 * c1 + m22 * m22)
+    const invDepthNorm = 1 / (config.bodyScale * worldScale)
     const t = state.clock.elapsedTime
     const wobble = amp * inv
     const n = config.particleCount
@@ -222,13 +239,21 @@ function PlanetBody({
       const tx = glyphTargets[i * 3 + 0]
       const ty = glyphTargets[i * 3 + 1]
       const tz = glyphTargets[i * 3 + 2]
-      positions[i * 3 + 0] = sx + (tx - sx) * m
-      positions[i * 3 + 1] = sy + (ty - sy) * m
-      positions[i * 3 + 2] = sz + (tz - sz) * m
+      const px = sx + (tx - sx) * m
+      const py = sy + (ty - sy) * m
+      const pz = sz + (tz - sz) * m
+      positions[i * 3 + 0] = px
+      positions[i * 3 + 1] = py
+      positions[i * 3 + 2] = pz
+      let nz = (m20 * px + m21 * py + m22 * pz) * invDepthNorm
+      if (nz < -1) nz = -1
+      else if (nz > 1) nz = 1
+      const depth = DEPTH_MIN + (1 - DEPTH_MIN) * ((nz + 1) * 0.5)
       const s = sparkle(t, phases[i])
-      colors[i * 3 + 0] = baseColors[i * 3 + 0] * s
-      colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
-      colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
+      const k = s * depth
+      colors[i * 3 + 0] = baseColors[i * 3 + 0] * k
+      colors[i * 3 + 1] = baseColors[i * 3 + 1] * k
+      colors[i * 3 + 2] = baseColors[i * 3 + 2] * k
     }
     const attr = points.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
@@ -326,6 +351,19 @@ function PlanetRing({
         delta,
       )
     }
+    // Same depth-shading approach as the body — see PlanetBody useFrame for
+    // matrix derivation. Ring particles extend out to ring.outer * bodyScale,
+    // so we normalize by that instead of bodyScale or every grain clamps to
+    // the depth extremes.
+    points.updateWorldMatrix(true, false)
+    const e = points.matrixWorld.elements
+    const m20 = e[2]
+    const m21 = e[6]
+    const m22 = e[10]
+    const c0 = e[8]
+    const c1 = e[9]
+    const worldScale = Math.sqrt(c0 * c0 + c1 * c1 + m22 * m22)
+    const invDepthNorm = 1 / (ring.outer * bodyScale * worldScale)
     const t = state.clock.elapsedTime
     const wobble = amp * inv
     const n = ring.particleCount
@@ -338,13 +376,21 @@ function PlanetRing({
       const tx = glyphTargets[i * 3 + 0]
       const ty = glyphTargets[i * 3 + 1]
       const tz = glyphTargets[i * 3 + 2]
-      positions[i * 3 + 0] = sx + (tx - sx) * m
-      positions[i * 3 + 1] = sy + (ty - sy) * m
-      positions[i * 3 + 2] = sz + (tz - sz) * m
+      const px = sx + (tx - sx) * m
+      const py = sy + (ty - sy) * m
+      const pz = sz + (tz - sz) * m
+      positions[i * 3 + 0] = px
+      positions[i * 3 + 1] = py
+      positions[i * 3 + 2] = pz
+      let nz = (m20 * px + m21 * py + m22 * pz) * invDepthNorm
+      if (nz < -1) nz = -1
+      else if (nz > 1) nz = 1
+      const depth = DEPTH_MIN + (1 - DEPTH_MIN) * ((nz + 1) * 0.5)
       const s = sparkle(t, phases[i])
-      colors[i * 3 + 0] = baseColors[i * 3 + 0] * s
-      colors[i * 3 + 1] = baseColors[i * 3 + 1] * s
-      colors[i * 3 + 2] = baseColors[i * 3 + 2] * s
+      const k = s * depth
+      colors[i * 3 + 0] = baseColors[i * 3 + 0] * k
+      colors[i * 3 + 1] = baseColors[i * 3 + 1] * k
+      colors[i * 3 + 2] = baseColors[i * 3 + 2] * k
     }
     const attr = points.geometry.attributes.position as THREE.BufferAttribute
     attr.needsUpdate = true
