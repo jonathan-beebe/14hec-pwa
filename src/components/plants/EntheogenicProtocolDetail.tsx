@@ -7,11 +7,11 @@ export default function EntheogenicProtocolDetail() {
   const protocol = findProtocolBySlug(slug)
 
   if (!protocol) {
-    return <div className="p-8 text-earth-500 text-sm">Protocol not found.</div>
+    return <div className="p-8 lg:pl-2 text-earth-500 text-sm">Protocol not found.</div>
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:pl-2">
       <div className="card-glow-botanical animate-fade-in">
         <div className="flex items-center gap-3 mb-2">
           <span className="text-xl opacity-50">{protocol.icon}</span>

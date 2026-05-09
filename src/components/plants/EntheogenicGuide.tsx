@@ -8,7 +8,7 @@ import { INTEGRATION_PROTOCOLS } from './entheogenicProtocols'
 
 function TopBar() {
   return (
-    <div className="px-8 py-6 border-b border-white/5">
+    <div className="px-8 py-6">
       <Text.PageTitle className="text-gradient-celestial">Entheogenic Journey Guide</Text.PageTitle>
       <p className="text-sm text-earth-500 mt-1">
         Sacred plant medicine guidance: preparation, set & setting, and integration
@@ -91,7 +91,7 @@ function ProtocolsList() {
 
 function ListPane({ plants }: { plants: Plant[] }) {
   return (
-    <div className="px-8 py-6">
+    <div className="px-8 py-6 lg:pr-2">
       <Text.SectionLabel className="mb-3">Entheogenic Plants</Text.SectionLabel>
       <PlantsList plants={plants} />
       <Text.SectionLabel className="mt-6 mb-3">Journey Protocols</Text.SectionLabel>
@@ -102,7 +102,7 @@ function ListPane({ plants }: { plants: Plant[] }) {
 
 function EmptyState() {
   return (
-    <div className="p-8">
+    <div className="p-8 lg:pl-2">
       <div className="card text-center py-16 text-earth-500">
         <div className="text-4xl mb-3 opacity-15 animate-pulse-slow">☄</div>
         <p className="text-lg font-display mb-2">Select a plant or protocol</p>
@@ -133,6 +133,7 @@ export default function EntheogenicGuide() {
       detail={detail}
       emptyDetail={<EmptyState />}
       onBack={() => navigate('/entheogens')}
+      dividers={false}
     />
   )
 }

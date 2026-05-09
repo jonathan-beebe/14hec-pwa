@@ -30,15 +30,15 @@ export default function EntheogenicPlantDetail() {
   }, [id])
 
   if (notFound) {
-    return <div className="p-8 text-earth-500 text-sm">Plant not found.</div>
+    return <div className="p-8 lg:pl-2 text-earth-500 text-sm">Plant not found.</div>
   }
 
   if (!plant) {
-    return <div className="p-8 text-earth-500 text-sm">Loading…</div>
+    return <div className="p-8 lg:pl-2 text-earth-500 text-sm">Loading…</div>
   }
 
   return (
-    <div className="p-8">
+    <div className="p-8 lg:pl-2">
       <div className="card-glow-celestial animate-fade-in">
         <div className="flex justify-between items-start mb-4">
           <div>
