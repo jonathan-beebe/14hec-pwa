@@ -70,19 +70,19 @@ const tonePrimaryClass: Record<InfoTileTone, string> = {
  */
 const toneFrameClass: Record<InfoTileTone, string> = {
   botanical:
-    'bg-gradient-to-br from-botanical-500/20 to-transparent to-[33%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
+    'bg-gradient-to-br from-botanical-500/20 hover:from-botanical-500/30 to-transparent to-[33%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
   celestial:
-    'bg-gradient-to-br from-celestial-500/20 to-transparent to-[33%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
+    'bg-gradient-to-br from-celestial-500/20 hover:from-celestial-500/30 to-transparent to-[33%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
   gold:
-    'bg-gradient-to-br from-gold-500/20 to-transparent to-[33%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
+    'bg-gradient-to-br from-gold-500/20 hover:from-gold-500/30 to-transparent to-[33%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
   heart:
-    'bg-gradient-to-br from-rose-500/20 to-transparent to-[33%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
+    'bg-gradient-to-br from-rose-500/20 hover:from-rose-500/30 to-transparent to-[33%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
   mind:
-    'bg-gradient-to-br from-blue-500/20 to-transparent to-[33%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
+    'bg-gradient-to-br from-blue-500/20 hover:from-blue-500/30 to-transparent to-[33%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
   body:
-    'bg-gradient-to-br from-green-500/20 to-transparent to-[33%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
+    'bg-gradient-to-br from-green-500/20 hover:from-green-500/30 to-transparent to-[33%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
   spirit:
-    'bg-gradient-to-br from-purple-500/20 to-transparent to-[33%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
+    'bg-gradient-to-br from-purple-500/20 hover:from-purple-500/30 to-transparent to-[33%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
 }
 
 /**
