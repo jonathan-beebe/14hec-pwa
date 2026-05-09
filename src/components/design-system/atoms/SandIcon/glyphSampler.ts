@@ -80,11 +80,26 @@ function paintGlyph(
 ): void {
   ctx.fillStyle = '#fff'
   ctx.textAlign = 'center'
-  ctx.textBaseline = 'middle'
   ctx.font =
     font ??
     `${Math.round(w * DEFAULT_GLYPH_FONT_RATIO)}px ${DEFAULT_GLYPH_FONT_FAMILY}`
-  ctx.fillText(glyph, w / 2, h / 2)
+  // Match the static DOM glyph's vertical position. The static icon slot
+  // is `text-8xl` (line-height: 1) flex-centered in the card, so the
+  // alphabetic baseline sits at `ascent + (lineHeight - ascent - descent) / 2`
+  // — half-leading distributed evenly above and below the font box.
+  // Canvas's textBaseline='middle' uses the em-square center as the
+  // reference instead, painting ~5–10px higher for symbol fonts where
+  // ascent + descent ≠ em-size; that is what produced the visible
+  // misalignment between the sand and static glyphs.
+  ctx.textBaseline = 'alphabetic'
+  const m = ctx.measureText(glyph)
+  const ascent = m.fontBoundingBoxAscent
+  const descent = m.fontBoundingBoxDescent
+  const baselineY =
+    Number.isFinite(ascent) && Number.isFinite(descent)
+      ? ascent + (h - ascent - descent) / 2
+      : h * 0.82
+  ctx.fillText(glyph, w / 2, baselineY)
 }
 
 async function paintSvg(
