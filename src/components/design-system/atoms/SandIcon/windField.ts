@@ -44,7 +44,16 @@ const WIND = {
   // Cap on wind grain alpha (out of 255). Keeps body pixels dominant when
   // the two layers overlap.
   alphaScale: 200,
+  // Fraction of wind particles painted pure white instead of the base
+  // color. Reads as occasional bright glints in the trailing wind.
+  // Fixed at construction so the same indices stay sparkly — but since
+  // wind particles respawn frequently, the visual location rotates
+  // naturally over time.
+  sparkleFraction: 0.05,
 }
+const SPARKLE_R = 255
+const SPARKLE_G = 255
+const SPARKLE_B = 255
 
 export type WindFrameCtx = {
   buf: Uint8ClampedArray
@@ -76,6 +85,13 @@ export class WindField {
   private readonly lifespan: Float32Array
   private readonly jitterX: Float32Array
   private readonly jitterY: Float32Array
+  // 1 = paint pure white, 0 = paint base color. Fixed at construction.
+  private readonly isSparkle: Uint8Array
+  // Per-sparkle [0,1] boost factor. Sparkle alpha lerps from the wind
+  // grain's current alpha (boost=0) to 255 (boost=1), so each sparkle
+  // has its own stable brightness — variety across the pool, no
+  // frame-to-frame flicker. Only meaningful for sparkle indices.
+  private readonly sparkleBoost: Float32Array
   private readonly _kernelOut: Kernel = {
     x: 0, y: 0, life: 0, lifespan: 0, jitterX: 0, jitterY: 0, alpha: 0,
   }
@@ -92,6 +108,8 @@ export class WindField {
     this.lifespan = new Float32Array(n)
     this.jitterX = new Float32Array(n)
     this.jitterY = new Float32Array(n)
+    this.isSparkle = new Uint8Array(n)
+    this.sparkleBoost = new Float32Array(n)
     for (let i = 0; i < n; i++) {
       this.lifespan[i] = randLifespan(rng)
       // Negative life = startup delay, uniformly spread across lifespan.max.
@@ -100,6 +118,16 @@ export class WindField {
       this.life[i] = -rng() * WIND.lifespan.max
       this.jitterX[i] = randJitter(WIND.jitter.xPx, sample.dpr, rng)
       this.jitterY[i] = randJitter(WIND.jitter.yPx, sample.dpr, rng)
+    }
+
+    // Tag exactly sparkleFraction of slots as sparkle. Shuffled-range
+    // pick guarantees an exact count (vs. per-particle rng() drift).
+    const sparkleCount = Math.round(n * WIND.sparkleFraction)
+    const order = shuffledRange(n, rng)
+    for (let k = 0; k < sparkleCount; k++) {
+      const idx = order[k]
+      this.isSparkle[idx] = 1
+      this.sparkleBoost[idx] = rng()
     }
   }
 
@@ -141,6 +169,19 @@ export class WindField {
       if (px < 0 || px >= cw || py < 0 || py >= ch) continue
       const off = (py * cw + px) * 4
       const aa = (out.alpha * WIND.alphaScale) | 0
+      if (this.isSparkle[i]) {
+        // Sparkle alpha lerps from the wind grain's current alpha (so
+        // it fades in/out with the life curve, never dimmer than its
+        // colored neighbors) up to a per-particle ceiling between aa
+        // and 255. Bypasses the max-blend gate so the white shows on
+        // top of body pixels too.
+        const boostA = aa + ((255 - aa) * this.sparkleBoost[i]) | 0
+        buf[off] = SPARKLE_R
+        buf[off + 1] = SPARKLE_G
+        buf[off + 2] = SPARKLE_B
+        buf[off + 3] = boostA
+        continue
+      }
       // Max-blend: a faint wind grain never overwrites a stronger body pixel.
       if (buf[off + 3] < aa) {
         buf[off] = r
@@ -250,4 +291,16 @@ function randJitter(amplitudePx: number, dpr: number, rng: () => number): number
 
 function clamp(v: number, lo: number, hi: number): number {
   return Math.max(lo, Math.min(hi, v))
+}
+
+function shuffledRange(n: number, rng: () => number): Int32Array {
+  const order = new Int32Array(n)
+  for (let i = 0; i < n; i++) order[i] = i
+  for (let i = n - 1; i > 0; i--) {
+    const j = (rng() * (i + 1)) | 0
+    const tmp = order[i]
+    order[i] = order[j]
+    order[j] = tmp
+  }
+  return order
 }
