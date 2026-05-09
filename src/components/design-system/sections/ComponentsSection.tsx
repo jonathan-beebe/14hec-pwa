@@ -50,13 +50,13 @@ export default function ComponentsSection() {
 
       <Subsection title="InfoTile">
         <div className="grid grid-cols-3 gap-3">
-          <InfoTile.Botanical to="/design-system" icon={<Icon.Plant />}   primary={207}    secondary="Plants" />
-          <InfoTile.Celestial to="/design-system" icon={<Icon.Ailment />} primary={75}     secondary="Ailments" />
-          <InfoTile.Gold      to="/design-system" icon={<Icon.Zodiac />}  primary={12}     secondary="Zodiac" />
-          <InfoTile.Heart     to="/design-system" icon={<Icon.Heart />}   primary="Heart"  secondary="Love, connection, empathy" />
-          <InfoTile.Mind      to="/design-system" icon={<Icon.Mind />}    primary="Mind"   secondary="Clarity, focus, cognition" />
-          <InfoTile.Body      to="/design-system" icon={<Icon.Body />}    primary="Body"   secondary="Vitality, strength, healing" />
-          <InfoTile.Spirit    to="/design-system" icon={<Icon.Spirit />}  primary="Spirit" secondary="Transcendence, intuition" />
+          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}      primary={207}    secondary="Plants" />
+          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />}   primary={75}     secondary="Ailments" />
+          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}           primary={12}     secondary="Zodiac" />
+          <InfoTile.Heart     to="/design-system" icon={<Icon.Heart />}         primary="Heart"  secondary="Love, connection, empathy" />
+          <InfoTile.Mind      to="/design-system" icon={<Icon.Atom />}          primary="Mind"   secondary="Clarity, focus, cognition" />
+          <InfoTile.Body      to="/design-system" icon={<Icon.Ankh />}          primary="Body"   secondary="Vitality, strength, healing" />
+          <InfoTile.Spirit    to="/design-system" icon={<Icon.StarFourPoint />} primary="Spirit" secondary="Transcendence, intuition" />
         </div>
       </Subsection>
     </Section>
