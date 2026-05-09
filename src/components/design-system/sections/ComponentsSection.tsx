@@ -54,11 +54,15 @@ export default function ComponentsSection() {
           "207 plants in the library" instead of just "207, Plants." Text
           tiles (Heart, Mind, Body, Spirit) omit <code>aria-label</code>:
           the visible primary + secondary text already names the link.
+          The numeric tiles also pass <code>sandIcon</code> — the icon
+          renders as drifting sand with a wind tail when motion is allowed,
+          and falls back to the static <code>icon</code> when reduced motion
+          is requested.
         </p>
         <div className="grid grid-cols-3 gap-3">
-          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}      primary={207}    secondary="Plants"   aria-label="207 plants in the library" />
-          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />}   primary={75}     secondary="Ailments" aria-label="75 ailments catalogued" />
-          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}           primary={12}     secondary="Zodiac"   aria-label="12 zodiac signs" />
+          <InfoTile.Botanical to="/design-system" icon={<Icon.Shamrock />}      sandIcon={Icon.Shamrock.source}    primary={207}    secondary="Plants"   aria-label="207 plants in the library" />
+          <InfoTile.Celestial to="/design-system" icon={<Icon.Aesculapius />}   sandIcon={Icon.Aesculapius.source} primary={75}     secondary="Ailments" aria-label="75 ailments catalogued" />
+          <InfoTile.Gold      to="/design-system" icon={<Icon.Sun />}           sandIcon={Icon.Sun.source}         primary={12}     secondary="Zodiac"   aria-label="12 zodiac signs" />
           <InfoTile.Heart     to="/design-system" icon={<Icon.Heart />}         primary="Heart"  secondary="Love, connection, empathy" />
           <InfoTile.Mind      to="/design-system" icon={<Icon.Atom />}          primary="Mind"   secondary="Clarity, focus, cognition" />
           <InfoTile.Body      to="/design-system" icon={<Icon.Ankh />}          primary="Body"   secondary="Vitality, strength, healing" />

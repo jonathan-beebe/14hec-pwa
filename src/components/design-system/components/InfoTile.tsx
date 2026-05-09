@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import type { IconSource } from '../atoms/Icon'
+import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
 
 /**
  * Tone defines the primary content's color. The card frame is neutral for
@@ -31,6 +33,15 @@ export interface InfoTileProps {
    * link's name is derived from visible primary + secondary text.
    */
   'aria-label'?: string
+  /**
+   * Optional sand-particle rendering of the icon. When set AND the user has
+   * not requested reduced motion, the icon slot is overlaid by a canvas
+   * that animates the glyph as drifting sand with a wind tail extending
+   * right behind the text. The `icon` prop is rendered as the static
+   * fallback when reduced motion is on or the canvas can't initialize.
+   * Pass `Icon.X.source` from the Icon library.
+   */
+  sandIcon?: IconSource
 }
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
@@ -86,6 +97,14 @@ const toneFrameClass: Record<InfoTileTone, string> = {
  * <InfoTile.Heart to="/hmbs" icon="♡" primary="Heart"
  *   secondary="Love, connection, empathy" />
  */
+// Body silhouette geometry. p-5 (20px) + half of w-12 (24px) puts the body
+// center at x=44 from the card's padding-box left edge. The mask cutoff
+// keeps the body fully opaque through ~75px and fades the wind tail to
+// transparent before it reaches the text — independent of card width.
+const SAND_BODY_SIZE = 48
+const SAND_BODY_OFFSET_X = 44
+const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 75px, transparent 100%)'
+
 function InfoTile({
   to,
   tone = 'botanical',
@@ -94,26 +113,58 @@ function InfoTile({
   secondary,
   className,
   'aria-label': ariaLabel,
+  sandIcon,
 }: InfoTileProps) {
+  const reducedMotion = useReducedMotion()
+  const sandActive = sandIcon !== undefined && !reducedMotion
+
   // focus-visible:ring-botanical-400 overrides the global :focus-visible
   // ring (botanical-500/40, ~1.7:1 against the card surface) with a solid
   // botanical-400 ring (~7:1) — meets WCAG 1.4.11 non-text contrast.
   // motion-reduce:* disables the card's hover-lift transform and 300ms
   // transition for users with prefers-reduced-motion.
+  // overflow-hidden clips the sand canvas to the card's rounded corners
+  // (no effect on the focus ring, which uses outset box-shadow).
   const focusClass =
     'focus-visible:ring-botanical-400 motion-reduce:transition-none motion-reduce:hover:transform-none'
-  const cardClass = `card flex items-center gap-4 group ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
+  const cardClass = `card flex items-center gap-4 group overflow-hidden ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
+
+  // When sand is active the canvas wrapper sits behind the text (z-0) and
+  // is tinted by the icon-slot's text color (the wrapper is rendered into
+  // that color context via tonePrimaryClass). The text-slot uses relative
+  // z-10 to layer above it. The static icon DOM stays in flex layout for
+  // sizing but is `invisible` so it doesn't compete with the canvas paint.
   return (
     <Link to={to} className={cardClass} aria-label={ariaLabel}>
+      {sandActive && (
+        <div
+          aria-hidden="true"
+          className={`absolute inset-0 z-0 pointer-events-none ${tonePrimaryClass[tone]}`}
+          style={{
+            maskImage: SAND_MASK_GRADIENT,
+            WebkitMaskImage: SAND_MASK_GRADIENT,
+          }}
+        >
+          <SandIcon
+            source={sandIcon}
+            bodySize={SAND_BODY_SIZE}
+            bodyOffsetX={SAND_BODY_OFFSET_X}
+          />
+        </div>
+      )}
       {icon !== undefined && (
         <div
           aria-hidden="true"
-          className={`w-12 text-4xl flex items-center justify-center opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none shrink-0 ${tonePrimaryClass[tone]}`}
+          className={`w-12 text-4xl flex items-center justify-center shrink-0 ${
+            sandActive
+              ? 'invisible'
+              : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tonePrimaryClass[tone]}`
+          }`}
         >
           {icon}
         </div>
       )}
-      <div className="flex flex-col min-w-0">
+      <div className="relative z-10 flex flex-col min-w-0">
         <div
           className={`text-2xl font-system font-semibold tracking-tight tabular-nums ${tonePrimaryClass[tone]}`}
         >

@@ -22,6 +22,13 @@ import type { HTMLAttributes, ReactNode } from 'react'
  * When the icon carries meaning on its own (no adjacent text label), pass
  * `label` — the wrapper becomes `role="img"` with that aria-label, and
  * unicode glyph names like "white heart suit" are no longer leaked.
+ *
+ * Source descriptor: every icon exposes `Icon.X.source`, a tagged union
+ * describing how to rasterize the icon outside React (used by SandIcon
+ * and any other consumer that needs the raw graphic). Glyph icons carry
+ * `{ kind: 'glyph', glyph }`; SVG icons carry `{ kind: 'svg', viewBox,
+ * children }`. When the library moves fully to SVG, the glyph branch
+ * disappears without changing the public API.
  */
 
 export interface IconProps
@@ -35,6 +42,15 @@ export interface IconProps
    * already names it — that would cause a duplicate announcement.
    */
   label?: string
+}
+
+export type IconSource =
+  | { kind: 'glyph'; glyph: string }
+  | { kind: 'svg'; viewBox: string; children: ReactNode }
+
+export type IconComponent = ((props: IconProps) => JSX.Element) & {
+  displayName: string
+  source: IconSource
 }
 
 interface GlyphIconProps extends IconProps {
@@ -90,177 +106,112 @@ function SvgIcon({ size, style, children, viewBox = '0 0 24 24', label, ...rest 
   )
 }
 
+// Factories: each icon is one line, and gets `displayName` + `source` for
+// free. Keeps the catalog scannable and guarantees every icon has a
+// rasterizable source.
+
+function glyphIcon(name: string, glyph: string): IconComponent {
+  const Comp: IconComponent = Object.assign(
+    (p: IconProps) => <GlyphIcon glyph={glyph} {...p} />,
+    {
+      displayName: `Icon.${name}`,
+      source: { kind: 'glyph' as const, glyph },
+    },
+  )
+  return Comp
+}
+
+function svgIcon(name: string, viewBox: string, children: ReactNode): IconComponent {
+  const Comp: IconComponent = Object.assign(
+    (p: IconProps) => <SvgIcon viewBox={viewBox} {...p}>{children}</SvgIcon>,
+    {
+      displayName: `Icon.${name}`,
+      source: { kind: 'svg' as const, viewBox, children },
+    },
+  )
+  return Comp
+}
+
 // ─── Botanical / domain ─────────────────────────────────────────────────
 
-const Shamrock = (p: IconProps) => <GlyphIcon glyph="☘" {...p} />
-Shamrock.displayName = 'Icon.Shamrock'
-
-const Aesculapius = (p: IconProps) => <GlyphIcon glyph="⚕" {...p} />
-Aesculapius.displayName = 'Icon.Aesculapius'
-
-const Heart = (p: IconProps) => <GlyphIcon glyph="♡" {...p} />
-Heart.displayName = 'Icon.Heart'
-
-const HeartExclamation = (p: IconProps) => <GlyphIcon glyph="❣" {...p} />
-HeartExclamation.displayName = 'Icon.HeartExclamation'
-
-const Atom = (p: IconProps) => <GlyphIcon glyph="⚛" {...p} />
-Atom.displayName = 'Icon.Atom'
-
-const Ankh = (p: IconProps) => <GlyphIcon glyph="☥" {...p} />
-Ankh.displayName = 'Icon.Ankh'
+const Shamrock = glyphIcon('Shamrock', '☘')
+const Aesculapius = glyphIcon('Aesculapius', '⚕')
+const Heart = glyphIcon('Heart', '♡')
+const HeartExclamation = glyphIcon('HeartExclamation', '❣')
+const Atom = glyphIcon('Atom', '⚛')
+const Ankh = glyphIcon('Ankh', '☥')
 
 // SVG — no satisfactory monochrome unicode glyph for a lotus. Stylized
 // 3-petal lotus on a water line.
-const Lotus = (p: IconProps) => (
-  <SvgIcon {...p}>
+const lotusChildren = (
+  <>
     <path d="M4 19 H20" opacity={0.5} />
     <path d="M12 19 C8 16 5 11 4 7 C8 8 11 13 12 19 Z" />
     <path d="M12 19 C16 16 19 11 20 7 C16 8 13 13 12 19 Z" />
     <path d="M12 19 C11 14 11 8 12 4 C13 8 13 14 12 19 Z" />
-  </SvgIcon>
+  </>
 )
-Lotus.displayName = 'Icon.Lotus'
+const Lotus = svgIcon('Lotus', '0 0 24 24', lotusChildren)
 
 // ─── Celestial bodies ───────────────────────────────────────────────────
 
-const Sun = (p: IconProps) => <GlyphIcon glyph="☉" {...p} />
-Sun.displayName = 'Icon.Sun'
-
-const Moon = (p: IconProps) => <GlyphIcon glyph="☽" {...p} />
-Moon.displayName = 'Icon.Moon'
-
-const Mercury = (p: IconProps) => <GlyphIcon glyph="☿" {...p} />
-Mercury.displayName = 'Icon.Mercury'
-
-const Venus = (p: IconProps) => <GlyphIcon glyph="♀" {...p} />
-Venus.displayName = 'Icon.Venus'
-
-const Mars = (p: IconProps) => <GlyphIcon glyph="♂" {...p} />
-Mars.displayName = 'Icon.Mars'
-
-const Jupiter = (p: IconProps) => <GlyphIcon glyph="♃" {...p} />
-Jupiter.displayName = 'Icon.Jupiter'
-
-const Saturn = (p: IconProps) => <GlyphIcon glyph="♄" {...p} />
-Saturn.displayName = 'Icon.Saturn'
-
-const Uranus = (p: IconProps) => <GlyphIcon glyph="♅" {...p} />
-Uranus.displayName = 'Icon.Uranus'
-
-const Neptune = (p: IconProps) => <GlyphIcon glyph="♆" {...p} />
-Neptune.displayName = 'Icon.Neptune'
-
-const Pluto = (p: IconProps) => <GlyphIcon glyph="♇" {...p} />
-Pluto.displayName = 'Icon.Pluto'
-
-const Comet = (p: IconProps) => <GlyphIcon glyph="☄" {...p} />
-Comet.displayName = 'Icon.Comet'
+const Sun = glyphIcon('Sun', '☉')
+const Moon = glyphIcon('Moon', '☽')
+const Mercury = glyphIcon('Mercury', '☿')
+const Venus = glyphIcon('Venus', '♀')
+const Mars = glyphIcon('Mars', '♂')
+const Jupiter = glyphIcon('Jupiter', '♃')
+const Saturn = glyphIcon('Saturn', '♄')
+const Uranus = glyphIcon('Uranus', '♅')
+const Neptune = glyphIcon('Neptune', '♆')
+const Pluto = glyphIcon('Pluto', '♇')
+const Comet = glyphIcon('Comet', '☄')
 
 // ─── Stars / decorative ─────────────────────────────────────────────────
 
-const Star = (p: IconProps) => <GlyphIcon glyph="★" {...p} />
-Star.displayName = 'Icon.Star'
-
-const StarFourPoint = (p: IconProps) => <GlyphIcon glyph="✦" {...p} />
-StarFourPoint.displayName = 'Icon.StarFourPoint'
-
-const StarFourPointOutline = (p: IconProps) => <GlyphIcon glyph="✧" {...p} />
-StarFourPointOutline.displayName = 'Icon.StarFourPointOutline'
-
-const StarSixPoint = (p: IconProps) => <GlyphIcon glyph="✶" {...p} />
-StarSixPoint.displayName = 'Icon.StarSixPoint'
-
-const StarEightPoint = (p: IconProps) => <GlyphIcon glyph="✴" {...p} />
-StarEightPoint.displayName = 'Icon.StarEightPoint'
-
-const StarPinwheel = (p: IconProps) => <GlyphIcon glyph="✵" {...p} />
-StarPinwheel.displayName = 'Icon.StarPinwheel'
-
-const Sparkles = (p: IconProps) => <GlyphIcon glyph="✨" {...p} />
-Sparkles.displayName = 'Icon.Sparkles'
-
-const Snowflake = (p: IconProps) => <GlyphIcon glyph="❄" {...p} />
-Snowflake.displayName = 'Icon.Snowflake'
-
-const Florette = (p: IconProps) => <GlyphIcon glyph="❀" {...p} />
-Florette.displayName = 'Icon.Florette'
-
-const FloretteOutlined = (p: IconProps) => <GlyphIcon glyph="❁" {...p} />
-FloretteOutlined.displayName = 'Icon.FloretteOutlined'
+const Star = glyphIcon('Star', '★')
+const StarFourPoint = glyphIcon('StarFourPoint', '✦')
+const StarFourPointOutline = glyphIcon('StarFourPointOutline', '✧')
+const StarSixPoint = glyphIcon('StarSixPoint', '✶')
+const StarEightPoint = glyphIcon('StarEightPoint', '✴')
+const StarPinwheel = glyphIcon('StarPinwheel', '✵')
+const Sparkles = glyphIcon('Sparkles', '✨')
+const Snowflake = glyphIcon('Snowflake', '❄')
+const Florette = glyphIcon('Florette', '❀')
+const FloretteOutlined = glyphIcon('FloretteOutlined', '❁')
 
 // ─── Emblems / objects ──────────────────────────────────────────────────
 
-const House = (p: IconProps) => <GlyphIcon glyph="⌂" {...p} />
-House.displayName = 'Icon.House'
-
-const Scales = (p: IconProps) => <GlyphIcon glyph="⚖" {...p} />
-Scales.displayName = 'Icon.Scales'
-
-const Alembic = (p: IconProps) => <GlyphIcon glyph="⚗" {...p} />
-Alembic.displayName = 'Icon.Alembic'
-
-const Hexagon = (p: IconProps) => <GlyphIcon glyph="⬢" {...p} />
-Hexagon.displayName = 'Icon.Hexagon'
-
-const Hourglass = (p: IconProps) => <GlyphIcon glyph="⧖" {...p} />
-Hourglass.displayName = 'Icon.Hourglass'
-
-const SquareInSquare = (p: IconProps) => <GlyphIcon glyph="▣" {...p} />
-SquareInSquare.displayName = 'Icon.SquareInSquare'
-
-const DharmaWheel = (p: IconProps) => <GlyphIcon glyph="☸" {...p} />
-DharmaWheel.displayName = 'Icon.DharmaWheel'
-
-const Watch = (p: IconProps) => <GlyphIcon glyph="⌚" {...p} />
-Watch.displayName = 'Icon.Watch'
-
-const Pencil = (p: IconProps) => <GlyphIcon glyph="✎" {...p} />
-Pencil.displayName = 'Icon.Pencil'
+const House = glyphIcon('House', '⌂')
+const Scales = glyphIcon('Scales', '⚖')
+const Alembic = glyphIcon('Alembic', '⚗')
+const Hexagon = glyphIcon('Hexagon', '⬢')
+const Hourglass = glyphIcon('Hourglass', '⧖')
+const SquareInSquare = glyphIcon('SquareInSquare', '▣')
+const DharmaWheel = glyphIcon('DharmaWheel', '☸')
+const Watch = glyphIcon('Watch', '⌚')
+const Pencil = glyphIcon('Pencil', '✎')
 
 // Aliased on export to avoid shadowing the JS global within this module.
-const InfinitySymbol = (p: IconProps) => <GlyphIcon glyph="∞" {...p} />
-InfinitySymbol.displayName = 'Icon.Infinity'
+const InfinitySymbol = glyphIcon('Infinity', '∞')
 
 // ─── Status / control ───────────────────────────────────────────────────
 
-const Warning = (p: IconProps) => <GlyphIcon glyph="⚠" {...p} />
-Warning.displayName = 'Icon.Warning'
-
-const NoEntry = (p: IconProps) => <GlyphIcon glyph="⛔" {...p} />
-NoEntry.displayName = 'Icon.NoEntry'
-
-const Check = (p: IconProps) => <GlyphIcon glyph="✓" {...p} />
-Check.displayName = 'Icon.Check'
-
-const MultiplicationX = (p: IconProps) => <GlyphIcon glyph="✕" {...p} />
-MultiplicationX.displayName = 'Icon.MultiplicationX'
-
-const BallotX = (p: IconProps) => <GlyphIcon glyph="✘" {...p} />
-BallotX.displayName = 'Icon.BallotX'
-
-const Circle = (p: IconProps) => <GlyphIcon glyph="○" {...p} />
-Circle.displayName = 'Icon.Circle'
-
-const Fisheye = (p: IconProps) => <GlyphIcon glyph="◉" {...p} />
-Fisheye.displayName = 'Icon.Fisheye'
-
-const CircledBullet = (p: IconProps) => <GlyphIcon glyph="⦿" {...p} />
-CircledBullet.displayName = 'Icon.CircledBullet'
-
-const TriangleRight = (p: IconProps) => <GlyphIcon glyph="▶" {...p} />
-TriangleRight.displayName = 'Icon.TriangleRight'
+const Warning = glyphIcon('Warning', '⚠')
+const NoEntry = glyphIcon('NoEntry', '⛔')
+const Check = glyphIcon('Check', '✓')
+const MultiplicationX = glyphIcon('MultiplicationX', '✕')
+const BallotX = glyphIcon('BallotX', '✘')
+const Circle = glyphIcon('Circle', '○')
+const Fisheye = glyphIcon('Fisheye', '◉')
+const CircledBullet = glyphIcon('CircledBullet', '⦿')
+const TriangleRight = glyphIcon('TriangleRight', '▶')
 
 // ─── Arrows ─────────────────────────────────────────────────────────────
 
-const ArrowLeft = (p: IconProps) => <GlyphIcon glyph="←" {...p} />
-ArrowLeft.displayName = 'Icon.ArrowLeft'
-
-const ArrowRight = (p: IconProps) => <GlyphIcon glyph="→" {...p} />
-ArrowRight.displayName = 'Icon.ArrowRight'
-
-const ArrowUp = (p: IconProps) => <GlyphIcon glyph="↑" {...p} />
-ArrowUp.displayName = 'Icon.ArrowUp'
+const ArrowLeft = glyphIcon('ArrowLeft', '←')
+const ArrowRight = glyphIcon('ArrowRight', '→')
+const ArrowUp = glyphIcon('ArrowUp', '↑')
 
 export const Icon = {
   // botanical / domain
