@@ -70,19 +70,19 @@ const tonePrimaryClass: Record<InfoTileTone, string> = {
  */
 const toneFrameClass: Record<InfoTileTone, string> = {
   botanical:
-    'bg-gradient-to-br from-botanical-500/20 hover:from-botanical-500/30 to-transparent to-[33%] hover:to-[45%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical',
+    'bg-gradient-to-br from-botanical-500/20 hover:from-botanical-500/30 to-transparent to-[33%] hover:to-[45%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical active:shadow-glow-botanical-sm',
   celestial:
-    'bg-gradient-to-br from-celestial-500/20 hover:from-celestial-500/30 to-transparent to-[33%] hover:to-[45%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial',
+    'bg-gradient-to-br from-celestial-500/20 hover:from-celestial-500/30 to-transparent to-[33%] hover:to-[45%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial active:shadow-glow-celestial-sm',
   gold:
-    'bg-gradient-to-br from-gold-500/20 hover:from-gold-500/30 to-transparent to-[33%] hover:to-[45%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber',
+    'bg-gradient-to-br from-gold-500/20 hover:from-gold-500/30 to-transparent to-[33%] hover:to-[45%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber active:shadow-glow-amber-sm',
   heart:
-    'bg-gradient-to-br from-rose-500/20 hover:from-rose-500/30 to-transparent to-[33%] hover:to-[45%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart',
+    'bg-gradient-to-br from-rose-500/20 hover:from-rose-500/30 to-transparent to-[33%] hover:to-[45%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart active:shadow-glow-heart-sm',
   mind:
-    'bg-gradient-to-br from-blue-500/20 hover:from-blue-500/30 to-transparent to-[33%] hover:to-[45%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind',
+    'bg-gradient-to-br from-blue-500/20 hover:from-blue-500/30 to-transparent to-[33%] hover:to-[45%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind active:shadow-glow-mind-sm',
   body:
-    'bg-gradient-to-br from-green-500/20 hover:from-green-500/30 to-transparent to-[33%] hover:to-[45%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body',
+    'bg-gradient-to-br from-green-500/20 hover:from-green-500/30 to-transparent to-[33%] hover:to-[45%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body active:shadow-glow-body-sm',
   spirit:
-    'bg-gradient-to-br from-purple-500/20 hover:from-purple-500/30 to-transparent to-[33%] hover:to-[45%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit',
+    'bg-gradient-to-br from-purple-500/20 hover:from-purple-500/30 to-transparent to-[33%] hover:to-[45%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit active:shadow-glow-spirit-sm',
 }
 
 /**
@@ -130,16 +130,24 @@ function InfoTile({
   // botanical-400 ring (~7:1) — meets WCAG 1.4.11 non-text contrast.
   // hover:transform-none cancels .card:hover's translateY lift — the tone
   // border + glow already signal hover; the focus ring covers keyboard.
+  // active:scale-[0.98] reads as a small z-axis recession on press,
+  // pairing with the shrunken tone glow. Tailwind's active: variant
+  // emits after hover:, so it overrides hover:transform-none on press.
   // overflow-hidden clips the sand canvas to the card's rounded corners
   // (no effect on the focus ring, which uses outset box-shadow).
   const focusClass =
-    'focus-visible:ring-botanical-400 hover:transform-none motion-reduce:transition-none'
+    'focus-visible:ring-botanical-400 hover:transform-none active:scale-[0.98] motion-reduce:transition-none'
   // shadow-[...] overrides .card's resting box-shadow with a stronger drop
   // (deeper offset, wider blur, higher alpha) while preserving the inset
   // top-edge highlight. On hover, hover:shadow-glow-X from toneFrameClass
   // takes over (utility-layer specificity wins), unchanged.
   const liftClass =
     'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),_0_10px_28px_-6px_rgba(0,0,0,0.7)]'
+  // Press state (active:shadow-glow-X-sm) lives in toneFrameClass per
+  // tone so the glow keeps its color but compresses on press, reading as
+  // a z-axis sink rather than the glow vanishing. Tailwind orders
+  // active: after hover: in the generated CSS, so the small glow wins
+  // over hover:shadow-glow-X when both pseudo-classes are active.
   const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
