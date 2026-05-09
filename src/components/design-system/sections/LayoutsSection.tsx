@@ -1,4 +1,8 @@
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Section, Subsection } from '../primitives'
+import ListDetailLayout from '../layouts/ListDetailLayout'
+import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
 
 function DemoPlaceholder() {
   return (
@@ -11,6 +15,88 @@ function DemoPlaceholder() {
 }
 
 const META_LABEL = 'uppercase tracking-[0.18em] text-earth-600'
+
+function ListDetailDemoTop() {
+  return (
+    <div className="px-5 py-4 border-b border-white/5">
+      <h4 className="text-base font-system font-semibold text-earth-100">Sample Botanicals</h4>
+      <p className="text-[11px] text-earth-500 mt-0.5">A demonstration list — six items, routable detail.</p>
+    </div>
+  )
+}
+
+type DemoItem = (typeof LIST_DETAIL_DEMO_ITEMS)[number]
+
+function ListDetailDemoList({
+  selectedId,
+  onSelect,
+}: {
+  selectedId: string | null
+  onSelect: (id: string) => void
+}) {
+  return (
+    <ul className="p-2 space-y-1">
+      {LIST_DETAIL_DEMO_ITEMS.map((item) => {
+        const isActive = item.id === selectedId
+        return (
+          <li key={item.id}>
+            <button
+              type="button"
+              onClick={() => onSelect(item.id)}
+              className={`w-full text-left block px-3 py-2 rounded-lg transition-colors ${
+                isActive
+                  ? 'bg-earth-900/60 text-earth-100'
+                  : 'hover:bg-earth-900/30 text-earth-200'
+              }`}
+              aria-pressed={isActive}
+            >
+              <div className="text-sm">{item.name}</div>
+              <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
+            </button>
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+function ListDetailDemoDetail({ item }: { item: DemoItem }) {
+  return (
+    <article className="p-6">
+      <h4 className="text-2xl font-system font-bold text-earth-100">{item.name}</h4>
+      <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
+      <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
+      <div className="mt-6 pt-4 border-t border-white/5 text-[11px] text-earth-500">
+        Detail content scrolls within the right column. The list keeps its own scroll on the left.
+      </div>
+    </article>
+  )
+}
+
+function ListDetailDemoEmpty() {
+  return (
+    <div className="h-full flex items-center justify-center">
+      <p className="text-earth-500 text-sm">Select an item from the list.</p>
+    </div>
+  )
+}
+
+function ListDetailDemo() {
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const selectedItem = LIST_DETAIL_DEMO_ITEMS.find((i) => i.id === selectedId) ?? null
+
+  return (
+    <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
+      <ListDetailLayout
+        top={<ListDetailDemoTop />}
+        list={<ListDetailDemoList selectedId={selectedId} onSelect={setSelectedId} />}
+        detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} /> : null}
+        emptyDetail={<ListDetailDemoEmpty />}
+        onBack={() => setSelectedId(null)}
+      />
+    </div>
+  )
+}
 
 export default function LayoutsSection() {
   return (
@@ -74,7 +160,15 @@ export default function LayoutsSection() {
             <code className="text-earth-400">Doctrine Explorer</code>,{' '}
             <code className="text-earth-400">Body Systems</code> (grouped)
           </p>
-          <DemoPlaceholder />
+          <ListDetailDemo />
+          <div className="text-right">
+            <Link
+              to="/design-system/layouts/list-detail"
+              className="inline-flex items-center gap-1 text-xs text-earth-400 hover:text-earth-100 font-system transition-colors"
+            >
+              Open route-driven demo →
+            </Link>
+          </div>
         </div>
       </Subsection>
 
