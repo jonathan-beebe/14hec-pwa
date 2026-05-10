@@ -6,6 +6,7 @@ import DomainCard from '../components/DomainCard'
 import InfoTile from '../components/InfoTile'
 import BrowseTile from '../components/BrowseTile'
 import PlanetTile from '../components/PlanetTile'
+import FlatListRow from '../components/FlatListRow'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
 import {
@@ -199,6 +200,83 @@ export default function ComponentsSection() {
             </p>
           </BrowseTile>
         </div>
+      </Subsection>
+
+      <Subsection title="FlatListRow">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          Edge-to-edge list row for sidebar/list surfaces. At rest the
+          row is fully transparent — the surface tint comes from the
+          parent list container. Hover lifts a soft inner glow;
+          <code> selected</code> makes the glow tint-colored and adds a
+          3px left-edge accent bar. Pair with a tinted{' '}
+          <code>&lt;ul&gt;</code> like <code>bg-earth-900/30</code> so
+          the rest-state rows have something to sit on top of.
+        </p>
+
+        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+          Tinted — drives icon, glow, and edge bar
+        </div>
+        <ul className="bg-earth-900/30 mb-6 max-w-md">
+          <li>
+            <FlatListRow
+              to="/design-system"
+              tintHex="#dc2626"
+              icon={<Icon.Sun />}
+              primary="Aries"
+              secondary={<span className="capitalize">fire · cardinal</span>}
+            />
+          </li>
+          <li>
+            <FlatListRow
+              to="/design-system"
+              tintHex="#16a34a"
+              icon={<Icon.Shamrock />}
+              primary="Taurus"
+              secondary={<span className="capitalize">earth · fixed</span>}
+              selected
+            />
+          </li>
+          <li>
+            <FlatListRow
+              to="/design-system"
+              tintHex="#facc15"
+              icon={<Icon.StarFourPoint />}
+              primary="Gemini"
+              secondary={<span className="capitalize">air · mutable</span>}
+            />
+          </li>
+        </ul>
+
+        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+          Neutral — no <code>tintHex</code>, white wash + bar
+        </div>
+        <ul className="bg-earth-900/30 max-w-md">
+          <li>
+            <FlatListRow
+              to="/design-system"
+              icon={<Icon.Heart />}
+              primary="Heart"
+              secondary="Love, connection, empathy"
+            />
+          </li>
+          <li>
+            <FlatListRow
+              to="/design-system"
+              icon={<Icon.Atom />}
+              primary="Mind"
+              secondary="Clarity, focus, cognition"
+              selected
+            />
+          </li>
+          <li>
+            <FlatListRow
+              to="/design-system"
+              icon={<Icon.Ankh />}
+              primary="Body"
+              secondary="Vitality, strength, healing"
+            />
+          </li>
+        </ul>
       </Subsection>
 
       <Subsection title="PlanetTile">
