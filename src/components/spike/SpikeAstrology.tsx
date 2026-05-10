@@ -6,10 +6,20 @@ import Text from '@/components/design-system/atoms/Text'
 import { ZodiacSymbol } from '@/components/design-system/atoms/ZodiacSymbol'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
-import ZodiacTile, {
-  type ZodiacElement,
-} from '@/components/design-system/components/ZodiacTile'
+import InfoTile, {
+  type InfoTileTone,
+} from '@/components/design-system/components/InfoTile'
 import { allPlanets, type PlanetVisual } from './planetConfig'
+
+// Classical element → HMBS domain tone. Fire is the active/transcendent
+// principle, water the relational/feeling one, air the cognitive one,
+// earth the embodied one. Used to pick the InfoTile domain variant.
+const ELEMENT_TONE: Record<string, InfoTileTone> = {
+  fire: 'spirit',
+  water: 'heart',
+  air: 'mind',
+  earth: 'body',
+}
 
 /**
  * Spike playground for porting the astrology area onto the new design
@@ -120,10 +130,10 @@ export default function SpikeAstrology() {
 
 const slug = (name: string) => name.toLowerCase()
 
-// PlanetTile and ZodiacTile both reserve a 180px icon slot, so the
-// default 30%/360px list column reads cramped. Bumping to 40%/520px
-// gives the text column ~250px to breathe.
-const SPIKE_LIST_WIDTH = 'lg:w-[40%] lg:max-w-[520px]'
+// PlanetTile reserves a 180px icon slot, so the list column needs a
+// floor wide enough to keep the text from getting squeezed. No explicit
+// width — the column sizes to its content, capped only by the min.
+const SPIKE_LIST_WIDTH = 'lg:min-w-[400px]'
 
 // ─── Signs: list ────────────────────────────────────────────────────────
 
@@ -134,22 +144,23 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
         // Sign names map 1:1 onto the ZodiacSymbol namespace ("Aries",
         // "Taurus", …). If the seed grows a sign that isn't drawn yet,
         // skip it rather than tofu.
-        const iconComp =
+        const IconComp =
           ZodiacSymbol[sign.name as keyof typeof ZodiacSymbol]
-        if (!iconComp) return null
-        const secondary = (
-          <span className="capitalize">
-            {sign.element} · {sign.modality}
-          </span>
-        )
+        if (!IconComp) return null
+        const tone = ELEMENT_TONE[sign.element] ?? 'spirit'
         return (
           <li key={sign.id}>
-            <ZodiacTile
-              source={iconComp.source}
-              element={sign.element as ZodiacElement}
-              primary={sign.name}
-              secondary={secondary}
+            <InfoTile
               to={slug(sign.name)}
+              tone={tone}
+              icon={<IconComp />}
+              sandIcon={IconComp.source}
+              primary={sign.name}
+              secondary={
+                <span className="capitalize">
+                  {sign.element} · {sign.modality}
+                </span>
+              }
               aria-label={`${sign.name} — ${sign.element} ${sign.modality}`}
             />
           </li>
