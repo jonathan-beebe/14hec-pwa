@@ -24,13 +24,15 @@ import { svgIcon, type IconComponent } from './Icon'
  * <SandIcon source={ZodiacSymbol.Aries.source} />
  */
 
-// Aries — two horns curling outward and down from a top peak.
+// Aries — V peaking at the bottom, each upper branch curling outward
+// and hooking back inward like a ram's horn. Two mirrored strokes that
+// share the bottom apex; each stroke is one V leg + one horn curl.
 const Aries = svgIcon(
   'Aries',
   '0 0 24 24',
   <>
-    <path d="M 12 6 C 8 6, 6 8, 6 12 C 6 16, 8 18, 10 17" />
-    <path d="M 12 6 C 16 6, 18 8, 18 12 C 18 16, 16 18, 14 17" />
+    <path d="M 12 19 L 9 8 C 9 4, 2 4, 2 9 C 2 12, 7 12, 7 10" />
+    <path d="M 12 19 L 15 8 C 15 4, 22 4, 22 9 C 22 12, 17 12, 17 10" />
   </>,
 )
 
