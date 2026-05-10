@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, NavLink, Outlet } from 'react-router-dom'
+import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
-import type { PlanetData, ZodiacSign } from '@/types'
+import type { Plant, PlanetData, ZodiacSign } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
 import { Icon, type IconComponent } from '@/components/design-system/atoms/Icon'
+import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import ZodiacTile, {
   type ZodiacElement,
@@ -12,102 +13,114 @@ import { allPlanets, type PlanetVisual } from './planetConfig'
 
 /**
  * Spike playground for porting the astrology area onto the new design
- * system. Header reproduces /astrology's current top section (page title,
- * Astro-Botanical Chart and Planetary Timing quick links) and adds a
- * Signs/Planets switch that drives URL-based list views below.
+ * system. The parent owns the shared header (page title, Astro-Botanical
+ * Chart and Planetary Timing quick links, Signs/Planets switch); each
+ * sub-area is its own RoutedListDetailLayout.
  *
- *   /spike/astrology          → redirects to /signs
- *   /spike/astrology/signs    → 12 ZodiacTiles, tinted by element
- *   /spike/astrology/planets  → 10 PlanetTiles, tinted per planet
- *
- * Detail views are intentionally not wired yet — the list cards are the
- * focus of this iteration. The tiles render as no-op buttons.
+ *   /spike/astrology               → redirects to /signs
+ *   /spike/astrology/signs         → list of ZodiacTiles + empty detail
+ *   /spike/astrology/signs/:slug   → list + populated detail panel
+ *   /spike/astrology/planets       → list of PlanetTiles + empty detail
+ *   /spike/astrology/planets/:slug → list + populated detail panel
  */
 export default function SpikeAstrology() {
   return (
-    <div className="animate-fade-in">
-      <div className="mb-5">
+    <div className="flex flex-col h-full">
+      {/* Header — outside the list/detail layout so the switch + quick
+          links stay visible while a detail is selected, even on mobile. */}
+      <div className="px-8 pt-6 pb-4 shrink-0 border-b border-white/5">
         <Text.PageTitle>Astrology</Text.PageTitle>
         <p className="text-xs text-earth-500 mt-0.5">
           Celestial correspondences for plant medicine
         </p>
-      </div>
 
-      {/* Quick links — same content as /astrology's top row, lifted as-is. */}
-      <div className="grid grid-cols-2 gap-3 mb-5">
-        <Link
-          to="/natal-chart"
-          className="card-glow-celestial text-left py-4 group block"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-200 ease-out-expo">
-              {'⭐'}
-            </span>
-            <div>
-              <div className="text-sm font-display font-medium text-celestial-400">
-                Astro-Botanical Chart
-              </div>
-              <div className="text-xs text-earth-500">
-                Input Sun/Moon/Rising for a personalized plant map
+        {/* Quick links — same content as /astrology's top row, lifted as-is. */}
+        <div className="grid grid-cols-2 gap-3 mt-4">
+          <Link
+            to="/natal-chart"
+            className="card-glow-celestial text-left py-4 group block"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-200 ease-out-expo">
+                {'⭐'}
+              </span>
+              <div>
+                <div className="text-sm font-display font-medium text-celestial-400">
+                  Astro-Botanical Chart
+                </div>
+                <div className="text-xs text-earth-500">
+                  Input Sun/Moon/Rising for a personalized plant map
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
-        <Link
-          to="/planetary-timing"
-          className="card-glow-celestial text-left py-4 group block"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-200 ease-out-expo">
-              {'⌚'}
-            </span>
-            <div>
-              <div className="text-sm font-display font-medium text-celestial-400">
-                Planetary Timing
-              </div>
-              <div className="text-xs text-earth-500">
-                Optimal hours for harvesting and preparation
+          </Link>
+          <Link
+            to="/planetary-timing"
+            className="card-glow-celestial text-left py-4 group block"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl opacity-60 group-hover:opacity-90 transition-opacity duration-200 ease-out-expo">
+                {'⌚'}
+              </span>
+              <div>
+                <div className="text-sm font-display font-medium text-celestial-400">
+                  Planetary Timing
+                </div>
+                <div className="text-xs text-earth-500">
+                  Optimal hours for harvesting and preparation
+                </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
+
+        {/* Signs / Planets switch — NavLink so the URL is the single
+            source of truth and keyboard nav works. */}
+        <div
+          className="flex gap-2 mt-5"
+          role="tablist"
+          aria-label="Astrology view"
+        >
+          <NavLink
+            to="/spike/astrology/signs"
+            className={({ isActive }) =>
+              `btn-celestial ${
+                isActive
+                  ? ''
+                  : '!bg-none !shadow-none bg-earth-800/40 !text-earth-400 hover:!text-earth-200'
+              }`
+            }
+          >
+            Zodiac Signs
+          </NavLink>
+          <NavLink
+            to="/spike/astrology/planets"
+            className={({ isActive }) =>
+              `btn-celestial ${
+                isActive
+                  ? ''
+                  : '!bg-none !shadow-none bg-earth-800/40 !text-earth-400 hover:!text-earth-200'
+              }`
+            }
+          >
+            Planets
+          </NavLink>
+        </div>
       </div>
 
-      {/* Signs / Planets switch — NavLink so the URL is the single source
-          of truth for which list is active and keyboard nav works. */}
-      <div className="flex gap-2 mb-5" role="tablist" aria-label="Astrology view">
-        <NavLink
-          to="/spike/astrology/signs"
-          className={({ isActive }) =>
-            `btn-celestial ${
-              isActive
-                ? ''
-                : '!bg-none !shadow-none bg-earth-800/40 !text-earth-400 hover:!text-earth-200'
-            }`
-          }
-        >
-          Zodiac Signs
-        </NavLink>
-        <NavLink
-          to="/spike/astrology/planets"
-          className={({ isActive }) =>
-            `btn-celestial ${
-              isActive
-                ? ''
-                : '!bg-none !shadow-none bg-earth-800/40 !text-earth-400 hover:!text-earth-200'
-            }`
-          }
-        >
-          Planets
-        </NavLink>
+      {/* Sub-area: list/detail layout fills remaining viewport height. */}
+      <div className="flex-1 min-h-0">
+        <Outlet />
       </div>
-
-      <Outlet />
     </div>
   )
 }
 
-// ─── Signs list ─────────────────────────────────────────────────────────
+// ─── Slug helpers ───────────────────────────────────────────────────────
+
+const slug = (name: string) => name.toLowerCase()
+
+// ─── Signs: list ────────────────────────────────────────────────────────
 
 // Sign name → Icon entry. Uses the design-system Icon library so the
 // SandIcon and any DOM consumers share the same character resolution.
@@ -126,15 +139,9 @@ const ZODIAC_ICONS: Record<string, IconComponent> = {
   Pisces: Icon.Pisces,
 }
 
-export function SpikeAstrologySigns() {
-  const [signs, setSigns] = useState<ZodiacSign[]>([])
-
-  useEffect(() => {
-    api.getZodiacSigns().then(setSigns)
-  }, [])
-
+function SignsList({ signs }: { signs: ZodiacSign[] }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <ul className="p-3 space-y-3">
       {signs.map((sign) => {
         const iconComp = ZODIAC_ICONS[sign.name]
         if (!iconComp) return null
@@ -144,39 +151,156 @@ export function SpikeAstrologySigns() {
           </span>
         )
         return (
-          <ZodiacTile
-            key={sign.id}
-            source={iconComp.source}
-            element={sign.element as ZodiacElement}
-            primary={sign.name}
-            secondary={secondary}
-            onClick={() => {}}
-            aria-label={`${sign.name} — ${sign.element} ${sign.modality}`}
-          />
+          <li key={sign.id}>
+            <ZodiacTile
+              source={iconComp.source}
+              element={sign.element as ZodiacElement}
+              primary={sign.name}
+              secondary={secondary}
+              to={slug(sign.name)}
+              aria-label={`${sign.name} — ${sign.element} ${sign.modality}`}
+            />
+          </li>
         )
       })}
+    </ul>
+  )
+}
+
+function SignsEmpty() {
+  return (
+    <div className="h-full flex items-center justify-center px-6 py-16 text-center text-earth-500 text-sm">
+      <div>
+        <div className="text-4xl mb-3 opacity-20">{'☉'}</div>
+        Select a zodiac sign to view its correspondences.
+      </div>
     </div>
   )
 }
 
-// ─── Planets list ───────────────────────────────────────────────────────
+export function SpikeAstrologySigns() {
+  const [signs, setSigns] = useState<ZodiacSign[]>([])
 
-// Planet name → PlanetVisual config. The spike configs live alongside
-// the tile, so list rendering can read them directly without going
-// through the data layer.
+  useEffect(() => {
+    api.getZodiacSigns().then(setSigns)
+  }, [])
+
+  return (
+    <RoutedListDetailLayout
+      list={<SignsList signs={signs} />}
+      emptyDetail={<SignsEmpty />}
+    />
+  )
+}
+
+// ─── Sign detail ────────────────────────────────────────────────────────
+
+const ELEMENT_BADGE: Record<string, string> = {
+  fire: 'bg-red-500/10 text-red-300 ring-1 ring-inset ring-red-500/20',
+  water: 'bg-blue-500/10 text-blue-300 ring-1 ring-inset ring-blue-500/20',
+  air: 'bg-yellow-500/10 text-yellow-300 ring-1 ring-inset ring-yellow-500/20',
+  earth: 'bg-green-500/10 text-green-300 ring-1 ring-inset ring-green-500/20',
+}
+
+type SignDetail = ZodiacSign & { plants?: Plant[] }
+
+export function SpikeAstrologySignDetail() {
+  const { slug: signSlug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
+  const [signs, setSigns] = useState<ZodiacSign[]>([])
+  const [detail, setDetail] = useState<SignDetail | null>(null)
+
+  useEffect(() => {
+    api.getZodiacSigns().then(setSigns)
+  }, [])
+
+  const target = useMemo(
+    () => signs.find((s) => slug(s.name) === signSlug?.toLowerCase()),
+    [signs, signSlug],
+  )
+
+  useEffect(() => {
+    if (target === undefined) {
+      setDetail(null)
+      return
+    }
+    let cancelled = false
+    api.getZodiacSignById(target.id).then((d) => {
+      if (!cancelled) setDetail(d)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [target])
+
+  if (signSlug && signs.length > 0 && target === undefined) {
+    return (
+      <div className="p-6 text-earth-500 text-sm">
+        Sign &ldquo;{signSlug}&rdquo; not found.
+      </div>
+    )
+  }
+
+  if (!detail) {
+    return (
+      <div className="p-6 text-earth-500 text-sm">Loading…</div>
+    )
+  }
+
+  return (
+    <article className="p-6 animate-fade-in">
+      <div className="flex items-center gap-4 mb-5">
+        <span className="text-5xl">{detail.symbol}</span>
+        <div>
+          <Text.PageTitle as="h2">{detail.name}</Text.PageTitle>
+          <div className="flex gap-2 mt-1.5">
+            <span
+              className={`badge ${ELEMENT_BADGE[detail.element] || ''} capitalize`}
+            >
+              {detail.element}
+            </span>
+            <span className="badge bg-earth-800/50 text-earth-300 ring-1 ring-inset ring-earth-600/20 capitalize">
+              {detail.modality}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-5">
+        <DetailFact label="Ruling Planet">
+          {detail.ruling_planet_symbol} {detail.ruling_planet_name}
+        </DetailFact>
+        <DetailFact label="Date Range">
+          {detail.date_range_start} to {detail.date_range_end}
+        </DetailFact>
+        <DetailFact label="Body Parts Ruled" className="col-span-2">
+          {detail.body_parts_ruled}
+        </DetailFact>
+      </div>
+
+      <p className="text-sm text-earth-400 mb-5 leading-relaxed">
+        {detail.description}
+      </p>
+
+      {detail.plants && detail.plants.length > 0 && (
+        <PlantList plants={detail.plants} onPick={(id) => navigate(`/plants/${id}`)} />
+      )}
+    </article>
+  )
+}
+
+// ─── Planets: list ──────────────────────────────────────────────────────
+
+// Planet name → PlanetVisual config. Spike configs live alongside the
+// tile, so list rendering reads them directly without going through the
+// data layer.
 const PLANET_CONFIG: Record<string, PlanetVisual> = Object.fromEntries(
   allPlanets.map((p) => [p.name, p]),
 )
 
-export function SpikeAstrologyPlanets() {
-  const [planets, setPlanets] = useState<PlanetData[]>([])
-
-  useEffect(() => {
-    api.getPlanets().then(setPlanets)
-  }, [])
-
-  // Order tiles by the visual config order (Sun, Moon, Mercury, …) so the
-  // grid reads in classical sequence regardless of API ordering.
+function PlanetsList({ planets }: { planets: PlanetData[] }) {
+  // Order tiles by the visual config order (Sun, Moon, Mercury, …) so
+  // the column reads in classical sequence regardless of API ordering.
   const ordered = useMemo(() => {
     const byName = new Map(planets.map((p) => [p.name, p]))
     return allPlanets
@@ -185,21 +309,188 @@ export function SpikeAstrologyPlanets() {
   }, [planets])
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <ul className="p-3 space-y-3">
       {ordered.map((planet) => {
         const config = PLANET_CONFIG[planet.name]
         if (!config) return null
         return (
-          <PlanetTile
-            key={planet.id}
-            config={config}
-            primary={planet.name}
-            secondary={planet.associated_signs}
-            onClick={() => {}}
-            aria-label={`${planet.name} — ${planet.associated_signs}`}
-          />
+          <li key={planet.id}>
+            <PlanetTile
+              config={config}
+              primary={planet.name}
+              secondary={planet.associated_signs}
+              to={slug(planet.name)}
+              aria-label={`${planet.name} — ${planet.associated_signs}`}
+            />
+          </li>
         )
       })}
+    </ul>
+  )
+}
+
+function PlanetsEmpty() {
+  return (
+    <div className="h-full flex items-center justify-center px-6 py-16 text-center text-earth-500 text-sm">
+      <div>
+        <div className="text-4xl mb-3 opacity-20">{'☉'}</div>
+        Select a planet to view its correspondences.
+      </div>
+    </div>
+  )
+}
+
+export function SpikeAstrologyPlanets() {
+  const [planets, setPlanets] = useState<PlanetData[]>([])
+
+  useEffect(() => {
+    api.getPlanets().then(setPlanets)
+  }, [])
+
+  return (
+    <RoutedListDetailLayout
+      list={<PlanetsList planets={planets} />}
+      emptyDetail={<PlanetsEmpty />}
+    />
+  )
+}
+
+// ─── Planet detail ──────────────────────────────────────────────────────
+
+type PlanetFullDetail = PlanetData & { plants?: Plant[] }
+
+export function SpikeAstrologyPlanetDetail() {
+  const { slug: planetSlug } = useParams<{ slug: string }>()
+  const navigate = useNavigate()
+  const [planets, setPlanets] = useState<PlanetData[]>([])
+  const [detail, setDetail] = useState<PlanetFullDetail | null>(null)
+
+  useEffect(() => {
+    api.getPlanets().then(setPlanets)
+  }, [])
+
+  const target = useMemo(
+    () => planets.find((p) => slug(p.name) === planetSlug?.toLowerCase()),
+    [planets, planetSlug],
+  )
+
+  useEffect(() => {
+    if (target === undefined) {
+      setDetail(null)
+      return
+    }
+    let cancelled = false
+    api.getPlanetById(target.id).then((d) => {
+      if (!cancelled) setDetail(d)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [target])
+
+  if (planetSlug && planets.length > 0 && target === undefined) {
+    return (
+      <div className="p-6 text-earth-500 text-sm">
+        Planet &ldquo;{planetSlug}&rdquo; not found.
+      </div>
+    )
+  }
+
+  if (!detail) {
+    return <div className="p-6 text-earth-500 text-sm">Loading…</div>
+  }
+
+  return (
+    <article className="p-6 animate-fade-in">
+      <div className="flex items-center gap-4 mb-5">
+        <span className="text-5xl">{detail.symbol}</span>
+        <div>
+          <Text.PageTitle as="h2">{detail.name}</Text.PageTitle>
+          <p className="text-sm text-earth-500">{detail.associated_signs}</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-5">
+        <DetailFact label="Body Systems">{detail.body_systems}</DetailFact>
+        <DetailFact label="Energetic Quality">
+          {detail.energetic_quality}
+        </DetailFact>
+      </div>
+
+      <p className="text-sm text-earth-400 mb-5 leading-relaxed">
+        {detail.description}
+      </p>
+
+      {detail.plants && detail.plants.length > 0 && (
+        <PlantList plants={detail.plants} onPick={(id) => navigate(`/plants/${id}`)} />
+      )}
+    </article>
+  )
+}
+
+// ─── Shared detail bits ─────────────────────────────────────────────────
+
+function DetailFact({
+  label,
+  className,
+  children,
+}: {
+  label: string
+  className?: string
+  children: React.ReactNode
+}) {
+  return (
+    <div
+      className={`rounded-xl p-3 ${className ?? ''}`}
+      style={{
+        background: 'rgba(36, 34, 30, 0.5)',
+        border: '1px solid rgba(255, 255, 255, 0.05)',
+      }}
+    >
+      <Text.SectionLabel>{label}</Text.SectionLabel>
+      <div className="text-earth-200 text-sm">{children}</div>
+    </div>
+  )
+}
+
+function PlantList({
+  plants,
+  onPick,
+}: {
+  plants: Plant[]
+  onPick: (id: number) => void
+}) {
+  return (
+    <div>
+      <Text.SectionLabel>Associated Plants</Text.SectionLabel>
+      <div className="space-y-2">
+        {plants.map((plant) => (
+          <button
+            key={plant.id}
+            onClick={() => onPick(plant.id)}
+            className="w-full text-left rounded-xl p-3 transition-all duration-200 ease-out-expo group"
+            style={{
+              background: 'rgba(36, 34, 30, 0.4)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+            }}
+            onMouseEnter={(e) => {
+              ;(e.currentTarget as HTMLElement).style.background =
+                'rgba(36, 34, 30, 0.65)'
+            }}
+            onMouseLeave={(e) => {
+              ;(e.currentTarget as HTMLElement).style.background =
+                'rgba(36, 34, 30, 0.4)'
+            }}
+          >
+            <span className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
+              {plant.common_name}
+            </span>
+            <span className="text-earth-500 text-sm ml-2 italic">
+              {plant.latin_name}
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

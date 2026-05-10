@@ -30,7 +30,9 @@ import ListDetailDemo, { ListDetailDemoDetail } from './components/design-system
 import CatalogDemo, { CatalogDemoDetail } from './components/design-system/layouts/demos/CatalogDemo'
 import PlanetsSpike from './components/spike/PlanetsSpike'
 import SpikeAstrology, {
+  SpikeAstrologyPlanetDetail,
   SpikeAstrologyPlanets,
+  SpikeAstrologySignDetail,
   SpikeAstrologySigns,
 } from './components/spike/SpikeAstrology'
 
@@ -75,6 +77,17 @@ export default function App() {
             <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
             <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />
           </Route>
+          <Route path="/spike/astrology" element={<SpikeAstrology />}>
+            <Route index element={<Navigate to="signs" replace />} />
+            <Route path="signs" element={<SpikeAstrologySigns />}>
+              <Route index element={null} />
+              <Route path=":slug" element={<SpikeAstrologySignDetail />} />
+            </Route>
+            <Route path="planets" element={<SpikeAstrologyPlanets />}>
+              <Route index element={null} />
+              <Route path=":slug" element={<SpikeAstrologyPlanetDetail />} />
+            </Route>
+          </Route>
 
           {/* Standard pages — wrapped in the page gutter */}
           <Route element={<PageGutter />}>
@@ -103,11 +116,6 @@ export default function App() {
             <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/spike/planets" element={<PlanetsSpike />} />
             <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
-            <Route path="/spike/astrology" element={<SpikeAstrology />}>
-              <Route index element={<Navigate to="signs" replace />} />
-              <Route path="signs" element={<SpikeAstrologySigns />} />
-              <Route path="planets" element={<SpikeAstrologyPlanets />} />
-            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
