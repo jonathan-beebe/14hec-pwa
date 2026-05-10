@@ -36,126 +36,142 @@ const Aries = svgIcon(
   </>,
 )
 
-// Taurus — bull head: circle with two outward-curving horns above.
+// Taurus — bull head: full circle with two crescent horns sweeping up
+// and outward from the top of the circle, tips curling inward toward
+// each other at the top.
 const Taurus = svgIcon(
   'Taurus',
   '0 0 24 24',
   <>
     <circle cx="12" cy="15" r="5" />
-    <path d="M 7 11 C 6 9, 5 6, 8 5" />
-    <path d="M 17 11 C 18 9, 19 6, 16 5" />
+    <path d="M 8 11 C 3 9, 2 4, 7 4 C 9 4, 10 5, 10 7" />
+    <path d="M 16 11 C 21 9, 22 4, 17 4 C 15 4, 14 5, 14 7" />
   </>,
 )
 
-// Gemini — Roman numeral II: two parallel verticals with capping bars.
+// Gemini — Roman numeral II framed by bracketed top/bottom bars: each
+// horizontal bar curves down (top) or up (bottom) at its ends to give
+// the symbol soft serif corners. Two parallel verticals run between.
 const Gemini = svgIcon(
   'Gemini',
   '0 0 24 24',
   <>
-    <path d="M 6 6 H 12" />
-    <path d="M 6 18 H 12" />
-    <path d="M 9 6 V 18" />
-    <path d="M 12 6 H 18" />
-    <path d="M 12 18 H 18" />
-    <path d="M 15 6 V 18" />
+    <path d="M 6 7 C 6 5, 7 5, 8 5 H 16 C 17 5, 18 5, 18 7" />
+    <path d="M 6 17 C 6 19, 7 19, 8 19 H 16 C 17 19, 18 19, 18 17" />
+    <path d="M 9 5 V 19" />
+    <path d="M 15 5 V 19" />
   </>,
 )
 
-// Cancer — two opposing circle-and-tail forms (the "69" rotated).
+// Cancer — two opposing circle-and-tail forms ("69" rotated 90°).
+// Upper-left disc with a sweeping arc descending to the right; lower-
+// right disc mirrors it with an arc ascending to the left.
 const Cancer = svgIcon(
   'Cancer',
   '0 0 24 24',
   <>
-    <circle cx="9" cy="10" r="2" />
-    <circle cx="15" cy="14" r="2" />
-    <path d="M 9 8 C 4 8, 4 16, 11 16" />
-    <path d="M 15 16 C 20 16, 20 8, 13 8" />
+    <circle cx="7" cy="9" r="2" />
+    <path d="M 9 9 C 15 9, 17 11, 17 13" />
+    <circle cx="17" cy="15" r="2" />
+    <path d="M 15 15 C 9 15, 7 13, 7 11" />
   </>,
 )
 
-// Leo — looped head with a tail trailing down-right.
+// Leo — closed mane loop in the upper-left, single continuous stroke
+// continuing into a tail that swoops down to the right and hooks
+// upward at the tip.
 const Leo = svgIcon(
   'Leo',
   '0 0 24 24',
   <>
-    <path d="M 9 14 C 4 14, 4 6, 11 6 C 18 6, 18 13, 14 14 C 17 16, 19 18, 19 20" />
+    <path d="M 11 13 C 4 13, 4 4, 11 4 C 16 4, 17 9, 13 11 L 18 17 C 19 19, 21 19, 21 17" />
   </>,
 )
 
-// Virgo — two arches with a final loop (cursive "m" with a knot).
+// Virgo — three arched legs (cursive "m"); the final leg's foot curls
+// outward to the right and hooks back through itself, forming the
+// signature closing flourish.
 const Virgo = svgIcon(
   'Virgo',
   '0 0 24 24',
   <>
-    <path d="M 5 18 V 8 C 5 7, 7 7, 7 8 V 18" />
-    <path d="M 7 12 V 8 C 7 7, 9 7, 9 8 V 18" />
-    <path d="M 9 12 V 8 C 9 7, 11 7, 11 8 V 18 C 11 21, 14 21, 14 18 C 14 15, 11 16, 11 14" />
+    <path d="M 4 19 V 8 C 4 6, 8 6, 8 8 V 19" />
+    <path d="M 8 10 V 8 C 8 6, 12 6, 12 8 V 19" />
+    <path d="M 12 10 V 8 C 12 6, 16 6, 16 8 V 17 C 16 22, 22 22, 22 15 C 22 12, 17 12, 17 17" />
   </>,
 )
 
-// Libra — scales: horizontal beam with a low arch resting on top.
+// Libra — omega arch sitting above a horizontal baseline. Two short
+// feet extend outward from the bottom of the arch.
 const Libra = svgIcon(
   'Libra',
   '0 0 24 24',
   <>
-    <path d="M 4 18 H 20" />
-    <path d="M 6 14 H 18" />
-    <path d="M 8 14 C 8 9, 16 9, 16 14" />
+    <path d="M 3 19 H 21" />
+    <path d="M 3 14 H 7" />
+    <path d="M 17 14 H 21" />
+    <path d="M 7 14 C 4 14, 3 5, 12 5 C 21 5, 20 14, 17 14" />
   </>,
 )
 
-// Scorpio — three arches like Virgo, ending in an upturned arrow tail.
+// Scorpio — three arched legs like Virgo, but the final leg's foot
+// extends outward as a diagonal tail tipped with an arrowhead pointing
+// up-right (the scorpion's stinger).
 const Scorpio = svgIcon(
   'Scorpio',
   '0 0 24 24',
   <>
-    <path d="M 4 18 V 8 C 4 7, 6 7, 6 8 V 18" />
-    <path d="M 6 12 V 8 C 6 7, 8 7, 8 8 V 18" />
-    <path d="M 8 12 V 8 C 8 7, 10 7, 10 8 V 18 L 18 10" />
-    <path d="M 14 10 H 18 V 14" />
+    <path d="M 3 19 V 8 C 3 6, 7 6, 7 8 V 19" />
+    <path d="M 7 10 V 8 C 7 6, 11 6, 11 8 V 19" />
+    <path d="M 11 10 V 8 C 11 6, 15 6, 15 8 V 18 L 21 13" />
+    <path d="M 17 11 L 21 13 L 20 17" />
   </>,
 )
 
-// Sagittarius — diagonal arrow with a crossbar near the tail.
+// Sagittarius — archer's arrow shooting up-right, with an L-shaped
+// arrowhead at the upper-right tip and a perpendicular crossbar tick
+// across the lower half of the shaft.
 const Sagittarius = svgIcon(
   'Sagittarius',
   '0 0 24 24',
   <>
-    <path d="M 5 19 L 19 5" />
-    <path d="M 13 5 H 19 V 11" />
-    <path d="M 8 12 L 12 16" />
+    <path d="M 4 20 L 20 4" />
+    <path d="M 13 4 H 20 V 11" />
+    <path d="M 6 13 L 13 20" />
   </>,
 )
 
-// Capricorn — "n" connecting into a downward-curling sea-goat horn.
+// Capricorn — sea-goat: an "n"-style hump on the left (the goat),
+// continuing through a low arch into an inward-spiraling fish tail on
+// the right. Drawn as a single continuous stroke.
 const Capricorn = svgIcon(
   'Capricorn',
   '0 0 24 24',
   <>
-    <path d="M 4 8 V 18" />
-    <path d="M 4 8 C 4 6, 8 6, 8 10 V 18" />
-    <path d="M 8 18 C 8 14, 12 11, 14 14 C 16 11, 20 14, 18 16 C 16 18, 13 17, 13 14" />
+    <path d="M 4 19 V 8 C 4 5, 9 5, 9 9 V 15 C 9 18, 13 19, 14 15 C 14 11, 19 11, 19 15 C 19 18, 16 19, 14.5 17 C 13.5 15, 16 13, 18 15" />
   </>,
 )
 
-// Aquarius — two parallel water-wave zigzags.
+// Aquarius — water-bearer: two parallel zigzag wave lines, each with
+// three peaks. Sharp angular zigzags rather than smooth waves.
 const Aquarius = svgIcon(
   'Aquarius',
   '0 0 24 24',
   <>
-    <path d="M 4 10 L 8 13 L 12 10 L 16 13 L 20 10" />
-    <path d="M 4 15 L 8 18 L 12 15 L 16 18 L 20 15" />
+    <path d="M 3 9 L 6 12 L 9 9 L 12 12 L 15 9 L 18 12 L 21 9" />
+    <path d="M 3 15 L 6 18 L 9 15 L 12 18 L 15 15 L 18 18 L 21 15" />
   </>,
 )
 
-// Pisces — two outward-facing arcs joined by a horizontal cord.
+// Pisces — two outward-bowing crescents (left bows left, right bows
+// right) tied together by a horizontal cord through their middles.
 const Pisces = svgIcon(
   'Pisces',
   '0 0 24 24',
   <>
-    <path d="M 7 5 C 4 9, 4 15, 7 19" />
-    <path d="M 17 5 C 20 9, 20 15, 17 19" />
-    <path d="M 4 12 H 20" />
+    <path d="M 7 4 C 3 8, 3 16, 7 20" />
+    <path d="M 17 4 C 21 8, 21 16, 17 20" />
+    <path d="M 3 12 H 21" />
   </>,
 )
 
