@@ -131,7 +131,6 @@ export default function EntheogenicGuide() {
       detail={detail}
       emptyDetail={<EmptyState />}
       onBack={() => navigate('/entheogens')}
-      dividers={false}
       detailKey={pathname}
     />
   )

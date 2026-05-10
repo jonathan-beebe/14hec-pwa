@@ -25,8 +25,8 @@ export interface ListDetailLayoutProps {
   onBack?: () => void
   /**
    * Render hairline dividers between regions (sidebar/detail seam, mobile
-   * back-bar baseline). Default `true`. Set `false` when the consumer prefers
-   * a borderless presentation.
+   * back-bar baseline). Default `false` (borderless). Set `true` when the
+   * consumer wants the seams visible.
    */
   dividers?: boolean
   /**
@@ -63,7 +63,7 @@ export default function ListDetailLayout({
   detail,
   emptyDetail,
   onBack,
-  dividers = true,
+  dividers = false,
   detailKey,
   sidebarWidthClass = 'lg:w-[30%] lg:max-w-[360px]',
 }: ListDetailLayoutProps) {
