@@ -303,7 +303,12 @@ function PlanetBody({
     cAttr.needsUpdate = true
   })
   return (
-    <points ref={pointsRef}>
+    // renderOrder=0 + depthWrite=true means the body always draws first and
+    // writes to the depth buffer, so the ring (renderOrder=1) can correctly
+    // depth-test against it. Without this, transparent-object sort ties
+    // between body and ring (both at the parent group's origin) break
+    // unstably and the back of the ring intermittently paints over the body.
+    <points ref={pointsRef} renderOrder={0}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -321,7 +326,7 @@ function PlanetBody({
         vertexColors
         transparent
         opacity={BODY_BASE_OPACITY}
-        depthWrite={false}
+        depthWrite
       />
     </points>
   )
@@ -464,7 +469,10 @@ function PlanetRing({
     cAttr.needsUpdate = true
   })
   return (
-    <points ref={pointsRef}>
+    // renderOrder=1 keeps the ring drawing after the body unconditionally,
+    // so its depth test reads body fragments — back-of-ring particles fail
+    // the test and stop leaking through the planet.
+    <points ref={pointsRef} renderOrder={1}>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
