@@ -39,6 +39,14 @@ export interface ListDetailLayoutProps {
    * when the list cells are wider (icon-on-left tile shapes, etc).
    */
   sidebarWidthClass?: string
+  /**
+   * Tailwind class string applied to both the list and detail scroll
+   * panes, typically a `pt-*` value. Use when the consumer renders an
+   * overlay header above the layout and content needs to start below
+   * it (while still scrolling beneath). Pass a responsive value like
+   * `lg:pt-28` if the header only overlays on desktop.
+   */
+  topInset?: string
 }
 
 /**
@@ -61,6 +69,7 @@ export default function ListDetailLayout({
   dividers = false,
   detailKey,
   sidebarWidthClass = 'lg:w-[30%] lg:max-w-[360px]',
+  topInset = '',
 }: ListDetailLayoutProps) {
   const isDetailActive = detail !== null && detail !== undefined
   const sidebarBorder = dividers ? 'lg:border-r lg:border-white/5' : ''
@@ -80,14 +89,14 @@ export default function ListDetailLayout({
 
       <div className="lg:flex lg:flex-1 lg:min-h-0">
         <aside
-          className={`${isDetailActive ? 'hidden' : 'block'} lg:block ${sidebarWidthClass} lg:overflow-y-auto ${sidebarBorder}`}
+          className={`${isDetailActive ? 'hidden' : 'block'} lg:block ${sidebarWidthClass} lg:overflow-y-auto ${sidebarBorder} ${topInset}`}
         >
           {list}
         </aside>
 
         <section
           ref={detailRef}
-          className={`${isDetailActive ? 'block' : 'hidden'} lg:block lg:flex-1 lg:overflow-y-auto`}
+          className={`${isDetailActive ? 'block' : 'hidden'} lg:block lg:flex-1 lg:overflow-y-auto ${topInset}`}
         >
           {isDetailActive ? detail : emptyDetail}
         </section>
