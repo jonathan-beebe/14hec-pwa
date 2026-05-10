@@ -48,10 +48,13 @@ const planetById = new Map(planets.map(p => [p.id, p]))
 // ══════════════════════════════════════════════════════════
 // 2. ZODIAC SIGNS
 // ══════════════════════════════════════════════════════════
+export interface ZodiacPowerColor { name: string; hex: string }
+
 export interface ZodiacRow {
   id: number; name: string; symbol: string; element: string; modality: string
   ruling_planet_id: number | null; date_range_start: string; date_range_end: string
   body_parts_ruled: string; description: string
+  power_colors: ZodiacPowerColor[]; power_color_meaning: string
 }
 
 export const zodiacSigns: ZodiacRow[] = (zodiacRaw as any[]).map((s, i) => {
@@ -67,7 +70,9 @@ export const zodiacSigns: ZodiacRow[] = (zodiacRaw as any[]).map((s, i) => {
     date_range_start: s.date_range_start || '',
     date_range_end: s.date_range_end || '',
     body_parts_ruled: flatten(s.body_parts_ruled),
-    description: s.description || ''
+    description: s.description || '',
+    power_colors: Array.isArray(s.power_colors) ? s.power_colors : [],
+    power_color_meaning: s.power_color_meaning || ''
   }
 })
 

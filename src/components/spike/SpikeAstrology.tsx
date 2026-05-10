@@ -148,11 +148,13 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
           ZodiacSymbol[sign.name as keyof typeof ZodiacSymbol]
         if (!IconComp) return null
         const tone = ELEMENT_TONE[sign.element] ?? 'spirit'
+        const tintHex = sign.power_colors[0]?.hex
         return (
           <li key={sign.id}>
             <InfoTile
               to={slug(sign.name)}
               tone={tone}
+              tintHex={tintHex}
               icon={<IconComp />}
               sandIcon={IconComp.source}
               primary={sign.name}
@@ -263,7 +265,7 @@ export function SpikeAstrologySignDetail() {
         )}
         <div>
           <Text.PageTitle as="h2">{detail.name}</Text.PageTitle>
-          <div className="flex gap-2 mt-1.5">
+          <div className="flex flex-wrap gap-2 mt-1.5">
             <span
               className={`badge ${ELEMENT_BADGE[detail.element] || ''} capitalize`}
             >
@@ -272,6 +274,9 @@ export function SpikeAstrologySignDetail() {
             <span className="badge bg-earth-800/50 text-earth-300 ring-1 ring-inset ring-earth-600/20 capitalize">
               {detail.modality}
             </span>
+            {detail.power_colors.map((c) => (
+              <ColorChip key={c.name} name={c.name} hex={c.hex} />
+            ))}
           </div>
         </div>
       </div>
@@ -286,6 +291,27 @@ export function SpikeAstrologySignDetail() {
         <DetailFact label="Body Parts Ruled" className="col-span-2">
           {detail.body_parts_ruled}
         </DetailFact>
+        {detail.power_colors.length > 0 && (
+          <DetailFact label="Power Color" className="col-span-2">
+            <div className="flex flex-wrap gap-4 mt-1">
+              {detail.power_colors.map((c) => (
+                <div key={c.name} className="flex items-center gap-2">
+                  <span
+                    aria-hidden="true"
+                    className="w-7 h-7 rounded-full ring-1 ring-inset ring-white/10 shadow-inner"
+                    style={{ background: c.hex }}
+                  />
+                  <span className="text-earth-200">{c.name}</span>
+                </div>
+              ))}
+            </div>
+            {detail.power_color_meaning && (
+              <p className="text-xs text-earth-400 mt-3 italic">
+                {detail.power_color_meaning}
+              </p>
+            )}
+          </DetailFact>
+        )}
       </div>
 
       <p className="text-sm text-earth-400 mb-5 leading-relaxed">
@@ -440,6 +466,30 @@ export function SpikeAstrologyPlanetDetail() {
 }
 
 // ─── Shared detail bits ─────────────────────────────────────────────────
+
+function ColorChip({ name, hex }: { name: string; hex: string }) {
+  // Inline boxShadow overrides .badge's ring-1 inset; bg + ring tint with
+  // 8-digit hex (10% / 25% alpha) for a chip that reads as the color
+  // without overpowering the dark surface. The dot is the only fully-
+  // saturated swatch, so even Black/Deep Red read clearly.
+  return (
+    <span
+      className="badge"
+      style={{
+        background: `${hex}1A`,
+        boxShadow: `inset 0 0 0 1px ${hex}40`,
+        color: '#e7e5e4',
+      }}
+    >
+      <span
+        aria-hidden="true"
+        className="w-2 h-2 rounded-full mr-1.5 inline-block ring-1 ring-inset ring-white/20"
+        style={{ background: hex }}
+      />
+      {name}
+    </span>
+  )
+}
 
 function DetailFact({
   label,

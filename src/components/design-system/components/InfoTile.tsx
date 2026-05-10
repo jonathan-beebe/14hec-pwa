@@ -42,6 +42,14 @@ export interface InfoTileProps {
    * Pass `Icon.X.source` from the Icon library.
    */
   sandIcon?: IconSource
+  /**
+   * Optional hex color (e.g. `#dc2626`) that overrides the tone-based
+   * primary text color, border tint, and corner gradient. Use when the
+   * tile's identity color is data-driven (zodiac power colors) rather
+   * than one of the seven semantic tones. Hover/focus glow shadow stays
+   * tone-based.
+   */
+  tintHex?: string
 }
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
@@ -140,9 +148,21 @@ function InfoTile({
   className,
   'aria-label': ariaLabel,
   sandIcon,
+  tintHex,
 }: InfoTileProps) {
   const reducedMotion = useReducedMotion()
   const sandActive = sandIcon !== undefined && !reducedMotion
+  const tinted = typeof tintHex === 'string' && tintHex.length > 0
+
+  // 8-digit hex (#RRGGBBAA) keeps the override readable: `33` ≈ 0.20 alpha,
+  // `4D` ≈ 0.30 (matching the resting/engaged gradient strengths).
+  const tintBorder = tinted ? `${tintHex}33` : undefined
+  const tintRestingBg = tinted
+    ? `linear-gradient(to bottom right, ${tintHex}33 0%, transparent 33%)`
+    : undefined
+  const tintEngagedBg = tinted
+    ? `linear-gradient(to bottom right, ${tintHex}4D 0%, transparent 45%)`
+    : undefined
 
   // focus-visible:ring-botanical-400 overrides the global :focus-visible
   // ring (botanical-500/40, ~1.7:1 against the card surface) with a solid
@@ -167,7 +187,12 @@ function InfoTile({
   // a z-axis sink rather than the glow vanishing. Tailwind orders
   // active: after hover: in the generated CSS, so the small glow wins
   // over hover:shadow-glow-X when both pseudo-classes are active.
-  const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${toneFrameClass[tone]} ${focusClass}${className ? ` ${className}` : ''}`
+  // When tinted, drop the tone-based border/hover-border classes — inline
+  // borderColor sets the resting tint. The hover glow shadow from
+  // toneFrameClass is kept so the press/hover feedback still has a tone
+  // signature; spike-acceptable that hover glow doesn't recolor to the tint.
+  const frameClass = tinted ? '' : toneFrameClass[tone]
+  const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
   // is tinted by the icon-slot's text color (the wrapper is rendered into
@@ -175,7 +200,12 @@ function InfoTile({
   // z-10 to layer above it. The static icon DOM stays in flex layout for
   // sizing but is `invisible` so it doesn't compete with the canvas paint.
   return (
-    <Link to={to} className={cardClass} aria-label={ariaLabel}>
+    <Link
+      to={to}
+      className={cardClass}
+      aria-label={ariaLabel}
+      style={tinted ? { borderColor: tintBorder } : undefined}
+    >
       {/*
         Two stacked gradient overlays crossfade between resting and engaged
         on hover/focus. Opacity transitions are universally animatable;
@@ -185,11 +215,13 @@ function InfoTile({
       */}
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none group-hover:opacity-0 group-focus-visible:opacity-0 ${toneRestingGradient[tone]}`}
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none group-hover:opacity-0 group-focus-visible:opacity-0 ${tinted ? '' : toneRestingGradient[tone]}`}
+        style={tinted ? { backgroundImage: tintRestingBg } : undefined}
       />
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 ${toneEngagedGradient[tone]}`}
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 ${tinted ? '' : toneEngagedGradient[tone]}`}
+        style={tinted ? { backgroundImage: tintEngagedBg } : undefined}
       />
       {sandActive && (
         // text-8xl matches the static icon-slot's font-size — the
@@ -201,10 +233,11 @@ function InfoTile({
         // first available font (⚕ is the most visible offender).
         <div
           aria-hidden="true"
-          className={`absolute inset-0 z-0 pointer-events-none text-8xl ${tonePrimaryClass[tone]}`}
+          className={`absolute inset-0 z-0 pointer-events-none text-8xl ${tinted ? '' : tonePrimaryClass[tone]}`}
           style={{
             maskImage: SAND_MASK_GRADIENT,
             WebkitMaskImage: SAND_MASK_GRADIENT,
+            ...(tinted ? { color: tintHex } : null),
           }}
         >
           <SandIcon
@@ -224,15 +257,17 @@ function InfoTile({
           className={`w-24 text-8xl flex items-center justify-center shrink-0 -ml-2 ${
             sandActive
               ? 'invisible'
-              : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tonePrimaryClass[tone]}`
+              : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tinted ? '' : tonePrimaryClass[tone]}`
           }`}
+          style={!sandActive && tinted ? { color: tintHex } : undefined}
         >
           {icon}
         </div>
       )}
       <div className="relative z-10 flex flex-col min-w-0">
         <div
-          className={`text-2xl font-system font-semibold tracking-tight tabular-nums ${tonePrimaryClass[tone]}`}
+          className={`text-2xl font-system font-semibold tracking-tight tabular-nums ${tinted ? '' : tonePrimaryClass[tone]}`}
+          style={tinted ? { color: tintHex } : undefined}
         >
           {primary}
         </div>
