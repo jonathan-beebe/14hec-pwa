@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import { useNavigate, useOutlet } from 'react-router-dom'
+import { useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import Button from '../atoms/Button'
 import { Icon } from '../atoms/Icon'
 
@@ -103,19 +103,33 @@ function MobileBackBar({ onBack, divider }: { onBack: () => void; divider: boole
 /**
  * Route-driven sugar over `ListDetailLayout`. Pulls detail content from the
  * matched child route (`<Outlet />`) and wires the mobile back button to
- * `navigate('..', { relative: 'path' })`. Use inside any layout route that
- * defines an index + `:id` child route.
+ * the parent URL. Use inside any layout route that defines an index +
+ * `:id` child route.
  */
 export function RoutedListDetailLayout(
   props: Omit<ListDetailLayoutProps, 'detail' | 'onBack'>,
 ) {
   const detail = useOutlet()
   const navigate = useNavigate()
+  const location = useLocation()
+
+  // Strip the last URL segment to land on the list. We compute the
+  // parent path explicitly rather than using
+  // `navigate('..', { relative: 'path' })` because `useNavigate` here
+  // sits in the *parent* route's element, where react-router's relative
+  // resolution can land elsewhere depending on route nesting. Walking
+  // `location.pathname` is unambiguous regardless of where the layout
+  // is mounted.
+  const onBack = () => {
+    const parentPath = location.pathname.replace(/\/[^/]+\/?$/, '') || '/'
+    navigate(parentPath)
+  }
+
   return (
     <ListDetailLayout
       {...props}
       detail={detail}
-      onBack={() => navigate('..', { relative: 'path' })}
+      onBack={onBack}
     />
   )
 }
