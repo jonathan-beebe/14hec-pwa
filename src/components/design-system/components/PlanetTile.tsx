@@ -70,10 +70,28 @@ function visualExtent(config: PlanetVisual): number {
 }
 
 // Per-tile zoom (CSS px per world unit) that fits the planet into the
-// 96px slot. All planets render at the same on-screen size regardless of
-// their relative bodyScale — Pluto and Jupiter look the same here.
+// slot, then scales it down by `planetScale` so smaller planets read
+// smaller in their tiles. The slot itself stays SLOT_PX; smaller planets
+// just get more whitespace around them.
 function tileZoom(config: PlanetVisual): number {
-  return SLOT_PX / 2 / (visualExtent(config) * (1 + FIT_PADDING))
+  const fitZoom = SLOT_PX / 2 / (visualExtent(config) * (1 + FIT_PADDING))
+  return fitZoom * planetScale(config)
+}
+
+// Smallest planet (Pluto, height 40) renders at this fraction of the
+// largest (Sun, height 200). Higher value = subtler differentiation.
+const SCALE_MIN = 0.7
+const HEIGHT_MIN = 40
+const HEIGHT_MAX = 200
+
+// Linear map from spike-config height (which already encodes the
+// designer's intended relative sizes) into [SCALE_MIN, 1.0]. Compresses
+// the natural ~5× range into a gentler ratio that still telegraphs
+// "Sun > Jupiter > Mars > Pluto" at a glance.
+function planetScale(config: PlanetVisual): number {
+  const t = (config.height - HEIGHT_MIN) / (HEIGHT_MAX - HEIGHT_MIN)
+  const clamped = Math.max(0, Math.min(1, t))
+  return SCALE_MIN + (1 - SCALE_MIN) * clamped
 }
 
 function PlanetScene({
