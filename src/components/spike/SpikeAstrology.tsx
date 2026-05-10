@@ -240,10 +240,16 @@ export function SpikeAstrologySignDetail() {
     )
   }
 
+  const SignIcon = ZodiacSymbol[detail.name as keyof typeof ZodiacSymbol]
+
   return (
     <article className="p-6 animate-fade-in">
       <div className="flex items-center gap-4 mb-5">
-        <span className="text-5xl">{detail.symbol}</span>
+        {SignIcon ? (
+          <SignIcon className="text-5xl" />
+        ) : (
+          <span className="text-5xl font-symbol">{detail.symbol}</span>
+        )}
         <div>
           <Text.PageTitle as="h2">{detail.name}</Text.PageTitle>
           <div className="flex gap-2 mt-1.5">
