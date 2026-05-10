@@ -3,6 +3,7 @@ import { Section, Subsection } from '../primitives'
 import Button from '../atoms/Button'
 import Badge from '../atoms/Badge'
 import { Icon, type IconProps } from '../atoms/Icon'
+import { ZodiacSymbol } from '../atoms/ZodiacSymbol'
 
 type IconEntry = { name: string; component: ComponentType<IconProps> }
 type IconGroup = { label: string; entries: IconEntry[] }
@@ -34,6 +35,23 @@ const iconGroups: IconGroup[] = [
       { name: 'Neptune', component: Icon.Neptune },
       { name: 'Pluto', component: Icon.Pluto },
       { name: 'Comet', component: Icon.Comet },
+    ],
+  },
+  {
+    label: 'Zodiac signs',
+    entries: [
+      { name: 'Aries', component: ZodiacSymbol.Aries },
+      { name: 'Taurus', component: ZodiacSymbol.Taurus },
+      { name: 'Gemini', component: ZodiacSymbol.Gemini },
+      { name: 'Cancer', component: ZodiacSymbol.Cancer },
+      { name: 'Leo', component: ZodiacSymbol.Leo },
+      { name: 'Virgo', component: ZodiacSymbol.Virgo },
+      { name: 'Libra', component: ZodiacSymbol.Libra },
+      { name: 'Scorpio', component: ZodiacSymbol.Scorpio },
+      { name: 'Sagittarius', component: ZodiacSymbol.Sagittarius },
+      { name: 'Capricorn', component: ZodiacSymbol.Capricorn },
+      { name: 'Aquarius', component: ZodiacSymbol.Aquarius },
+      { name: 'Pisces', component: ZodiacSymbol.Pisces },
     ],
   },
   {

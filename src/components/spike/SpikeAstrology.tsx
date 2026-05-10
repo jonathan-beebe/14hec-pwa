@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, PlanetData, ZodiacSign } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
-import { Icon, type IconComponent } from '@/components/design-system/atoms/Icon'
+import { ZodiacSymbol } from '@/components/design-system/atoms/ZodiacSymbol'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import ZodiacTile, {
@@ -127,28 +127,15 @@ const SPIKE_LIST_WIDTH = 'lg:w-[40%] lg:max-w-[520px]'
 
 // ─── Signs: list ────────────────────────────────────────────────────────
 
-// Sign name → Icon entry. Uses the design-system Icon library so the
-// SandIcon and any DOM consumers share the same character resolution.
-const ZODIAC_ICONS: Record<string, IconComponent> = {
-  Aries: Icon.Aries,
-  Taurus: Icon.Taurus,
-  Gemini: Icon.Gemini,
-  Cancer: Icon.Cancer,
-  Leo: Icon.Leo,
-  Virgo: Icon.Virgo,
-  Libra: Icon.Libra,
-  Scorpio: Icon.Scorpio,
-  Sagittarius: Icon.Sagittarius,
-  Capricorn: Icon.Capricorn,
-  Aquarius: Icon.Aquarius,
-  Pisces: Icon.Pisces,
-}
-
 function SignsList({ signs }: { signs: ZodiacSign[] }) {
   return (
     <ul className="p-3 space-y-3">
       {signs.map((sign) => {
-        const iconComp = ZODIAC_ICONS[sign.name]
+        // Sign names map 1:1 onto the ZodiacSymbol namespace ("Aries",
+        // "Taurus", …). If the seed grows a sign that isn't drawn yet,
+        // skip it rather than tofu.
+        const iconComp =
+          ZodiacSymbol[sign.name as keyof typeof ZodiacSymbol]
         if (!iconComp) return null
         const secondary = (
           <span className="capitalize">

@@ -121,7 +121,19 @@ function glyphIcon(name: string, glyph: string): IconComponent {
   return Comp
 }
 
-function svgIcon(name: string, viewBox: string, children: ReactNode): IconComponent {
+/**
+ * Build a stroke-style SVG icon. Children are wrapped by `<SvgIcon>` and
+ * by the SandIcon rasterizer's neutral `<g fill="none" stroke="currentColor"
+ * stroke-width="1.5">` group, so paths inherit stroke styling — author
+ * children as `<path d=… />`, `<circle … />`, etc., without setting their
+ * own fill/stroke attributes. Exported so adjacent atoms (e.g.
+ * `ZodiacSymbol`) can produce the same `IconComponent` shape.
+ */
+export function svgIcon(
+  name: string,
+  viewBox: string,
+  children: ReactNode,
+): IconComponent {
   const Comp: IconComponent = Object.assign(
     (p: IconProps) => <SvgIcon viewBox={viewBox} {...p}>{children}</SvgIcon>,
     {
@@ -167,20 +179,9 @@ const Neptune = glyphIcon('Neptune', '♆')
 const Pluto = glyphIcon('Pluto', '♇')
 const Comet = glyphIcon('Comet', '☄')
 
-// ─── Zodiac signs ───────────────────────────────────────────────────────
-
-const Aries = glyphIcon('Aries', '♈')
-const Taurus = glyphIcon('Taurus', '♉')
-const Gemini = glyphIcon('Gemini', '♊')
-const Cancer = glyphIcon('Cancer', '♋')
-const Leo = glyphIcon('Leo', '♌')
-const Virgo = glyphIcon('Virgo', '♍')
-const Libra = glyphIcon('Libra', '♎')
-const Scorpio = glyphIcon('Scorpio', '♏')
-const Sagittarius = glyphIcon('Sagittarius', '♐')
-const Capricorn = glyphIcon('Capricorn', '♑')
-const Aquarius = glyphIcon('Aquarius', '♒')
-const Pisces = glyphIcon('Pisces', '♓')
+// Zodiac signs live in their own atom (`ZodiacSymbol`) — the unicode
+// glyphs (♈–♓) tofu on macOS Inter, so each sign is hand-drawn SVG.
+// Import from `@/components/design-system/atoms/ZodiacSymbol` instead.
 
 // ─── Stars / decorative ─────────────────────────────────────────────────
 
@@ -249,19 +250,6 @@ export const Icon = {
   Neptune,
   Pluto,
   Comet,
-  // zodiac signs
-  Aries,
-  Taurus,
-  Gemini,
-  Cancer,
-  Leo,
-  Virgo,
-  Libra,
-  Scorpio,
-  Sagittarius,
-  Capricorn,
-  Aquarius,
-  Pisces,
   // stars / decorative
   Star,
   StarFourPoint,

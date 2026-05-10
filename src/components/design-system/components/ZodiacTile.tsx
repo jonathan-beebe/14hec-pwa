@@ -74,9 +74,30 @@ export default function ZodiacTile(props: ZodiacTileProps) {
   const tintRgb = `${tr}, ${tg}, ${tb}`
   const tintCss = `rgb(${tintRgb})`
 
-  // Static fallback glyph, used when reduced motion is on. Pulled from
-  // the icon source so the tile and the SandIcon agree on the codepoint.
-  const fallbackGlyph = source.kind === 'glyph' ? source.glyph : null
+  // Static fallback used when reduced motion is on. Pulled directly
+  // from the icon source so the tile and the SandIcon never disagree.
+  // Glyph sources render the codepoint in a span; SVG sources render
+  // an inline <svg> in the same neutral stroke style the rasterizer
+  // uses (fill="none" stroke="currentColor" stroke-width="1.5").
+  const fallback: ReactNode =
+    source.kind === 'glyph' ? (
+      <span className="text-9xl opacity-80">{source.glyph}</span>
+    ) : (
+      <svg
+        viewBox={source.viewBox}
+        width="70%"
+        height="70%"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="opacity-80"
+        aria-hidden="true"
+      >
+        {source.children}
+      </svg>
+    )
 
   const frame = 'card bg-black flex items-center gap-4 group overflow-hidden relative'
   const focus =
@@ -154,12 +175,12 @@ export default function ZodiacTile(props: ZodiacTileProps) {
       className="shrink-0 -ml-2"
       style={{ width: SLOT_PX, height: SLOT_PX }}
     >
-      {!sandActive && fallbackGlyph !== null && (
+      {!sandActive && (
         <div
-          className="w-full h-full flex items-center justify-center text-9xl opacity-80"
+          className="w-full h-full flex items-center justify-center"
           style={{ color: tintCss }}
         >
-          {fallbackGlyph}
+          {fallback}
         </div>
       )}
     </div>
