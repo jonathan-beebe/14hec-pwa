@@ -1,5 +1,10 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import { useLocation, useNavigate, useOutlet } from 'react-router-dom'
+import {
+  useLocation,
+  useNavigate,
+  useOutlet,
+  useResolvedPath,
+} from 'react-router-dom'
 import Button from '../atoms/Button'
 import { Icon } from '../atoms/Icon'
 
@@ -111,15 +116,32 @@ function MobileBackBar({ onBack, divider }: { onBack: () => void; divider: boole
 /**
  * Route-driven sugar over `ListDetailLayout`. Pulls detail content from the
  * matched child route (`<Outlet />`) and wires the mobile back button to
- * the parent URL. Use inside any layout route that defines an index +
- * `:id` child route.
+ * the parent URL. Mount inside any layout route that defines a `:id` (or
+ * `:slug`) child route.
+ *
+ * "Detail is active" is decided by URL depth, not by `useOutlet()`. A child
+ * `<Route index element={null} />` would otherwise make `useOutlet()` return
+ * a truthy `<RouteContext.Provider>` wrapping null, which would put mobile
+ * into a back-button-with-empty-content state.
  */
 export function RoutedListDetailLayout(
   props: Omit<ListDetailLayoutProps, 'detail' | 'onBack'>,
 ) {
-  const detail = useOutlet()
+  const outlet = useOutlet()
   const navigate = useNavigate()
   const location = useLocation()
+
+  // Detail is active when the URL extends past the layout's own route
+  // path. `useResolvedPath('.')` resolves to the pathname of the route
+  // this layout is mounted on; if `location.pathname` adds a segment,
+  // a child detail route matched. Driving "isDetailActive" off the URL
+  // (rather than `useOutlet()`'s truthiness) makes the layout robust to
+  // a child `<Route index element={null} />` placeholder, which would
+  // otherwise return a truthy `<RouteContext.Provider>` wrapping null
+  // and falsely activate the mobile detail panel.
+  const layoutPath = useResolvedPath('.').pathname.replace(/\/$/, '')
+  const currentPath = location.pathname.replace(/\/$/, '')
+  const isDetailActive = currentPath !== layoutPath
 
   // Strip the last URL segment to land on the list. We compute the
   // parent path explicitly rather than using
@@ -136,7 +158,7 @@ export function RoutedListDetailLayout(
   return (
     <ListDetailLayout
       {...props}
-      detail={detail}
+      detail={isDetailActive ? outlet : null}
       onBack={onBack}
     />
   )

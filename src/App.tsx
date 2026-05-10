@@ -68,7 +68,6 @@ export default function App() {
         <Route element={<Layout />}>
           {/* Canonical viewport-owning layouts — no page gutter */}
           <Route path="/design-system/layouts/list-detail" element={<ListDetailDemo />}>
-            <Route index element={null} />
             <Route path=":id" element={<ListDetailDemoDetail />} />
           </Route>
           <Route path="/design-system/layouts/catalog" element={<CatalogDemo />} />
@@ -80,11 +79,9 @@ export default function App() {
           <Route path="/spike/astrology" element={<SpikeAstrology />}>
             <Route index element={<Navigate to="signs" replace />} />
             <Route path="signs" element={<SpikeAstrologySigns />}>
-              <Route index element={null} />
               <Route path=":slug" element={<SpikeAstrologySignDetail />} />
             </Route>
             <Route path="planets" element={<SpikeAstrologyPlanets />}>
-              <Route index element={null} />
               <Route path=":slug" element={<SpikeAstrologyPlanetDetail />} />
             </Route>
           </Route>
