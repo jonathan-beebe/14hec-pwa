@@ -44,6 +44,7 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
               tintHex={tintHex}
               selected={activeSlug === tileSlug}
               icon={<IconComp />}
+              sandIcon={IconComp.source}
               primary={sign.name}
               secondary={
                 <span className="capitalize">

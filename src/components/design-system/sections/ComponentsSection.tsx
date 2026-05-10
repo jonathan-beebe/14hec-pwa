@@ -222,6 +222,7 @@ export default function ComponentsSection() {
               to="/design-system"
               tintHex="#dc2626"
               icon={<Icon.Sun />}
+              sandIcon={showSand ? Icon.Sun.source : undefined}
               primary="Aries"
               secondary={<span className="capitalize">fire · cardinal</span>}
             />
@@ -231,6 +232,7 @@ export default function ComponentsSection() {
               to="/design-system"
               tintHex="#16a34a"
               icon={<Icon.Shamrock />}
+              sandIcon={showSand ? Icon.Shamrock.source : undefined}
               primary="Taurus"
               secondary={<span className="capitalize">earth · fixed</span>}
               selected
@@ -241,6 +243,7 @@ export default function ComponentsSection() {
               to="/design-system"
               tintHex="#facc15"
               icon={<Icon.StarFourPoint />}
+              sandIcon={showSand ? Icon.StarFourPoint.source : undefined}
               primary="Gemini"
               secondary={<span className="capitalize">air · mutable</span>}
             />
@@ -255,6 +258,7 @@ export default function ComponentsSection() {
             <FlatListRow
               to="/design-system"
               icon={<Icon.Heart />}
+              sandIcon={showSand ? Icon.Heart.source : undefined}
               primary="Heart"
               secondary="Love, connection, empathy"
             />
@@ -263,6 +267,7 @@ export default function ComponentsSection() {
             <FlatListRow
               to="/design-system"
               icon={<Icon.Atom />}
+              sandIcon={showSand ? Icon.Atom.source : undefined}
               primary="Mind"
               secondary="Clarity, focus, cognition"
               selected
@@ -272,6 +277,7 @@ export default function ComponentsSection() {
             <FlatListRow
               to="/design-system"
               icon={<Icon.Ankh />}
+              sandIcon={showSand ? Icon.Ankh.source : undefined}
               primary="Body"
               secondary="Vitality, strength, healing"
             />

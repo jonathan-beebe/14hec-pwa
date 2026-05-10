@@ -1,5 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import type { IconSource } from '../atoms/Icon'
+import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
 
 export interface FlatListRowProps {
   /** Internal SPA route. Renders as `<Link>` so middle-click / cmd-click work. */
@@ -22,8 +24,28 @@ export interface FlatListRowProps {
    * state falls back to a neutral white wash.
    */
   tintHex?: string
+  /**
+   * Optional sand-particle rendering of the icon. When set AND the user
+   * has not requested reduced motion, the icon slot is overlaid by a
+   * canvas that animates the glyph as drifting sand with a wind tail
+   * extending right behind the text. The `icon` prop is rendered as the
+   * static fallback when reduced motion is on or the canvas can't
+   * initialize. Pass `Icon.X.source` from the Icon library.
+   */
+  sandIcon?: IconSource
   'aria-label'?: string
 }
+
+// Sand silhouette geometry. The icon column starts at px-6 (24px) from
+// the row's left edge and is w-16 (64px) wide — body center sits at
+// 24 + 32 = 56px. Body diameter matches the static icon's text-6xl
+// font-size so the silhouette aligns with the DOM glyph. The mask keeps
+// the body fully opaque through ~icon-end (88px) and fades the wind
+// tail to transparent before it reaches the secondary text — independent
+// of row width.
+const SAND_BODY_SIZE = 60
+const SAND_BODY_OFFSET_X = 56
+const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 88px, transparent 130px)'
 
 /**
  * Flat, edge-to-edge list row.
@@ -44,9 +66,12 @@ export default function FlatListRow({
   secondary,
   selected,
   tintHex,
+  sandIcon,
   'aria-label': ariaLabel,
 }: FlatListRowProps) {
   const tinted = typeof tintHex === 'string' && tintHex.length > 0
+  const reducedMotion = useReducedMotion()
+  const sandActive = sandIcon !== undefined && !reducedMotion
   const [hovered, setHovered] = useState(false)
   const engaged = !!selected || hovered
 
@@ -80,23 +105,52 @@ export default function FlatListRow({
       {selected && (
         <span
           aria-hidden="true"
-          className="absolute left-0 top-0 bottom-0 w-[3px]"
+          className="absolute left-0 top-0 bottom-0 w-[3px] z-10"
           style={{ background: tintHex || 'rgba(255,255,255,0.4)' }}
         />
       )}
-      {icon !== undefined && (
+      {sandActive && (
+        // text-6xl matches the static icon's font-size so the canvas
+        // rasterizer (which reads getComputedStyle().fontSize) draws the
+        // silhouette at the same scale as the DOM glyph. Color tracks the
+        // wrapper's text color — set inline for tinted, inherit otherwise.
         <div
           aria-hidden="true"
-          className="text-3xl shrink-0 transition-opacity duration-200 motion-reduce:transition-none"
+          className="absolute inset-0 z-0 pointer-events-none text-6xl"
+          style={{
+            maskImage: SAND_MASK_GRADIENT,
+            WebkitMaskImage: SAND_MASK_GRADIENT,
+            ...(tinted ? { color: tintHex } : null),
+          }}
+        >
+          <SandIcon
+            source={sandIcon}
+            bodySize={SAND_BODY_SIZE}
+            bodyOffsetX={SAND_BODY_OFFSET_X}
+          />
+        </div>
+      )}
+      {icon !== undefined && (
+        // When sand is active the static glyph stays in flex layout for
+        // sizing but is `invisible` so it doesn't compete with the canvas
+        // paint. w-16 + text-6xl gives a 64×60 icon slot that the sand
+        // body geometry (above) is calibrated to.
+        <div
+          aria-hidden="true"
+          className={`w-16 text-6xl flex items-center justify-center shrink-0 ${
+            sandActive
+              ? 'invisible'
+              : 'transition-opacity duration-200 motion-reduce:transition-none'
+          }`}
           style={{
             color: tinted ? tintHex : undefined,
-            opacity: engaged ? 0.95 : 0.65,
+            opacity: sandActive ? undefined : engaged ? 0.95 : 0.65,
           }}
         >
           {icon}
         </div>
       )}
-      <div className="flex flex-col min-w-0">
+      <div className="relative z-10 flex flex-col min-w-0">
         <div className="text-base font-system font-semibold tracking-tight text-earth-100">
           {primary}
         </div>
