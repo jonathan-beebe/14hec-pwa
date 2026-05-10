@@ -27,6 +27,7 @@ import DisclaimerModal from './components/common/DisclaimerModal'
 import UpdateBanner from './components/common/UpdateBanner'
 import DesignSystem from './components/design-system/DesignSystem'
 import ListDetailDemo, { ListDetailDemoDetail } from './components/design-system/layouts/demos/ListDetailDemo'
+import CatalogDemo, { CatalogDemoDetail } from './components/design-system/layouts/demos/CatalogDemo'
 import PlanetsSpike from './components/spike/PlanetsSpike'
 
 function ScrollToTop() {
@@ -64,6 +65,8 @@ export default function App() {
             <Route index element={null} />
             <Route path=":id" element={<ListDetailDemoDetail />} />
           </Route>
+          <Route path="/design-system/layouts/catalog" element={<CatalogDemo />} />
+          <Route path="/design-system/layouts/catalog/:id" element={<CatalogDemoDetail />} />
           <Route path="/entheogens" element={<EntheogenicGuide />}>
             <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
             <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />

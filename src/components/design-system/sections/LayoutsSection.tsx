@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Section, Subsection } from '../primitives'
 import ListDetailLayout from '../layouts/ListDetailLayout'
+import CatalogLayout from '../layouts/CatalogLayout'
 import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
+import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/CatalogDemo'
+import Text from '../atoms/Text'
 
 function DemoPlaceholder() {
   return (
@@ -98,6 +101,159 @@ function ListDetailDemo() {
   )
 }
 
+const CATALOG_CATEGORY_BADGE: Record<CatalogDemoItem['category'], string> = {
+  conventional: 'badge-conventional',
+  entheogenic: 'badge-entheogenic',
+  both: 'badge-both',
+}
+
+function CatalogDemoHeader({ count }: { count: number }) {
+  return (
+    <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+      <Text.PageTitle>Sample Botanicals</Text.PageTitle>
+      <span className="badge badge-conventional">{count}</span>
+    </div>
+  )
+}
+
+function CatalogDemoFilters({
+  search,
+  onSearch,
+  category,
+  onCategory,
+  onClear,
+  hasFilters,
+}: {
+  search: string
+  onSearch: (value: string) => void
+  category: string
+  onCategory: (value: string) => void
+  onClear: () => void
+  hasFilters: boolean
+}) {
+  return (
+    <div className="px-5 pb-3 pt-1">
+      <div className="glass-panel p-3">
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="relative flex-1 min-w-[180px]">
+            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+              <svg className="w-4 h-4 text-earth-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              placeholder="Search by name…"
+              value={search}
+              onChange={(e) => onSearch(e.target.value)}
+              className="input-field pl-10"
+            />
+          </div>
+          <select
+            value={category}
+            onChange={(e) => onCategory(e.target.value)}
+            className="select-field"
+          >
+            <option value="">All Categories</option>
+            <option value="conventional">Conventional</option>
+            <option value="entheogenic">Entheogenic</option>
+            <option value="both">Both</option>
+          </select>
+          {hasFilters && (
+            <button
+              type="button"
+              onClick={onClear}
+              className="text-xs text-earth-400 hover:text-earth-100 transition-colors px-2"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function CatalogDemoGrid({ items }: { items: CatalogDemoItem[] }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-5 pb-5">
+      {items.map((item) => (
+        <article key={item.id} className="card p-4 text-left group">
+          <div className="flex justify-between items-start mb-1.5">
+            <Text.CardTitle className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
+              {item.name}
+            </Text.CardTitle>
+            <span className={`badge ${CATALOG_CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+          </div>
+          <p className="text-xs text-earth-500 italic mb-1.5">{item.latin}</p>
+          <p className="text-xs text-earth-400 line-clamp-2">{item.summary}</p>
+        </article>
+      ))}
+    </div>
+  )
+}
+
+function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
+  return (
+    <div className="px-5 pb-5">
+      <div className="glass-panel p-10 text-center">
+        <p className="text-sm text-earth-500 mb-2">No items match your filters.</p>
+        <button
+          type="button"
+          onClick={onClear}
+          className="text-xs text-botanical-400/80 hover:text-botanical-300 transition-colors"
+        >
+          Clear filters
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function CatalogDemo() {
+  const [search, setSearch] = useState('')
+  const [category, setCategory] = useState('')
+
+  const filtered = useMemo(() => {
+    const q = search.trim().toLowerCase()
+    return CATALOG_DEMO_ITEMS.filter((item) => {
+      if (category && item.category !== category) return false
+      if (!q) return true
+      return (
+        item.name.toLowerCase().includes(q) ||
+        item.latin.toLowerCase().includes(q)
+      )
+    })
+  }, [search, category])
+
+  const hasFilters = Boolean(search) || Boolean(category)
+  const clear = () => {
+    setSearch('')
+    setCategory('')
+  }
+
+  return (
+    <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
+      <CatalogLayout
+        header={<CatalogDemoHeader count={filtered.length} />}
+        filters={
+          <CatalogDemoFilters
+            search={search}
+            onSearch={setSearch}
+            category={category}
+            onCategory={setCategory}
+            onClear={clear}
+            hasFilters={hasFilters}
+          />
+        }
+        results={<CatalogDemoGrid items={filtered} />}
+        empty={<CatalogDemoEmpty onClear={clear} />}
+        itemCount={filtered.length}
+      />
+    </div>
+  )
+}
+
 export default function LayoutsSection() {
   return (
     <Section id="layouts" title="Layouts">
@@ -135,7 +291,15 @@ export default function LayoutsSection() {
             <code className="text-earth-400">Ailments</code>,{' '}
             <code className="text-earth-400">Wellness</code>
           </p>
-          <DemoPlaceholder />
+          <CatalogDemo />
+          <div className="text-right">
+            <Link
+              to="/design-system/layouts/catalog"
+              className="inline-flex items-center gap-1 text-xs text-earth-400 hover:text-earth-100 font-system transition-colors"
+            >
+              Open route-driven demo →
+            </Link>
+          </div>
         </div>
       </Subsection>
 
