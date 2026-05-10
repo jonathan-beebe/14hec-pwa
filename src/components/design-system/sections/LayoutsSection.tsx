@@ -58,9 +58,12 @@ function ListDetailDemoList({
   )
 }
 
-function ListDetailDemoDetail({ item }: { item: DemoItem }) {
+function ListDetailDemoDetail({ item, onBack }: { item: DemoItem; onBack: () => void }) {
   return (
     <article className="p-6">
+      <Button.Ghost onClick={onBack} className="lg:hidden mb-4 !px-2">
+        <Icon.ArrowLeft className="mr-1.5" /> Back
+      </Button.Ghost>
       <h4 className="text-2xl font-system font-bold text-earth-100">{item.name}</h4>
       <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
       <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
@@ -88,9 +91,8 @@ function ListDetailDemo() {
       <ListDetailLayout
         top={<ListDetailDemoTop />}
         list={<ListDetailDemoList selectedId={selectedId} onSelect={setSelectedId} />}
-        detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} /> : null}
+        detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} onBack={() => setSelectedId(null)} /> : null}
         emptyDetail={<ListDetailDemoEmpty />}
-        onBack={() => setSelectedId(null)}
       />
     </div>
   )

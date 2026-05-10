@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
+import { NavLink, useLocation, useOutlet } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
 import ListDetailLayout from '@/components/design-system/layouts/ListDetailLayout'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 import { INTEGRATION_PROTOCOLS } from './entheogenicProtocols'
 
 function TopBar() {
@@ -112,8 +113,12 @@ function EmptyState() {
 export default function EntheogenicGuide() {
   const [plants, setPlants] = useState<Plant[]>([])
   const detail = useOutlet()
-  const navigate = useNavigate()
   const { pathname } = useLocation()
+
+  usePageMeta({
+    title: 'Entheogens',
+    back: detail ? '/entheogens' : null,
+  })
 
   useEffect(() => {
     api.getPlants({ category: 'entheogenic' }).then((entheogenic) => {
@@ -130,7 +135,6 @@ export default function EntheogenicGuide() {
       list={<ListPane plants={plants} />}
       detail={detail}
       emptyDetail={<EmptyState />}
-      onBack={() => navigate('/entheogens')}
       detailKey={pathname}
     />
   )

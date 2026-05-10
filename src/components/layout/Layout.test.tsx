@@ -1,0 +1,92 @@
+import { describe, it, expect } from 'vitest'
+import { Routes, Route } from 'react-router-dom'
+import { screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { renderWithRouter } from '@/test/render'
+import Layout from './Layout'
+import { usePageMeta } from './MobileTopBar'
+
+function PageWithTitle({ title, back }: { title?: string; back?: string | null }) {
+  usePageMeta({ title, back })
+  return <div>Page body for {title ?? 'untitled'}</div>
+}
+
+function setup(initialEntries: string[] = ['/']) {
+  return renderWithRouter(
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<PageWithTitle title="Dashboard" />} />
+        <Route path="/plants" element={<PageWithTitle title="Plants" />} />
+        <Route
+          path="/plants/:id"
+          element={<PageWithTitle title="A Plant" back="/plants" />}
+        />
+      </Route>
+    </Routes>,
+    { initialEntries },
+  )
+}
+
+describe('Layout — mobile top bar', () => {
+  it('renders the page title from usePageMeta', async () => {
+    setup(['/plants'])
+    expect(await screen.findByRole('heading', { name: 'Plants' })).toBeInTheDocument()
+  })
+
+  it('shows the hamburger when no back is set', async () => {
+    setup(['/plants'])
+    expect(
+      await screen.findByRole('button', { name: /open navigation menu/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('swaps the hamburger for a back button when back is set', async () => {
+    setup(['/plants/42'])
+    expect(await screen.findByRole('button', { name: /^back$/i })).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /open navigation menu/i })).toBeNull()
+  })
+
+  it('back button navigates to the configured path', async () => {
+    const user = userEvent.setup()
+    setup(['/plants/42'])
+
+    const back = await screen.findByRole('button', { name: /^back$/i })
+    await user.click(back)
+
+    expect(await screen.findByRole('heading', { name: 'Plants' })).toBeInTheDocument()
+  })
+})
+
+describe('Layout — mobile nav drawer', () => {
+  it('opens when the hamburger is clicked, closes on Escape', async () => {
+    const user = userEvent.setup()
+    setup(['/'])
+
+    const hamburger = await screen.findByRole('button', { name: /open navigation menu/i })
+    expect(hamburger).toHaveAttribute('aria-expanded', 'false')
+
+    await user.click(hamburger)
+    expect(hamburger).toHaveAttribute('aria-expanded', 'true')
+
+    await user.keyboard('{Escape}')
+    expect(hamburger).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('closes when the user navigates to a new route', async () => {
+    const user = userEvent.setup()
+    setup(['/'])
+
+    const hamburger = await screen.findByRole('button', { name: /open navigation menu/i })
+    await user.click(hamburger)
+    expect(hamburger).toHaveAttribute('aria-expanded', 'true')
+
+    // The drawer renders SidebarContent which contains a Link to /plants.
+    // Clicking it triggers navigation; the layout should close the drawer.
+    const plantsLink = screen.getAllByRole('link', { name: /plants/i })[0]
+    await user.click(plantsLink)
+
+    expect(
+      await screen.findByRole('button', { name: /open navigation menu/i }),
+    ).toHaveAttribute('aria-expanded', 'false')
+  })
+})
