@@ -2,7 +2,7 @@ import { useMemo, useRef, type MutableRefObject } from 'react'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import type { PlanetVisual, RingConfig, SatelliteConfig } from './planetConfig'
-import { prepareGlyphProfile, sampleFromProfile, pairByAngle } from './glyphSampler'
+import { prepareGlyphProfile, sampleFromProfile } from './glyphSampler'
 
 const GLYPH_SCALE_RATIO = 0.85
 const MORPH_LAMBDA = 7
@@ -79,17 +79,16 @@ function useSphereAttributes(config: PlanetVisual) {
         sparkleBoost[i] = Math.random()
       }
     }
-    // Profile + scratch are retained so each engagement can re-roll the glyph
-    // sample and pairing in place — keeps the morph from looking identical
-    // every time without allocating on the hot path.
+    // Profile is retained so each engagement can re-sample the glyph in place.
+    // sampleFromProfile draws each particle's target independently from the
+    // silhouette, so writing straight into glyphTargets gives a fully random
+    // pairing — neighboring sphere particles end up at unrelated glyph points.
     const glyphProfile = prepareGlyphProfile(
       config.glyph,
       config.bodyScale * GLYPH_SCALE_RATIO,
     )
-    const glyphScratch = new Float32Array(n * 3)
     const glyphTargets = new Float32Array(n * 3)
-    sampleFromProfile(glyphProfile, n, glyphScratch)
-    pairByAngle(dirs, glyphScratch, n, 0, glyphTargets)
+    sampleFromProfile(glyphProfile, n, glyphTargets)
     return {
       positions,
       colors,
@@ -100,7 +99,6 @@ function useSphereAttributes(config: PlanetVisual) {
       isSparkle,
       sparkleBoost,
       glyphProfile,
-      glyphScratch,
       glyphTargets,
     }
   }, [config])
@@ -116,10 +114,6 @@ function useRingAttributes(ring: RingConfig, bodyScale: number, glyph: string) {
     const baseThetas = new Float32Array(n)
     const baseYs = new Float32Array(n)
     const phases = new Float32Array(n)
-    // Synthetic dirs in the ring's plane (theta → unit XY) so pairByAngle
-    // matches each ring particle to a glyph point with a similar angle —
-    // makes the morph read as a swirl into shape rather than chaos.
-    const dirs = new Float32Array(n * 3)
     const thickness = ring.thickness ?? 0.01
     for (let i = 0; i < n; i++) {
       const t = Math.random()
@@ -130,9 +124,6 @@ function useRingAttributes(ring: RingConfig, bodyScale: number, glyph: string) {
       baseThetas[i] = theta
       baseYs[i] = y
       phases[i] = Math.random() * Math.PI * 2
-      dirs[i * 3 + 0] = Math.cos(theta)
-      dirs[i * 3 + 1] = Math.sin(theta)
-      dirs[i * 3 + 2] = 0
       positions[i * 3 + 0] = r * Math.cos(theta)
       positions[i * 3 + 1] = y
       positions[i * 3 + 2] = r * Math.sin(theta)
@@ -151,10 +142,8 @@ function useRingAttributes(ring: RingConfig, bodyScale: number, glyph: string) {
       colors[i * 3 + 2] = bb * SPARKLE_BASE
     }
     const glyphProfile = prepareGlyphProfile(glyph, bodyScale * GLYPH_SCALE_RATIO)
-    const glyphScratch = new Float32Array(n * 3)
     const glyphTargets = new Float32Array(n * 3)
-    sampleFromProfile(glyphProfile, n, glyphScratch)
-    pairByAngle(dirs, glyphScratch, n, 0, glyphTargets)
+    sampleFromProfile(glyphProfile, n, glyphTargets)
     return {
       positions,
       colors,
@@ -163,9 +152,7 @@ function useRingAttributes(ring: RingConfig, bodyScale: number, glyph: string) {
       baseThetas,
       baseYs,
       phases,
-      dirs,
       glyphProfile,
-      glyphScratch,
       glyphTargets,
     }
   }, [ring, bodyScale, glyph])
@@ -193,7 +180,6 @@ function PlanetBody({
     isSparkle,
     sparkleBoost,
     glyphProfile,
-    glyphScratch,
     glyphTargets,
   } = useSphereAttributes(config)
   const amp = config.bodyScale * BODY_WOBBLE_AMP
@@ -203,14 +189,14 @@ function PlanetBody({
     const m = morphRef.current
     const prevM = prevMorphRef.current
     // Trailing edge of the morph (settling back to idle): shuffle each
-    // particle's identity and re-roll glyph targets. Permuting the full
+    // particle's identity and re-sample glyph targets. Permuting the full
     // per-particle tuple — dirs, baseRadii, baseColors, phases, isSparkle,
     // sparkleBoost — in lockstep keeps the SET of (position, color) pairs
     // unchanged at m=0, so the swap is pixel-perfect invisible. What
     // changes is each particle's individual trajectory: on the next
-    // engagement, particle i runs from its new home to a freshly paired
-    // glyph point, and on the return after that it lands somewhere new
-    // again. No mid-flight swap means no snap.
+    // engagement, particle i runs from its new home to an independently
+    // sampled glyph point — neighbors on the sphere scatter to unrelated
+    // destinations rather than swirling together.
     if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
       const n = config.particleCount
       const perm = new Int32Array(n)
@@ -240,9 +226,7 @@ function PlanetBody({
         isSparkle[i] = sparkleFlagCopy[p]
         sparkleBoost[i] = sparkleBoostCopy[p]
       }
-      sampleFromProfile(glyphProfile, n, glyphScratch)
-      const k = (Math.random() * n) | 0
-      pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
+      sampleFromProfile(glyphProfile, n, glyphTargets)
     }
     prevMorphRef.current = m
     const inv = 1 - m
@@ -370,9 +354,7 @@ function PlanetRing({
     baseThetas,
     baseYs,
     phases,
-    dirs,
     glyphProfile,
-    glyphScratch,
     glyphTargets,
   } = useRingAttributes(ring, bodyScale, glyph)
   const amp = bodyScale * RING_WOBBLE_AMP
@@ -381,12 +363,13 @@ function PlanetRing({
     if (!points) return
     const m = morphRef.current
     const prevM = prevMorphRef.current
-    // Trailing edge: permute identities and re-roll glyph targets. Same
+    // Trailing edge: permute identities and re-sample glyph targets. Same
     // approach as PlanetBody — moving every per-particle attribute together
-    // (radii, thetas, ys, baseColors, phases, plus the angle-derived dirs
-    // used by pairByAngle) keeps the SET of points pixel-identical at m=0,
-    // so disengage settle is invisible while each particle's next
-    // trajectory differs.
+    // (radii, thetas, ys, baseColors, phases) keeps the SET of points
+    // pixel-identical at m=0, so disengage settle is invisible. The fresh
+    // sampleFromProfile draws each particle's destination independently,
+    // so neighbors on the ring scatter to unrelated glyph points instead
+    // of swirling.
     if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
       const n = ring.particleCount
       const perm = new Int32Array(n)
@@ -402,7 +385,6 @@ function PlanetRing({
       const ysCopy = baseYs.slice()
       const colorsCopy = baseColors.slice()
       const phasesCopy = phases.slice()
-      const dirsCopy = dirs.slice()
       for (let i = 0; i < n; i++) {
         const p = perm[i]
         baseRadii[i] = radiiCopy[p]
@@ -412,13 +394,8 @@ function PlanetRing({
         baseColors[i * 3 + 1] = colorsCopy[p * 3 + 1]
         baseColors[i * 3 + 2] = colorsCopy[p * 3 + 2]
         phases[i] = phasesCopy[p]
-        dirs[i * 3 + 0] = dirsCopy[p * 3 + 0]
-        dirs[i * 3 + 1] = dirsCopy[p * 3 + 1]
-        dirs[i * 3 + 2] = dirsCopy[p * 3 + 2]
       }
-      sampleFromProfile(glyphProfile, n, glyphScratch)
-      const k = (Math.random() * n) | 0
-      pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
+      sampleFromProfile(glyphProfile, n, glyphTargets)
     }
     prevMorphRef.current = m
     const inv = 1 - m
