@@ -65,7 +65,7 @@ type Pool = {
   sparkleBoost: Float32Array
 }
 
-function makePool(size: number): Pool {
+function makePool(size: number, lifespanMin: number, lifespanMax: number): Pool {
   const positions = new Float32Array(size * 3)
   const colors = new Float32Array(size * 3)
   const baseColors = new Float32Array(size * 3)
@@ -75,12 +75,12 @@ function makePool(size: number): Pool {
   const isSparkle = new Uint8Array(size)
   const sparkleBoost = new Float32Array(size)
   for (let i = 0; i < size; i++) {
-    lifespan[i] = LIFESPAN_MIN + Math.random() * (LIFESPAN_MAX - LIFESPAN_MIN)
-    // Negative life = startup delay, uniformly spread across LIFESPAN_MAX.
+    lifespan[i] = lifespanMin + Math.random() * (lifespanMax - lifespanMin)
+    // Negative life = startup delay, uniformly spread across lifespanMax.
     // Without it, every slot is "expired" on frame 1 and they all respawn
     // simultaneously — visible burst as the pool comes online. Staggered
     // delays let the wind trickle on as if it's picking up.
-    life[i] = -Math.random() * LIFESPAN_MAX
+    life[i] = -Math.random() * lifespanMax
     velJitter[i * 3 + 0] = (Math.random() - 0.5) * VEL_JITTER_X
     velJitter[i * 3 + 1] = (Math.random() - 0.5) * VEL_JITTER_Y
     velJitter[i * 3 + 2] = (Math.random() - 0.5) * VEL_JITTER_Z
@@ -128,9 +128,28 @@ type SourcePacket = WindSource & {
 
 export type WindDriftProps = {
   sources: WindSource[]
+  /**
+   * Multiplier on the global wind speed. Defaults to 1 (spike behavior
+   * unchanged). Pair with `lifespanScale` to control reach vs pace
+   * independently: reach ≈ speedScale × lifespanScale.
+   */
+  speedScale?: number
+  /**
+   * Multiplier on each grain's lifespan. Lets the host scene stretch
+   * trajectories without speeding the per-frame motion — useful when
+   * you want longer tails that still drift gently. Also stretches the
+   * startup stagger proportionally.
+   */
+  lifespanScale?: number
 }
 
-export default function WindDrift({ sources }: WindDriftProps) {
+export default function WindDrift({
+  sources,
+  speedScale = 1,
+  lifespanScale = 1,
+}: WindDriftProps) {
+  const lifespanMin = LIFESPAN_MIN * lifespanScale
+  const lifespanMax = LIFESPAN_MAX * lifespanScale
   const packets: SourcePacket[] = useMemo(
     () =>
       sources.map((s) => {
@@ -166,7 +185,10 @@ export default function WindDrift({ sources }: WindDriftProps) {
     POOL_MIN,
     Math.min(POOL_MAX, Math.round(totalWeight * POOL_FRACTION)),
   )
-  const pool = useMemo(() => makePool(poolSize), [poolSize])
+  const pool = useMemo(
+    () => makePool(poolSize, lifespanMin, lifespanMax),
+    [poolSize, lifespanMin, lifespanMax],
+  )
   const tmp = useMemo(() => new THREE.Vector3(), [])
   const pointsRef = useRef<THREE.Points>(null!)
 
@@ -188,7 +210,7 @@ export default function WindDrift({ sources }: WindDriftProps) {
       WIND_GUST_AMP_2 * Math.sin(t * WIND_GUST_FREQ_2 + 1.7)
     const vertical = Math.sin(t * WIND_VERTICAL_FREQ + 1.3) * WIND_VERTICAL_AMP
     // Clamp so a deep gust trough doesn't reverse the wind.
-    const speed = WIND_BASE_SPEED * Math.max(0.2, gust)
+    const speed = WIND_BASE_SPEED * Math.max(0.2, gust) * speedScale
     const wx = Math.cos(dirAngle) * speed
     const wy = vertical * speed
     const wz = Math.sin(dirAngle) * speed
@@ -198,7 +220,7 @@ export default function WindDrift({ sources }: WindDriftProps) {
       const li = prevLife + delta
       const ls = pool.lifespan[i]
       if (li >= ls) {
-        respawn(i, pool, packets, cumWeights, totalWeight, tmp)
+        respawn(i, pool, packets, cumWeights, totalWeight, tmp, lifespanMin, lifespanMax)
       } else if (li < 0) {
         // Still in startup delay — tick life, paint transparent (additive).
         pool.life[i] = li
@@ -208,7 +230,7 @@ export default function WindDrift({ sources }: WindDriftProps) {
       } else if (prevLife < 0) {
         // Just emerged from delay — respawn so it lifts from a real source
         // instead of drifting from its uninitialized origin.
-        respawn(i, pool, packets, cumWeights, totalWeight, tmp)
+        respawn(i, pool, packets, cumWeights, totalWeight, tmp, lifespanMin, lifespanMax)
       } else {
         pool.life[i] = li
         const vx = wx + pool.velJitter[i * 3 + 0]
@@ -277,6 +299,8 @@ function respawn(
   cumWeights: Float32Array,
   totalWeight: number,
   tmp: THREE.Vector3,
+  lifespanMin: number,
+  lifespanMax: number,
 ) {
   if (totalWeight <= 0) {
     pool.life[i] = pool.lifespan[i]
@@ -383,5 +407,5 @@ function respawn(
   pool.colors[i * 3 + 1] = 0
   pool.colors[i * 3 + 2] = 0
   pool.life[i] = 0
-  pool.lifespan[i] = LIFESPAN_MIN + Math.random() * (LIFESPAN_MAX - LIFESPAN_MIN)
+  pool.lifespan[i] = lifespanMin + Math.random() * (lifespanMax - lifespanMin)
 }

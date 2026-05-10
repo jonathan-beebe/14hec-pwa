@@ -107,6 +107,13 @@ const SPIKE_VVE = 8 * Math.tan(Math.PI / 12)
 // spike. Bump above 1.0 to make every tile denser; drop below to thin.
 const TILE_PARTICLE_DENSITY = 1.0
 
+// Reach is roughly speed × lifespan. Splitting the stretch between the
+// two lets the wind drift further than the spike defaults without
+// speeding up the per-frame motion — grains move at ~spike pace and
+// just live long enough to reach the right side of the tile.
+const TILE_WIND_SPEED_SCALE = 1.0
+const TILE_WIND_LIFESPAN_SCALE = 2.2
+
 // Ratio of tile body area to spike body area. Multiplying particle
 // counts by this preserves spike density at tile scale: small planets
 // like Pluto blow up ~10× in area in the tile (since the tile renders
@@ -183,6 +190,8 @@ function PlanetScene({
       </group>
       <WindDrift
         sources={[{ config, morphRef, bodyRef, ringRef }]}
+        speedScale={TILE_WIND_SPEED_SCALE}
+        lifespanScale={TILE_WIND_LIFESPAN_SCALE}
       />
     </>
   )
