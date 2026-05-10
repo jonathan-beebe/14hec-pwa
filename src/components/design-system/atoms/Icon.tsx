@@ -57,13 +57,18 @@ interface GlyphIconProps extends IconProps {
   glyph: string
 }
 
-function GlyphIcon({ size, glyph, style, label, ...rest }: GlyphIconProps) {
+function GlyphIcon({ size, glyph, style, label, className, ...rest }: GlyphIconProps) {
   const sizeStyle = size !== undefined ? { fontSize: size } : null
   const a11y = label
     ? { role: 'img' as const, 'aria-label': label }
     : { 'aria-hidden': true as const }
+  // font-symbol routes through a stack that has the unicode codepoints
+  // these glyphs use (Inter and the body sans-serif fallback don't).
+  // The class can be overridden by a caller-supplied className if needed.
+  const cls = `font-symbol${className ? ` ${className}` : ''}`
   return (
     <span
+      className={cls}
       style={{ lineHeight: 1, ...sizeStyle, ...style }}
       {...rest}
       {...a11y}
@@ -110,7 +115,15 @@ function SvgIcon({ size, style, children, viewBox = '0 0 24 24', label, ...rest 
 // free. Keeps the catalog scannable and guarantees every icon has a
 // rasterizable source.
 
-function glyphIcon(name: string, glyph: string): IconComponent {
+/**
+ * Build a unicode-codepoint icon. Children render as a `<span>` whose
+ * font-family / font-size flow from the parent. Codepoints outside the
+ * caller's primary font (e.g. zodiac signs ♈–♓ in Inter) require the
+ * parent to include a symbol-rich family in the font-family chain;
+ * see `ZodiacTile` for the canonical wrapper. Exported so adjacent
+ * atoms can produce the same `IconComponent` shape.
+ */
+export function glyphIcon(name: string, glyph: string): IconComponent {
   const Comp: IconComponent = Object.assign(
     (p: IconProps) => <GlyphIcon glyph={glyph} {...p} />,
     {
@@ -179,9 +192,10 @@ const Neptune = glyphIcon('Neptune', '♆')
 const Pluto = glyphIcon('Pluto', '♇')
 const Comet = glyphIcon('Comet', '☄')
 
-// Zodiac signs live in their own atom (`ZodiacSymbol`) — the unicode
-// glyphs (♈–♓) tofu on macOS Inter, so each sign is hand-drawn SVG.
-// Import from `@/components/design-system/atoms/ZodiacSymbol` instead.
+// Zodiac signs live in their own atom (`ZodiacSymbol`) so consumers
+// have a single place to opt into the symbol-rich font-family chain
+// these codepoints (♈–♓) require. Import from
+// `@/components/design-system/atoms/ZodiacSymbol`.
 
 // ─── Stars / decorative ─────────────────────────────────────────────────
 

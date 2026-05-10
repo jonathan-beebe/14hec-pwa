@@ -12,12 +12,17 @@ import type { ReactNode } from 'react'
 import type { IconSource } from '../Icon'
 
 const ALPHA_THRESHOLD = 80
-// Used only when the caller doesn't pass a font shorthand. Ordered for
-// symbol-glyph coverage on the platforms we support; falls back to a
-// serif so something always renders.
+// Symbol-rich families appended to the caller's font chain (or used
+// standalone when the caller passes no font). Many of our glyphs —
+// zodiac signs (♈–♓), the Aesculapius staff (⚕), planet symbols —
+// aren't present in Inter or in what generic `sans-serif` resolves to,
+// so without this fallback the canvas would rasterize a tofu square.
+// Ordered by platform: Apple Symbols (macOS) → Segoe UI Symbol
+// (Windows) → Noto Sans Symbols (Linux/PWA), with `serif` terminating
+// the chain so something always renders.
 const DEFAULT_GLYPH_FONT_RATIO = 0.78
-const DEFAULT_GLYPH_FONT_FAMILY =
-  '"Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", serif'
+const SYMBOL_FALLBACK_FAMILIES =
+  '"Apple Symbols", "Segoe UI Symbol", "Noto Sans Symbols 2", "Noto Sans Symbols", serif'
 
 export type GlyphSample = {
   /** 1-byte-per-pixel silhouette, indexed [y * maskW + x]. */
@@ -80,9 +85,9 @@ function paintGlyph(
 ): void {
   ctx.fillStyle = '#fff'
   ctx.textAlign = 'center'
-  ctx.font =
-    font ??
-    `${Math.round(w * DEFAULT_GLYPH_FONT_RATIO)}px ${DEFAULT_GLYPH_FONT_FAMILY}`
+  ctx.font = font
+    ? appendSymbolFallback(font)
+    : `${Math.round(w * DEFAULT_GLYPH_FONT_RATIO)}px ${SYMBOL_FALLBACK_FAMILIES}`
   // Match the static DOM glyph's vertical position. The static icon slot
   // is `text-8xl` (line-height: 1) flex-centered in the card, so the
   // alphabetic baseline sits at `ascent + (lineHeight - ascent - descent) / 2`
@@ -100,6 +105,19 @@ function paintGlyph(
       ? ascent + (h - ascent - descent) / 2
       : h * 0.82
   ctx.fillText(glyph, w / 2, baselineY)
+}
+
+// Append the symbol-rich fallback families to the caller's font
+// shorthand. CSS font-family chains continue past generic terminators
+// like `sans-serif` for codepoints the resolved font lacks, so adding
+// the symbol families after the caller's chain reliably catches glyphs
+// (zodiac, alchemical symbols, etc.) without disturbing per-codepoint
+// resolution for anything Inter or system-ui already covers.
+// Idempotent: if the caller's chain already names Apple Symbols, leave
+// it alone.
+function appendSymbolFallback(font: string): string {
+  if (font.includes('Apple Symbols')) return font
+  return `${font}, ${SYMBOL_FALLBACK_FAMILIES}`
 }
 
 async function paintSvg(

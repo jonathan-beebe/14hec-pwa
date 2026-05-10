@@ -76,12 +76,13 @@ export default function ZodiacTile(props: ZodiacTileProps) {
 
   // Static fallback used when reduced motion is on. Pulled directly
   // from the icon source so the tile and the SandIcon never disagree.
-  // Glyph sources render the codepoint in a span; SVG sources render
-  // an inline <svg> in the same neutral stroke style the rasterizer
+  // Glyph sources render the codepoint in a span (font-symbol routes
+  // through a font that has the codepoint); SVG sources render an
+  // inline <svg> in the same neutral stroke style the rasterizer
   // uses (fill="none" stroke="currentColor" stroke-width="1.5").
   const fallback: ReactNode =
     source.kind === 'glyph' ? (
-      <span className="text-9xl opacity-80">{source.glyph}</span>
+      <span className="text-9xl opacity-80 font-symbol">{source.glyph}</span>
     ) : (
       <svg
         viewBox={source.viewBox}
@@ -146,12 +147,16 @@ export default function ZodiacTile(props: ZodiacTileProps) {
 
   // SandIcon canvas spans the entire card. The wrapper inherits the
   // element tint as text-color, which SandIcon's controller picks up
-  // via getComputedStyle. The mask fades the trailing wind before it
-  // reaches the text column.
+  // via getComputedStyle. text-9xl matches the static fallback's
+  // font-size so the sand silhouette and the reduced-motion glyph
+  // paint at the same scale. The symbol-rich font-family is set on
+  // the SandIcon canvas itself (font-symbol) and on every GlyphIcon,
+  // so the wrapper doesn't need to carry it. The mask fades the
+  // trailing wind before the text column.
   const sandLayer = sandActive && (
     <div
       aria-hidden="true"
-      className="absolute inset-0 z-0 pointer-events-none"
+      className="absolute inset-0 z-0 pointer-events-none text-9xl"
       style={{
         color: tintCss,
         maskImage: SAND_MASK_GRADIENT,
@@ -168,7 +173,8 @@ export default function ZodiacTile(props: ZodiacTileProps) {
 
   // Spacer reserves the planet-sized slot in flex layout so the text
   // column starts past it. When sand is off, this slot also hosts the
-  // static fallback glyph.
+  // static fallback glyph; the GlyphIcon component carries
+  // font-symbol so the codepoint resolves without help from us.
   const slotSpacer = (
     <div
       aria-hidden="true"

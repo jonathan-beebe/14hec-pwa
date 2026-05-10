@@ -60,7 +60,14 @@ module.exports = {
         display: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
         body: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
-        system: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif']
+        system: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif'],
+        // Symbol-rich stack for unicode glyph icons (zodiac signs ♈–♓,
+        // alchemical/astrological symbols ⚕☉♀, dingbats ✦✧, etc.). Inter
+        // and the body sans-serif fallback don't carry these codepoints,
+        // so the icon library applies font-symbol on every glyph icon to
+        // route through a font that does — Apple Symbols on macOS, Segoe
+        // UI Symbol on Windows, Noto Sans Symbols on Linux/PWA.
+        symbol: ['"Apple Symbols"', '"Segoe UI Symbol"', '"Noto Sans Symbols 2"', '"Noto Sans Symbols"', 'serif']
       },
       animation: {
         'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',

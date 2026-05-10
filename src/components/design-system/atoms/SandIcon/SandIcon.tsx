@@ -61,11 +61,17 @@ export default function SandIcon({
     return () => controller.destroy()
   }, [source, bodySize, bodyOffsetX, colorOverride])
 
+  // font-symbol routes the canvas's computed font-family through a
+  // stack that has every unicode glyph in our icon library (Inter and
+  // the body sans-serif fallback don't). The controller reads
+  // getComputedStyle(canvas).fontFamily to build the rasterizer's
+  // font shorthand, so this class is what makes ♈ render as ♈
+  // instead of tofu.
   return (
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className={`block w-full h-full${className ? ` ${className}` : ''}`}
+      className={`block w-full h-full font-symbol${className ? ` ${className}` : ''}`}
     />
   )
 }
