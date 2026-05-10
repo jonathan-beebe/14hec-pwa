@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode } from 'react'
+import { useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
@@ -97,6 +97,49 @@ function planetScale(config: PlanetVisual): number {
   return SCALE_MIN + (1 - SCALE_MIN) * clamped
 }
 
+// Spike's vertical viewport extent (see spike/PlanetField.tsx). Used to
+// reconstruct each planet's native body diameter from `config.height`,
+// since the spike maps height → world units via the same constant.
+const SPIKE_VVE = 8 * Math.tan(Math.PI / 12)
+
+// Multiplier on top of native-density preservation. 1.0 keeps each
+// planet at roughly the same particles-per-pixel ratio it had in the
+// spike. Bump above 1.0 to make every tile denser; drop below to thin.
+const TILE_PARTICLE_DENSITY = 1.0
+
+// Ratio of tile body area to spike body area. Multiplying particle
+// counts by this preserves spike density at tile scale: small planets
+// like Pluto blow up ~10× in area in the tile (since the tile renders
+// every planet at near-slot size) and would look sparse without a
+// matching boost.
+function tileBodyAreaRatio(config: PlanetVisual, zoom: number): number {
+  // native body diameter (px) = 2 * bodyScale * config.height / SPIKE_VVE
+  // tile body diameter (px) = 2 * bodyScale * zoom
+  // ratio of (tile / native) is the part below; squared for area.
+  const r = (zoom * SPIKE_VVE) / config.height
+  return r * r
+}
+
+// Body and ring particles share the same area-ratio multiplier. The
+// ring annulus scales with the body in world units, so its tile-vs-
+// native area ratio works out identically — same multiplier applies.
+function withTileDensity(config: PlanetVisual, zoom: number): PlanetVisual {
+  const ratio = tileBodyAreaRatio(config, zoom) * TILE_PARTICLE_DENSITY
+  return {
+    ...config,
+    particleCount: Math.max(1, Math.round(config.particleCount * ratio)),
+    ring: config.ring
+      ? {
+          ...config.ring,
+          particleCount: Math.max(
+            1,
+            Math.round(config.ring.particleCount * ratio),
+          ),
+        }
+      : undefined,
+  }
+}
+
 function PlanetScene({
   config,
   engaged,
@@ -154,6 +197,10 @@ export default function PlanetTile(props: PlanetTileProps) {
   const ringRef = useRef<THREE.Points | null>(null) as PointsRef
 
   const zoom = tileZoom(config)
+  // Memoize the density-adjusted config — PlanetCluster's particle
+  // buffers are useMemo'd against the config reference, so a fresh
+  // object every render would tear down and rebuild them every frame.
+  const tileConfig = useMemo(() => withTileDensity(config, zoom), [config, zoom])
 
   // Per-planet tint drives the gradient frame, border, glow, and primary
   // text — same role celestial-{300,400,500} plays for the rest of the
@@ -205,7 +252,7 @@ export default function PlanetTile(props: PlanetTileProps) {
         gl={{ alpha: true, antialias: true }}
       >
         <PlanetScene
-          config={config}
+          config={tileConfig}
           engaged={engaged}
           morphRef={morphRef}
           bodyRef={bodyRef}
