@@ -11,12 +11,6 @@ const SPARKLE_AMP = 0.5
 const SPARKLE_FREQ_1 = 1.7
 const SPARKLE_FREQ_2 = 2.7
 const MORPH_IDLE_EPSILON = 0.01
-// Re-roll each particle's "home" position once per engagement, when m climbs
-// past this threshold. At (1-m) ≈ 0.05 the sphere term contributes only a
-// few percent to the rendered position, so swapping dirs/baseRadii is a
-// sub-pixel shimmer hidden inside the glyph — not a snap. By the time m
-// drops back to 0 on disengage, every particle lands at a fresh point.
-const REROLL_PEAK_THRESHOLD = 0.95
 
 const BODY_WOBBLE_FREQ = 1.4
 const BODY_WOBBLE_AMP = 0.015
@@ -189,7 +183,6 @@ function PlanetBody({
   const matRef = useRef<THREE.PointsMaterial>(null!)
   const targetYawRef = useRef<number | null>(null)
   const prevMorphRef = useRef(0)
-  const cycleRerolledRef = useRef(false)
   const {
     positions,
     colors,
@@ -209,46 +202,47 @@ function PlanetBody({
     if (!points) return
     const m = morphRef.current
     const prevM = prevMorphRef.current
-    // Re-roll the sphere "home" once per engagement, while m sits near peak
-    // (sphere term ≈ 5% of position, so the swap is invisible). baseColors
-    // re-derive from the new dirs so position-correlated coloring (latitude
-    // bands, spots) stays coherent on the sphere instead of scrambling over
-    // successive cycles. Glyph targets are deliberately NOT re-paired here —
-    // doing so at m≈0.95 would jump positions by ~0.95 × pairing-delta. The
-    // re-pair happens on the trailing edge below, against the new dirs, so
-    // the *next* engagement's swirl reads against fresh angular pairing.
-    if (m >= REROLL_PEAK_THRESHOLD && !cycleRerolledRef.current) {
-      const n = config.particleCount
-      for (let i = 0; i < n; i++) {
-        const u = Math.random()
-        const v = Math.random()
-        const th = 2 * Math.PI * u
-        const ph = Math.acos(2 * v - 1)
-        const dx = Math.sin(ph) * Math.cos(th)
-        const dy = Math.cos(ph)
-        const dz = Math.sin(ph) * Math.sin(th)
-        dirs[i * 3 + 0] = dx
-        dirs[i * 3 + 1] = dy
-        dirs[i * 3 + 2] = dz
-        baseRadii[i] = (0.97 + Math.random() * 0.03) * config.bodyScale
-        const [cr, cg, cb] = config.colorAt(dx, dy, dz)
-        baseColors[i * 3 + 0] = cr
-        baseColors[i * 3 + 1] = cg
-        baseColors[i * 3 + 2] = cb
-      }
-      cycleRerolledRef.current = true
-    }
-    // Re-roll glyph targets on the trailing edge of the morph (settling back
-    // to idle). Doing it here — not on engage — guarantees we never swap
-    // targets mid-flight, which would snap particles. Pairs against the
-    // (possibly just re-rolled) dirs so the next engagement is a clean
-    // angle-aligned swirl.
+    // Trailing edge of the morph (settling back to idle): shuffle each
+    // particle's identity and re-roll glyph targets. Permuting the full
+    // per-particle tuple — dirs, baseRadii, baseColors, phases, isSparkle,
+    // sparkleBoost — in lockstep keeps the SET of (position, color) pairs
+    // unchanged at m=0, so the swap is pixel-perfect invisible. What
+    // changes is each particle's individual trajectory: on the next
+    // engagement, particle i runs from its new home to a freshly paired
+    // glyph point, and on the return after that it lands somewhere new
+    // again. No mid-flight swap means no snap.
     if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
       const n = config.particleCount
+      const perm = new Int32Array(n)
+      for (let i = 0; i < n; i++) perm[i] = i
+      for (let i = n - 1; i > 0; i--) {
+        const j = (Math.random() * (i + 1)) | 0
+        const tmp = perm[i]
+        perm[i] = perm[j]
+        perm[j] = tmp
+      }
+      const dirsCopy = dirs.slice()
+      const radiiCopy = baseRadii.slice()
+      const colorsCopy = baseColors.slice()
+      const phasesCopy = phases.slice()
+      const sparkleFlagCopy = isSparkle.slice()
+      const sparkleBoostCopy = sparkleBoost.slice()
+      for (let i = 0; i < n; i++) {
+        const p = perm[i]
+        dirs[i * 3 + 0] = dirsCopy[p * 3 + 0]
+        dirs[i * 3 + 1] = dirsCopy[p * 3 + 1]
+        dirs[i * 3 + 2] = dirsCopy[p * 3 + 2]
+        baseRadii[i] = radiiCopy[p]
+        baseColors[i * 3 + 0] = colorsCopy[p * 3 + 0]
+        baseColors[i * 3 + 1] = colorsCopy[p * 3 + 1]
+        baseColors[i * 3 + 2] = colorsCopy[p * 3 + 2]
+        phases[i] = phasesCopy[p]
+        isSparkle[i] = sparkleFlagCopy[p]
+        sparkleBoost[i] = sparkleBoostCopy[p]
+      }
       sampleFromProfile(glyphProfile, n, glyphScratch)
       const k = (Math.random() * n) | 0
       pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
-      cycleRerolledRef.current = false
     }
     prevMorphRef.current = m
     const inv = 1 - m
@@ -368,7 +362,6 @@ function PlanetRing({
 }) {
   const targetYawRef = useRef<number | null>(null)
   const prevMorphRef = useRef(0)
-  const cycleRerolledRef = useRef(false)
   const {
     positions,
     colors,
@@ -388,43 +381,44 @@ function PlanetRing({
     if (!points) return
     const m = morphRef.current
     const prevM = prevMorphRef.current
-    // Re-roll the ring "home" once per engagement at peak m. Same reasoning
-    // as PlanetBody: at (1-m) ≈ 0.05 the swap is hidden inside the glyph,
-    // so by disengage-time particles settle to fresh ring slots. baseColors
-    // re-derive so the dim band and per-particle fade aren't tied to a
-    // stale position.
-    if (m >= REROLL_PEAK_THRESHOLD && !cycleRerolledRef.current) {
-      const n = ring.particleCount
-      const thickness = ring.thickness ?? 0.01
-      for (let i = 0; i < n; i++) {
-        const t = Math.random()
-        const r = (ring.inner + t * (ring.outer - ring.inner)) * bodyScale
-        const theta = 2 * Math.PI * Math.random()
-        const y = (Math.random() - 0.5) * thickness * bodyScale
-        baseRadii[i] = r
-        baseThetas[i] = theta
-        baseYs[i] = y
-        dirs[i * 3 + 0] = Math.cos(theta)
-        dirs[i * 3 + 1] = Math.sin(theta)
-        dirs[i * 3 + 2] = 0
-        const dim = t > 0.55 && t < 0.62 ? 0.35 : 1.0
-        const fade = 0.85 + Math.random() * 0.25
-        const [cr, cg, cb] = ring.color
-        const j = (Math.random() - 0.5) * 0.06
-        baseColors[i * 3 + 0] = (cr + j) * dim * fade
-        baseColors[i * 3 + 1] = (cg + j) * dim * fade
-        baseColors[i * 3 + 2] = (cb + j) * dim * fade
-      }
-      cycleRerolledRef.current = true
-    }
-    // Re-roll glyph pairing on the trailing edge of the morph — same pattern
-    // the body uses, so successive engagements look fresh rather than identical.
+    // Trailing edge: permute identities and re-roll glyph targets. Same
+    // approach as PlanetBody — moving every per-particle attribute together
+    // (radii, thetas, ys, baseColors, phases, plus the angle-derived dirs
+    // used by pairByAngle) keeps the SET of points pixel-identical at m=0,
+    // so disengage settle is invisible while each particle's next
+    // trajectory differs.
     if (prevM > MORPH_IDLE_EPSILON && m <= MORPH_IDLE_EPSILON) {
       const n = ring.particleCount
+      const perm = new Int32Array(n)
+      for (let i = 0; i < n; i++) perm[i] = i
+      for (let i = n - 1; i > 0; i--) {
+        const j = (Math.random() * (i + 1)) | 0
+        const tmp = perm[i]
+        perm[i] = perm[j]
+        perm[j] = tmp
+      }
+      const radiiCopy = baseRadii.slice()
+      const thetasCopy = baseThetas.slice()
+      const ysCopy = baseYs.slice()
+      const colorsCopy = baseColors.slice()
+      const phasesCopy = phases.slice()
+      const dirsCopy = dirs.slice()
+      for (let i = 0; i < n; i++) {
+        const p = perm[i]
+        baseRadii[i] = radiiCopy[p]
+        baseThetas[i] = thetasCopy[p]
+        baseYs[i] = ysCopy[p]
+        baseColors[i * 3 + 0] = colorsCopy[p * 3 + 0]
+        baseColors[i * 3 + 1] = colorsCopy[p * 3 + 1]
+        baseColors[i * 3 + 2] = colorsCopy[p * 3 + 2]
+        phases[i] = phasesCopy[p]
+        dirs[i * 3 + 0] = dirsCopy[p * 3 + 0]
+        dirs[i * 3 + 1] = dirsCopy[p * 3 + 1]
+        dirs[i * 3 + 2] = dirsCopy[p * 3 + 2]
+      }
       sampleFromProfile(glyphProfile, n, glyphScratch)
       const k = (Math.random() * n) | 0
       pairByAngle(dirs, glyphScratch, n, k, glyphTargets)
-      cycleRerolledRef.current = false
     }
     prevMorphRef.current = m
     const inv = 1 - m
