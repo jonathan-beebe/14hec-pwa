@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, NavLink, Outlet, useNavigate, useParams } from 'react-router-dom'
+import { Link, NavLink, Outlet, useMatch, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, PlanetData, ZodiacSign } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
@@ -138,6 +138,12 @@ const SPIKE_LIST_WIDTH = 'lg:min-w-[400px]'
 // ─── Signs: list ────────────────────────────────────────────────────────
 
 function SignsList({ signs }: { signs: ZodiacSign[] }) {
+  // The list lives in the parent route's element, so :slug isn't on the
+  // params hierarchy here — useMatch reads it off the child route pattern
+  // directly so the tile can self-mark as selected at rest.
+  const match = useMatch('/spike/astrology/signs/:slug')
+  const activeSlug = match?.params.slug?.toLowerCase()
+
   return (
     <ul className="p-3 space-y-3">
       {signs.map((sign) => {
@@ -149,12 +155,14 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
         if (!IconComp) return null
         const tone = ELEMENT_TONE[sign.element] ?? 'spirit'
         const tintHex = sign.power_colors[0]?.hex
+        const tileSlug = slug(sign.name)
         return (
           <li key={sign.id}>
             <InfoTile
-              to={slug(sign.name)}
+              to={tileSlug}
               tone={tone}
               tintHex={tintHex}
+              selected={activeSlug === tileSlug}
               icon={<IconComp />}
               sandIcon={IconComp.source}
               primary={sign.name}
@@ -344,18 +352,25 @@ function PlanetsList({ planets }: { planets: PlanetData[] }) {
       .filter((p): p is PlanetData => p !== undefined)
   }, [planets])
 
+  // Same pattern as SignsList — read the active slug off the child route
+  // directly since :slug isn't on this component's params hierarchy.
+  const match = useMatch('/spike/astrology/planets/:slug')
+  const activeSlug = match?.params.slug?.toLowerCase()
+
   return (
     <ul className="p-3 space-y-3">
       {ordered.map((planet) => {
         const config = PLANET_CONFIG[planet.name]
         if (!config) return null
+        const tileSlug = slug(planet.name)
         return (
           <li key={planet.id}>
             <PlanetTile
               config={config}
               primary={planet.name}
               secondary={planet.associated_signs}
-              to={slug(planet.name)}
+              to={tileSlug}
+              selected={activeSlug === tileSlug}
               aria-label={`${planet.name} — ${planet.associated_signs}`}
             />
           </li>

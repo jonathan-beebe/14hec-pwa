@@ -49,6 +49,13 @@ interface PlanetTileBaseProps {
   secondary?: ReactNode
   className?: string
   'aria-label'?: string
+  /**
+   * Lock the tile in its engaged appearance — the cluster morphs into
+   * the planetary glyph, the gradient brightens, and the border + glow
+   * lift to the engaged tint. Use to mark the active list item in a
+   * list/detail layout.
+   */
+  selected?: boolean
 }
 
 interface PlanetTileLinkProps extends PlanetTileBaseProps {
@@ -198,8 +205,12 @@ function PlanetScene({
 }
 
 export default function PlanetTile(props: PlanetTileProps) {
-  const { config, primary, secondary, className } = props
-  const [engaged, setEngaged] = useState(false)
+  const { config, primary, secondary, className, selected } = props
+  const [hoverEngaged, setHoverEngaged] = useState(false)
+  // Selected locks the tile in its engaged appearance; hover/focus still
+  // toggle the same state for non-selected tiles, so behavior is unchanged
+  // when the prop is omitted.
+  const engaged = selected || hoverEngaged
   const reducedMotion = useReducedMotion()
   const morphRef = useRef(0) as MorphRef
   const bodyRef = useRef<THREE.Points | null>(null) as PointsRef
@@ -329,10 +340,10 @@ export default function PlanetTile(props: PlanetTileProps) {
   // Hover and focus both drive engagement so keyboard users get the same
   // morph reveal as mouse users.
   const handlers = {
-    onMouseEnter: () => setEngaged(true),
-    onMouseLeave: () => setEngaged(false),
-    onFocus: () => setEngaged(true),
-    onBlur: () => setEngaged(false),
+    onMouseEnter: () => setHoverEngaged(true),
+    onMouseLeave: () => setHoverEngaged(false),
+    onFocus: () => setHoverEngaged(true),
+    onBlur: () => setHoverEngaged(false),
   }
 
   if (props.to !== undefined) {

@@ -50,6 +50,12 @@ export interface InfoTileProps {
    * tone-based.
    */
   tintHex?: string
+  /**
+   * Lock the tile in its engaged appearance (brighter gradient, stronger
+   * border tint, persistent glow). Use to mark the active list item in a
+   * list/detail layout so the selection reads at rest, not just on hover.
+   */
+  selected?: boolean
 }
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
@@ -112,6 +118,32 @@ const toneEngagedGradient: Record<InfoTileTone, string> = {
   spirit:    'bg-gradient-to-br from-purple-500/30 to-transparent to-[45%]',
 }
 
+// Per-tone border + glow for the locked-in selected state. Mirrors
+// `toneFrameClass` but skips the resting `/20` border and the `hover:`
+// prefix on the glow, so the engaged look is permanent. Press feedback
+// (active:shadow-glow-X-sm) stays so a selected tile still telegraphs
+// press. The border and glow are split into parallel maps so tinted tiles
+// can adopt the glow without overriding their inline-styled border.
+const toneSelectedBorder: Record<InfoTileTone, string> = {
+  botanical: 'border-botanical-400/40',
+  celestial: 'border-celestial-400/40',
+  gold:      'border-gold-400/40',
+  heart:     'border-rose-400/40',
+  mind:      'border-blue-400/40',
+  body:      'border-green-400/40',
+  spirit:    'border-purple-400/40',
+}
+
+const toneSelectedShadow: Record<InfoTileTone, string> = {
+  botanical: 'shadow-glow-botanical active:shadow-glow-botanical-sm',
+  celestial: 'shadow-glow-celestial active:shadow-glow-celestial-sm',
+  gold:      'shadow-glow-amber active:shadow-glow-amber-sm',
+  heart:     'shadow-glow-heart active:shadow-glow-heart-sm',
+  mind:      'shadow-glow-mind active:shadow-glow-mind-sm',
+  body:      'shadow-glow-body active:shadow-glow-body-sm',
+  spirit:    'shadow-glow-spirit active:shadow-glow-spirit-sm',
+}
+
 /**
  * Two-column navigation tile: icon on the left, primary + secondary text on
  * the right. Merges the StatCard (count + label) and DomainCard (domain +
@@ -149,14 +181,16 @@ function InfoTile({
   'aria-label': ariaLabel,
   sandIcon,
   tintHex,
+  selected,
 }: InfoTileProps) {
   const reducedMotion = useReducedMotion()
   const sandActive = sandIcon !== undefined && !reducedMotion
   const tinted = typeof tintHex === 'string' && tintHex.length > 0
 
   // 8-digit hex (#RRGGBBAA) keeps the override readable: `33` ≈ 0.20 alpha,
-  // `4D` ≈ 0.30 (matching the resting/engaged gradient strengths).
-  const tintBorder = tinted ? `${tintHex}33` : undefined
+  // `4D` ≈ 0.30, `66` ≈ 0.40 (matching the resting/engaged gradient and
+  // border strengths). Selected lifts the border to the engaged 0x66.
+  const tintBorder = tinted ? `${tintHex}${selected ? '66' : '33'}` : undefined
   const tintRestingBg = tinted
     ? `linear-gradient(to bottom right, ${tintHex}33 0%, transparent 33%)`
     : undefined
@@ -191,7 +225,17 @@ function InfoTile({
   // borderColor sets the resting tint. The hover glow shadow from
   // toneFrameClass is kept so the press/hover feedback still has a tone
   // signature; spike-acceptable that hover glow doesn't recolor to the tint.
-  const frameClass = tinted ? '' : toneFrameClass[tone]
+  // When selected, swap to the locked-engaged variant: tinted gets only
+  // the tone glow (border stays inline-styled and lifts to /66 alpha);
+  // tone-only gets the brighter border + permanent glow.
+  let frameClass: string
+  if (tinted) {
+    frameClass = selected ? toneSelectedShadow[tone] : ''
+  } else {
+    frameClass = selected
+      ? `${toneSelectedBorder[tone]} ${toneSelectedShadow[tone]}`
+      : toneFrameClass[tone]
+  }
   const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
@@ -215,12 +259,12 @@ function InfoTile({
       */}
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none group-hover:opacity-0 group-focus-visible:opacity-0 ${tinted ? '' : toneRestingGradient[tone]}`}
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none ${selected ? 'opacity-0' : 'group-hover:opacity-0 group-focus-visible:opacity-0'} ${tinted ? '' : toneRestingGradient[tone]}`}
         style={tinted ? { backgroundImage: tintRestingBg } : undefined}
       />
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 ${tinted ? '' : toneEngagedGradient[tone]}`}
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none ${selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100'} ${tinted ? '' : toneEngagedGradient[tone]}`}
         style={tinted ? { backgroundImage: tintEngagedBg } : undefined}
       />
       {sandActive && (
@@ -257,7 +301,7 @@ function InfoTile({
           className={`w-24 text-8xl flex items-center justify-center shrink-0 -ml-2 ${
             sandActive
               ? 'invisible'
-              : `opacity-60 group-hover:opacity-90 transition-opacity duration-200 motion-reduce:transition-none ${tinted ? '' : tonePrimaryClass[tone]}`
+              : `${selected ? 'opacity-90' : 'opacity-60 group-hover:opacity-90'} transition-opacity duration-200 motion-reduce:transition-none ${tinted ? '' : tonePrimaryClass[tone]}`
           }`}
           style={!sandActive && tinted ? { color: tintHex } : undefined}
         >
