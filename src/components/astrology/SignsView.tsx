@@ -5,9 +5,7 @@ import type { Plant, ZodiacSign } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
 import { ZodiacSymbol } from '@/components/design-system/atoms/ZodiacSymbol'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
-import InfoTile, {
-  type InfoTileTone,
-} from '@/components/design-system/components/InfoTile'
+import FlatListRow from '@/components/design-system/components/FlatListRow'
 import {
   ASTROLOGY_LIST_WIDTH,
   ASTROLOGY_TOP_INSET,
@@ -16,16 +14,6 @@ import {
   DetailFact,
   slug,
 } from './AstrologyShared'
-
-// Classical element → HMBS domain tone. Fire is the active/transcendent
-// principle, water the relational/feeling one, air the cognitive one,
-// earth the embodied one. Used to pick the InfoTile domain variant.
-const ELEMENT_TONE: Record<string, InfoTileTone> = {
-  fire: 'spirit',
-  water: 'heart',
-  air: 'mind',
-  earth: 'body',
-}
 
 const ELEMENT_BADGE: Record<string, string> = {
   fire: 'bg-red-500/10 text-red-300 ring-1 ring-inset ring-red-500/20',
@@ -42,23 +30,20 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
   const activeSlug = match?.params.slug?.toLowerCase()
 
   return (
-    <ul className="p-3 space-y-3">
+    <ul className="bg-earth-900/30">
       {signs.map((sign) => {
         const IconComp =
           ZodiacSymbol[sign.name as keyof typeof ZodiacSymbol]
         if (!IconComp) return null
-        const tone = ELEMENT_TONE[sign.element] ?? 'spirit'
         const tintHex = sign.power_colors[0]?.hex
         const tileSlug = slug(sign.name)
         return (
           <li key={sign.id}>
-            <InfoTile
+            <FlatListRow
               to={tileSlug}
-              tone={tone}
               tintHex={tintHex}
               selected={activeSlug === tileSlug}
               icon={<IconComp />}
-              sandIcon={IconComp.source}
               primary={sign.name}
               secondary={
                 <span className="capitalize">
