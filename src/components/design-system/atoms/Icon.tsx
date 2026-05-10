@@ -167,6 +167,21 @@ const Neptune = glyphIcon('Neptune', '♆')
 const Pluto = glyphIcon('Pluto', '♇')
 const Comet = glyphIcon('Comet', '☄')
 
+// ─── Zodiac signs ───────────────────────────────────────────────────────
+
+const Aries = glyphIcon('Aries', '♈')
+const Taurus = glyphIcon('Taurus', '♉')
+const Gemini = glyphIcon('Gemini', '♊')
+const Cancer = glyphIcon('Cancer', '♋')
+const Leo = glyphIcon('Leo', '♌')
+const Virgo = glyphIcon('Virgo', '♍')
+const Libra = glyphIcon('Libra', '♎')
+const Scorpio = glyphIcon('Scorpio', '♏')
+const Sagittarius = glyphIcon('Sagittarius', '♐')
+const Capricorn = glyphIcon('Capricorn', '♑')
+const Aquarius = glyphIcon('Aquarius', '♒')
+const Pisces = glyphIcon('Pisces', '♓')
+
 // ─── Stars / decorative ─────────────────────────────────────────────────
 
 const Star = glyphIcon('Star', '★')
@@ -234,6 +249,19 @@ export const Icon = {
   Neptune,
   Pluto,
   Comet,
+  // zodiac signs
+  Aries,
+  Taurus,
+  Gemini,
+  Cancer,
+  Leo,
+  Virgo,
+  Libra,
+  Scorpio,
+  Sagittarius,
+  Capricorn,
+  Aquarius,
+  Pisces,
   // stars / decorative
   Star,
   StarFourPoint,

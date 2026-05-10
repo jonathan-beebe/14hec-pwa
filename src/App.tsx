@@ -29,6 +29,10 @@ import DesignSystem from './components/design-system/DesignSystem'
 import ListDetailDemo, { ListDetailDemoDetail } from './components/design-system/layouts/demos/ListDetailDemo'
 import CatalogDemo, { CatalogDemoDetail } from './components/design-system/layouts/demos/CatalogDemo'
 import PlanetsSpike from './components/spike/PlanetsSpike'
+import SpikeAstrology, {
+  SpikeAstrologyPlanets,
+  SpikeAstrologySigns,
+} from './components/spike/SpikeAstrology'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -99,6 +103,11 @@ export default function App() {
             <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/spike/planets" element={<PlanetsSpike />} />
             <Route path="/spike/planets/:planetName" element={<PlanetsSpike />} />
+            <Route path="/spike/astrology" element={<SpikeAstrology />}>
+              <Route index element={<Navigate to="signs" replace />} />
+              <Route path="signs" element={<SpikeAstrologySigns />} />
+              <Route path="planets" element={<SpikeAstrologyPlanets />} />
+            </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Route>
