@@ -6,10 +6,9 @@ export interface CatalogLayoutProps {
   /**
    * Filter controls. Stays pinned to the top of the layout's own scroll
    * region while results scroll beneath. Content is the consumer's choice
-   * — a `<FilterBar>` later, an inline row of inputs for now. The layout
-   * gives the sticky region a subtle opaque backdrop so scrolling content
-   * does not bleed through; the filter slot's own surface (glass-panel,
-   * etc.) sits on top of that.
+   * — a `<FilterBar>` later, an inline row of inputs for now. The sticky
+   * region itself is transparent; if the filter slot uses a glass surface
+   * (the default), scrolling content shows through with a blur.
    */
   filters: ReactNode
   /**
@@ -57,7 +56,7 @@ export default function CatalogLayout({
   return (
     <div className="h-full flex flex-col overflow-y-auto animate-fade-in">
       {header}
-      <div className="sticky top-0 z-10 bg-earth-950/80 backdrop-blur">{filters}</div>
+      <div className="sticky top-0 z-10">{filters}</div>
       {showEmpty ? empty : results}
     </div>
   )
