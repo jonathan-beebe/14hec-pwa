@@ -1,6 +1,7 @@
 import type { ComponentType } from 'react'
 import { Section, Subsection } from '../primitives'
 import Button from '../atoms/Button'
+import Badge from '../atoms/Badge'
 import { Icon, type IconProps } from '../atoms/Icon'
 
 type IconEntry = { name: string; component: ComponentType<IconProps> }
@@ -106,6 +107,59 @@ export default function AtomsSection() {
           <Button.Primary disabled onClick={() => alert('Disabled clicked')}>
             Disabled
           </Button.Primary>
+        </div>
+      </Subsection>
+
+      <Subsection title="Badge">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          Chips and badges are grouped by <em>semantic role</em>, not just
+          color (Charter Rule #7). Adding a new badge means picking a role;
+          ad-hoc one-off color combinations don't enter the system.
+        </p>
+        <div className="flex flex-col gap-5">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+              Category
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Badge.Conventional>conventional</Badge.Conventional>
+              <Badge.Entheogenic>entheogenic</Badge.Entheogenic>
+              <Badge.Both>both</Badge.Both>
+            </div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+              Element
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Badge.Fire>fire</Badge.Fire>
+              <Badge.Water>water</Badge.Water>
+              <Badge.Air>air</Badge.Air>
+              <Badge.Earth>earth</Badge.Earth>
+            </div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+              Domain (HMBS)
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Badge.Heart>heart</Badge.Heart>
+              <Badge.Mind>mind</Badge.Mind>
+              <Badge.Body>body</Badge.Body>
+              <Badge.Spirit>spirit</Badge.Spirit>
+            </div>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+              Evidence
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Badge.Clinical>clinical</Badge.Clinical>
+              <Badge.Traditional>traditional</Badge.Traditional>
+              <Badge.Ethnobotanical>ethnobotanical</Badge.Ethnobotanical>
+              <Badge.Anecdotal>anecdotal</Badge.Anecdotal>
+            </div>
+          </div>
         </div>
       </Subsection>
 

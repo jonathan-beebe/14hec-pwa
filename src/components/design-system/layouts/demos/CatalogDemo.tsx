@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import CatalogLayout from '../CatalogLayout'
 import Text from '../../atoms/Text'
 import Button from '../../atoms/Button'
+import Badge from '../../atoms/Badge'
 import { Icon } from '../../atoms/Icon'
 import BrowseTile from '../../components/BrowseTile'
 
@@ -29,12 +30,6 @@ export const CATALOG_DEMO_ITEMS: readonly CatalogDemoItem[] = [
   { id: 'kava',       name: 'Kava',       latin: 'Piper methysticum',      category: 'both',         summary: 'Pacific peace plant. Relaxes the body without dulling the mind.' },
 ] as const
 
-const CATEGORY_BADGE: Record<CatalogDemoItem['category'], string> = {
-  conventional: 'badge-conventional',
-  entheogenic: 'badge-entheogenic',
-  both: 'badge-both',
-}
-
 function DemoHeader({ count }: { count: number }) {
   return (
     <div className="px-8 pt-6 pb-4">
@@ -46,7 +41,7 @@ function DemoHeader({ count }: { count: number }) {
       </Link>
       <div className="flex items-center gap-3 mt-1">
         <Text.PageTitle>Sample Botanicals</Text.PageTitle>
-        <span className="badge badge-conventional">{count}</span>
+        <Badge.Conventional>{count}</Badge.Conventional>
       </div>
       <p className="text-[11px] text-earth-500 mt-0.5">
         Catalog → Detail layout demo. Selecting an item routes to its own page — deep-linkable, real history.
@@ -120,7 +115,7 @@ function DemoGrid({ items }: { items: CatalogDemoItem[] }) {
         <BrowseTile key={item.id} to={item.id}>
           <div className="flex justify-between items-start mb-1.5">
             <span className="text-sm font-medium text-earth-100">{item.name}</span>
-            <span className={`badge ${CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+            <Badge variant={item.category}>{item.category}</Badge>
           </div>
           <p className="text-xs text-earth-500 italic mb-1.5">{item.latin}</p>
           <p className="text-xs text-earth-400 line-clamp-2">{item.summary}</p>
@@ -218,7 +213,7 @@ export function CatalogDemoDetail() {
       </Button.Ghost>
       <div className="flex items-center gap-3">
         <Text.PageTitle>{item.name}</Text.PageTitle>
-        <span className={`badge ${CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+        <Badge variant={item.category}>{item.category}</Badge>
       </div>
       <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
       <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>

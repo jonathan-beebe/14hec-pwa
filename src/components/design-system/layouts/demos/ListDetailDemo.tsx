@@ -1,5 +1,6 @@
-import { Link, NavLink, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { RoutedListDetailLayout } from '../ListDetailLayout'
+import BrowseTile from '../../components/BrowseTile'
 
 export const LIST_DETAIL_DEMO_ITEMS = [
   { id: 'rosemary', name: 'Rosemary', latin: 'Salvia rosmarinus', summary: 'Memory, circulation, sun-aligned. A perennial guardian of clarity.' },
@@ -31,22 +32,13 @@ function DemoTop() {
 
 function DemoList() {
   return (
-    <ul className="p-2 space-y-1">
+    <ul className="p-2 space-y-2">
       {LIST_DETAIL_DEMO_ITEMS.map((item) => (
         <li key={item.id}>
-          <NavLink
-            to={item.id}
-            className={({ isActive }) =>
-              `block px-3 py-2 rounded-lg transition-colors ${
-                isActive
-                  ? 'bg-earth-900/60 text-earth-100'
-                  : 'hover:bg-earth-900/30 text-earth-200'
-              }`
-            }
-          >
-            <div className="text-sm">{item.name}</div>
+          <BrowseTile to={item.id}>
+            <div className="text-sm font-medium text-earth-100">{item.name}</div>
             <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
-          </NavLink>
+          </BrowseTile>
         </li>
       ))}
     </ul>

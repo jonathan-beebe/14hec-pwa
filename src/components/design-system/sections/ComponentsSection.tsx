@@ -5,6 +5,7 @@ import StatCard from '../components/StatCard'
 import DomainCard from '../components/DomainCard'
 import InfoTile from '../components/InfoTile'
 import BrowseTile from '../components/BrowseTile'
+import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
 
 export default function ComponentsSection() {
@@ -116,11 +117,33 @@ export default function ComponentsSection() {
           no gradient frame, no sand — designed to read calmly when dozens
           appear together in a grouped or filterable view.
         </p>
+
+        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+          States
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+          <BrowseTile onClick={() => {}}>
+            <div className="text-sm font-medium text-earth-100">Default</div>
+            <p className="text-xs text-earth-500 mt-1 leading-relaxed">
+              Resting tile. Hover to glow, press to zoom.
+            </p>
+          </BrowseTile>
+          <BrowseTile onClick={() => {}} active>
+            <div className="text-sm font-medium text-earth-100">Active</div>
+            <p className="text-xs text-earth-500 mt-1 leading-relaxed">
+              Selected item — brighter bg, botanical-tinted border.
+            </p>
+          </BrowseTile>
+        </div>
+
+        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+          In a catalog grid
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <BrowseTile to="/design-system">
             <div className="flex justify-between items-start mb-1.5">
               <span className="text-sm font-medium text-earth-100">Rosemary</span>
-              <span className="badge badge-conventional">conventional</span>
+              <Badge.Conventional>conventional</Badge.Conventional>
             </div>
             <p className="text-xs text-earth-500 italic mb-1.5">Salvia rosmarinus</p>
             <p className="text-xs text-earth-400 line-clamp-2">
@@ -130,7 +153,7 @@ export default function ComponentsSection() {
           <BrowseTile to="/design-system">
             <div className="flex justify-between items-start mb-1.5">
               <span className="text-sm font-medium text-earth-100">Mugwort</span>
-              <span className="badge badge-both">both</span>
+              <Badge.Both>both</Badge.Both>
             </div>
             <p className="text-xs text-earth-500 italic mb-1.5">Artemisia vulgaris</p>
             <p className="text-xs text-earth-400 line-clamp-2">
@@ -140,7 +163,7 @@ export default function ComponentsSection() {
           <BrowseTile to="/design-system">
             <div className="flex justify-between items-start mb-1.5">
               <span className="text-sm font-medium text-earth-100">Datura</span>
-              <span className="badge badge-entheogenic">entheogenic</span>
+              <Badge.Entheogenic>entheogenic</Badge.Entheogenic>
             </div>
             <p className="text-xs text-earth-500 italic mb-1.5">Datura stramonium</p>
             <p className="text-xs text-earth-400 line-clamp-2">

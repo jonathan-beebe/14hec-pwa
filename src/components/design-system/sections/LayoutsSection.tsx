@@ -8,6 +8,7 @@ import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/Catal
 import BrowseTile from '../components/BrowseTile'
 import Text from '../atoms/Text'
 import Button from '../atoms/Button'
+import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
 
 function DemoPlaceholder() {
@@ -41,27 +42,18 @@ function ListDetailDemoList({
   onSelect: (id: string) => void
 }) {
   return (
-    <ul className="p-2 space-y-1">
-      {LIST_DETAIL_DEMO_ITEMS.map((item) => {
-        const isActive = item.id === selectedId
-        return (
-          <li key={item.id}>
-            <button
-              type="button"
-              onClick={() => onSelect(item.id)}
-              className={`w-full text-left block px-3 py-2 rounded-lg transition-colors ${
-                isActive
-                  ? 'bg-earth-900/60 text-earth-100'
-                  : 'hover:bg-earth-900/30 text-earth-200'
-              }`}
-              aria-pressed={isActive}
-            >
-              <div className="text-sm">{item.name}</div>
-              <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
-            </button>
-          </li>
-        )
-      })}
+    <ul className="p-2 space-y-2">
+      {LIST_DETAIL_DEMO_ITEMS.map((item) => (
+        <li key={item.id}>
+          <BrowseTile
+            onClick={() => onSelect(item.id)}
+            active={item.id === selectedId}
+          >
+            <div className="text-sm font-medium text-earth-100">{item.name}</div>
+            <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
+          </BrowseTile>
+        </li>
+      ))}
     </ul>
   )
 }
@@ -104,17 +96,11 @@ function ListDetailDemo() {
   )
 }
 
-const CATALOG_CATEGORY_BADGE: Record<CatalogDemoItem['category'], string> = {
-  conventional: 'badge-conventional',
-  entheogenic: 'badge-entheogenic',
-  both: 'badge-both',
-}
-
 function CatalogDemoHeader({ count }: { count: number }) {
   return (
     <div className="flex items-center gap-3 px-5 pt-4 pb-3">
       <Text.PageTitle>Sample Botanicals</Text.PageTitle>
-      <span className="badge badge-conventional">{count}</span>
+      <Badge.Conventional>{count}</Badge.Conventional>
     </div>
   )
 }
@@ -190,7 +176,7 @@ function CatalogDemoGrid({
         <BrowseTile key={item.id} onClick={() => onSelect(item.id)}>
           <div className="flex justify-between items-start mb-1.5">
             <span className="text-sm font-medium text-earth-100">{item.name}</span>
-            <span className={`badge ${CATALOG_CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+            <Badge variant={item.category}>{item.category}</Badge>
           </div>
           <p className="text-xs text-earth-500 italic mb-1.5">{item.latin}</p>
           <p className="text-xs text-earth-400 line-clamp-2">{item.summary}</p>
@@ -214,7 +200,7 @@ function CatalogDemoDetailInline({
       </Button.Ghost>
       <div className="flex items-center gap-3">
         <Text.PageTitle>{item.name}</Text.PageTitle>
-        <span className={`badge ${CATALOG_CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+        <Badge variant={item.category}>{item.category}</Badge>
       </div>
       <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
       <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
