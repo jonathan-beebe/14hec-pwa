@@ -134,17 +134,37 @@ export default function PlanetTile(props: PlanetTileProps) {
 
   const zoom = tileZoom(config)
 
-  // Frame: same celestial-tinted gradient + glow language as InfoTile.
+  // Per-planet tint drives the gradient frame, border, glow, and primary
+  // text — same role celestial-{300,400,500} plays for the rest of the
+  // design system, but data-driven so each planet wears its own color.
+  const [tr, tg, tb] = config.tint
+  const tintRgb = `${tr}, ${tg}, ${tb}`
+  const tintCss = `rgb(${tintRgb})`
+
+  // Frame is `.card` (glass base + transition) + bg-black to neutralize
+  // the glass tint, plus inline styles for the per-planet treatment.
   // overflow-hidden clips the canvas to the rounded corners.
   const frame = 'card bg-black flex items-center gap-4 group overflow-hidden relative'
-  const tone =
-    'bg-gradient-to-br from-celestial-500/20 hover:from-celestial-500/30 to-transparent to-[33%] hover:to-[45%] ' +
-    'border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial active:shadow-glow-celestial-sm'
-  const lift =
-    'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),_0_10px_28px_-6px_rgba(0,0,0,0.7)]'
   const focus =
     'focus-visible:ring-celestial-400 hover:transform-none active:scale-[0.98] motion-reduce:transition-none'
-  const cls = `${frame} ${lift} ${tone} ${focus}${className ? ` ${className}` : ''}`
+  const cls = `${frame} ${focus}${className ? ` ${className}` : ''}`
+
+  // Inline frame style mirrors InfoTile's tone treatment: tint-tinted
+  // gradient sweep from top-left, tint border, and a paired glow on
+  // engagement (same 15px/45px pair as `boxShadow.glow-*` in
+  // tailwind.config). At rest the glow drops out, leaving the deeper
+  // resting drop shadow + inset highlight.
+  const baseShadow =
+    'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 10px 28px -6px rgba(0,0,0,0.7)'
+  const engagedGlow =
+    `, 0 0 15px rgba(${tintRgb}, 0.18), 0 0 45px rgba(${tintRgb}, 0.06)`
+  const frameStyle: React.CSSProperties = {
+    backgroundImage: `linear-gradient(to bottom right, rgba(${tintRgb}, ${
+      engaged ? 0.30 : 0.20
+    }), transparent ${engaged ? '45%' : '33%'})`,
+    borderColor: `rgba(${tintRgb}, ${engaged ? 0.40 : 0.20})`,
+    boxShadow: baseShadow + (engaged ? engagedGlow : ''),
+  }
 
   // Live canvas spans the whole tile. Mask fades the wind tail before it
   // reaches the text; planet area is fully opaque.
@@ -184,7 +204,10 @@ export default function PlanetTile(props: PlanetTileProps) {
       style={{ width: SLOT_PX, height: SLOT_PX }}
     >
       {reducedMotion && (
-        <div className="w-full h-full flex items-center justify-center text-9xl text-celestial-300 opacity-80">
+        <div
+          className="w-full h-full flex items-center justify-center text-9xl opacity-80"
+          style={{ color: tintCss }}
+        >
           {config.glyph}
         </div>
       )}
@@ -193,7 +216,10 @@ export default function PlanetTile(props: PlanetTileProps) {
 
   const text = (
     <div className="relative z-10 flex flex-col min-w-0">
-      <div className="text-2xl font-system font-semibold tracking-tight text-celestial-300">
+      <div
+        className="text-2xl font-system font-semibold tracking-tight"
+        style={{ color: tintCss }}
+      >
         {primary}
       </div>
       {secondary !== undefined && (
@@ -218,6 +244,7 @@ export default function PlanetTile(props: PlanetTileProps) {
       <Link
         to={props.to}
         className={cls}
+        style={frameStyle}
         aria-label={props['aria-label']}
         {...handlers}
       >
@@ -233,6 +260,7 @@ export default function PlanetTile(props: PlanetTileProps) {
       type="button"
       onClick={props.onClick}
       className={`${cls} appearance-none text-left w-full`}
+      style={frameStyle}
       aria-label={props['aria-label']}
       {...handlers}
     >
