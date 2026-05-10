@@ -57,32 +57,51 @@ const tonePrimaryClass: Record<InfoTileTone, string> = {
 }
 
 /**
- * Per-tone frame tint: a gradient overlay on the card base, a tone-tinted
- * border, and a tone-glow shadow on hover. Layers on top of `.card`'s glass
- * frame; both `background-color` (from .card) and `background-image` (from
- * the Tailwind gradient utility) coexist, so the tint appears over the dark
- * base.
- *
- * The tint sweeps in from the top-left and fully fades out by 33% along
- * the diagonal — a corner accent rather than a full-card wash, leaving
- * most of the card surface neutral so the sand layer (and the text) read
- * cleanly.
+ * Per-tone frame tint: a tone-tinted border and a tone-glow shadow on
+ * hover. Border + shadow animate fine via `.card`'s transition-all; the
+ * gradient itself lives in stacked overlay divs (`toneRestingGradient`
+ * / `toneEngagedGradient` below) that crossfade via opacity, since CSS
+ * gradient interpolation through Tailwind's `--tw-gradient-*` custom
+ * properties is unreliable.
  */
 const toneFrameClass: Record<InfoTileTone, string> = {
   botanical:
-    'bg-gradient-to-br from-botanical-500/20 hover:from-botanical-500/30 to-transparent to-[33%] hover:to-[45%] border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical active:shadow-glow-botanical-sm',
+    'border-botanical-400/20 hover:border-botanical-400/40 hover:shadow-glow-botanical active:shadow-glow-botanical-sm',
   celestial:
-    'bg-gradient-to-br from-celestial-500/20 hover:from-celestial-500/30 to-transparent to-[33%] hover:to-[45%] border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial active:shadow-glow-celestial-sm',
+    'border-celestial-400/20 hover:border-celestial-400/40 hover:shadow-glow-celestial active:shadow-glow-celestial-sm',
   gold:
-    'bg-gradient-to-br from-gold-500/20 hover:from-gold-500/30 to-transparent to-[33%] hover:to-[45%] border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber active:shadow-glow-amber-sm',
+    'border-gold-400/20 hover:border-gold-400/40 hover:shadow-glow-amber active:shadow-glow-amber-sm',
   heart:
-    'bg-gradient-to-br from-rose-500/20 hover:from-rose-500/30 to-transparent to-[33%] hover:to-[45%] border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart active:shadow-glow-heart-sm',
+    'border-rose-400/20 hover:border-rose-400/40 hover:shadow-glow-heart active:shadow-glow-heart-sm',
   mind:
-    'bg-gradient-to-br from-blue-500/20 hover:from-blue-500/30 to-transparent to-[33%] hover:to-[45%] border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind active:shadow-glow-mind-sm',
+    'border-blue-400/20 hover:border-blue-400/40 hover:shadow-glow-mind active:shadow-glow-mind-sm',
   body:
-    'bg-gradient-to-br from-green-500/20 hover:from-green-500/30 to-transparent to-[33%] hover:to-[45%] border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body active:shadow-glow-body-sm',
+    'border-green-400/20 hover:border-green-400/40 hover:shadow-glow-body active:shadow-glow-body-sm',
   spirit:
-    'bg-gradient-to-br from-purple-500/20 hover:from-purple-500/30 to-transparent to-[33%] hover:to-[45%] border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit active:shadow-glow-spirit-sm',
+    'border-purple-400/20 hover:border-purple-400/40 hover:shadow-glow-spirit active:shadow-glow-spirit-sm',
+}
+
+// Resting gradient — corner accent at 0.20 alpha fading out by 33%.
+const toneRestingGradient: Record<InfoTileTone, string> = {
+  botanical: 'bg-gradient-to-br from-botanical-500/20 to-transparent to-[33%]',
+  celestial: 'bg-gradient-to-br from-celestial-500/20 to-transparent to-[33%]',
+  gold:      'bg-gradient-to-br from-gold-500/20 to-transparent to-[33%]',
+  heart:     'bg-gradient-to-br from-rose-500/20 to-transparent to-[33%]',
+  mind:      'bg-gradient-to-br from-blue-500/20 to-transparent to-[33%]',
+  body:      'bg-gradient-to-br from-green-500/20 to-transparent to-[33%]',
+  spirit:    'bg-gradient-to-br from-purple-500/20 to-transparent to-[33%]',
+}
+
+// Engaged gradient — brighter (0.30) and a wider sweep (45%). Crossfades
+// in over the resting layer on hover/focus via group-state opacity.
+const toneEngagedGradient: Record<InfoTileTone, string> = {
+  botanical: 'bg-gradient-to-br from-botanical-500/30 to-transparent to-[45%]',
+  celestial: 'bg-gradient-to-br from-celestial-500/30 to-transparent to-[45%]',
+  gold:      'bg-gradient-to-br from-gold-500/30 to-transparent to-[45%]',
+  heart:     'bg-gradient-to-br from-rose-500/30 to-transparent to-[45%]',
+  mind:      'bg-gradient-to-br from-blue-500/30 to-transparent to-[45%]',
+  body:      'bg-gradient-to-br from-green-500/30 to-transparent to-[45%]',
+  spirit:    'bg-gradient-to-br from-purple-500/30 to-transparent to-[45%]',
 }
 
 /**
@@ -157,6 +176,21 @@ function InfoTile({
   // sizing but is `invisible` so it doesn't compete with the canvas paint.
   return (
     <Link to={to} className={cardClass} aria-label={ariaLabel}>
+      {/*
+        Two stacked gradient overlays crossfade between resting and engaged
+        on hover/focus. Opacity transitions are universally animatable;
+        the gradient stop changes themselves are not. group-hover and
+        group-focus-visible reach into descendants from the .group on this
+        Link, so no React state needed.
+      */}
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none group-hover:opacity-0 group-focus-visible:opacity-0 ${toneRestingGradient[tone]}`}
+      />
+      <div
+        aria-hidden="true"
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 ${toneEngagedGradient[tone]}`}
+      />
       {sandActive && (
         // text-8xl matches the static icon-slot's font-size — the
         // sampler reads the canvas's computed font-family + font-size so

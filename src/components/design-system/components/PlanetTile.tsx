@@ -226,22 +226,41 @@ export default function PlanetTile(props: PlanetTileProps) {
     'focus-visible:ring-celestial-400 hover:transform-none active:scale-[0.98] motion-reduce:transition-none'
   const cls = `${frame} ${focus}${className ? ` ${className}` : ''}`
 
-  // Inline frame style mirrors InfoTile's tone treatment: tint-tinted
-  // gradient sweep from top-left, tint border, and a paired glow on
-  // engagement (same 15px/45px pair as `boxShadow.glow-*` in
-  // tailwind.config). At rest the glow drops out, leaving the deeper
-  // resting drop shadow + inset highlight.
+  // Inline frame style mirrors InfoTile's tone treatment: tint border
+  // and a paired glow on engagement (same 15px/45px pair as
+  // `boxShadow.glow-*` in tailwind.config). At rest the glow drops out,
+  // leaving the deeper resting drop shadow + inset highlight. The
+  // gradient lives in stacked overlay divs (below) so it can crossfade
+  // smoothly via opacity — gradients themselves don't reliably
+  // interpolate when their stops change.
   const baseShadow =
     'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 10px 28px -6px rgba(0,0,0,0.7)'
   const engagedGlow =
     `, 0 0 15px rgba(${tintRgb}, 0.18), 0 0 45px rgba(${tintRgb}, 0.06)`
   const frameStyle: React.CSSProperties = {
-    backgroundImage: `linear-gradient(to bottom right, rgba(${tintRgb}, ${
-      engaged ? 0.30 : 0.20
-    }), transparent ${engaged ? '45%' : '33%'})`,
     borderColor: `rgba(${tintRgb}, ${engaged ? 0.40 : 0.20})`,
     boxShadow: baseShadow + (engaged ? engagedGlow : ''),
   }
+
+  // Two stacked gradient layers crossfade between resting (fainter, tighter
+  // sweep) and engaged (brighter, wider sweep) via opacity transitions —
+  // the only reliable way to animate a gradient stop change.
+  const restingGradient = `linear-gradient(to bottom right, rgba(${tintRgb}, 0.20), transparent 33%)`
+  const engagedGradient = `linear-gradient(to bottom right, rgba(${tintRgb}, 0.30), transparent 45%)`
+  const gradientLayers = (
+    <>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo"
+        style={{ backgroundImage: restingGradient, opacity: engaged ? 0 : 1 }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo"
+        style={{ backgroundImage: engagedGradient, opacity: engaged ? 1 : 0 }}
+      />
+    </>
+  )
 
   // Live canvas spans the whole tile. Mask fades the wind tail before it
   // reaches the text; planet area is fully opaque.
@@ -325,6 +344,7 @@ export default function PlanetTile(props: PlanetTileProps) {
         aria-label={props['aria-label']}
         {...handlers}
       >
+        {gradientLayers}
         {canvasLayer}
         {slotSpacer}
         {text}
@@ -341,6 +361,7 @@ export default function PlanetTile(props: PlanetTileProps) {
       aria-label={props['aria-label']}
       {...handlers}
     >
+      {gradientLayers}
       {canvasLayer}
       {slotSpacer}
       {text}
