@@ -31,6 +31,13 @@ export interface ListDetailLayoutProps {
    * active detail.
    */
   detailKey?: string | number | null
+  /**
+   * Tailwind class string controlling the desktop list column's width.
+   * Defaults to `lg:w-[30%] lg:max-w-[360px]` — fine for compact list
+   * items like `BrowseTile`. Bump to e.g. `lg:w-[40%] lg:max-w-[520px]`
+   * when the list cells are wider (icon-on-left tile shapes, etc).
+   */
+  sidebarWidthClass?: string
 }
 
 /**
@@ -53,6 +60,7 @@ export default function ListDetailLayout({
   onBack,
   dividers = true,
   detailKey,
+  sidebarWidthClass = 'lg:w-[30%] lg:max-w-[360px]',
 }: ListDetailLayoutProps) {
   const isDetailActive = detail !== null && detail !== undefined
   const sidebarBorder = dividers ? 'lg:border-r lg:border-white/5' : ''
@@ -72,7 +80,7 @@ export default function ListDetailLayout({
 
       <div className="lg:flex lg:flex-1 lg:min-h-0">
         <aside
-          className={`${isDetailActive ? 'hidden' : 'block'} lg:block lg:w-[30%] lg:max-w-[360px] lg:overflow-y-auto ${sidebarBorder}`}
+          className={`${isDetailActive ? 'hidden' : 'block'} lg:block ${sidebarWidthClass} lg:overflow-y-auto ${sidebarBorder}`}
         >
           {list}
         </aside>
