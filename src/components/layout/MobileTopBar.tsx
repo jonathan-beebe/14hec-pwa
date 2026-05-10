@@ -10,7 +10,6 @@ import {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '@/components/design-system/atoms/Button'
-import { Icon } from '@/components/design-system/atoms/Icon'
 
 /**
  * Mobile-only top bar (`lg:hidden`) that hosts the hamburger toggle, the
@@ -126,7 +125,7 @@ export default function MobileTopBar({ navOpen, onMenuClick, drawerId }: MobileT
 
   return (
     <div
-      className="lg:hidden sticky top-0 z-20 h-12 flex items-center px-2 gap-2"
+      className="lg:hidden sticky top-0 z-20 h-12 relative flex items-center"
       style={{
         background: 'rgba(16, 15, 12, 0.82)',
         backdropFilter: 'blur(24px) saturate(150%)',
@@ -134,14 +133,28 @@ export default function MobileTopBar({ navOpen, onMenuClick, drawerId }: MobileT
         borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
       }}
     >
-      <div className="w-10 flex justify-start">
+      {/* Left slot — absolute so its width doesn't shift the centered
+          title when the label changes between hamburger and "‹ Back". */}
+      <div className="absolute left-2 top-0 bottom-0 flex items-center">
         {back ? (
           <Button.Ghost
             onClick={() => navigate(back)}
             aria-label="Back"
-            className="!px-2"
+            className="!px-2 flex items-center gap-1 font-system"
           >
-            <Icon.ArrowLeft />
+            <svg
+              viewBox="0 0 24 24"
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2.25}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <polyline points="15 6 9 12 15 18" />
+            </svg>
+            <span>Back</span>
           </Button.Ghost>
         ) : (
           <Button.Ghost
@@ -149,20 +162,19 @@ export default function MobileTopBar({ navOpen, onMenuClick, drawerId }: MobileT
             aria-label="Open navigation menu"
             aria-expanded={navOpen}
             aria-controls={drawerId}
-            className="!px-2"
+            className="!px-2 font-system"
           >
-            <Icon.Menu />
+            <span className="text-xl leading-none">☰</span>
           </Button.Ghost>
         )}
       </div>
 
-      <h1 className="flex-1 text-center text-sm font-display tracking-wider text-earth-100 truncate">
+      <h1 className="w-full text-center text-sm font-display tracking-wider text-earth-100 truncate px-20">
         {title ?? '14 HEC'}
       </h1>
 
-      {/* Right-side spacer keeps the title visually centered. Reserved
-          for future actions (filter, search, etc.). */}
-      <div className="w-10" />
+      {/* Right slot — reserved for future actions (filter, search, etc.). */}
+      <div className="absolute right-2 top-0 bottom-0 flex items-center" />
     </div>
   )
 }

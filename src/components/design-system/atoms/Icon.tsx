@@ -243,10 +243,6 @@ const ArrowLeft = glyphIcon('ArrowLeft', '←')
 const ArrowRight = glyphIcon('ArrowRight', '→')
 const ArrowUp = glyphIcon('ArrowUp', '↑')
 
-// ─── UI controls ────────────────────────────────────────────────────────
-
-const Menu = glyphIcon('Menu', '☰')
-
 export const Icon = {
   // botanical / domain
   Shamrock,
@@ -304,6 +300,4 @@ export const Icon = {
   ArrowLeft,
   ArrowRight,
   ArrowUp,
-  // ui controls
-  Menu,
 }
