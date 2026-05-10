@@ -72,7 +72,7 @@ doesn't fit.
 | Plants | Catalog → Detail | Strong fit | 207 items, multi-axis filtering, very rich detail. Textbook Catalog. |
 | Ailments | Catalog → Detail | Strong fit | 75 items, filterable by body system, rich detail (plants for/against, contraindications). |
 | Wellness | Catalog → Detail | Fit, with caveat | ~30 items, grouped. Filter use is moderate. Borderline — could be List if filtering is rarely used. Worth observing real usage. |
-| Body Systems | **List + Detail (grouped)** | Moved from Catalog | 25 items, no filter, rich detail. The selector is an enumerated list grouped by category — not filter-shaped. Detail is route-worthy, so the variant must support deep-link selection via `/body-systems/:id`. |
+| Body Systems | Catalog → Detail | Fit | 25 items grouped by category (physical, energetic, etc.); rich detail (route-worthy via `/body-systems/:id`). The Catalog primitive is grouping-agnostic, so the same shell handles a flat plant grid and a grouped body-system grid. Filtering is light (search by name, optional category narrow) — borderline, but Catalog accommodates it without forcing it. |
 | Entheogens | List + Detail | Strong fit | ~15 items, no filter need, comparable protocols, rich detail kept in-pane. |
 | My Collections | List + Detail | Strong fit | User-created, small-medium, scan to find. |
 | Doctrine Explorer | List + Detail | Strong fit | ~30 teachings, scannable, comparison across plants is natural. |
@@ -90,21 +90,17 @@ doesn't fit.
 These surfaced from the critical pass. Each needs a decision before — or during — the layout primitives are built.
 
 **1. Grouped list variant for List + Detail.**
-Body Systems requires a grouped list (25 items grouped by category —
-physical, energetic, etc.). The List + Detail primitive needs to either:
-
-- Support grouping as a built-in feature of the list selector, or
-- Define a separate "Grouped List + Detail" canonical variant.
-
-*Recommendation:* the list primitive accepts an optional grouping prop;
-same primitive, different shape, no separate canonical layout. Decide
-when we build it.
+*Largely resolved:* Body Systems was the original driver and now sits
+in Catalog, where the primitive is grouping-agnostic and groups happen
+inside the consumer's `results` slot. The question reopens only if a
+future List + Detail consumer needs grouping; current consumers
+(Entheogens, Collections, Doctrine) are flat.
 
 **2. Deep-linkable selection in List + Detail.**
-Body Systems currently routes to `/body-systems/:id` for detail. Moving
-to List + Detail means the URL drives the selected list item. The
-primitive needs URL-syncable selection — pairs naturally with the
-URL-sync requirement in Rule #9 (`<FilterBar>`).
+URL-driven selection in List + Detail. Entheogens already routes to
+`/entheogens/plants/:id` and `protocols/:slug`, so the primitive needs
+URL-syncable selection — pairs naturally with the URL-sync requirement
+in Rule #9 (`<FilterBar>`).
 
 **3. Preparations: is the table functional or decorative?**
 If users genuinely cross-compare preparation methods × properties, Picker
@@ -133,8 +129,8 @@ The layouts and their open questions imply specific capabilities the
 primitives must support:
 
 - **List primitive** — optional grouping; URL-syncable selection; medium-set
-  scroll behavior; supports both inline detail (Entheogens) and route-away
-  detail (Body Systems).
+  scroll behavior; supports inline detail (Entheogens, Collections,
+  Doctrine).
 - **Picker primitive** — domain-shaped layouts (grid, quadrant, clock,
   table); current-state highlighting as a first-class concern.
 - **Catalog primitive** — filterable selector backed by `<FilterBar>` (Rule

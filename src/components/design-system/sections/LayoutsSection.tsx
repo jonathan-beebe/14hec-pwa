@@ -317,7 +317,8 @@ export default function LayoutsSection() {
             <span className={META_LABEL}>Currently in app:</span>{' '}
             <code className="text-earth-400">Plants</code>,{' '}
             <code className="text-earth-400">Ailments</code>,{' '}
-            <code className="text-earth-400">Wellness</code>
+            <code className="text-earth-400">Wellness</code>,{' '}
+            <code className="text-earth-400">Body Systems</code>
           </p>
           <CatalogDemo />
           <div className="text-right">
@@ -349,8 +350,7 @@ export default function LayoutsSection() {
             <span className={META_LABEL}>Currently in app:</span>{' '}
             <code className="text-earth-400">Entheogens</code>,{' '}
             <code className="text-earth-400">My Collections</code>,{' '}
-            <code className="text-earth-400">Doctrine Explorer</code>,{' '}
-            <code className="text-earth-400">Body Systems</code> (grouped)
+            <code className="text-earth-400">Doctrine Explorer</code>
           </p>
           <ListDetailDemo />
           <div className="text-right">
