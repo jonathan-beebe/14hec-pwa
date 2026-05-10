@@ -5,8 +5,36 @@ import StatCard from '../components/StatCard'
 import DomainCard from '../components/DomainCard'
 import InfoTile from '../components/InfoTile'
 import BrowseTile from '../components/BrowseTile'
+import PlanetTile from '../components/PlanetTile'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
+import {
+  sun,
+  moon,
+  mercury,
+  venus,
+  mars,
+  jupiter,
+  saturn,
+  uranus,
+  neptune,
+  pluto,
+  type PlanetVisual,
+} from '@/components/spike/planetConfig'
+
+type PlanetTileEntry = { config: PlanetVisual; signs: string }
+const planetTileEntries: PlanetTileEntry[] = [
+  { config: sun, signs: 'Leo' },
+  { config: moon, signs: 'Cancer' },
+  { config: mercury, signs: 'Gemini, Virgo' },
+  { config: venus, signs: 'Taurus, Libra' },
+  { config: mars, signs: 'Aries, Scorpio' },
+  { config: jupiter, signs: 'Sagittarius, Pisces' },
+  { config: saturn, signs: 'Capricorn, Aquarius' },
+  { config: uranus, signs: 'Aquarius' },
+  { config: neptune, signs: 'Pisces' },
+  { config: pluto, signs: 'Scorpio' },
+]
 
 export default function ComponentsSection() {
   const [showSand, setShowSand] = useState(true)
@@ -170,6 +198,30 @@ export default function ComponentsSection() {
               Threshold plant of the witches. Approached only with rigor.
             </p>
           </BrowseTile>
+        </div>
+      </Subsection>
+
+      <Subsection title="PlanetTile">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          Astrology picker tile. The icon slot hosts a live WebGL canvas
+          rendering the planet (body + ring + sparkle) with a wind tail
+          drifting past the text — same role the sand tail plays in{' '}
+          <code>InfoTile</code>. Hover or focus morphs the planet into its
+          astrological glyph. Reduced motion shows the static glyph
+          instead. Each tile owns its own GL context, so very dense grids
+          will need a shared overlay canvas.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          {planetTileEntries.map(({ config, signs }) => (
+            <PlanetTile
+              key={config.name}
+              config={config}
+              primary={config.name}
+              secondary={signs}
+              onClick={() => {}}
+              aria-label={`${config.name} — ${signs}`}
+            />
+          ))}
         </div>
       </Subsection>
     </Section>
