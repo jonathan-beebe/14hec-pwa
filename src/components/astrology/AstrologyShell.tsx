@@ -11,7 +11,7 @@ export default function AstrologyShell() {
     <div className="flex flex-col h-full">
       <header className="px-8 pt-6 pb-4 shrink-0 border-b border-white/5">
         <Text.Display>Astrology</Text.Display>
-        <p className="text-xs text-earth-500 mt-0.5">
+        <p className="text-base text-earth-500 mt-1">
           Celestial correspondences for plant medicine
         </p>
       </header>
