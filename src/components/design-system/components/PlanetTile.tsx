@@ -87,8 +87,11 @@ const HEIGHT_MAX = 200
 // Linear map from spike-config height (which already encodes the
 // designer's intended relative sizes) into [SCALE_MIN, 1.0]. Compresses
 // the natural ~5× range into a gentler ratio that still telegraphs
-// "Sun > Jupiter > Mars > Pluto" at a glance.
+// "Sun > Jupiter > Mars > Pluto" at a glance. Per-planet `tileScale`
+// overrides the formula entirely — useful when the auto-scale undersells
+// a planet (Saturn's ring, satellites, etc).
 function planetScale(config: PlanetVisual): number {
+  if (config.tileScale !== undefined) return config.tileScale
   const t = (config.height - HEIGHT_MIN) / (HEIGHT_MAX - HEIGHT_MIN)
   const clamped = Math.max(0, Math.min(1, t))
   return SCALE_MIN + (1 - SCALE_MIN) * clamped

@@ -41,6 +41,15 @@ export interface PlanetVisual {
    * lightness so it reads as text on dark surfaces.
    */
   tint: [number, number, number]
+  /**
+   * Optional override for PlanetTile sizing. Absolute scale where 1.0
+   * means "the planet (including its ring) exactly fits the tile slot"
+   * — values above 1.0 are allowed to bleed past the slot boundary.
+   * When omitted, the tile derives a scale from `height` so smaller
+   * planets read smaller; set this on planets where the auto-scale
+   * undersells them (e.g. Saturn, whose ring shrinks the body).
+   */
+  tileScale?: number
   ring?: RingConfig
   satellites?: SatelliteConfig[]
 }
@@ -252,6 +261,10 @@ export const saturn: PlanetVisual = {
   ringRotationSpeed: 0.04,
   glyph: '♄',
   tint: [238, 220, 165],
+  // Larger than the height-derived auto-scale, and allowed to bleed past
+  // the slot — Saturn's iconic ring earns a star turn in the picker, even
+  // if it dusts the leading edge of the text.
+  tileScale: 1.4,
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (saturnBands.length / 2)
     const band = Math.min(saturnBands.length - 1, Math.floor(bandPos))
