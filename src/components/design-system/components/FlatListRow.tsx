@@ -97,7 +97,7 @@ export default function FlatListRow({
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
-      className="relative flex items-center gap-4 px-6 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
+      className="relative isolate flex items-center gap-4 px-6 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
       {/* Engaged corner-glow + left-edge bloom — fades in via opacity on hover/select. */}
       <div
