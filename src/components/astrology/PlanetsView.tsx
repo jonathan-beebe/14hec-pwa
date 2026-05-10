@@ -8,6 +8,7 @@ import PlanetTile from '@/components/design-system/components/PlanetTile'
 import { allPlanets, type PlanetVisual } from '@/components/spike/planetConfig'
 import {
   ASTROLOGY_LIST_WIDTH,
+  ASTROLOGY_TOP_INSET,
   AssociatedPlants,
   DetailFact,
   slug,
@@ -81,6 +82,7 @@ export default function PlanetsView() {
       list={<PlanetsList planets={planets} />}
       emptyDetail={<PlanetsEmpty />}
       sidebarWidthClass={ASTROLOGY_LIST_WIDTH}
+      topInset={ASTROLOGY_TOP_INSET}
     />
   )
 }

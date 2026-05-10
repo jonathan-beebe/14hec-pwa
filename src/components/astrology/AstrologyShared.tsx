@@ -6,6 +6,13 @@ import Text from '@/components/design-system/atoms/Text'
 // floor wide enough to keep the text from getting squeezed.
 export const ASTROLOGY_LIST_WIDTH = 'lg:min-w-[400px]'
 
+// Matches the rendered height of AstrologyShell's overlay header
+// (pt-6 + Display heading + mt-1 + text-base subtext + pb-4 ≈ 104px).
+// Applied as top padding on the list/detail scroll panes so initial
+// content sits below the glassy header on desktop. Mobile uses a
+// sticky header that occupies its own flow space, so no inset there.
+export const ASTROLOGY_TOP_INSET = 'lg:pt-28'
+
 export const slug = (name: string) => name.toLowerCase()
 
 export function ColorChip({ name, hex }: { name: string; hex: string }) {

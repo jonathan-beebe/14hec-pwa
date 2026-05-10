@@ -10,6 +10,7 @@ import InfoTile, {
 } from '@/components/design-system/components/InfoTile'
 import {
   ASTROLOGY_LIST_WIDTH,
+  ASTROLOGY_TOP_INSET,
   AssociatedPlants,
   ColorChip,
   DetailFact,
@@ -96,6 +97,7 @@ export default function SignsView() {
       list={<SignsList signs={signs} />}
       emptyDetail={<SignsEmpty />}
       sidebarWidthClass={ASTROLOGY_LIST_WIDTH}
+      topInset={ASTROLOGY_TOP_INSET}
     />
   )
 }
