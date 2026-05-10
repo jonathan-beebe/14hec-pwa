@@ -205,18 +205,17 @@ export default function ComponentsSection() {
       <Subsection title="FlatListRow">
         <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
           Edge-to-edge list row for sidebar/list surfaces. At rest the
-          row is fully transparent — the surface tint comes from the
-          parent list container. Hover lifts a soft inner glow;
-          <code> selected</code> makes the glow tint-colored and adds a
-          3px left-edge accent bar. Pair with a tinted{' '}
-          <code>&lt;ul&gt;</code> like <code>bg-earth-900/30</code> so
-          the rest-state rows have something to sit on top of.
+          row is fully transparent and inherits whatever bg sits behind
+          the list. Hover and select fade in a left-edge bar, a soft
+          left-side glow, and a black-to-transparent wash that darkens
+          the left side so the glow pops — all anchored on the left,
+          nothing on the right.
         </p>
 
         <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
           Tinted — drives icon, glow, and edge bar
         </div>
-        <ul className="bg-earth-900/30 mb-6 max-w-md">
+        <ul className="mb-6 max-w-md">
           <li>
             <FlatListRow
               to="/design-system"
@@ -253,7 +252,7 @@ export default function ComponentsSection() {
         <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
           Neutral — no <code>tintHex</code>, white wash + bar
         </div>
-        <ul className="bg-earth-900/30 max-w-md">
+        <ul className="max-w-md">
           <li>
             <FlatListRow
               to="/design-system"

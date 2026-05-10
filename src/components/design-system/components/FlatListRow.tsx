@@ -52,12 +52,11 @@ const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 88px, transparent 13
  *
  * Designed for list/sidebar surfaces where each item should read as
  * content-on-a-shared-surface rather than as a standalone card. At rest
- * the row is fully transparent — the surface tint comes from the
- * parent list container. Hover lifts a soft inner glow; selected makes
- * the glow tint-colored and adds a 3px left-edge accent bar.
- *
- * Pair with a tinted container (e.g. `<ul className="bg-earth-900/30">`)
- * so rest-state rows have something to sit on top of.
+ * the row is fully transparent and inherits whatever bg sits behind the
+ * list. Hover and select fade in a left-edge bar, a soft directional
+ * glow on the left, and a black-to-transparent wash that darkens the
+ * left side so the glow pops — all anchored on the left, nothing on
+ * the right.
  */
 export default function FlatListRow({
   to,
@@ -75,23 +74,16 @@ export default function FlatListRow({
   const [hovered, setHovered] = useState(false)
   const engaged = !!selected || hovered
 
-  // Two-corner radial wash — angled glow brightest at the top-left and
-  // bottom-left, fading to nothing well before the right edge so the
-  // seam against the detail pane stays clean. The -28% x-anchor pushes
-  // each ellipse origin off the row's left edge; we only see the
-  // gradient's falloff coming back IN, which puts the strongest tint
-  // right at the edge and softens diagonally down-right (top wash) /
-  // up-right (bottom wash). 41% height pinches the washes to the
-  // top/bottom bands so they read as distinct accents.
-  //
-  // The directional box-shadow (inset, small offsetX + tight blur)
-  // lights the left edge specifically, filling the vertical gap
-  // between the two corner washes. Both ride the same overlay's
-  // opacity so rest/hover/selected animate together. Hex alpha
-  // suffixes: 40≈25%, 66≈40%.
-  const engagedBackground = tinted
-    ? `radial-gradient(100% 41% at -28% 0%, ${tintHex}66, transparent 100%), radial-gradient(100% 41% at -28% 100%, ${tintHex}66, transparent 100%)`
-    : 'radial-gradient(100% 41% at -28% 0%, rgba(255,255,255,0.22), transparent 100%), radial-gradient(100% 41% at -28% 100%, rgba(255,255,255,0.22), transparent 100%)'
+  // Engaged state — three effects, all anchored to the left edge:
+  //   1. A 3px tinted bar (rendered as its own absolute element below).
+  //   2. A soft directional inner glow (inset box-shadow with positive
+  //      offsetX so the blur paints on the LEFT side inside the row).
+  //   3. A black-to-transparent linear-gradient bg that darkens the
+  //      row's left side so the glow has dark space to pop against.
+  // Effects 2 + 3 ride the same overlay's opacity (engagedOpacity), and
+  // the bar uses the same value below — so rest, hover, and selected
+  // animate as one. No top/bottom glow, no corner washes.
+  const engagedBackground = 'linear-gradient(to right, black, transparent)'
   const engagedShadow = tinted
     ? `inset 32px 0 16px -16px ${tintHex}40`
     : 'inset 32px 0 16px -16px rgba(255,255,255,0.15)'
@@ -117,13 +109,15 @@ export default function FlatListRow({
           opacity: engagedOpacity,
         }}
       />
-      {selected && (
-        <span
-          aria-hidden="true"
-          className="absolute left-0 top-0 bottom-0 w-[3px] z-20"
-          style={{ background: tintHex || 'rgba(255,255,255,0.4)' }}
-        />
-      )}
+      {/* Left-edge bar — fades in alongside the engaged overlay. */}
+      <span
+        aria-hidden="true"
+        className="absolute left-0 top-0 bottom-0 w-[3px] z-20 transition-opacity duration-200 motion-reduce:transition-none"
+        style={{
+          background: tintHex || 'rgba(255,255,255,0.4)',
+          opacity: engagedOpacity,
+        }}
+      />
       {sandActive && (
         // text-6xl matches the static icon's font-size so the canvas
         // rasterizer (which reads getComputedStyle().fontSize) draws the

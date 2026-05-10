@@ -30,7 +30,7 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
   const activeSlug = match?.params.slug?.toLowerCase()
 
   return (
-    <ul className="bg-earth-900/30">
+    <ul>
       {signs.map((sign) => {
         const IconComp =
           ZodiacSymbol[sign.name as keyof typeof ZodiacSymbol]
