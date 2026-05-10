@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import type { IconSource } from '../atoms/Icon'
 import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
@@ -144,6 +144,24 @@ const toneSelectedShadow: Record<InfoTileTone, string> = {
   spirit:    'shadow-glow-spirit active:shadow-glow-spirit-sm',
 }
 
+// Base box-shadow for all tiles — stronger drop than `.card`'s default,
+// preserving the inset top-edge highlight. Tone tiles get this via
+// `liftClass`; tinted tiles compose it inline so the engaged glow can
+// be tint-derived and stack on top instead of replacing it.
+const BASE_LIFT_SHADOW =
+  'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 10px 28px -6px rgba(0,0,0,0.7)'
+
+// Glow strength mirrors `boxShadow.glow-{tone}` in tailwind.config: a
+// tight inner halo and a wider, fainter outer one. Alphas chosen to land
+// just above tone glow (0.15/0.05) so a custom-tinted glow still reads on
+// dark surfaces even for muted tints. Press shrinks the geometry without
+// fading, matching `glow-{tone}-sm`.
+function tintEngagedGlow(hex: string, pressed: boolean): string {
+  const inner = pressed ? '8px' : '15px'
+  const outer = pressed ? '24px' : '45px'
+  return `0 0 ${inner} ${hex}26, 0 0 ${outer} ${hex}0D`
+}
+
 /**
  * Two-column navigation tile: icon on the left, primary + secondary text on
  * the right. Merges the StatCard (count + label) and DomainCard (domain +
@@ -187,10 +205,15 @@ function InfoTile({
   const sandActive = sandIcon !== undefined && !reducedMotion
   const tinted = typeof tintHex === 'string' && tintHex.length > 0
 
-  // 8-digit hex (#RRGGBBAA) keeps the override readable: `33` ≈ 0.20 alpha,
-  // `4D` ≈ 0.30, `66` ≈ 0.40 (matching the resting/engaged gradient and
-  // border strengths). Selected lifts the border to the engaged 0x66.
-  const tintBorder = tinted ? `${tintHex}${selected ? '66' : '33'}` : undefined
+  // Tinted tiles can't rely on CSS `:hover` for the border + glow, since
+  // those are inline-styled (CSS pseudo-classes can't override `style`).
+  // Track hover/focus in JS instead so engagement = selected || hovered.
+  // Tone-only tiles set `hovered` too but ignore it — CSS handles them.
+  const [hovered, setHovered] = useState(false)
+  const engaged = !!selected || hovered
+
+  // 8-digit hex on the gradient overlays — they crossfade via opacity, so
+  // they don't need to switch colors with engagement.
   const tintRestingBg = tinted
     ? `linear-gradient(to bottom right, ${tintHex}33 0%, transparent 33%)`
     : undefined
@@ -210,45 +233,63 @@ function InfoTile({
   // (no effect on the focus ring, which uses outset box-shadow).
   const focusClass =
     'focus-visible:ring-botanical-400 hover:transform-none active:scale-[0.98] motion-reduce:transition-none'
-  // shadow-[...] overrides .card's resting box-shadow with a stronger drop
-  // (deeper offset, wider blur, higher alpha) while preserving the inset
-  // top-edge highlight. On hover, hover:shadow-glow-X from toneFrameClass
-  // takes over (utility-layer specificity wins), unchanged.
+  // Tone branch keeps its CSS-only frame: shadow-[...] overrides `.card`'s
+  // resting box-shadow; `hover:shadow-glow-X` takes over on hover. Press
+  // (active:shadow-glow-X-sm) shrinks the geometry, reading as a z-axis
+  // sink. When selected, swap to the always-on engaged classes so the
+  // brighter border + glow read at rest.
+  // Tinted branch drops all of that and styles border + box-shadow inline
+  // from `tintHex`, so the engaged appearance is faithful to the data-
+  // driven color rather than a tone approximation.
   const liftClass =
     'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),_0_10px_28px_-6px_rgba(0,0,0,0.7)]'
-  // Press state (active:shadow-glow-X-sm) lives in toneFrameClass per
-  // tone so the glow keeps its color but compresses on press, reading as
-  // a z-axis sink rather than the glow vanishing. Tailwind orders
-  // active: after hover: in the generated CSS, so the small glow wins
-  // over hover:shadow-glow-X when both pseudo-classes are active.
-  // When tinted, drop the tone-based border/hover-border classes — inline
-  // borderColor sets the resting tint. The hover glow shadow from
-  // toneFrameClass is kept so the press/hover feedback still has a tone
-  // signature; spike-acceptable that hover glow doesn't recolor to the tint.
-  // When selected, swap to the locked-engaged variant: tinted gets only
-  // the tone glow (border stays inline-styled and lifts to /66 alpha);
-  // tone-only gets the brighter border + permanent glow.
   let frameClass: string
   if (tinted) {
-    frameClass = selected ? toneSelectedShadow[tone] : ''
+    frameClass = ''
   } else {
     frameClass = selected
       ? `${toneSelectedBorder[tone]} ${toneSelectedShadow[tone]}`
       : toneFrameClass[tone]
   }
-  const cardClass = `card bg-black ${liftClass} flex items-center gap-4 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
+  const liftClassUsed = tinted ? '' : liftClass
+  const cardClass = `card bg-black ${liftClassUsed} flex items-center gap-4 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
   // is tinted by the icon-slot's text color (the wrapper is rendered into
   // that color context via tonePrimaryClass). The text-slot uses relative
   // z-10 to layer above it. The static icon DOM stays in flex layout for
   // sizing but is `invisible` so it doesn't compete with the canvas paint.
+  // Inline tinted frame: border alpha + glow are derived from tintHex.
+  // `engaged` (selected || hovered) drives both, so the locked-selected
+  // and hover-pressed states share one source of truth. Press (mousedown)
+  // isn't tracked separately — the active:scale-[0.98] in focusClass
+  // already telegraphs press; the glow stays at engaged size.
+  const tintedFrameStyle: CSSProperties | undefined = tinted
+    ? {
+        borderColor: `${tintHex}${engaged ? '66' : '33'}`,
+        boxShadow: engaged
+          ? `${BASE_LIFT_SHADOW}, ${tintEngagedGlow(tintHex!, false)}`
+          : BASE_LIFT_SHADOW,
+      }
+    : undefined
+
+  // Hover/focus handlers update `hovered` so tinted tiles get the engaged
+  // styling at the right moments. Tone-only tiles re-render but the state
+  // doesn't drive their visuals (CSS does), so it's a no-op visually.
+  const hoverHandlers = {
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+    onFocus: () => setHovered(true),
+    onBlur: () => setHovered(false),
+  }
+
   return (
     <Link
       to={to}
       className={cardClass}
       aria-label={ariaLabel}
-      style={tinted ? { borderColor: tintBorder } : undefined}
+      style={tintedFrameStyle}
+      {...hoverHandlers}
     >
       {/*
         Two stacked gradient overlays crossfade between resting and engaged
