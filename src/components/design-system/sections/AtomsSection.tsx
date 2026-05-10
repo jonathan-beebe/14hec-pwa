@@ -128,11 +128,11 @@ export default function AtomsSection() {
                 {group.entries.map(({ name, component: IconComponent }) => (
                   <div
                     key={name}
-                    className="card flex flex-col items-center gap-3 py-5 text-earth-300"
+                    className="flex flex-col items-center gap-3 py-5 text-earth-300"
                   >
                     <IconComponent size={48} />
                     <code className="text-[10px] uppercase tracking-[0.18em] text-earth-500 text-center break-all">
-                      Icon.{name}
+                      {name}
                     </code>
                   </div>
                 ))}
