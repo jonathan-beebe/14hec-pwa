@@ -30,16 +30,18 @@ import { useReducedMotion } from '../atoms/SandIcon'
  * canvas, no wind.
  */
 
-const SLOT_PX = 96
+const SLOT_PX = 180
 // Padding inside the slot so rings (Saturn) don't kiss the edge.
 const FIT_PADDING = 0.08
 // CSS x of the planet's visual center, measured from the card's left
-// border (matches InfoTile's icon-center math: p-5 + half of w-24 - ml-2 = 60).
-const PLANET_CENTER_X = 60
+// border. Matches the slot's flex placement: card p-5 (20px) + half of
+// slot − ml-2 pull-in (8px) → 20 + 90 − 8 = 102.
+const PLANET_CENTER_X = 102
 // Wind grains additive-blend on the dark card, so they brighten anything
 // they drift over. This mask fades them to transparent before reaching
-// the text — same idea as InfoTile's SAND_MASK_GRADIENT.
-const WIND_MASK_GRADIENT = 'linear-gradient(to right, black 140px, transparent 100%)'
+// the text — same idea as InfoTile's SAND_MASK_GRADIENT. Start fade just
+// past the slot's right edge (PLANET_CENTER_X + SLOT_PX/2 ≈ 192).
+const WIND_MASK_GRADIENT = 'linear-gradient(to right, black 220px, transparent 100%)'
 
 interface PlanetTileBaseProps {
   config: PlanetVisual
@@ -182,7 +184,7 @@ export default function PlanetTile(props: PlanetTileProps) {
       style={{ width: SLOT_PX, height: SLOT_PX }}
     >
       {reducedMotion && (
-        <div className="w-full h-full flex items-center justify-center text-7xl text-celestial-300 opacity-80">
+        <div className="w-full h-full flex items-center justify-center text-9xl text-celestial-300 opacity-80">
           {config.glyph}
         </div>
       )}
