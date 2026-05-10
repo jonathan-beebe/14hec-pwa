@@ -24,11 +24,12 @@ const navSections: NavSection[] = [
     ]
   },
   {
-    label: 'Celestial',
+    label: 'Astrology',
     items: [
-      { view: 'astrology', route: '/astrology', label: 'Signs & Planets', icon: '☉' },
-      { view: 'natal-chart', route: '/natal-chart', label: 'Natal Chart', icon: '⭐' },
-      { view: 'planetary-timing', route: '/planetary-timing', label: 'Timing', icon: '⌚' }
+      { view: 'astrology-signs', route: '/astrology/signs', label: 'Signs', icon: '♈' },
+      { view: 'astrology-planets', route: '/astrology/planets', label: 'Planets', icon: '♄' },
+      { view: 'natal-chart', route: '/astrology/natal-chart', label: 'Natal Chart', icon: '⭐' },
+      { view: 'planetary-timing', route: '/astrology/planetary-timing', label: 'Planetary Timing', icon: '⌚' }
     ]
   },
   {
@@ -51,8 +52,7 @@ const navSections: NavSection[] = [
         label: 'Dev',
         items: [
           { view: 'design-system', route: '/design-system', label: 'Design System', icon: '▣' },
-          { view: 'spike-planets', route: '/spike/planets', label: 'Planets Spike', icon: '♄' },
-          { view: 'spike-astrology', route: '/spike/astrology', label: 'Astrology Spike', icon: '♈' }
+          { view: 'spike-planets', route: '/spike/planets', label: 'Planets Spike', icon: '♄' }
         ]
       }]
     : []),

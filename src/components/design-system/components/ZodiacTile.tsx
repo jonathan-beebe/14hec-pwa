@@ -43,7 +43,7 @@ interface ZodiacTileButtonProps extends ZodiacTileBaseProps {
 export type ZodiacTileProps = ZodiacTileLinkProps | ZodiacTileButtonProps
 
 // Element tints in 8-bit RGB. Picked to align with the existing badge
-// palette in AstrologyView (red/blue/yellow/green-300 family) and to
+// palette in SignsView (red/blue/yellow/green-300 family) and to
 // read as text on dark surfaces.
 const ELEMENT_TINT: Record<ZodiacElement, [number, number, number]> = {
   fire: [248, 113, 113],   // red-400

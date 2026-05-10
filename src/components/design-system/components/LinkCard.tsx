@@ -48,7 +48,7 @@ const toneTitleClass: Record<LinkCardTone, string> = {
  * <LinkCard.Botanical to="/seasonal" icon="❁" title="Seasonal Guide"
  *   caption="Plants aligned with the current season" />
  *
- * <LinkCard.Celestial to="/natal-chart" icon="⭐" title="Astro-Botanical Chart"
+ * <LinkCard.Celestial to="/astrology/natal-chart" icon="⭐" title="Astro-Botanical Chart"
  *   caption="Personalized plant map from your birth chart" />
  *
  * <LinkCard to={path} tone={isAstro ? 'celestial' : 'botanical'} ... />

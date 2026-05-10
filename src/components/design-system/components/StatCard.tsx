@@ -37,7 +37,7 @@ const toneNumberClass: Record<StatCardTone, string> = {
  * @example
  * <StatCard.Botanical to="/plants" icon="☘" count={207} label="Plants" />
  * <StatCard.Celestial to="/ailments" icon="⚕" count={75} label="Ailments" />
- * <StatCard tone="gold" to="/astrology" icon="☉" count={12} label="Zodiac" />
+ * <StatCard tone="gold" to="/astrology/signs" icon="☉" count={12} label="Zodiac" />
  */
 function StatCard({
   to,

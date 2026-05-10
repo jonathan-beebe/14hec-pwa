@@ -7,7 +7,9 @@ import PlantList from './components/plants/PlantList'
 import PlantDetail from './components/plants/PlantDetail'
 import AilmentNavigator from './components/ailments/AilmentNavigator'
 import AilmentDetail from './components/ailments/AilmentDetail'
-import AstrologyView from './components/astrology/AstrologyView'
+import AstrologyShell from './components/astrology/AstrologyShell'
+import SignsView, { SignDetailView } from './components/astrology/SignsView'
+import PlanetsView, { PlanetDetailView } from './components/astrology/PlanetsView'
 import NatalInput from './components/astrology/NatalInput'
 import PlanetaryTiming from './components/astrology/PlanetaryTiming'
 import PreparationMatrix from './components/preparations/PreparationMatrix'
@@ -29,12 +31,6 @@ import DesignSystem from './components/design-system/DesignSystem'
 import ListDetailDemo, { ListDetailDemoDetail } from './components/design-system/layouts/demos/ListDetailDemo'
 import CatalogDemo, { CatalogDemoDetail } from './components/design-system/layouts/demos/CatalogDemo'
 import PlanetsSpike from './components/spike/PlanetsSpike'
-import SpikeAstrology, {
-  SpikeAstrologyPlanetDetail,
-  SpikeAstrologyPlanets,
-  SpikeAstrologySignDetail,
-  SpikeAstrologySigns,
-} from './components/spike/SpikeAstrology'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -76,13 +72,13 @@ export default function App() {
             <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
             <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />
           </Route>
-          <Route path="/spike/astrology" element={<SpikeAstrology />}>
-            <Route index element={<Navigate to="signs" replace />} />
-            <Route path="signs" element={<SpikeAstrologySigns />}>
-              <Route path=":slug" element={<SpikeAstrologySignDetail />} />
+          <Route path="/astrology" element={<AstrologyShell />}>
+            <Route index element={<Navigate to="/astrology/signs" replace />} />
+            <Route path="signs" element={<SignsView />}>
+              <Route path=":slug" element={<SignDetailView />} />
             </Route>
-            <Route path="planets" element={<SpikeAstrologyPlanets />}>
-              <Route path=":slug" element={<SpikeAstrologyPlanetDetail />} />
+            <Route path="planets" element={<PlanetsView />}>
+              <Route path=":slug" element={<PlanetDetailView />} />
             </Route>
           </Route>
 
@@ -93,9 +89,8 @@ export default function App() {
             <Route path="/plants/:id" element={<PlantDetail />} />
             <Route path="/ailments" element={<AilmentNavigator />} />
             <Route path="/ailments/:id" element={<AilmentDetail />} />
-            <Route path="/astrology" element={<AstrologyView />} />
-            <Route path="/natal-chart" element={<NatalInput />} />
-            <Route path="/planetary-timing" element={<PlanetaryTiming />} />
+            <Route path="/astrology/natal-chart" element={<NatalInput />} />
+            <Route path="/astrology/planetary-timing" element={<PlanetaryTiming />} />
             <Route path="/preparations" element={<PreparationMatrix />} />
             <Route path="/crossref" element={<CrossReference />} />
             <Route path="/hmbs" element={<HMBSView />} />
