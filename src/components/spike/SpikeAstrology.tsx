@@ -120,6 +120,11 @@ export default function SpikeAstrology() {
 
 const slug = (name: string) => name.toLowerCase()
 
+// PlanetTile and ZodiacTile both reserve a 180px icon slot, so the
+// default 30%/360px list column reads cramped. Bumping to 40%/520px
+// gives the text column ~250px to breathe.
+const SPIKE_LIST_WIDTH = 'lg:w-[40%] lg:max-w-[520px]'
+
 // ─── Signs: list ────────────────────────────────────────────────────────
 
 // Sign name → Icon entry. Uses the design-system Icon library so the
@@ -189,6 +194,7 @@ export function SpikeAstrologySigns() {
     <RoutedListDetailLayout
       list={<SignsList signs={signs} />}
       emptyDetail={<SignsEmpty />}
+      sidebarWidthClass={SPIKE_LIST_WIDTH}
     />
   )
 }
@@ -351,6 +357,7 @@ export function SpikeAstrologyPlanets() {
     <RoutedListDetailLayout
       list={<PlanetsList planets={planets} />}
       emptyDetail={<PlanetsEmpty />}
+      sidebarWidthClass={SPIKE_LIST_WIDTH}
     />
   )
 }
