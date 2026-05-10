@@ -75,10 +75,12 @@ function makePool(size: number): Pool {
   const isSparkle = new Uint8Array(size)
   const sparkleBoost = new Float32Array(size)
   for (let i = 0; i < size; i++) {
-    // Lifespans randomized so the pool desyncs naturally; life starts at
-    // lifespan so every slot respawns on frame 1 when matrixWorld is ready.
     lifespan[i] = LIFESPAN_MIN + Math.random() * (LIFESPAN_MAX - LIFESPAN_MIN)
-    life[i] = lifespan[i]
+    // Negative life = startup delay, uniformly spread across LIFESPAN_MAX.
+    // Without it, every slot is "expired" on frame 1 and they all respawn
+    // simultaneously — visible burst as the pool comes online. Staggered
+    // delays let the wind trickle on as if it's picking up.
+    life[i] = -Math.random() * LIFESPAN_MAX
     velJitter[i * 3 + 0] = (Math.random() - 0.5) * VEL_JITTER_X
     velJitter[i * 3 + 1] = (Math.random() - 0.5) * VEL_JITTER_Y
     velJitter[i * 3 + 2] = (Math.random() - 0.5) * VEL_JITTER_Z
@@ -192,9 +194,20 @@ export default function WindDrift({ sources }: WindDriftProps) {
     const wz = Math.sin(dirAngle) * speed
 
     for (let i = 0; i < poolSize; i++) {
-      const li = pool.life[i] + delta
+      const prevLife = pool.life[i]
+      const li = prevLife + delta
       const ls = pool.lifespan[i]
       if (li >= ls) {
+        respawn(i, pool, packets, cumWeights, totalWeight, tmp)
+      } else if (li < 0) {
+        // Still in startup delay — tick life, paint transparent (additive).
+        pool.life[i] = li
+        pool.colors[i * 3 + 0] = 0
+        pool.colors[i * 3 + 1] = 0
+        pool.colors[i * 3 + 2] = 0
+      } else if (prevLife < 0) {
+        // Just emerged from delay — respawn so it lifts from a real source
+        // instead of drifting from its uninitialized origin.
         respawn(i, pool, packets, cumWeights, totalWeight, tmp)
       } else {
         pool.life[i] = li
