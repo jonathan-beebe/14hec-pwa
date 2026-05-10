@@ -102,12 +102,9 @@ function ListPane({ plants }: { plants: Plant[] }) {
 
 function EmptyState() {
   return (
-    <div className="p-8 lg:pl-2">
-      <div className="card text-center py-16 text-earth-500">
-        <div className="text-4xl mb-3 opacity-15 animate-pulse-slow">☄</div>
-        <p className="text-lg font-display mb-2">Select a plant or protocol</p>
-        <p className="text-sm">Choose an entheogenic plant to view its profile, or select a protocol for journey guidance.</p>
-      </div>
+    <div className="px-16 py-16 text-earth-500 font-system">
+      <p className="text-lg mb-2">Select a plant or protocol</p>
+      <p className="text-sm">Choose an entheogenic plant to view its profile, or select a protocol for journey guidance.</p>
     </div>
   )
 }
