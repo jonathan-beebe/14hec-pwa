@@ -75,21 +75,27 @@ export default function FlatListRow({
   const [hovered, setHovered] = useState(false)
   const engaged = !!selected || hovered
 
-  // Inner glow = blurred inset shadow (the "bloom") + a thin inset ring
-  // (the edge). Tinted variant uses tintHex for both layers; neutral
-  // falls back to white. Selected is a notch stronger than hover so the
-  // active row reads at rest. Hex alpha suffixes: 1F≈12%, 26≈15%,
-  // 33≈20%, 40=25%.
-  let boxShadow: string | undefined
-  if (selected) {
-    boxShadow = tinted
-      ? `inset 0 0 24px ${tintHex}33, inset 0 0 0 1px ${tintHex}40`
-      : 'inset 0 0 24px rgba(255,255,255,0.08), inset 0 0 0 1px rgba(255,255,255,0.18)'
-  } else if (hovered) {
-    boxShadow = tinted
-      ? `inset 0 0 16px ${tintHex}1F, inset 0 0 0 1px ${tintHex}26`
-      : 'inset 0 0 16px rgba(255,255,255,0.05), inset 0 0 0 1px rgba(255,255,255,0.08)'
-  }
+  // Two-corner radial wash — angled glow brightest at the top-left and
+  // bottom-left, fading to nothing well before the right edge so the
+  // seam against the detail pane stays clean. The -28% x-anchor pushes
+  // each ellipse origin off the row's left edge; we only see the
+  // gradient's falloff coming back IN, which puts the strongest tint
+  // right at the edge and softens diagonally down-right (top wash) /
+  // up-right (bottom wash). 41% height pinches the washes to the
+  // top/bottom bands so they read as distinct accents.
+  //
+  // The directional box-shadow (inset, small offsetX + tight blur)
+  // lights the left edge specifically, filling the vertical gap
+  // between the two corner washes. Both ride the same overlay's
+  // opacity so rest/hover/selected animate together. Hex alpha
+  // suffixes: 40≈25%, 66≈40%.
+  const engagedBackground = tinted
+    ? `radial-gradient(100% 41% at -28% 0%, ${tintHex}66, transparent 100%), radial-gradient(100% 41% at -28% 100%, ${tintHex}66, transparent 100%)`
+    : 'radial-gradient(100% 41% at -28% 0%, rgba(255,255,255,0.22), transparent 100%), radial-gradient(100% 41% at -28% 100%, rgba(255,255,255,0.22), transparent 100%)'
+  const engagedShadow = tinted
+    ? `inset 32px 0 16px -16px ${tintHex}40`
+    : 'inset 32px 0 16px -16px rgba(255,255,255,0.15)'
+  const engagedOpacity = selected ? 1 : hovered ? 0.55 : 0
 
   return (
     <Link
@@ -99,13 +105,22 @@ export default function FlatListRow({
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
-      style={{ boxShadow }}
-      className="relative flex items-center gap-4 px-6 py-4 transition-shadow duration-200 motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
+      className="relative flex items-center gap-4 px-6 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
+      {/* Engaged corner-glow + left-edge bloom — fades in via opacity on hover/select. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
+        style={{
+          backgroundImage: engagedBackground,
+          boxShadow: engagedShadow,
+          opacity: engagedOpacity,
+        }}
+      />
       {selected && (
         <span
           aria-hidden="true"
-          className="absolute left-0 top-0 bottom-0 w-[3px] z-10"
+          className="absolute left-0 top-0 bottom-0 w-[3px] z-20"
           style={{ background: tintHex || 'rgba(255,255,255,0.4)' }}
         />
       )}
@@ -134,10 +149,12 @@ export default function FlatListRow({
         // When sand is active the static glyph stays in flex layout for
         // sizing but is `invisible` so it doesn't compete with the canvas
         // paint. w-16 + text-6xl gives a 64×60 icon slot that the sand
-        // body geometry (above) is calibrated to.
+        // body geometry (above) is calibrated to. `relative z-10` lifts
+        // the icon above the engaged overlay so it doesn't get washed
+        // out by the corner gradients.
         <div
           aria-hidden="true"
-          className={`w-16 text-6xl flex items-center justify-center shrink-0 ${
+          className={`relative z-10 w-16 text-6xl flex items-center justify-center shrink-0 ${
             sandActive
               ? 'invisible'
               : 'transition-opacity duration-200 motion-reduce:transition-none'
