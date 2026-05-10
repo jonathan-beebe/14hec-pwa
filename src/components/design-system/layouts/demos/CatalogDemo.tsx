@@ -4,6 +4,7 @@ import CatalogLayout from '../CatalogLayout'
 import Text from '../../atoms/Text'
 import Button from '../../atoms/Button'
 import { Icon } from '../../atoms/Icon'
+import BrowseTile from '../../components/BrowseTile'
 
 export interface CatalogDemoItem {
   id: string
@@ -71,7 +72,7 @@ function DemoFilters({
 }) {
   return (
     <div className="px-8 py-3">
-      <div className="glass-panel p-3">
+      <div className="glass-panel bg-black/20 p-3">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[180px]">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -116,20 +117,14 @@ function DemoGrid({ items }: { items: CatalogDemoItem[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-8 pt-3 pb-8">
       {items.map((item) => (
-        <Link
-          key={item.id}
-          to={item.id}
-          className="card p-4 text-left group block"
-        >
+        <BrowseTile key={item.id} to={item.id}>
           <div className="flex justify-between items-start mb-1.5">
-            <Text.CardTitle className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
-              {item.name}
-            </Text.CardTitle>
+            <span className="text-sm font-medium text-earth-100">{item.name}</span>
             <span className={`badge ${CATEGORY_BADGE[item.category]}`}>{item.category}</span>
           </div>
           <p className="text-xs text-earth-500 italic mb-1.5">{item.latin}</p>
           <p className="text-xs text-earth-400 line-clamp-2">{item.summary}</p>
-        </Link>
+        </BrowseTile>
       ))}
     </div>
   )
@@ -138,7 +133,7 @@ function DemoGrid({ items }: { items: CatalogDemoItem[] }) {
 function DemoEmpty({ onClear }: { onClear: () => void }) {
   return (
     <div className="px-8 pt-3 pb-8">
-      <div className="glass-panel p-10 text-center">
+      <div className="glass-panel bg-black/20 p-10 text-center">
         <p className="text-sm text-earth-500 mb-2">No items match your filters.</p>
         <button
           type="button"

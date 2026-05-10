@@ -4,6 +4,7 @@ import LinkCard from '../components/LinkCard'
 import StatCard from '../components/StatCard'
 import DomainCard from '../components/DomainCard'
 import InfoTile from '../components/InfoTile'
+import BrowseTile from '../components/BrowseTile'
 import { Icon } from '../atoms/Icon'
 
 export default function ComponentsSection() {
@@ -105,6 +106,47 @@ export default function ComponentsSection() {
           <InfoTile.Mind   to="/design-system" icon={<Icon.Atom />}          sandIcon={showSand ? Icon.Atom.source          : undefined} primary="Mind"   secondary="Clarity, focus, cognition" />
           <InfoTile.Body   to="/design-system" icon={<Icon.Ankh />}          sandIcon={showSand ? Icon.Ankh.source          : undefined} primary="Body"   secondary="Vitality, strength, healing" />
           <InfoTile.Spirit to="/design-system" icon={<Icon.StarFourPoint />} sandIcon={showSand ? Icon.StarFourPoint.source : undefined} primary="Spirit" secondary="Transcendence, intuition" />
+        </div>
+      </Subsection>
+
+      <Subsection title="BrowseTile">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          The catalog/list counterpart to <code>InfoTile</code>: black
+          surface, system text, hover glow, click zoom. No icon column,
+          no gradient frame, no sand — designed to read calmly when dozens
+          appear together in a grouped or filterable view.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <BrowseTile to="/design-system">
+            <div className="flex justify-between items-start mb-1.5">
+              <span className="text-sm font-medium text-earth-100">Rosemary</span>
+              <span className="badge badge-conventional">conventional</span>
+            </div>
+            <p className="text-xs text-earth-500 italic mb-1.5">Salvia rosmarinus</p>
+            <p className="text-xs text-earth-400 line-clamp-2">
+              Memory, circulation, sun-aligned. A perennial guardian of clarity.
+            </p>
+          </BrowseTile>
+          <BrowseTile to="/design-system">
+            <div className="flex justify-between items-start mb-1.5">
+              <span className="text-sm font-medium text-earth-100">Mugwort</span>
+              <span className="badge badge-both">both</span>
+            </div>
+            <p className="text-xs text-earth-500 italic mb-1.5">Artemisia vulgaris</p>
+            <p className="text-xs text-earth-400 line-clamp-2">
+              Dream, threshold, lunar. Carries one across edges.
+            </p>
+          </BrowseTile>
+          <BrowseTile to="/design-system">
+            <div className="flex justify-between items-start mb-1.5">
+              <span className="text-sm font-medium text-earth-100">Datura</span>
+              <span className="badge badge-entheogenic">entheogenic</span>
+            </div>
+            <p className="text-xs text-earth-500 italic mb-1.5">Datura stramonium</p>
+            <p className="text-xs text-earth-400 line-clamp-2">
+              Threshold plant of the witches. Approached only with rigor.
+            </p>
+          </BrowseTile>
         </div>
       </Subsection>
     </Section>

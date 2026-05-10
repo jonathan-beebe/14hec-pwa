@@ -5,7 +5,10 @@ import ListDetailLayout from '../layouts/ListDetailLayout'
 import CatalogLayout from '../layouts/CatalogLayout'
 import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
 import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/CatalogDemo'
+import BrowseTile from '../components/BrowseTile'
 import Text from '../atoms/Text'
+import Button from '../atoms/Button'
+import { Icon } from '../atoms/Icon'
 
 function DemoPlaceholder() {
   return (
@@ -133,7 +136,7 @@ function CatalogDemoFilters({
 }) {
   return (
     <div className="px-5 pb-3 pt-1">
-      <div className="glass-panel p-3">
+      <div className="glass-panel bg-black/20 p-3">
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[180px]">
             <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
@@ -174,29 +177,60 @@ function CatalogDemoFilters({
   )
 }
 
-function CatalogDemoGrid({ items }: { items: CatalogDemoItem[] }) {
+function CatalogDemoGrid({
+  items,
+  onSelect,
+}: {
+  items: CatalogDemoItem[]
+  onSelect: (id: string) => void
+}) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-5 pb-5">
       {items.map((item) => (
-        <article key={item.id} className="card p-4 text-left group">
+        <BrowseTile key={item.id} onClick={() => onSelect(item.id)}>
           <div className="flex justify-between items-start mb-1.5">
-            <Text.CardTitle className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
-              {item.name}
-            </Text.CardTitle>
+            <span className="text-sm font-medium text-earth-100">{item.name}</span>
             <span className={`badge ${CATALOG_CATEGORY_BADGE[item.category]}`}>{item.category}</span>
           </div>
           <p className="text-xs text-earth-500 italic mb-1.5">{item.latin}</p>
           <p className="text-xs text-earth-400 line-clamp-2">{item.summary}</p>
-        </article>
+        </BrowseTile>
       ))}
     </div>
+  )
+}
+
+function CatalogDemoDetailInline({
+  item,
+  onBack,
+}: {
+  item: CatalogDemoItem
+  onBack: () => void
+}) {
+  return (
+    <article className="h-full overflow-y-auto animate-fade-in px-5 py-4">
+      <Button.Ghost onClick={onBack} className="mb-4">
+        <Icon.ArrowLeft className="mr-1.5" /> Back
+      </Button.Ghost>
+      <div className="flex items-center gap-3">
+        <Text.PageTitle>{item.name}</Text.PageTitle>
+        <span className={`badge ${CATALOG_CATEGORY_BADGE[item.category]}`}>{item.category}</span>
+      </div>
+      <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
+      <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
+      <div className="mt-6 pt-4 border-t border-white/5 text-[11px] text-earth-500">
+        Detail replaces the catalog inside the same bounded region — the
+        canonical Catalog → Detail behavior simulated with state instead
+        of a real route.
+      </div>
+    </article>
   )
 }
 
 function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
   return (
     <div className="px-5 pb-5">
-      <div className="glass-panel p-10 text-center">
+      <div className="glass-panel bg-black/20 p-10 text-center">
         <p className="text-sm text-earth-500 mb-2">No items match your filters.</p>
         <button
           type="button"
@@ -213,6 +247,7 @@ function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
 function CatalogDemo() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -232,24 +267,31 @@ function CatalogDemo() {
     setCategory('')
   }
 
+  const selected =
+    selectedId !== null ? CATALOG_DEMO_ITEMS.find((i) => i.id === selectedId) : null
+
   return (
     <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
-      <CatalogLayout
-        header={<CatalogDemoHeader count={filtered.length} />}
-        filters={
-          <CatalogDemoFilters
-            search={search}
-            onSearch={setSearch}
-            category={category}
-            onCategory={setCategory}
-            onClear={clear}
-            hasFilters={hasFilters}
-          />
-        }
-        results={<CatalogDemoGrid items={filtered} />}
-        empty={<CatalogDemoEmpty onClear={clear} />}
-        itemCount={filtered.length}
-      />
+      {selected ? (
+        <CatalogDemoDetailInline item={selected} onBack={() => setSelectedId(null)} />
+      ) : (
+        <CatalogLayout
+          header={<CatalogDemoHeader count={filtered.length} />}
+          filters={
+            <CatalogDemoFilters
+              search={search}
+              onSearch={setSearch}
+              category={category}
+              onCategory={setCategory}
+              onClear={clear}
+              hasFilters={hasFilters}
+            />
+          }
+          results={<CatalogDemoGrid items={filtered} onSelect={setSelectedId} />}
+          empty={<CatalogDemoEmpty onClear={clear} />}
+          itemCount={filtered.length}
+        />
+      )}
     </div>
   )
 }
