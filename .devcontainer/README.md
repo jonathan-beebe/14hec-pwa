@@ -51,14 +51,35 @@ devcontainer up --workspace-folder .
 
 # Drop into a shell inside the container
 devcontainer exec --workspace-folder . zsh
-
-# Inside the container, on first launch only:
-claude          # walks you through browser OAuth — sign in with your personal account
 ```
 
-After the first OAuth, the token persists in the
-`claude-code-config-${devcontainerId}` Docker volume. Subsequent `claude`
-launches start in a fresh session, no login needed.
+#### First-time login (one-time, per fresh volume)
+
+The `claude` command in this container is aliased to
+`claude --dangerously-skip-permissions`. That flag is meant for unattended
+use and **suppresses the interactive `/login`** slash command — so if you
+launch the aliased `claude` first, you'll see `/login isn't available in this
+environment`.
+
+Bypass the alias for the initial login:
+
+```bash
+\claude           # leading backslash skips the alias for this one invocation
+# (equivalents: `command claude`, or `unalias claude && claude`)
+```
+
+In that bare session, run `/login` and complete the browser OAuth with your
+personal account. If the browser callback doesn't reach the container (a
+port-forwarding quirk), Claude shows a `Paste code here if prompted` field —
+copy the code from the browser and paste it there.
+
+After login completes, exit. The token is now stored in the
+`claude-code-config-${devcontainerId}` Docker volume. From that point on,
+plain `claude` (aliased, permissive) just works:
+
+```bash
+claude            # uses cached token; no login flow
+```
 
 To confirm account isolation:
 
