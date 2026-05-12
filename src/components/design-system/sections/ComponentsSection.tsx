@@ -6,6 +6,7 @@ import DomainCard from '../components/DomainCard'
 import InfoTile from '../components/InfoTile'
 import BrowseTile from '../components/BrowseTile'
 import PlanetTile from '../components/PlanetTile'
+import PlanetFlatListRow from '../components/PlanetFlatListRow'
 import FlatListRow from '../components/FlatListRow'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
@@ -306,6 +307,33 @@ export default function ComponentsSection() {
             />
           ))}
         </div>
+      </Subsection>
+
+      <Subsection title="PlanetFlatListRow">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          The list-row counterpart to <code>PlanetTile</code>. Same live
+          planet canvas and wind tail, but framed like{' '}
+          <code>FlatListRow</code>: edge-to-edge, transparent at rest, with
+          a tinted left-edge bar + tinted wash + inset glow that fade in on
+          hover/select. Primary text picks up the planet's tint so the row
+          reads in the planet's color, the way <code>PlanetTile</code> does.
+          Sized taller than <code>FlatListRow</code> so the planet has room
+          to read.
+        </p>
+        <ul className="max-w-md">
+          {planetTileEntries.slice(0, 4).map(({ config, signs }, i) => (
+            <li key={config.name}>
+              <PlanetFlatListRow
+                to="/design-system"
+                config={config}
+                primary={config.name}
+                secondary={signs}
+                selected={i === 1}
+                aria-label={`${config.name} — ${signs}`}
+              />
+            </li>
+          ))}
+        </ul>
       </Subsection>
     </Section>
   )

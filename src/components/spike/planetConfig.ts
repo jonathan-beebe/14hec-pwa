@@ -264,7 +264,7 @@ export const saturn: PlanetVisual = {
   // Larger than the height-derived auto-scale, and allowed to bleed past
   // the slot — Saturn's iconic ring earns a star turn in the picker, even
   // if it dusts the leading edge of the text.
-  tileScale: 1.4,
+  tileScale: 1.55,
   colorAt: (_x, y, _z) => {
     const bandPos = (y + 1) * (saturnBands.length / 2)
     const band = Math.min(saturnBands.length - 1, Math.floor(bandPos))

@@ -4,7 +4,7 @@ import { api } from '@/data/api'
 import type { Plant, PlanetData } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
-import PlanetTile from '@/components/design-system/components/PlanetTile'
+import PlanetFlatListRow from '@/components/design-system/components/PlanetFlatListRow'
 import { allPlanets, type PlanetVisual } from '@/components/spike/planetConfig'
 import {
   ASTROLOGY_LIST_WIDTH,
@@ -37,14 +37,14 @@ function PlanetsList({ planets }: { planets: PlanetData[] }) {
   const activeSlug = match?.params.slug?.toLowerCase()
 
   return (
-    <ul className="p-3 space-y-3">
+    <ul>
       {ordered.map((planet) => {
         const config = PLANET_CONFIG[planet.name]
         if (!config) return null
         const tileSlug = slug(planet.name)
         return (
           <li key={planet.id}>
-            <PlanetTile
+            <PlanetFlatListRow
               config={config}
               primary={planet.name}
               secondary={planet.associated_signs}
