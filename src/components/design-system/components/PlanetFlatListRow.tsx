@@ -208,22 +208,16 @@ export default function PlanetFlatListRow({
   const tintRgb = `${tr}, ${tg}, ${tb}`
   const tintCss = `rgb(${tintRgb})`
 
-  // Left-edge bloom: three stacked inset shadows in the planet tint,
-  // each with progressively larger offset/blur and lower alpha. Together
-  // they paint a soft tinted gradient rising out of the left edge —
-  // brighter and tighter near the bar, fading into the row body. Reserved
-  // for the selected state; hover only fades in the bar.
-  const engagedShadow = [
-    `inset 16px 0 8px -8px rgba(${tintRgb}, 1.0)`,
-    `inset 32px 0 16px -16px rgba(${tintRgb}, 0.3)`,
-    `inset 55px 0 32px -32px rgba(${tintRgb}, 0.1)`,
-  ].join(', ')
-  // Black-to-transparent wash beneath the bloom — gives the tinted
-  // bloom a darkened backdrop to paint against so it reads brighter
-  // and crisper. Selected only; hover stays clean.
+  // Single soft directional inset glow on the left edge, tinted by the
+  // planet. Matches `FlatListRow`'s engaged shadow exactly, just sourced
+  // from the planet's rgb tint instead of a hex prop.
+  const engagedShadow = `inset 32px 0 16px -16px rgba(${tintRgb}, 0.25)`
+  // Black-to-transparent wash beneath the glow — darkens the left side
+  // so the tinted glow pops.
   const washGradient = 'linear-gradient(to right, black, transparent)'
-  const washOpacity = selected ? 1 : 0
-  const bloomOpacity = selected ? 1 : 0
+  // Hover reveals just the bar at low opacity — clean cursor hint, no
+  // glow or wash. Selected layers in the full engaged treatment.
+  const glowOpacity = selected ? 1 : 0
   const barOpacity = selected ? 1 : hovered ? 0.55 : 0
 
   return (
@@ -236,24 +230,15 @@ export default function PlanetFlatListRow({
       onBlur={() => setHovered(false)}
       className="relative isolate flex items-center gap-4 px-6 py-4 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
-      {/* Selected-only black wash. Sits beneath the bloom so the tinted
-          inset shadows paint against a darkened backdrop and pop more. */}
+      {/* Selected-only left-edge glow + black wash. Hover doesn't engage
+          this — keeps the hover hint to just the bar. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
         style={{
           backgroundImage: washGradient,
-          opacity: washOpacity,
-        }}
-      />
-      {/* Selected-only left-edge bloom — three stacked tinted inset
-          shadows fade in together via opacity. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
-        style={{
           boxShadow: engagedShadow,
-          opacity: bloomOpacity,
+          opacity: glowOpacity,
         }}
       />
       {/* Left-edge tint bar — fades in on hover (subtle) and selected (full). */}

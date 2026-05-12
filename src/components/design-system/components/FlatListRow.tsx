@@ -80,14 +80,14 @@ export default function FlatListRow({
   //      offsetX so the blur paints on the LEFT side inside the row).
   //   3. A black-to-transparent linear-gradient bg that darkens the
   //      row's left side so the glow has dark space to pop against.
-  // Effects 2 + 3 ride the same overlay's opacity (engagedOpacity), and
-  // the bar uses the same value below — so rest, hover, and selected
-  // animate as one. No top/bottom glow, no corner washes.
+  // Hover reveals just the bar at low opacity — clean cursor hint, no
+  // glow or wash. Selected layers in effects 2 + 3 at full opacity.
   const engagedBackground = 'linear-gradient(to right, black, transparent)'
   const engagedShadow = tinted
     ? `inset 32px 0 16px -16px ${tintHex}40`
     : 'inset 32px 0 16px -16px rgba(255,255,255,0.15)'
-  const engagedOpacity = selected ? 1 : hovered ? 0.55 : 0
+  const glowOpacity = selected ? 1 : 0
+  const barOpacity = selected ? 1 : hovered ? 0.55 : 0
 
   return (
     <Link
@@ -99,23 +99,24 @@ export default function FlatListRow({
       onBlur={() => setHovered(false)}
       className="relative isolate flex items-center gap-4 px-6 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
-      {/* Engaged corner-glow + left-edge bloom — fades in via opacity on hover/select. */}
+      {/* Selected-only left-edge glow + black wash. Hover doesn't engage
+          this — keeps the hover hint to just the bar. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
         style={{
           backgroundImage: engagedBackground,
           boxShadow: engagedShadow,
-          opacity: engagedOpacity,
+          opacity: glowOpacity,
         }}
       />
-      {/* Left-edge bar — fades in alongside the engaged overlay. */}
+      {/* Left-edge bar — fades in on hover (subtle) and selected (full). */}
       <span
         aria-hidden="true"
         className="absolute left-0 top-0 bottom-0 w-[3px] z-20 transition-opacity duration-200 motion-reduce:transition-none"
         style={{
           background: tintHex || 'rgba(255,255,255,0.4)',
-          opacity: engagedOpacity,
+          opacity: barOpacity,
         }}
       />
       {sandActive && (
