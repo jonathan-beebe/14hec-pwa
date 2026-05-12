@@ -1,10 +1,12 @@
+import TypeSection from './sections/TypeSection'
 import TypographySection from './sections/TypographySection'
 import AtomsSection from './sections/AtomsSection'
 import ComponentsSection from './sections/ComponentsSection'
 import LayoutsSection from './sections/LayoutsSection'
 
 const navItems = [
-  { id: 'typography', label: 'Typography' },
+  { id: 'type', label: 'Type' },
+  { id: 'typography', label: 'Typography (legacy)' },
   { id: 'atoms', label: 'Atoms' },
   { id: 'components', label: 'Components' },
   { id: 'layouts', label: 'Layouts' },
@@ -37,6 +39,7 @@ export default function DesignSystem() {
         ))}
       </nav>
 
+      <TypeSection />
       <TypographySection />
       <AtomsSection />
       <ComponentsSection />
