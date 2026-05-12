@@ -2,7 +2,8 @@ import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import Type from '../atoms/Type'
 import type { IconSource } from '../atoms/Icon'
-import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
+import SandIcon from '../atoms/SandIcon'
+import { useReducedMotion } from '../atoms/useReducedMotion'
 
 interface FlatListRowBaseProps {
   /** Left-side icon. Picks up `tintHex` via `currentColor`. */

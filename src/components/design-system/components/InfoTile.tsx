@@ -2,7 +2,8 @@ import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import Type from '../atoms/Type'
 import type { IconSource } from '../atoms/Icon'
-import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
+import SandIcon from '../atoms/SandIcon'
+import { useReducedMotion } from '../atoms/useReducedMotion'
 
 /**
  * Tone defines the primary content's color. The card frame is neutral for

@@ -10,7 +10,7 @@ import PlanetCluster, {
 } from '@/components/spike/PlanetCluster'
 import WindDrift from '@/components/spike/WindDrift'
 import Type from '../atoms/Type'
-import { useReducedMotion } from '../atoms/SandIcon'
+import { useReducedMotion } from '../atoms/useReducedMotion'
 
 /**
  * Two-column tile for the celestial planet picker. Shape mirrors InfoTile:

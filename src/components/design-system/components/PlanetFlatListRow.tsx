@@ -10,7 +10,7 @@ import PlanetCluster, {
 } from '@/components/spike/PlanetCluster'
 import WindDrift from '@/components/spike/WindDrift'
 import Type from '../atoms/Type'
-import { useReducedMotion } from '../atoms/SandIcon'
+import { useReducedMotion } from '../atoms/useReducedMotion'
 
 /**
  * Flat, edge-to-edge list row carrying a live planet visual. Same engaged
