@@ -129,6 +129,129 @@ layout primitives appear there with a short usage rationale before they
 propagate. One-off treatments inside a feature are fine — they do not
 graduate to primitives without intentional review.
 
+## Surfaces
+
+A surface is a place the user arrives. Some places greet you like a doorway.
+Some like a workbench. Some like a quiet room where a single thing is meant
+to be considered. Before we list components or specify rules, we name the
+kinds of places this app builds — because what a surface is *for* shapes
+everything it permits itself to become.
+
+### Three registers
+
+The app speaks in three voices, and every surface chooses one.
+
+**Branded** is the voice of identity: headers, heroes, the orbs that name a
+domain. These surfaces declare *what kind of place this is*. They use the
+full palette — gradient, glass, dimensionality built from light. Type leans
+toward Playfair where the moment earns it. They carry the brand the way a
+threshold carries the room behind it.
+
+**Sacred** is the voice of contemplation: doctrine, teachings, journal
+prompts, the language of presence. These surfaces are not asking the user to
+scan or to act. They are asking the user to slow down. Type breathes.
+Whitespace is generous. Decoration is sparse, because what is being said
+does not need decoration to be heard.
+
+**Content** is the voice of clarity: lists, detail panes, filters, forms,
+the body of every page where reading and finding is the work. These
+surfaces optimize for the eye moving quickly and the mind locking on. They
+are calm by intention, not by neglect. A surface that hands the user
+information without ornament respects the user's time.
+
+### Anatomy
+
+Beneath every surface are layers, ordered from depth to attention:
+
+- **Substrate** — the ground the surface stands on. Earth tones, gradient
+  fields, the dark of held space.
+- **Glass** — translucent panels floating above the substrate, lending
+  dimensionality through light rather than shadow.
+- **Content** — the words, the data, the illustrations: the reason the user
+  came.
+- **Living layer** *(optional)* — particles, breath, drift. Present only
+  where it earns its presence.
+
+Most surfaces stop at content. The living layer is a choice, never a
+default.
+
+### Prominence — aliveness follows attention
+
+A symbol is alive when it is the subject. A symbol is still when it is a
+label.
+
+The same planet that drifts and sheds quiet light at the center of a tile
+becomes a small glyph at the edge of a row in a list — and there, it must
+be still, because the row is in service to the user's eye moving down the
+page. Life is not a property of the element. It is granted by the role the
+element plays on the surface.
+
+This is how aliveness can live throughout the app and still remain rare:
+planets, symbols, orbs all breathe when they are the subject and rest when
+they are not. A surface that is *about* a thing may let that thing be
+alive. A surface that *uses* a thing as reference must let that thing be
+quiet.
+
+Three gradations are useful in practice:
+
+- **Subject** — the element is what the surface is about. It may breathe,
+  drift, or otherwise come alive.
+- **Featured** — the element is one of several promoted on the surface.
+  Motion, if present, is gentler — a hover-revealed glow, a slow inhale on
+  focus, never the full living layer.
+- **Supporting** — the element is a label, a chip, a reference, a
+  repetition. Always still.
+
+When in doubt, ask whether the element is what the user is looking *at* or
+what the user is looking *past*. Foreground breathes. Background holds its
+breath.
+
+### Living moments
+
+Across all three registers, there are a small number of surfaces where the
+design earns the right to move. Not because they are branded. Not because
+they are special. But because the content they carry rewards a pause — an
+entry into the app, a teaching, a place where ideas converge and the user
+benefits from being slowed.
+
+These moments are placed by hand, not by rule. No tier of surface
+automatically receives them. Their power is in their rarity. If they
+multiply, they become wallpaper, and the app loses the thing it was trying
+to say.
+
+Particles, drift, and the slow gestures of three-dimensional space are
+techniques in service of these moments — never the default, never adopted
+because they are available. Motion is offered, never imposed: where the
+user has asked for stillness, the surface gives stillness.
+
+### Principles
+
+1. **Three registers; three treatments.** Branded carries identity; sacred
+carries contemplation; content carries clarity. Mixing the treatments
+confuses what the surface is for.
+
+2. **Branded does not mean animated.** Identity is expressed through type,
+gradient, glass, and light. Motion is a separate, narrower decision.
+
+3. **Aliveness follows attention.** An element is alive when it is the
+subject of the surface. The same element, in a supporting role, is still.
+Life is granted by prominence, not by what the element is.
+
+4. **Living moments serve synthesis.** They appear where the content
+rewards a pause and where the user benefits from connecting ideas — never
+where the brand wishes to perform.
+
+5. **Rarity is renewable; dilution is permanent.** A handful of living
+moments across the whole app is what lets any of them land. Each new one
+must earn its place among the others.
+
+6. **Dimensionality through light, not shadow.** In a dark theme, depth is
+built from glow, gradient, and luminance. Drop shadows feel pedestrian here.
+
+7. **Motion is offered, never imposed.** No surface acquires motion by
+default, and any surface that moves yields when the user asks for
+stillness.
+
 ## Rules
 
 The Charter is *how we work*. The Rules are *what the system commits to
