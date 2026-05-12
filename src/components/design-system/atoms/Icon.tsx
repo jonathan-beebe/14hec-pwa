@@ -117,11 +117,10 @@ function SvgIcon({ size, style, children, viewBox = '0 0 24 24', label, ...rest 
 
 /**
  * Build a unicode-codepoint icon. Children render as a `<span>` whose
- * font-family / font-size flow from the parent. Codepoints outside the
- * caller's primary font (e.g. zodiac signs ♈–♓ in Inter) require the
- * parent to include a symbol-rich family in the font-family chain;
- * see `ZodiacTile` for the canonical wrapper. Exported so adjacent
- * atoms can produce the same `IconComponent` shape.
+ * font-size flows from the parent. The wrapper carries `font-symbol`
+ * so codepoints outside Inter (zodiac signs ♈–♓, alchemical symbols,
+ * etc.) resolve without the caller needing to set a font-family chain.
+ * Exported so adjacent atoms can produce the same `IconComponent` shape.
  */
 export function glyphIcon(name: string, glyph: string): IconComponent {
   const Comp: IconComponent = Object.assign(
