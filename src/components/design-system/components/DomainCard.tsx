@@ -25,17 +25,14 @@ const domainTitleClass: Record<Domain, string> = {
 }
 
 /**
- * Centered navigation tile for an HMBS sanctuary domain. Background and
- * title color shift per domain (heart/mind/body/spirit) via the `.hmbs-card`
- * + `.hmbs-{domain}` CSS family.
- *
- * Renders `<Link>` (anchor) for proper navigation semantics. `text-center`
- * is applied explicitly because `<a>` does not inherit the `<button>` default
- * of `text-align: center`.
- *
- * @example
- * <DomainCard domain="heart" to="/hmbs" icon="♡" title="Heart"
- *   description="Love, connection, empathy" />
+ * @deprecated Legacy pattern. Use `InfoTile.Heart` / `.Mind` / `.Body` /
+ * `.Spirit` (domain → primary, description → secondary) for HMBS
+ * navigation tiles going forward — `InfoTile.tsx` explicitly says it
+ * merges the DomainCard shape into a single component. DomainCard leans
+ * on the `.hmbs-card` + `.hmbs-{domain}` family in globals.css (Charter
+ * Rule #1) and accepts inline unicode glyph strings as `icon` (Rule
+ * #13). Retained only until the Dashboard is rebuilt against the
+ * canonical Dashboard layout.
  */
 export default function DomainCard({
   to,

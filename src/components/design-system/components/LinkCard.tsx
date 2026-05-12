@@ -34,24 +34,13 @@ const toneTitleClass: Record<LinkCardTone, string> = {
 }
 
 /**
- * Vertical navigation tile: icon, title, optional caption.
- *
- * Renders a real `<Link>` (anchor) so middle-click, ⌘-click, right-click → "Open in
- * new tab", and screen-reader "link" semantics all work.
- *
- * Prefer the variant subcomponents at call sites:
- *   `<LinkCard.Plain>`, `<LinkCard.Botanical>`, `<LinkCard.Celestial>`.
- *
- * Use the `tone` prop directly only when the tone is dynamic.
- *
- * @example
- * <LinkCard.Botanical to="/seasonal" icon="❁" title="Seasonal Guide"
- *   caption="Plants aligned with the current season" />
- *
- * <LinkCard.Celestial to="/astrology/natal-chart" icon="⭐" title="Astro-Botanical Chart"
- *   caption="Personalized plant map from your birth chart" />
- *
- * <LinkCard to={path} tone={isAstro ? 'celestial' : 'botanical'} ... />
+ * @deprecated Legacy pattern. Use `InfoTile` for navigation tiles going
+ * forward. `LinkCard` leans on the globals.css `.card-glow-*` family
+ * (Charter Rule #1 violation), composes `font-display` titles instead
+ * of the `Type` scale (principle #7), and uses inline unicode glyphs
+ * at call sites instead of `Icon.X` components (Rule #13). Retained
+ * only until the Dashboard is rebuilt against the canonical Dashboard
+ * layout.
  */
 function LinkCard({
   to,
