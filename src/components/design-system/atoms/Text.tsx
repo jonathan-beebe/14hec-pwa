@@ -50,25 +50,18 @@ const variantElement: Record<TextVariant, ElementType> = {
 }
 
 /**
- * Standard typography atom for the 14 HEC design system.
+ * @deprecated Use `Type` from `@/components/design-system/atoms/Type` instead.
  *
- * Prefer the variant subcomponents at call sites:
- *   `<Text.Display>`, `<Text.PageTitle>`, `<Text.Heading>`, `<Text.Subheading>`,
- *   `<Text.SectionTitle>`, `<Text.SectionLabel>`, `<Text.CardTitle>`.
+ * `Text` is the legacy typography atom. It violates Charter Rule #5 (the
+ * named scale is not monotonic — `Text.Heading` is larger than
+ * `Text.PageTitle`) and Charter principle #7 (Playfair is applied to every
+ * variant rather than reserved for branded moments). It is no longer
+ * demoed in the `/design-system` catalog.
  *
- * Override the semantic element with `as` when the visual role and the heading
- * level diverge (e.g. a section-title rendered as `h3` inside a nested panel).
- *
- * Compose with `className` for tone overrides (`text-botanical-400`,
- * `text-gradient-gold`, `text-red-300`) — same escape hatch as `Button`.
- *
- * @example
- * <Text.PageTitle>Plants</Text.PageTitle>
- * <Text.Display className="text-gradient-botanical">14 HEC Plant Intelligence</Text.Display>
- * <Text.SectionTitle>Plant Recommendations</Text.SectionTitle>
- * <Text.SectionTitle as="h3" className="text-red-300">Plants to Avoid</Text.SectionTitle>
- * <Text.SectionLabel as="label">Ailment / Condition</Text.SectionLabel>
- * <Text.CardTitle className="text-botanical-400">{plant.common_name}</Text.CardTitle>
+ * Migration: replace `Text.X` with the matching `Type.X` (or
+ * `Type.Branded.X` for hero/branded surfaces). The variant names line up,
+ * but family, weight, and size assignments will shift — review at the
+ * call site rather than swapping blind.
  */
 function Text({
   variant = 'page-title',
