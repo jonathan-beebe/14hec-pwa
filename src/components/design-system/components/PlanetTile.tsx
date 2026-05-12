@@ -44,7 +44,9 @@ const PLANET_CENTER_X = 102
 // past the slot's right edge (PLANET_CENTER_X + SLOT_PX/2 ≈ 192).
 const WIND_MASK_GRADIENT = 'linear-gradient(to right, black 220px, transparent 100%)'
 
-interface PlanetTileBaseProps {
+export interface PlanetTileProps {
+  /** Internal SPA route. Renders as `<Link>` so middle-click / cmd-click work. */
+  to: string
   config: PlanetVisual
   primary: ReactNode
   secondary?: ReactNode
@@ -58,18 +60,6 @@ interface PlanetTileBaseProps {
    */
   selected?: boolean
 }
-
-interface PlanetTileLinkProps extends PlanetTileBaseProps {
-  to: string
-  onClick?: undefined
-}
-
-interface PlanetTileButtonProps extends PlanetTileBaseProps {
-  onClick: () => void
-  to?: undefined
-}
-
-export type PlanetTileProps = PlanetTileLinkProps | PlanetTileButtonProps
 
 // Outer extent of the planet in world units, including the ring if any.
 function visualExtent(config: PlanetVisual): number {
@@ -205,8 +195,15 @@ function PlanetScene({
   )
 }
 
-export default function PlanetTile(props: PlanetTileProps) {
-  const { config, primary, secondary, className, selected } = props
+export default function PlanetTile({
+  to,
+  config,
+  primary,
+  secondary,
+  className,
+  selected,
+  'aria-label': ariaLabel,
+}: PlanetTileProps) {
   const [hoverEngaged, setHoverEngaged] = useState(false)
   // Selected locks the tile in its engaged appearance; hover/focus still
   // toggle the same state for non-selected tiles, so behavior is unchanged
@@ -344,36 +341,18 @@ export default function PlanetTile(props: PlanetTileProps) {
     onBlur: () => setHoverEngaged(false),
   }
 
-  if (props.to !== undefined) {
-    return (
-      <Link
-        to={props.to}
-        className={cls}
-        style={frameStyle}
-        aria-label={props['aria-label']}
-        {...handlers}
-      >
-        {gradientLayers}
-        {canvasLayer}
-        {slotSpacer}
-        {text}
-      </Link>
-    )
-  }
-
   return (
-    <button
-      type="button"
-      onClick={props.onClick}
-      className={`${cls} appearance-none text-left w-full`}
+    <Link
+      to={to}
+      className={cls}
       style={frameStyle}
-      aria-label={props['aria-label']}
+      aria-label={ariaLabel}
       {...handlers}
     >
       {gradientLayers}
       {canvasLayer}
       {slotSpacer}
       {text}
-    </button>
+    </Link>
   )
 }

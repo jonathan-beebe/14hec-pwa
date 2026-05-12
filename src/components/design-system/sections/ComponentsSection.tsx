@@ -105,23 +105,11 @@ export default function ComponentsSection() {
           appear together in a grouped or filterable view.
         </p>
 
-        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
-          States
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
-          <BrowseTile onClick={() => {}}>
-            <div className="text-sm font-medium text-earth-100">Default</div>
-            <p className="text-xs text-earth-500 mt-1 leading-relaxed">
-              Resting tile. Hover to glow, press to zoom.
-            </p>
-          </BrowseTile>
-          <BrowseTile onClick={() => {}} active>
-            <div className="text-sm font-medium text-earth-100">Active</div>
-            <p className="text-xs text-earth-500 mt-1 leading-relaxed">
-              Selected item — brighter bg, botanical-tinted border.
-            </p>
-          </BrowseTile>
-        </div>
+        <p className="text-earth-500 text-[11px] font-system mb-4 leading-relaxed">
+          Selection is URL-driven via NavLink's <code>aria-current="page"</code>
+          — open the route-driven Catalog → Detail demo to see the active state
+          on a real list.
+        </p>
 
         <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
           In a catalog grid
@@ -256,10 +244,10 @@ export default function ComponentsSection() {
           {planetTileEntries.map(({ config, signs }) => (
             <PlanetTile
               key={config.name}
+              to="/design-system"
               config={config}
               primary={config.name}
               secondary={signs}
-              onClick={() => {}}
               aria-label={`${config.name} — ${signs}`}
             />
           ))}

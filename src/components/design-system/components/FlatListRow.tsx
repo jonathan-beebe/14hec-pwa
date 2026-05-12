@@ -5,7 +5,9 @@ import type { IconSource } from '../atoms/Icon'
 import SandIcon from '../atoms/SandIcon'
 import { useReducedMotion } from '../atoms/useReducedMotion'
 
-interface FlatListRowBaseProps {
+export interface FlatListRowProps {
+  /** Internal SPA route. Renders as `<Link>` so middle-click / cmd-click work. */
+  to: string
   /** Left-side icon. Picks up `tintHex` via `currentColor`. */
   icon?: ReactNode
   /** Primary line — kept earth-100 for legibility regardless of tint. */
@@ -36,27 +38,6 @@ interface FlatListRowBaseProps {
   'aria-label'?: string
 }
 
-/**
- * Link mode: pass `to` for SPA navigation. Renders a `<Link>` so middle-
- * click / cmd-click open the target in a new tab. Use this in route-driven
- * lists where the URL carries the selection.
- */
-interface FlatListRowLinkProps extends FlatListRowBaseProps {
-  to: string
-  onClick?: undefined
-}
-
-/**
- * Button mode: pass `onClick` for state-driven selection (e.g., inline
- * detail panes, list/detail with local selectedId). Renders a `<button>`.
- */
-interface FlatListRowButtonProps extends FlatListRowBaseProps {
-  onClick: () => void
-  to?: undefined
-}
-
-export type FlatListRowProps = FlatListRowLinkProps | FlatListRowButtonProps
-
 // Sand silhouette geometry. The icon column starts at px-6 (24px) from
 // the row's left edge and is w-16 (64px) wide — body center sits at
 // 24 + 32 = 56px. Body diameter matches the static icon's text-6xl
@@ -79,16 +60,16 @@ const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 88px, transparent 13
  * left side so the glow pops — all anchored on the left, nothing on
  * the right.
  */
-export default function FlatListRow(props: FlatListRowProps) {
-  const {
-    icon,
-    primary,
-    secondary,
-    selected,
-    tintHex,
-    sandIcon,
-    'aria-label': ariaLabel,
-  } = props
+export default function FlatListRow({
+  to,
+  icon,
+  primary,
+  secondary,
+  selected,
+  tintHex,
+  sandIcon,
+  'aria-label': ariaLabel,
+}: FlatListRowProps) {
   const tinted = typeof tintHex === 'string' && tintHex.length > 0
   const reducedMotion = useReducedMotion()
   const sandActive = sandIcon !== undefined && !reducedMotion
@@ -195,29 +176,14 @@ export default function FlatListRow(props: FlatListRowProps) {
     </>
   )
 
-  if (props.to !== undefined) {
-    return (
-      <Link
-        to={props.to}
-        aria-label={ariaLabel}
-        {...interactionHandlers}
-        className={className}
-      >
-        {rowBody}
-      </Link>
-    )
-  }
-
   return (
-    <button
-      type="button"
-      onClick={props.onClick}
-      aria-pressed={selected}
+    <Link
+      to={to}
       aria-label={ariaLabel}
       {...interactionHandlers}
-      className={`${className} appearance-none bg-transparent`}
+      className={className}
     >
       {rowBody}
-    </button>
+    </Link>
   )
 }

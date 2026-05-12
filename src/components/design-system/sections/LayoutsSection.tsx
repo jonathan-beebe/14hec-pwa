@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { Section, Subsection } from '../primitives'
 import ListDetailLayout from '../layouts/ListDetailLayout'
 import CatalogLayout from '../layouts/CatalogLayout'
@@ -7,8 +7,7 @@ import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
 import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/CatalogDemo'
 import BrowseTile from '../components/BrowseTile'
 import FlatListRow from '../components/FlatListRow'
-import Text from '../atoms/Text'
-import Button from '../atoms/Button'
+import Type from '../atoms/Type'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
 
@@ -24,10 +23,25 @@ function DemoPlaceholder() {
 
 const META_LABEL = 'uppercase tracking-[0.18em] text-earth-600'
 
+// Build a href that drops a single search-param key while preserving any
+// others on the page. Used by the inline demos' Back links so each demo
+// only clears its own selection.
+function hrefWithout(params: URLSearchParams, key: string): string {
+  const next = new URLSearchParams(params)
+  next.delete(key)
+  const q = next.toString()
+  return q ? `?${q}` : '.'
+}
+
+const BACK_LINK =
+  'inline-flex items-center text-xs text-earth-400 hover:text-earth-100 transition-colors'
+
+// ─── List + Detail inline demo ──────────────────────────────────────────
+
 function ListDetailDemoTop() {
   return (
     <div className="px-5 py-4 border-b border-white/5">
-      <h4 className="text-base font-system font-semibold text-earth-100">Sample Botanicals</h4>
+      <Type.SectionTitle as="h4">Sample Botanicals</Type.SectionTitle>
       <p className="text-[11px] text-earth-500 mt-0.5">A demonstration list — six items, routable detail.</p>
     </div>
   )
@@ -35,13 +49,7 @@ function ListDetailDemoTop() {
 
 type DemoItem = (typeof LIST_DETAIL_DEMO_ITEMS)[number]
 
-function ListDetailDemoList({
-  selectedId,
-  onSelect,
-}: {
-  selectedId: string | null
-  onSelect: (id: string) => void
-}) {
+function ListDetailDemoList({ selectedId }: { selectedId: string | null }) {
   return (
     <ul>
       {LIST_DETAIL_DEMO_ITEMS.map((item) => {
@@ -49,7 +57,7 @@ function ListDetailDemoList({
         return (
           <li key={item.id}>
             <FlatListRow
-              onClick={() => onSelect(item.id)}
+              to={`?demoList=${item.id}`}
               selected={item.id === selectedId}
               tintHex={item.tint}
               icon={<IconComp />}
@@ -65,13 +73,13 @@ function ListDetailDemoList({
   )
 }
 
-function ListDetailDemoDetail({ item, onBack }: { item: DemoItem; onBack: () => void }) {
+function ListDetailDemoDetail({ item, backHref }: { item: DemoItem; backHref: string }) {
   return (
     <article className="p-6">
-      <Button.Ghost onClick={onBack} className="lg:hidden mb-4 !px-2">
+      <Link to={backHref} className={`lg:hidden mb-4 ${BACK_LINK}`}>
         <Icon.ArrowLeft className="mr-1.5" /> Back
-      </Button.Ghost>
-      <h4 className="text-2xl font-system font-bold text-earth-100">{item.name}</h4>
+      </Link>
+      <Type.Heading as="h4">{item.name}</Type.Heading>
       <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
       <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
       <div className="mt-6 pt-4 border-t border-white/5 text-[11px] text-earth-500">
@@ -90,25 +98,29 @@ function ListDetailDemoEmpty() {
 }
 
 function ListDetailDemo() {
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [searchParams] = useSearchParams()
+  const selectedId = searchParams.get('demoList')
   const selectedItem = LIST_DETAIL_DEMO_ITEMS.find((i) => i.id === selectedId) ?? null
+  const backHref = hrefWithout(searchParams, 'demoList')
 
   return (
     <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
       <ListDetailLayout
         top={<ListDetailDemoTop />}
-        list={<ListDetailDemoList selectedId={selectedId} onSelect={setSelectedId} />}
-        detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} onBack={() => setSelectedId(null)} /> : null}
+        list={<ListDetailDemoList selectedId={selectedId} />}
+        detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} backHref={backHref} /> : null}
         emptyDetail={<ListDetailDemoEmpty />}
       />
     </div>
   )
 }
 
+// ─── Catalog → Detail inline demo ───────────────────────────────────────
+
 function CatalogDemoHeader({ count }: { count: number }) {
   return (
     <div className="flex items-center gap-3 px-5 pt-4 pb-3">
-      <Text.PageTitle>Sample Botanicals</Text.PageTitle>
+      <Type.PageTitle>Sample Botanicals</Type.PageTitle>
       <Badge.Conventional>{count}</Badge.Conventional>
     </div>
   )
@@ -172,17 +184,11 @@ function CatalogDemoFilters({
   )
 }
 
-function CatalogDemoGrid({
-  items,
-  onSelect,
-}: {
-  items: CatalogDemoItem[]
-  onSelect: (id: string) => void
-}) {
+function CatalogDemoGrid({ items }: { items: CatalogDemoItem[] }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 px-5 pb-5">
       {items.map((item) => (
-        <BrowseTile key={item.id} onClick={() => onSelect(item.id)}>
+        <BrowseTile key={item.id} to={`?demoCatalog=${item.id}`}>
           <div className="flex justify-between items-start mb-1.5">
             <span className="text-sm font-medium text-earth-100">{item.name}</span>
             <Badge variant={item.category}>{item.category}</Badge>
@@ -197,26 +203,26 @@ function CatalogDemoGrid({
 
 function CatalogDemoDetailInline({
   item,
-  onBack,
+  backHref,
 }: {
   item: CatalogDemoItem
-  onBack: () => void
+  backHref: string
 }) {
   return (
     <article className="h-full overflow-y-auto animate-fade-in px-5 py-4">
-      <Button.Ghost onClick={onBack} className="mb-4">
+      <Link to={backHref} className={`mb-4 ${BACK_LINK}`}>
         <Icon.ArrowLeft className="mr-1.5" /> Back
-      </Button.Ghost>
+      </Link>
       <div className="flex items-center gap-3">
-        <Text.PageTitle>{item.name}</Text.PageTitle>
+        <Type.PageTitle>{item.name}</Type.PageTitle>
         <Badge variant={item.category}>{item.category}</Badge>
       </div>
       <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
       <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
       <div className="mt-6 pt-4 border-t border-white/5 text-[11px] text-earth-500">
         Detail replaces the catalog inside the same bounded region — the
-        canonical Catalog → Detail behavior simulated with state instead
-        of a real route.
+        canonical Catalog → Detail behavior simulated with a search param
+        instead of a separate route.
       </div>
     </article>
   )
@@ -242,7 +248,8 @@ function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
 function CatalogDemo() {
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
-  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [searchParams] = useSearchParams()
+  const selectedId = searchParams.get('demoCatalog')
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
@@ -264,11 +271,12 @@ function CatalogDemo() {
 
   const selected =
     selectedId !== null ? CATALOG_DEMO_ITEMS.find((i) => i.id === selectedId) : null
+  const backHref = hrefWithout(searchParams, 'demoCatalog')
 
   return (
     <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
       {selected ? (
-        <CatalogDemoDetailInline item={selected} onBack={() => setSelectedId(null)} />
+        <CatalogDemoDetailInline item={selected} backHref={backHref} />
       ) : (
         <CatalogLayout
           header={<CatalogDemoHeader count={filtered.length} />}
@@ -282,7 +290,7 @@ function CatalogDemo() {
               hasFilters={hasFilters}
             />
           }
-          results={<CatalogDemoGrid items={filtered} onSelect={setSelectedId} />}
+          results={<CatalogDemoGrid items={filtered} />}
           empty={<CatalogDemoEmpty onClear={clear} />}
           itemCount={filtered.length}
         />
@@ -345,9 +353,9 @@ export default function LayoutsSection() {
         <div className="space-y-4">
           <p className="text-earth-300 text-sm font-system leading-relaxed">
             A scrollable list paired with a persistent detail pane. Selection
-            updates the detail in place; no route change. The list is generic
-            in shape (vertical scroll of similar items) — work happens by
-            scanning down the list.
+            updates the detail in place; navigation is URL-driven — the
+            selected list item routes to its own detail child while the list
+            stays visible.
           </p>
           <p className="text-earth-300 text-xs font-system leading-relaxed">
             <span className={META_LABEL}>Use when:</span>{' '}
