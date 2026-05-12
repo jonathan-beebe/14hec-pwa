@@ -1,14 +1,57 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useMatch, useParams } from 'react-router-dom'
 import { RoutedListDetailLayout } from '../ListDetailLayout'
-import BrowseTile from '../../components/BrowseTile'
+import FlatListRow from '../../components/FlatListRow'
+import { Icon } from '../../atoms/Icon'
 
 export const LIST_DETAIL_DEMO_ITEMS = [
-  { id: 'rosemary', name: 'Rosemary', latin: 'Salvia rosmarinus', summary: 'Memory, circulation, sun-aligned. A perennial guardian of clarity.' },
-  { id: 'lavender', name: 'Lavender', latin: 'Lavandula angustifolia', summary: 'Calm, sleep, mercurial. Soothes a restless nervous system.' },
-  { id: 'mugwort', name: 'Mugwort', latin: 'Artemisia vulgaris', summary: 'Dream, threshold, lunar. Carries one across edges.' },
-  { id: 'tulsi', name: 'Tulsi', latin: 'Ocimum sanctum', summary: 'Adaptogen, clarity, devotional. Holy basil of the heart.' },
-  { id: 'yarrow', name: 'Yarrow', latin: 'Achillea millefolium', summary: 'Boundary, blood, martial. Closes what is open and opens what is closed.' },
-  { id: 'nettle', name: 'Nettle', latin: 'Urtica dioica', summary: 'Mineral nourishment, kidney support. Stings, then feeds.' },
+  {
+    id: 'rosemary',
+    name: 'Rosemary',
+    latin: 'Salvia rosmarinus',
+    summary: 'Memory, circulation, sun-aligned. A perennial guardian of clarity.',
+    tint: '#f59e0b',
+    icon: Icon.Sun,
+  },
+  {
+    id: 'lavender',
+    name: 'Lavender',
+    latin: 'Lavandula angustifolia',
+    summary: 'Calm, sleep, mercurial. Soothes a restless nervous system.',
+    tint: '#a78bfa',
+    icon: Icon.Florette,
+  },
+  {
+    id: 'mugwort',
+    name: 'Mugwort',
+    latin: 'Artemisia vulgaris',
+    summary: 'Dream, threshold, lunar. Carries one across edges.',
+    tint: '#94a3b8',
+    icon: Icon.Moon,
+  },
+  {
+    id: 'tulsi',
+    name: 'Tulsi',
+    latin: 'Ocimum sanctum',
+    summary: 'Adaptogen, clarity, devotional. Holy basil of the heart.',
+    tint: '#16a34a',
+    icon: Icon.Lotus,
+  },
+  {
+    id: 'yarrow',
+    name: 'Yarrow',
+    latin: 'Achillea millefolium',
+    summary: 'Boundary, blood, martial. Closes what is open and opens what is closed.',
+    tint: '#facc15',
+    icon: Icon.StarFourPoint,
+  },
+  {
+    id: 'nettle',
+    name: 'Nettle',
+    latin: 'Urtica dioica',
+    summary: 'Mineral nourishment, kidney support. Stings, then feeds.',
+    tint: '#65a30d',
+    icon: Icon.Shamrock,
+  },
 ] as const
 
 export type ListDetailDemoItem = (typeof LIST_DETAIL_DEMO_ITEMS)[number]
@@ -31,16 +74,31 @@ function DemoTop() {
 }
 
 function DemoList() {
+  // The list lives in the parent route; :id isn't on the params hierarchy
+  // here, so read it off the child route pattern directly so each row can
+  // self-mark as selected at rest.
+  const match = useMatch('/design-system/layouts/list-detail/:id')
+  const activeId = match?.params.id
+
   return (
-    <ul className="p-2 space-y-2">
-      {LIST_DETAIL_DEMO_ITEMS.map((item) => (
-        <li key={item.id}>
-          <BrowseTile to={item.id}>
-            <div className="text-sm font-medium text-earth-100">{item.name}</div>
-            <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
-          </BrowseTile>
-        </li>
-      ))}
+    <ul>
+      {LIST_DETAIL_DEMO_ITEMS.map((item) => {
+        const IconComp = item.icon
+        return (
+          <li key={item.id}>
+            <FlatListRow
+              to={item.id}
+              tintHex={item.tint}
+              selected={activeId === item.id}
+              icon={<IconComp />}
+              sandIcon={IconComp.source}
+              primary={item.name}
+              secondary={<span className="italic">{item.latin}</span>}
+              aria-label={`${item.name} — ${item.latin}`}
+            />
+          </li>
+        )
+      })}
     </ul>
   )
 }

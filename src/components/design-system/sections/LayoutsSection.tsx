@@ -6,6 +6,7 @@ import CatalogLayout from '../layouts/CatalogLayout'
 import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
 import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/CatalogDemo'
 import BrowseTile from '../components/BrowseTile'
+import FlatListRow from '../components/FlatListRow'
 import Text from '../atoms/Text'
 import Button from '../atoms/Button'
 import Badge from '../atoms/Badge'
@@ -42,18 +43,24 @@ function ListDetailDemoList({
   onSelect: (id: string) => void
 }) {
   return (
-    <ul className="p-2 space-y-2">
-      {LIST_DETAIL_DEMO_ITEMS.map((item) => (
-        <li key={item.id}>
-          <BrowseTile
-            onClick={() => onSelect(item.id)}
-            active={item.id === selectedId}
-          >
-            <div className="text-sm font-medium text-earth-100">{item.name}</div>
-            <div className="text-[11px] text-earth-500 italic">{item.latin}</div>
-          </BrowseTile>
-        </li>
-      ))}
+    <ul>
+      {LIST_DETAIL_DEMO_ITEMS.map((item) => {
+        const IconComp = item.icon
+        return (
+          <li key={item.id}>
+            <FlatListRow
+              onClick={() => onSelect(item.id)}
+              selected={item.id === selectedId}
+              tintHex={item.tint}
+              icon={<IconComp />}
+              sandIcon={IconComp.source}
+              primary={item.name}
+              secondary={<span className="italic">{item.latin}</span>}
+              aria-label={`${item.name} — ${item.latin}`}
+            />
+          </li>
+        )
+      })}
     </ul>
   )
 }
