@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import Type from '../atoms/Type'
 import type { IconSource } from '../atoms/Icon'
 import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
 
@@ -183,13 +184,11 @@ export default function FlatListRow(props: FlatListRowProps) {
         </div>
       )}
       <div className="relative z-10 flex flex-col min-w-0">
-        <div className="text-base font-system font-semibold tracking-tight text-earth-100">
-          {primary}
-        </div>
+        <Type.CardTitle as="div">{primary}</Type.CardTitle>
         {secondary !== undefined && (
-          <div className="text-xs text-earth-400 leading-relaxed mt-0.5">
+          <Type.Caption as="div" className="mt-0.5">
             {secondary}
-          </div>
+          </Type.Caption>
         )}
       </div>
     </>

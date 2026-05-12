@@ -1,5 +1,6 @@
 import { useState, type CSSProperties, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import Type from '../atoms/Type'
 import type { IconSource } from '../atoms/Icon'
 import SandIcon, { useReducedMotion } from '../atoms/SandIcon'
 
@@ -60,6 +61,9 @@ export interface InfoTileProps {
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
 
+// Drives both the primary-text color (via Type.Heading's className
+// override) and the icon-slot color. Type.Heading carries no baked
+// color of its own, so a plain `text-X-300` wins without `!`.
 const tonePrimaryClass: Record<InfoTileTone, string> = {
   botanical: 'text-botanical-300',
   celestial: 'text-celestial-300',
@@ -350,16 +354,17 @@ function InfoTile({
         </div>
       )}
       <div className="relative z-10 flex flex-col min-w-0">
-        <div
-          className={`text-2xl font-system font-semibold tracking-tight tabular-nums ${tinted ? '' : tonePrimaryClass[tone]}`}
+        <Type.Heading
+          as="div"
+          className={`tabular-nums ${tinted ? '' : tonePrimaryClass[tone]}`}
           style={tinted ? { color: tintHex } : undefined}
         >
           {primary}
-        </div>
+        </Type.Heading>
         {secondary !== undefined && (
-          <div className="text-xs text-white leading-relaxed mt-0.5">
+          <Type.Caption as="div" className="mt-0.5">
             {secondary}
-          </div>
+          </Type.Caption>
         )}
       </div>
     </Link>

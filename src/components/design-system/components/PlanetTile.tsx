@@ -9,6 +9,7 @@ import PlanetCluster, {
   type PointsRef,
 } from '@/components/spike/PlanetCluster'
 import WindDrift from '@/components/spike/WindDrift'
+import Type from '../atoms/Type'
 import { useReducedMotion } from '../atoms/SandIcon'
 
 /**
@@ -323,16 +324,13 @@ export default function PlanetTile(props: PlanetTileProps) {
 
   const text = (
     <div className="relative z-10 flex flex-col min-w-0">
-      <div
-        className="text-2xl font-system font-semibold tracking-tight"
-        style={{ color: tintCss }}
-      >
+      <Type.Heading as="div" style={{ color: tintCss }}>
         {primary}
-      </div>
+      </Type.Heading>
       {secondary !== undefined && (
-        <div className="text-xs text-white leading-relaxed mt-0.5">
+        <Type.Caption as="div" className="mt-0.5">
           {secondary}
-        </div>
+        </Type.Caption>
       )}
     </div>
   )

@@ -9,6 +9,7 @@ import PlanetCluster, {
   type PointsRef,
 } from '@/components/spike/PlanetCluster'
 import WindDrift from '@/components/spike/WindDrift'
+import Type from '../atoms/Type'
 import { useReducedMotion } from '../atoms/SandIcon'
 
 /**
@@ -298,16 +299,13 @@ export default function PlanetFlatListRow({
       </div>
 
       <div className="relative z-10 flex flex-col min-w-0">
-        <div
-          className="text-xl font-system font-semibold tracking-tight"
-          style={{ color: tintCss }}
-        >
+        <Type.Subheading as="div" style={{ color: tintCss }}>
           {primary}
-        </div>
+        </Type.Subheading>
         {secondary !== undefined && (
-          <div className="text-xs text-earth-400 leading-relaxed mt-1">
+          <Type.Caption as="div" className="mt-1">
             {secondary}
-          </div>
+          </Type.Caption>
         )}
       </div>
     </Link>

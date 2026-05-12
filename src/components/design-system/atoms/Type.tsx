@@ -55,19 +55,25 @@ export interface BrandedTypeProps extends HTMLAttributes<HTMLElement> {
 type VariantProps = Omit<TypeProps, 'variant'>
 type BrandedVariantProps = Omit<BrandedTypeProps, 'variant'>
 
+// Color philosophy: heading-family variants (display through card-title)
+// carry no color so consumers can override freely without specificity wars
+// — they inherit `text-earth-100` from `body` in globals.css. The
+// dim-register variants (body / body-small / caption / section-label) DO
+// bake color because the dimming IS the variant's meaning, not a default
+// to be overridden.
 const variantClass: Record<TypeVariant, string> = {
   display:
-    'font-system text-4xl font-bold tracking-tight text-earth-100 leading-tight',
+    'font-system text-4xl font-bold tracking-tight leading-tight',
   'page-title':
-    'font-system text-[28px] font-bold tracking-tight text-earth-100 leading-tight',
+    'font-system text-[28px] font-bold tracking-tight leading-tight',
   heading:
-    'font-system text-[22px] font-semibold text-earth-100 leading-snug',
+    'font-system text-[22px] font-semibold leading-snug',
   subheading:
-    'font-system text-lg font-semibold text-earth-100 leading-snug',
+    'font-system text-lg font-semibold leading-snug',
   'section-title':
-    'font-system text-[17px] font-semibold text-earth-100 leading-snug',
+    'font-system text-[17px] font-semibold leading-snug',
   'card-title':
-    'font-system text-base font-semibold text-earth-100 leading-snug',
+    'font-system text-base font-semibold leading-snug',
   body:
     'font-system text-[15px] font-normal text-earth-200 leading-relaxed',
   'body-small':
@@ -96,16 +102,19 @@ const variantElement: Record<TypeVariant, ElementType> = {
   numeric: 'span',
 }
 
-// Branded variants share size and color with their system counterparts;
-// the family carries the change in voice. Playfair at 600 reads with
-// similar weight to system at 700, so we step down from system.
+// Branded variants share size with their system counterparts; the family
+// carries the change in voice. Playfair at 600 reads with similar weight
+// to system at 700, so we step down from system. Color follows the same
+// rule as the system scale: branded titles carry no color and inherit
+// `text-earth-100` from body, so call sites can apply tones (gradients,
+// accents) without specificity wars.
 const brandedClass: Record<BrandedTypeVariant, string> = {
   display:
-    'font-display text-4xl font-semibold text-earth-100 leading-tight',
+    'font-display text-4xl font-semibold leading-tight',
   'page-title':
-    'font-display text-[28px] font-semibold text-earth-100 leading-tight',
+    'font-display text-[28px] font-semibold leading-tight',
   heading:
-    'font-display text-[22px] font-semibold text-earth-100 leading-snug',
+    'font-display text-[22px] font-semibold leading-snug',
   // Latin is size-agnostic — it inherits from its container so it can sit
   // inside a CardTitle, a Body paragraph, or a Display hero alike.
   latin: 'font-display italic font-medium',
