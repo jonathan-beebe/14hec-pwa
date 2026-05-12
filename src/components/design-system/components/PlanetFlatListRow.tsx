@@ -208,14 +208,23 @@ export default function PlanetFlatListRow({
   const tintRgb = `${tr}, ${tg}, ${tb}`
   const tintCss = `rgb(${tintRgb})`
 
-  // FlatListRow engagement: left-anchored tinted wash + a tinted
-  // directional inset glow + a 3px tinted left-edge bar. The wash uses
-  // the planet's own tint instead of FlatListRow's neutral black so the
-  // engaged row reads in the planet's color the way `PlanetTile` does.
-  // Effects share one opacity so rest, hover, and selected animate as one.
-  const engagedBackground = `linear-gradient(to right, rgba(${tintRgb}, 0.30), transparent 70%)`
-  const engagedShadow = `inset 32px 0 16px -16px rgba(${tintRgb}, 0.40)`
-  const engagedOpacity = selected ? 1 : hovered ? 0.55 : 0
+  // Left-edge bloom: three stacked inset shadows in the planet tint,
+  // each with progressively larger offset/blur and lower alpha. Together
+  // they paint a soft tinted gradient rising out of the left edge —
+  // brighter and tighter near the bar, fading into the row body. Reserved
+  // for the selected state; hover only fades in the bar.
+  const engagedShadow = [
+    `inset 16px 0 8px -8px rgba(${tintRgb}, 1.0)`,
+    `inset 32px 0 16px -16px rgba(${tintRgb}, 0.3)`,
+    `inset 55px 0 32px -32px rgba(${tintRgb}, 0.1)`,
+  ].join(', ')
+  // Black-to-transparent wash beneath the bloom — gives the tinted
+  // bloom a darkened backdrop to paint against so it reads brighter
+  // and crisper. Selected only; hover stays clean.
+  const washGradient = 'linear-gradient(to right, black, transparent)'
+  const washOpacity = selected ? 1 : 0
+  const bloomOpacity = selected ? 1 : 0
+  const barOpacity = selected ? 1 : hovered ? 0.55 : 0
 
   return (
     <Link
@@ -227,23 +236,33 @@ export default function PlanetFlatListRow({
       onBlur={() => setHovered(false)}
       className="relative isolate flex items-center gap-4 px-6 py-4 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
-      {/* Engaged left wash + tinted inset glow — fades in via opacity. */}
+      {/* Selected-only black wash. Sits beneath the bloom so the tinted
+          inset shadows paint against a darkened backdrop and pop more. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
         style={{
-          backgroundImage: engagedBackground,
-          boxShadow: engagedShadow,
-          opacity: engagedOpacity,
+          backgroundImage: washGradient,
+          opacity: washOpacity,
         }}
       />
-      {/* Left-edge tint bar — fades in alongside the engaged overlay. */}
+      {/* Selected-only left-edge bloom — three stacked tinted inset
+          shadows fade in together via opacity. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
+        style={{
+          boxShadow: engagedShadow,
+          opacity: bloomOpacity,
+        }}
+      />
+      {/* Left-edge tint bar — fades in on hover (subtle) and selected (full). */}
       <span
         aria-hidden="true"
         className="absolute left-0 top-0 bottom-0 w-[3px] z-20 transition-opacity duration-200 motion-reduce:transition-none"
         style={{
           background: tintCss,
-          opacity: engagedOpacity,
+          opacity: barOpacity,
         }}
       />
 
