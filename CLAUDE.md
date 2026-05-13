@@ -149,6 +149,30 @@ Premium dark theme with glassmorphism. Custom Tailwind color palettes:
 - `teal/silver` — presence energetics, living with plants
 - HMBS domains: heart (rose), mind (blue), body (green), spirit (purple)
 
+### Domain Language
+The codebase has two domains, and only two:
+
+1. **Plants and plant medicine** — herbal, energetic, and celestial
+   vocabulary: *yarrow*, *contraindication*, *entheogen*, *quadrant*,
+   *retrograde*, *teaching*, *latin name*.
+2. **The web and PWAs** — the established vocabulary of HTML, ARIA, CSS,
+   React, react-router, and browser APIs: *link*, *selected*, *hovered*,
+   *focus-visible*, *aria-current*, *route*, *form control*, *transition*.
+
+Names in code come from one of these two vocabularies. Don't invent a
+third one. If a contributor reads a symbol in isolation and can't tell
+whether it came from the herbal materia medica or from MDN, it shouldn't
+exist.
+
+*Recent example:* "engaged" was a coined alias for `selected || hovered`.
+It is gone — the expression is inlined where it's used, and the CSS
+values it once labeled are named by what they render (`glowShadow`,
+`selectedBackground`), not by a state meta-term.
+
+This applies to props, locals, CSS-string identifiers, comments, and
+file names. The two domain vocabularies are already large and
+expressive; use them.
+
 ## Testing & TDD
 
 We use **Vitest + React Testing Library**. The framework is set up; the discipline is the work.
