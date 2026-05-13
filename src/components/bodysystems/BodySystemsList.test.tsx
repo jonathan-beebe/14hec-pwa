@@ -13,18 +13,13 @@ function LocationProbe() {
 
 function setup(initialEntries: string[] = ['/body-systems']) {
   return renderWithRouter(
-    <Routes>
-      <Route
-        path="/body-systems"
-        element={
-          <>
-            <LocationProbe />
-            <BodySystemsList />
-          </>
-        }
-      />
-      <Route path="/body-systems/:id" element={<div>Detail</div>} />
-    </Routes>,
+    <>
+      <LocationProbe />
+      <Routes>
+        <Route path="/body-systems" element={<BodySystemsList />} />
+        <Route path="/body-systems/:id" element={<div>Detail</div>} />
+      </Routes>
+    </>,
     { initialEntries },
   )
 }
@@ -77,5 +72,29 @@ describe('BodySystemsList — canonical catalog of body systems', () => {
     expect(
       await screen.findByText(/no body systems match your filters\./i),
     ).toBeInTheDocument()
+  })
+
+  it('preserves the filter URL when navigating to a body system detail', async () => {
+    const user = userEvent.setup()
+    setup(['/body-systems?category=organ'])
+    await screen.findByRole('heading', { level: 1, name: /body systems/i })
+
+    await waitFor(() => {
+      const tiles = screen
+        .getAllByRole('link')
+        .filter((l) => /^\/body-systems\//.test(l.getAttribute('href') ?? ''))
+      expect(tiles.length).toBeGreaterThan(0)
+    })
+
+    const firstTile = screen
+      .getAllByRole('link')
+      .find((l) => /^\/body-systems\//.test(l.getAttribute('href') ?? ''))
+    if (!firstTile) throw new Error('expected a body-system tile')
+    await user.click(firstTile)
+
+    await waitFor(() => {
+      expect(probe()).toMatch(/^\/body-systems\/\d+/)
+      expect(probe()).toContain('category=organ')
+    })
   })
 })

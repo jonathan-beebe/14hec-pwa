@@ -107,9 +107,11 @@ function FiltersBar({
 function ListPane({
   teachings,
   selectedPlantId,
+  linkToChild,
 }: {
   teachings: PlantTeachingWithPlant[]
   selectedPlantId: string | null
+  linkToChild: (pathname: string) => string
 }) {
   if (teachings.length === 0) {
     return (
@@ -124,7 +126,7 @@ function ListPane({
       {teachings.map((t) => (
         <li key={t.id}>
           <FlatListRow
-            to={String(t.plant_id)}
+            to={linkToChild(`/doctrine/${t.plant_id}`)}
             selected={String(t.plant_id) === selectedPlantId}
             tintHex={DOCTRINE_TINT}
             primary={t.common_name}
@@ -162,13 +164,15 @@ function EmptyState() {
 export default function DoctrineExplorer() {
   const [teachings, setTeachings] = useState<PlantTeachingWithPlant[]>([])
   const detail = useOutlet()
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   const plantMatch = useMatch('/doctrine/:plantId')
   const selectedPlantId = plantMatch?.params.plantId ?? null
 
+  // Preserve filter search params on the mobile back path so returning
+  // to the list keeps the user's filtered context.
   usePageMeta({
     title: 'Doctrine',
-    back: detail ? '/doctrine' : null,
+    back: detail ? `/doctrine${search}` : null,
   })
 
   useEffect(() => {
@@ -176,7 +180,7 @@ export default function DoctrineExplorer() {
   }, [])
 
   const filterConfig = useMemo(() => buildFilters(teachings), [teachings])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(filterConfig)
   const filtered = useMemo(
     () => filterTeachings(values, teachings),
@@ -196,7 +200,11 @@ export default function DoctrineExplorer() {
         />
       }
       list={
-        <ListPane teachings={filtered} selectedPlantId={selectedPlantId} />
+        <ListPane
+          teachings={filtered}
+          selectedPlantId={selectedPlantId}
+          linkToChild={linkToChild}
+        />
       }
       detail={detail}
       emptyDetail={<EmptyState />}

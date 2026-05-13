@@ -13,18 +13,13 @@ function LocationProbe() {
 
 function setup(initialEntries: string[] = ['/plants']) {
   return renderWithRouter(
-    <Routes>
-      <Route
-        path="/plants"
-        element={
-          <>
-            <LocationProbe />
-            <PlantList />
-          </>
-        }
-      />
-      <Route path="/plants/:id" element={<div>Plant detail</div>} />
-    </Routes>,
+    <>
+      <LocationProbe />
+      <Routes>
+        <Route path="/plants" element={<PlantList />} />
+        <Route path="/plants/:id" element={<div>Plant detail</div>} />
+      </Routes>
+    </>,
     { initialEntries },
   )
 }
@@ -90,5 +85,30 @@ describe('PlantList — canonical catalog of 207 plants', () => {
     expect(
       await screen.findByText(/no plants match your filters\./i),
     ).toBeInTheDocument()
+  })
+
+  it('preserves the filter URL when navigating to a plant detail', async () => {
+    const user = userEvent.setup()
+    setup(['/plants?category=entheogenic'])
+    await screen.findByRole('heading', { level: 1, name: /plants/i })
+
+    // Wait for at least one filtered plant tile to appear.
+    await waitFor(() => {
+      const tiles = screen
+        .getAllByRole('link')
+        .filter((l) => /^\/plants\//.test(l.getAttribute('href') ?? ''))
+      expect(tiles.length).toBeGreaterThan(0)
+    })
+
+    const firstTile = screen
+      .getAllByRole('link')
+      .find((l) => /^\/plants\//.test(l.getAttribute('href') ?? ''))
+    if (!firstTile) throw new Error('expected a plant tile')
+    await user.click(firstTile)
+
+    await waitFor(() => {
+      expect(probe()).toMatch(/^\/plants\/\d+/)
+      expect(probe()).toContain('category=entheogenic')
+    })
   })
 })

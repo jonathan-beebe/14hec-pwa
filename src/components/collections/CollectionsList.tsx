@@ -38,7 +38,7 @@ function filterCollections(values: Record<string, string>, all: Collection[]) {
 
 export default function CollectionsList() {
   const [all, setAll] = useState<Collection[]>([])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(FILTERS)
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function CollectionsList() {
             return (
               <BrowseTile
                 key={collection.id}
-                to={`/collections/${collection.id}`}
+                to={linkToChild(`/collections/${collection.id}`)}
               >
                 <div className="flex items-start justify-between mb-2 gap-2">
                   <div className="flex items-center gap-3 min-w-0">

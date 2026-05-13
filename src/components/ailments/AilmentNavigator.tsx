@@ -65,7 +65,7 @@ function groupByBodySystem(items: Ailment[]) {
 
 export default function AilmentNavigator() {
   const [all, setAll] = useState<Ailment[]>([])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(FILTERS)
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export default function AilmentNavigator() {
             >
               <CatalogGrid>
                 {items.map((ailment) => (
-                  <BrowseTile key={ailment.id} to={`/ailments/${ailment.id}`}>
+                  <BrowseTile key={ailment.id} to={linkToChild(`/ailments/${ailment.id}`)}>
                     <div className="flex justify-between items-start mb-1.5 gap-2">
                       <span className="text-sm font-medium text-earth-100">
                         {ailment.name}

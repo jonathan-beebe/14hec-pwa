@@ -6,6 +6,15 @@ import { renderWithRouter } from '@/test/render'
 import { api } from '@/data/api'
 import DoctrineExplorer from './DoctrineExplorer'
 import DoctrineDetail from './DoctrineDetail'
+import {
+  MobileTopBarProvider,
+  useMobileTopBarState,
+} from '@/components/layout/MobileTopBar'
+
+function BackProbe() {
+  const { back } = useMobileTopBarState()
+  return <div data-testid="back-probe">{back ?? ''}</div>
+}
 
 function LocationProbe() {
   const location = useLocation()
@@ -16,19 +25,15 @@ function LocationProbe() {
 
 function renderDoctrineRoutes(initialEntry: string) {
   return renderWithRouter(
-    <Routes>
-      <Route
-        path="/doctrine"
-        element={
-          <>
-            <LocationProbe />
-            <DoctrineExplorer />
-          </>
-        }
-      >
-        <Route path=":plantId" element={<DoctrineDetail />} />
-      </Route>
-    </Routes>,
+    <MobileTopBarProvider>
+      <LocationProbe />
+      <BackProbe />
+      <Routes>
+        <Route path="/doctrine" element={<DoctrineExplorer />}>
+          <Route path=":plantId" element={<DoctrineDetail />} />
+        </Route>
+      </Routes>
+    </MobileTopBarProvider>,
     { initialEntries: [initialEntry] },
   )
 }
@@ -146,6 +151,42 @@ describe('DoctrineExplorer', () => {
       selected: true,
     })
     expect(spiritualTab).toBeInTheDocument()
+  })
+
+  it('preserves the filter URL when navigating to a teaching detail', async () => {
+    const teachings = await api.getAllTeachings()
+    const [target] = teachings
+    if (!target) throw new Error('expected at least one teaching')
+    // Pick a query that matches the target — first three characters are
+    // enough for the existing seed data without coupling to a specific name.
+    const query = target.common_name.slice(0, 3).toLowerCase()
+
+    const user = userEvent.setup()
+    renderDoctrineRoutes(`/doctrine?q=${query}`)
+
+    const link = await screen.findByRole('link', {
+      name: new RegExp(target.common_name, 'i'),
+    })
+    await user.click(link)
+
+    await waitFor(() => {
+      expect(probe()).toContain(`/doctrine/${target.plant_id}`)
+      expect(probe()).toContain(`q=${query}`)
+    })
+  })
+
+  it('mobile back path from a detail page preserves the active filter', async () => {
+    const teachings = await api.getAllTeachings()
+    const [target] = teachings
+    if (!target) throw new Error('expected at least one teaching')
+
+    renderDoctrineRoutes(`/doctrine/${target.plant_id}?q=yarrow`)
+
+    await waitFor(() => {
+      const backPath = screen.getByTestId('back-probe').textContent ?? ''
+      expect(backPath).toMatch(/^\/doctrine\?/)
+      expect(backPath).toContain('q=yarrow')
+    })
   })
 
   it('clicking a domain tab updates the URL', async () => {

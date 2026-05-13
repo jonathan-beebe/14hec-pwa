@@ -123,15 +123,17 @@ function EmptyState() {
 export default function EntheogenicGuide() {
   const [plants, setPlants] = useState<Plant[]>([])
   const detail = useOutlet()
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   const plantMatch = useMatch('/entheogens/plants/:id')
   const protocolMatch = useMatch('/entheogens/protocols/:slug')
   const selectedPlantId = plantMatch?.params.id ?? null
   const selectedProtocolSlug = protocolMatch?.params.slug ?? null
 
+  // Preserve any active search params on the back path so a filter (or
+  // any future URL state) survives the trip back from detail.
   usePageMeta({
     title: 'Entheogens',
-    back: detail ? '/entheogens' : null,
+    back: detail ? `/entheogens${search}` : null,
   })
 
   useEffect(() => {

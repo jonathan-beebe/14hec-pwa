@@ -78,7 +78,7 @@ export default function PlantList() {
     () => buildFilters(planets, signs),
     [planets, signs],
   )
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(filterConfig)
 
   useEffect(() => {
@@ -122,7 +122,7 @@ export default function PlantList() {
       results={
         <CatalogGrid>
           {plants.map((plant) => (
-            <BrowseTile key={plant.id} to={`/plants/${plant.id}`}>
+            <BrowseTile key={plant.id} to={linkToChild(`/plants/${plant.id}`)}>
               <div className="flex justify-between items-start mb-1.5 gap-2">
                 <span className="text-sm font-medium text-earth-100">
                   {plant.common_name}

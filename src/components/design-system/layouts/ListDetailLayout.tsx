@@ -150,8 +150,13 @@ export function RoutedListDetailLayout(
   // relative resolution can land elsewhere depending on route nesting.
   // Walking `location.pathname` is unambiguous regardless of where the
   // layout is mounted.
-  const parentPath =
-    location.pathname.replace(/\/[^/]+\/?$/, '') || '/'
+  //
+  // Preserve `location.search` on the back path so any filter / search
+  // state that was active when the user navigated into detail survives
+  // the back trip. Without this the mobile top bar's back arrow lands
+  // the user on the bare index, losing whatever filter they were in.
+  const parentPathname = location.pathname.replace(/\/[^/]+\/?$/, '') || '/'
+  const parentPath = `${parentPathname}${location.search}`
 
   // Contribute the back path to the global mobile top bar. Title is left
   // for the page or detail component to set independently.

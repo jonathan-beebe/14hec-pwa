@@ -13,18 +13,13 @@ function LocationProbe() {
 
 function setup(initialEntries: string[] = ['/wellness']) {
   return renderWithRouter(
-    <Routes>
-      <Route
-        path="/wellness"
-        element={
-          <>
-            <LocationProbe />
-            <WellnessNavigator />
-          </>
-        }
-      />
-      <Route path="/wellness/:id" element={<div>Detail</div>} />
-    </Routes>,
+    <>
+      <LocationProbe />
+      <Routes>
+        <Route path="/wellness" element={<WellnessNavigator />} />
+        <Route path="/wellness/:id" element={<div>Detail</div>} />
+      </Routes>
+    </>,
     { initialEntries },
   )
 }
@@ -71,5 +66,29 @@ describe('WellnessNavigator — hybrid tree-and-search catalog of wellness goals
     expect(
       await screen.findByRole('searchbox', { name: /search/i }),
     ).toHaveValue('sleep')
+  })
+
+  it('preserves the filter URL when navigating into a wellness goal detail', async () => {
+    const user = userEvent.setup()
+    setup(['/wellness?q=sleep'])
+    await screen.findByRole('searchbox', { name: /search/i })
+
+    await waitFor(() => {
+      const tiles = screen
+        .getAllByRole('link')
+        .filter((l) => /^\/wellness\//.test(l.getAttribute('href') ?? ''))
+      expect(tiles.length).toBeGreaterThan(0)
+    })
+
+    const firstTile = screen
+      .getAllByRole('link')
+      .find((l) => /^\/wellness\//.test(l.getAttribute('href') ?? ''))
+    if (!firstTile) throw new Error('expected a wellness goal tile')
+    await user.click(firstTile)
+
+    await waitFor(() => {
+      expect(probe()).toMatch(/^\/wellness\/\d+/)
+      expect(probe()).toContain('q=sleep')
+    })
   })
 })

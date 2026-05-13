@@ -31,7 +31,7 @@ export default function WellnessNavigator() {
     Record<number, WellnessGoal[]>
   >({})
   const [searchResults, setSearchResults] = useState<WellnessGoal[]>([])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(FILTERS)
   const search = values.q ?? ''
 
@@ -107,7 +107,7 @@ export default function WellnessNavigator() {
           {searchResults.length > 0 ? (
             <CatalogGrid className="px-0 pt-0">
               {searchResults.map((goal) => (
-                <BrowseTile key={goal.id} to={`/wellness/${goal.id}`}>
+                <BrowseTile key={goal.id} to={linkToChild(`/wellness/${goal.id}`)}>
                   <div className="flex justify-between items-center mb-1.5 gap-2">
                     <span className="text-earth-200 font-medium">
                       {goal.name}

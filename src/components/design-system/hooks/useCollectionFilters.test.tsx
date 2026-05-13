@@ -134,3 +134,54 @@ describe('useCollectionFilters', () => {
     expect(result.current.search).toContain('q=tulsi')
   })
 })
+
+describe('useCollectionFilters — linkToChild preserves filter state', () => {
+  it('linkToChild returns the bare path when no filters are active', () => {
+    const { result } = renderHook(() => useFiltersAndUrl(filters), {
+      wrapper: wrapperFor('/plants'),
+    })
+
+    expect(result.current.linkToChild('/plants/123')).toBe('/plants/123')
+  })
+
+  it('linkToChild appends a query string carrying the active filter values', () => {
+    const { result } = renderHook(() => useFiltersAndUrl(filters), {
+      wrapper: wrapperFor('/plants?q=yarrow'),
+    })
+
+    expect(result.current.linkToChild('/plants/123')).toBe(
+      '/plants/123?q=yarrow',
+    )
+  })
+
+  it('linkToChild includes every configured filter that has a non-empty value', () => {
+    const { result } = renderHook(() => useFiltersAndUrl(filters), {
+      wrapper: wrapperFor('/plants?q=yarrow&category=conventional'),
+    })
+
+    const href = result.current.linkToChild('/plants/123')
+    expect(href.startsWith('/plants/123?')).toBe(true)
+    expect(href).toContain('q=yarrow')
+    expect(href).toContain('category=conventional')
+  })
+
+  it('linkToChild does not leak search params outside the configured filter keys', () => {
+    const { result } = renderHook(() => useFiltersAndUrl(filters), {
+      wrapper: wrapperFor('/plants?q=yarrow&unrelated=keep-me'),
+    })
+
+    const href = result.current.linkToChild('/plants/123')
+    expect(href).toContain('q=yarrow')
+    expect(href).not.toContain('unrelated')
+  })
+
+  it('linkToChild omits filter keys that hold empty strings', () => {
+    const { result } = renderHook(() => useFiltersAndUrl(filters), {
+      wrapper: wrapperFor('/plants?q=yarrow&category='),
+    })
+
+    const href = result.current.linkToChild('/plants/123')
+    expect(href).toContain('q=yarrow')
+    expect(href).not.toContain('category=')
+  })
+})

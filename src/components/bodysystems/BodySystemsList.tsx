@@ -96,7 +96,7 @@ function CategoryBadge({ category }: { category: BodySystem['category'] }) {
 
 export default function BodySystemsList() {
   const [all, setAll] = useState<BodySystem[]>([])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(FILTERS)
 
   useEffect(() => {
@@ -145,7 +145,7 @@ export default function BodySystemsList() {
               >
                 <CatalogGrid>
                   {items.map((sys) => (
-                    <BrowseTile key={sys.id} to={`/body-systems/${sys.id}`}>
+                    <BrowseTile key={sys.id} to={linkToChild(`/body-systems/${sys.id}`)}>
                       <div className="flex items-start justify-between mb-2 gap-2">
                         <span className="text-sm font-medium text-earth-100">
                           {sys.name}

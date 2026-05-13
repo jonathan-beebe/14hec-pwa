@@ -37,6 +37,18 @@ export interface UseCollectionFiltersReturn {
   clear: () => void
   /** True when any configured filter has a non-empty value. */
   hasActiveFilters: boolean
+  /**
+   * Build a child-route href that carries the current filter values
+   * forward as a query string. Use for list-row links so the filtered
+   * context survives navigation into detail pages — and so browser back
+   * returns the user to the filtered list, not the bare index.
+   *
+   * Only the keys configured in this hook's `filters` are preserved;
+   * unrelated search params on the current URL (e.g. a sibling demo's
+   * scoped state, analytics keys) are intentionally left behind so they
+   * don't leak between routes.
+   */
+  linkToChild: (pathname: string) => string
 }
 
 /**
@@ -93,5 +105,18 @@ export function useCollectionFilters(
     )
   }, [filters, setSearchParams])
 
-  return { values, setValue, clear, hasActiveFilters }
+  const linkToChild = useCallback(
+    (pathname: string): string => {
+      const params = new URLSearchParams()
+      for (const f of filters) {
+        const v = values[f.key]
+        if (v) params.set(f.key, v)
+      }
+      const query = params.toString()
+      return query ? `${pathname}?${query}` : pathname
+    },
+    [filters, values],
+  )
+
+  return { values, setValue, clear, hasActiveFilters, linkToChild }
 }

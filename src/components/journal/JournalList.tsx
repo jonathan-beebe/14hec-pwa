@@ -106,7 +106,7 @@ export default function JournalList() {
   const [plants, setPlants] = useState<Plant[]>([])
 
   const filterConfig = useMemo(() => buildFilters(plants), [plants])
-  const { values, setValue, clear, hasActiveFilters } =
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
     useCollectionFilters(filterConfig)
 
   useEffect(() => {
@@ -166,7 +166,7 @@ export default function JournalList() {
       results={
         <CatalogGrid>
           {filtered.map((entry) => (
-            <BrowseTile key={entry.id} to={`/journal/${entry.id}`}>
+            <BrowseTile key={entry.id} to={linkToChild(`/journal/${entry.id}`)}>
               <div className="flex items-start justify-between gap-2 mb-1.5">
                 <span className="text-sm font-medium text-earth-100 truncate">
                   {entry.title || 'Untitled entry'}

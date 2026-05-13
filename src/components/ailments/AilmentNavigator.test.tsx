@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import { renderWithRouter } from '@/test/render'
@@ -13,18 +13,13 @@ function LocationProbe() {
 
 function setup(initialEntries: string[] = ['/ailments']) {
   return renderWithRouter(
-    <Routes>
-      <Route
-        path="/ailments"
-        element={
-          <>
-            <LocationProbe />
-            <AilmentNavigator />
-          </>
-        }
-      />
-      <Route path="/ailments/:id" element={<div>Ailment detail</div>} />
-    </Routes>,
+    <>
+      <LocationProbe />
+      <Routes>
+        <Route path="/ailments" element={<AilmentNavigator />} />
+        <Route path="/ailments/:id" element={<div>Ailment detail</div>} />
+      </Routes>
+    </>,
     { initialEntries },
   )
 }
@@ -92,5 +87,29 @@ describe('AilmentNavigator — canonical catalog of ailments grouped by body sys
     expect(probe()).not.toContain('q=')
     // Status reverts to a plain count.
     expect(screen.getByRole('status').textContent).toMatch(/^\d+ ailments$/)
+  })
+
+  it('preserves the filter URL when navigating to an ailment detail', async () => {
+    const user = userEvent.setup()
+    setup(['/ailments?category=physical'])
+    await screen.findByRole('heading', { level: 1, name: /ailments/i })
+
+    await waitFor(() => {
+      const tiles = screen
+        .getAllByRole('link')
+        .filter((l) => /^\/ailments\//.test(l.getAttribute('href') ?? ''))
+      expect(tiles.length).toBeGreaterThan(0)
+    })
+
+    const firstTile = screen
+      .getAllByRole('link')
+      .find((l) => /^\/ailments\//.test(l.getAttribute('href') ?? ''))
+    if (!firstTile) throw new Error('expected an ailment tile')
+    await user.click(firstTile)
+
+    await waitFor(() => {
+      expect(probe()).toMatch(/^\/ailments\/\d+/)
+      expect(probe()).toContain('category=physical')
+    })
   })
 })
