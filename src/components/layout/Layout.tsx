@@ -33,6 +33,22 @@ export default function Layout() {
   return (
     <MobileTopBarProvider>
       <div className="flex h-screen overflow-hidden relative bg-earth-950">
+        {/* Skip link — first focusable element so keyboard users can
+            bypass the sidebar's ~25 nav links on every page (WCAG 2.4.1).
+            Hidden until focused; click handler moves focus into <main>
+            programmatically because JSDOM and some browsers don't follow
+            hash anchors into focus on focusable targets. */}
+        <a
+          href="#main-content"
+          onClick={(e) => {
+            e.preventDefault()
+            document.getElementById('main-content')?.focus()
+          }}
+          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[10000] focus:px-3 focus:py-2 focus:rounded-md focus:bg-earth-900 focus:text-earth-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-botanical-400"
+        >
+          Skip to main content
+        </a>
+
         {/* Aurora — living gradient background */}
         <div className="aurora-bg" />
 
@@ -40,7 +56,11 @@ export default function Layout() {
         <div className="noise-overlay" />
 
         <Sidebar />
-        <main className="flex-1 flex flex-col relative z-[1] min-h-0 min-w-0">
+        <main
+          id="main-content"
+          tabIndex={-1}
+          className="flex-1 flex flex-col relative z-[1] min-h-0 min-w-0 focus:outline-none"
+        >
           <MobileTopBar
             navOpen={navOpen}
             onMenuClick={() => setNavOpen((o) => !o)}
