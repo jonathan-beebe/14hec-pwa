@@ -173,6 +173,19 @@ This applies to props, locals, CSS-string identifiers, comments, and
 file names. The two domain vocabularies are already large and
 expressive; use them.
 
+## Accessibility
+
+All new work strives to adhere to [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)
+guidelines. Accessibility is not a follow-up pass — it is part of the
+definition of done for any feature, component, or change. Aim for WCAG
+2.2 AA as the baseline.
+
+Concretely, this means: semantic HTML over `<div>` soup, proper roles
+and ARIA where semantics aren't enough, keyboard operability for every
+interactive element, visible focus indicators, sufficient color
+contrast, alt text on meaningful imagery, and form controls with real
+labels. When in doubt, run the `/my-accessibility-audit` skill.
+
 ## Testing & TDD
 
 We use **Vitest + React Testing Library**. The framework is set up; the discipline is the work.

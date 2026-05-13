@@ -11,3 +11,4 @@ Favor patterns that are reusable.
 Don't be clever, be readable.
 Document the _why_ in code comments. Annotated code is good.
 If you find two conflicting patterns, ask the user if one should be refactored away to favor the canonical pattern.
+Always make an effort to adhere to WCAG guidelines when architecting UI features.
