@@ -12,7 +12,8 @@ import SignsView, { SignDetailView } from './components/astrology/SignsView'
 import PlanetsView, { PlanetDetailView } from './components/astrology/PlanetsView'
 import NatalInput from './components/astrology/NatalInput'
 import PlanetaryTiming from './components/astrology/PlanetaryTiming'
-import PreparationMatrix from './components/preparations/PreparationMatrix'
+import PreparationList from './components/preparations/PreparationList'
+import PreparationDetail from './components/preparations/PreparationDetail'
 import CrossReference from './components/crossref/CrossReference'
 import EntheogenicGuide from './components/plants/EntheogenicGuide'
 import EntheogenicPlantDetail from './components/plants/EntheogenicPlantDetail'
@@ -34,6 +35,7 @@ import DesignSystem from './components/design-system/DesignSystem'
 import ListDetailDemo, { ListDetailDemoDetail } from './components/design-system/layouts/demos/ListDetailDemo'
 import CatalogDemo, { CatalogDemoDetail } from './components/design-system/layouts/demos/CatalogDemo'
 import CatalogGroupedDemo from './components/design-system/layouts/demos/CatalogGroupedDemo'
+import TableDemo, { TableDemoDetail } from './components/design-system/layouts/demos/TableDemo'
 import PlanetsSpike from './components/spike/PlanetsSpike'
 
 function ScrollToTop() {
@@ -73,11 +75,14 @@ export default function App() {
           <Route path="/design-system/layouts/catalog" element={<CatalogDemo />} />
           <Route path="/design-system/layouts/catalog/:id" element={<CatalogDemoDetail />} />
           <Route path="/design-system/layouts/catalog-grouped" element={<CatalogGroupedDemo />} />
+          <Route path="/design-system/layouts/table" element={<TableDemo />} />
+          <Route path="/design-system/layouts/table/:id" element={<TableDemoDetail />} />
           <Route path="/ailments" element={<AilmentNavigator />} />
           <Route path="/plants" element={<PlantList />} />
           <Route path="/body-systems" element={<BodySystemsList />} />
           <Route path="/collections" element={<CollectionsList />} />
           <Route path="/journal" element={<JournalList />} />
+          <Route path="/preparations" element={<PreparationList />} />
           <Route path="/entheogens" element={<EntheogenicGuide />}>
             <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
             <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />
@@ -99,7 +104,7 @@ export default function App() {
             <Route path="/ailments/:id" element={<AilmentDetail />} />
             <Route path="/astrology/natal-chart" element={<NatalInput />} />
             <Route path="/astrology/planetary-timing" element={<PlanetaryTiming />} />
-            <Route path="/preparations" element={<PreparationMatrix />} />
+            <Route path="/preparations/:id" element={<PreparationDetail />} />
             <Route path="/crossref" element={<CrossReference />} />
             <Route path="/hmbs" element={<HMBSView />} />
             <Route path="/seasonal" element={<SeasonalGuide />} />

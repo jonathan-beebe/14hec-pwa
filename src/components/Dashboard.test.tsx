@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '@/test/render'
 import Dashboard from './Dashboard'
-import PreparationMatrix from './preparations/PreparationMatrix'
+import PreparationList from './preparations/PreparationList'
 
 describe('Dashboard navigation', () => {
   it('navigates to the preparations view when the Preparations card is clicked', async () => {
@@ -13,7 +13,7 @@ describe('Dashboard navigation', () => {
     renderWithRouter(
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/preparations" element={<PreparationMatrix />} />
+        <Route path="/preparations" element={<PreparationList />} />
       </Routes>,
     )
 

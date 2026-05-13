@@ -9,8 +9,12 @@ export interface CatalogLayoutProps {
    * — a `<FilterBar>` later, an inline row of inputs for now. The sticky
    * region itself is transparent; if the filter slot uses a glass surface
    * (the default), scrolling content shows through with a blur.
+   *
+   * Omit entirely when the catalog has no filters worth offering — small
+   * fixed reference sets, for example. The sticky region is skipped when
+   * this slot is absent so the results butt up to the header.
    */
-  filters: ReactNode
+  filters?: ReactNode
   /**
    * The results region: a flat grid, a grouped grid, a table — anything.
    * Rendered when `itemCount > 0` (or always, if `empty` is omitted).
@@ -65,7 +69,9 @@ export default function CatalogLayout({
   return (
     <div className="h-full flex flex-col overflow-y-auto animate-fade-in motion-reduce:animate-none">
       {header}
-      <div className="sticky top-0 z-10">{filters}</div>
+      {filters !== undefined && (
+        <div className="sticky top-0 z-10">{filters}</div>
+      )}
       {statusMessage !== undefined && (
         <div role="status" className="sr-only">
           {statusMessage}

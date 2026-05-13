@@ -41,6 +41,19 @@ describe('CatalogLayout — slots', () => {
     )
     expect(screen.getByText('RESULTS')).toBeInTheDocument()
   })
+
+  it('omits the sticky filter region entirely when filters is not provided', () => {
+    render(
+      <CatalogLayout
+        header={<div>HEADER</div>}
+        results={<div>RESULTS</div>}
+        itemCount={3}
+      />,
+    )
+    expect(screen.queryByText('FILTERS')).toBeNull()
+    expect(screen.getByText('HEADER')).toBeInTheDocument()
+    expect(screen.getByText('RESULTS')).toBeInTheDocument()
+  })
 })
 
 describe('CatalogLayout — status message (WCAG 4.1.3)', () => {

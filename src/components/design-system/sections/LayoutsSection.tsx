@@ -12,6 +12,8 @@ import {
 import BrowseTile from '../components/BrowseTile'
 import FlatListRow from '../components/FlatListRow'
 import FilterBar from '../components/FilterBar'
+import RecordTable, { type TableColumn } from '../components/RecordTable'
+import TableLayout from '../layouts/TableLayout'
 import Type from '../atoms/Type'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
@@ -258,6 +260,106 @@ function CatalogDemo() {
   )
 }
 
+// ─── Table + Detail inline demo ─────────────────────────────────────────
+
+const INLINE_TABLE_COLUMNS: TableColumn<CatalogDemoItem>[] = [
+  {
+    key: 'name',
+    header: 'Botanical',
+    primary: true,
+    render: (item) => (
+      <span className="font-medium text-earth-100">{item.name}</span>
+    ),
+  },
+  {
+    key: 'latin',
+    header: 'Latin',
+    render: (item) => <span className="italic">{item.latin}</span>,
+  },
+  {
+    key: 'category',
+    header: 'Category',
+    badge: true,
+    render: (item) => <Badge variant={item.category}>{item.category}</Badge>,
+  },
+  {
+    key: 'summary',
+    header: 'Summary',
+    render: (item) => <span className="text-earth-400">{item.summary}</span>,
+  },
+]
+
+function TableDemoInlineHeader({ count }: { count: number }) {
+  return (
+    <div className="flex items-center gap-3 px-5 pt-4 pb-3">
+      <Type.PageTitle>Sample Botanicals</Type.PageTitle>
+      <Badge.Conventional>{count}</Badge.Conventional>
+    </div>
+  )
+}
+
+function TableDemoInlineDetail({
+  item,
+  backHref,
+}: {
+  item: CatalogDemoItem
+  backHref: string
+}) {
+  return (
+    <article className="h-full overflow-y-auto animate-fade-in px-5 py-4">
+      <Link to={backHref} className={`mb-4 ${BACK_LINK}`}>
+        <Icon.ArrowLeft className="mr-1.5" /> Back
+      </Link>
+      <div className="flex items-center gap-3">
+        <Type.PageTitle>{item.name}</Type.PageTitle>
+        <Badge variant={item.category}>{item.category}</Badge>
+      </div>
+      <p className="text-earth-500 italic mt-1 text-sm">{item.latin}</p>
+      <p className="text-earth-300 text-sm mt-4 leading-relaxed">{item.summary}</p>
+      <div className="mt-6 pt-4 border-t border-white/5 text-[11px] text-earth-500">
+        Detail replaces the table inside the same bounded region — the
+        canonical Table → Detail behavior simulated with a search param
+        instead of a separate route. Narrow the browser to see the table
+        reflow into stacked cards.
+      </div>
+    </article>
+  )
+}
+
+function TableDemo() {
+  const [searchParams] = useSearchParams()
+  const selectedId = searchParams.get('demoTable')
+  const selected =
+    selectedId !== null
+      ? CATALOG_DEMO_ITEMS.find((i) => i.id === selectedId)
+      : null
+  const backHref = hrefWithout(searchParams, 'demoTable')
+
+  return (
+    <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
+      {selected ? (
+        <TableDemoInlineDetail item={selected} backHref={backHref} />
+      ) : (
+        <TableLayout
+          header={<TableDemoInlineHeader count={CATALOG_DEMO_ITEMS.length} />}
+          itemCount={CATALOG_DEMO_ITEMS.length}
+        >
+          <div className="px-5 pb-5">
+            <RecordTable
+              rows={CATALOG_DEMO_ITEMS as readonly CatalogDemoItem[] as CatalogDemoItem[]}
+              columns={INLINE_TABLE_COLUMNS}
+              rowKey={(item) => item.id}
+              rowHref={(item) => `?demoTable=${item.id}`}
+              rowLabel={(item) => `${item.name}, view details`}
+              caption="Sample botanicals, comparison table"
+            />
+          </div>
+        </TableLayout>
+      )}
+    </div>
+  )
+}
+
 export default function LayoutsSection() {
   return (
     <Section id="layouts" title="Layouts">
@@ -346,6 +448,38 @@ export default function LayoutsSection() {
         </div>
       </Subsection>
 
+      <Subsection title="Table + Detail">
+        <div className="space-y-4">
+          <p className="text-earth-300 text-sm font-system leading-relaxed">
+            Homogeneous reference data presented as a scannable table for
+            cross-row comparison. Each row links to its own full-page
+            detail with back navigation; the list does not split-pane. On
+            small screens the table reflows into one card per row so values
+            stay legible without horizontal scroll.
+          </p>
+          <p className="text-earth-300 text-xs font-system leading-relaxed">
+            <span className={META_LABEL}>Use when:</span>{' '}
+            rows are homogeneous and the user's question is "how does this
+            compare to that?" rather than "tell me about this one." Six or
+            fewer columns; small fixed sets (≤25 rows) where filtering
+            adds little.
+          </p>
+          <p className="text-earth-500 text-xs font-system leading-relaxed">
+            <span className={META_LABEL}>Currently in app:</span>{' '}
+            <code className="text-earth-400">Preparations</code>
+          </p>
+          <TableDemo />
+          <div className="text-right">
+            <Link
+              to="/design-system/layouts/table"
+              className="inline-flex items-center gap-1 text-xs text-earth-400 hover:text-earth-100 font-system transition-colors"
+            >
+              Open route-driven demo →
+            </Link>
+          </div>
+        </div>
+      </Subsection>
+
       <Subsection title="Picker + Detail">
         <div className="space-y-4">
           <p className="text-earth-300 text-sm font-system leading-relaxed">
@@ -363,7 +497,6 @@ export default function LayoutsSection() {
           </p>
           <p className="text-earth-500 text-xs font-system leading-relaxed">
             <span className={META_LABEL}>Currently in app:</span>{' '}
-            <code className="text-earth-400">Preparations</code>,{' '}
             <code className="text-earth-400">Signs &amp; Planets</code>,{' '}
             <code className="text-earth-400">Planetary Timing</code>,{' '}
             <code className="text-earth-400">HMBS</code>,{' '}
