@@ -130,6 +130,22 @@ describe('Layout — sidebar landmark names (WCAG 1.3.1, 2.4.6)', () => {
   })
 })
 
+describe('Layout — main landmark (WCAG 2.4.1 supporting)', () => {
+  it('exposes <main> with id="main-content" and tabIndex=-1 so it can receive programmatic focus', async () => {
+    setup(['/'])
+    const main = await screen.findByRole('main')
+    expect(main).toHaveAttribute('id', 'main-content')
+    expect(main).toHaveAttribute('tabindex', '-1')
+  })
+
+  it('accepts programmatic focus on <main>', async () => {
+    setup(['/'])
+    const main = await screen.findByRole('main')
+    main.focus()
+    expect(main).toHaveFocus()
+  })
+})
+
 describe('Layout — mobile nav drawer', () => {
   it('opens when the hamburger is clicked, closes on Escape', async () => {
     const user = userEvent.setup()
