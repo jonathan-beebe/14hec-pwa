@@ -57,6 +57,41 @@ describe('Layout — mobile top bar', () => {
   })
 })
 
+describe('Layout — skip link (WCAG 2.4.1)', () => {
+  it('renders a "Skip to main content" link', async () => {
+    setup(['/'])
+    expect(
+      await screen.findByRole('link', { name: /skip to main content/i }),
+    ).toBeInTheDocument()
+  })
+
+  it('is the first focusable element in the layout', async () => {
+    const user = userEvent.setup()
+    setup(['/'])
+
+    await user.tab()
+    const skipLink = await screen.findByRole('link', {
+      name: /skip to main content/i,
+    })
+    expect(skipLink).toHaveFocus()
+  })
+
+  it('moves focus into <main> when activated', async () => {
+    const user = userEvent.setup()
+    setup(['/'])
+
+    const skipLink = await screen.findByRole('link', {
+      name: /skip to main content/i,
+    })
+    await user.click(skipLink)
+
+    const main = document.querySelector('main')
+    if (!main) throw new Error('expected <main> in the document')
+    expect(main).toHaveFocus()
+    expect(main).toHaveAttribute('id', 'main-content')
+  })
+})
+
 describe('Layout — mobile nav drawer', () => {
   it('opens when the hamburger is clicked, closes on Escape', async () => {
     const user = userEvent.setup()
