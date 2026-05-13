@@ -114,6 +114,22 @@ describe('Layout — skip link (WCAG 2.4.1)', () => {
   })
 })
 
+describe('Layout — sidebar landmark names (WCAG 1.3.1, 2.4.6)', () => {
+  it('names the navigation landmark "Sections"', async () => {
+    setup(['/'])
+    // SidebarContent is rendered twice (desktop sidebar + mobile drawer);
+    // each contains a <nav>. Both should carry the same accessible name.
+    const navs = await screen.findAllByRole('navigation', { name: /sections/i })
+    expect(navs.length).toBeGreaterThan(0)
+  })
+
+  it('names the desktop sidebar shell "Primary"', async () => {
+    setup(['/'])
+    const aside = await screen.findByRole('complementary', { name: /primary/i })
+    expect(aside).toBeInTheDocument()
+  })
+})
+
 describe('Layout — mobile nav drawer', () => {
   it('opens when the hamburger is clicked, closes on Escape', async () => {
     const user = userEvent.setup()

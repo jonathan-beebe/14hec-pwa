@@ -102,7 +102,7 @@ export function SidebarContent() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-2 px-3 overflow-y-auto scrollbar-hidden relative">
+      <nav aria-label="Sections" className="flex-1 py-2 px-3 overflow-y-auto scrollbar-hidden relative">
         {navSections.map((section, si) => (
           <div key={si} className={si > 0 ? 'mt-5' : ''}>
             {section.label && (
@@ -148,7 +148,7 @@ export function SidebarContent() {
 
 export default function Sidebar() {
   return (
-    <aside className="hidden lg:flex w-60 relative z-10">
+    <aside aria-label="Primary" className="hidden lg:flex w-60 relative z-10">
       <SidebarContent />
     </aside>
   )
