@@ -57,6 +57,28 @@ describe('Layout — mobile top bar', () => {
   })
 })
 
+describe('Layout — mobile nav drawer (WCAG 2.4.3, 4.1.2)', () => {
+  it('marks the panel inert when closed so links are not tab-reachable', async () => {
+    setup(['/'])
+    const panel = document.getElementById('mobile-nav-drawer')
+    if (!panel) throw new Error('expected drawer panel in the document')
+    expect(panel).toHaveAttribute('inert')
+  })
+
+  it('removes inert from the panel when the drawer is open', async () => {
+    const user = userEvent.setup()
+    setup(['/'])
+
+    await user.click(
+      await screen.findByRole('button', { name: /open navigation menu/i }),
+    )
+
+    const panel = document.getElementById('mobile-nav-drawer')
+    if (!panel) throw new Error('expected drawer panel in the document')
+    expect(panel).not.toHaveAttribute('inert')
+  })
+})
+
 describe('Layout — mobile nav drawer', () => {
   it('opens when the hamburger is clicked, closes on Escape', async () => {
     const user = userEvent.setup()
