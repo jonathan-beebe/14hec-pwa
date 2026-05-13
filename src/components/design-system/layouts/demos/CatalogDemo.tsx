@@ -95,7 +95,13 @@ function DemoEmpty({ onClear }: { onClear: () => void }) {
         <button
           type="button"
           onClick={onClear}
-          className="text-xs text-botanical-400/80 hover:text-botanical-300 transition-colors"
+          className={
+            'text-xs text-botanical-400/80 hover:text-botanical-300 ' +
+            'rounded-md px-2 py-1.5 ' +
+            'focus:outline-none ' +
+            'focus-visible:ring-2 focus-visible:ring-botanical-400/60 ' +
+            'transition-colors'
+          }
         >
           Clear filters
         </button>

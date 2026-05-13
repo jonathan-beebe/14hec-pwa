@@ -63,7 +63,7 @@ export default function CatalogLayout({
   const showEmpty = itemCount === 0 && empty !== undefined
 
   return (
-    <div className="h-full flex flex-col overflow-y-auto animate-fade-in">
+    <div className="h-full flex flex-col overflow-y-auto animate-fade-in motion-reduce:animate-none">
       {header}
       <div className="sticky top-0 z-10">{filters}</div>
       {statusMessage !== undefined && (

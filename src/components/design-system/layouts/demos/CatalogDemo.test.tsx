@@ -110,7 +110,7 @@ describe('CatalogDemo — composes the canonical Catalog layout with FilterBar',
     const user = userEvent.setup()
     setup(['/design-system/layouts/catalog?q=rose&category=conventional'])
 
-    await user.click(screen.getByRole('button', { name: /^clear$/i }))
+    await user.click(screen.getByRole('button', { name: /clear all filters/i }))
 
     expect(probe()).not.toContain('q=')
     expect(probe()).not.toContain('category=')

@@ -144,13 +144,19 @@ export default function FilterBar({
     .join(' ')
 
   return (
-    <div className={wrapperClass}>
+    // `role="search"` makes the bar a landmark so assistive tech users can
+    // jump to filters with their landmark navigation shortcut (WCAG 1.3.6).
+    <div role="search" className={wrapperClass}>
       <div className="flex flex-wrap gap-3 items-center">
         {filters.map((f) => renderControl(f, values[f.key] ?? '', onChange))}
         {hasActiveFilters && (
           <button
             type="button"
             onClick={onClear}
+            // Visible label stays short; the accessible name spells out what
+            // gets cleared (WCAG 2.5.3 Label in Name — the longer name
+            // contains the visible label).
+            aria-label="Clear all filters"
             className={
               'text-xs text-earth-400 hover:text-earth-100 ' +
               'rounded-md px-2 py-1.5 ' +

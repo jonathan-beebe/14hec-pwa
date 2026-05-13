@@ -37,6 +37,11 @@ function setup(props: Partial<React.ComponentProps<typeof FilterBar>> = {}) {
 }
 
 describe('FilterBar — config-driven rendering', () => {
+  it('is exposed as a "search" landmark to assistive tech', () => {
+    setup()
+    expect(screen.getByRole('search')).toBeInTheDocument()
+  })
+
   it('renders one control per filter from the config', () => {
     setup()
     expect(screen.getByRole('searchbox', { name: 'Search' })).toBeInTheDocument()
@@ -82,7 +87,7 @@ describe('FilterBar — clear action', () => {
 
   it('renders the Clear button when there are active filters', () => {
     setup({ hasActiveFilters: true, values: { q: 'rose', category: '' } })
-    expect(screen.getByRole('button', { name: /^clear$/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /clear all filters/i })).toBeInTheDocument()
   })
 
   it('calls onClear when the Clear button is clicked', async () => {
@@ -92,7 +97,7 @@ describe('FilterBar — clear action', () => {
       values: { q: 'rose', category: '' },
     })
 
-    await user.click(screen.getByRole('button', { name: /^clear$/i }))
+    await user.click(screen.getByRole('button', { name: /clear all filters/i }))
 
     expect(onClear).toHaveBeenCalledTimes(1)
   })
