@@ -21,6 +21,7 @@ import EntheogenicProtocolDetail from './components/plants/EntheogenicProtocolDe
 import HMBSView from './components/sanctuary/HMBSView'
 import SeasonalGuide from './components/sanctuary/SeasonalGuide'
 import DoctrineExplorer from './components/sanctuary/DoctrineExplorer'
+import DoctrineDetail from './components/sanctuary/DoctrineDetail'
 import BodySystemsList from './components/bodysystems/BodySystemsList'
 import BodySystemsDetail from './components/bodysystems/BodySystemsDetail'
 import JournalList from './components/journal/JournalList'
@@ -83,6 +84,9 @@ export default function App() {
           <Route path="/collections" element={<CollectionsList />} />
           <Route path="/journal" element={<JournalList />} />
           <Route path="/preparations" element={<PreparationList />} />
+          <Route path="/doctrine" element={<DoctrineExplorer />}>
+            <Route path=":plantId" element={<DoctrineDetail />} />
+          </Route>
           <Route path="/entheogens" element={<EntheogenicGuide />}>
             <Route path="plants/:id" element={<EntheogenicPlantDetail />} />
             <Route path="protocols/:slug" element={<EntheogenicProtocolDetail />} />
@@ -108,7 +112,6 @@ export default function App() {
             <Route path="/crossref" element={<CrossReference />} />
             <Route path="/hmbs" element={<HMBSView />} />
             <Route path="/seasonal" element={<SeasonalGuide />} />
-            <Route path="/doctrine" element={<DoctrineExplorer />} />
             <Route path="/body-systems/:id" element={<BodySystemsDetail />} />
             <Route path="/journal/new" element={<JournalView />} />
             <Route path="/journal/:id" element={<JournalView />} />

@@ -60,10 +60,33 @@ function ListDetailDemoTop() {
 
 type DemoItem = (typeof LIST_DETAIL_DEMO_ITEMS)[number]
 
-function ListDetailDemoList({ selectedId }: { selectedId: string | null }) {
+// Scoped filter key so this demo's URL state can coexist with siblings.
+const INLINE_LIST_DEMO_FILTERS: CatalogFilter[] = [
+  {
+    kind: 'search',
+    key: 'listDemoQ',
+    placeholder: 'Search by name…',
+    label: 'Search',
+  },
+]
+
+function ListDetailDemoList({
+  items,
+  selectedId,
+}: {
+  items: readonly DemoItem[]
+  selectedId: string | null
+}) {
+  if (items.length === 0) {
+    return (
+      <div className="px-5 py-6 text-earth-500 text-sm text-center">
+        No items match your search.
+      </div>
+    )
+  }
   return (
     <ul>
-      {LIST_DETAIL_DEMO_ITEMS.map((item) => {
+      {items.map((item) => {
         const IconComp = item.icon
         return (
           <li key={item.id}>
@@ -114,11 +137,36 @@ function ListDetailDemo() {
   const selectedItem = LIST_DETAIL_DEMO_ITEMS.find((i) => i.id === selectedId) ?? null
   const backHref = hrefWithout(searchParams, 'demoList')
 
+  const { values, setValue, clear, hasActiveFilters } = useCollectionFilters(
+    INLINE_LIST_DEMO_FILTERS,
+  )
+  const q = (values.listDemoQ ?? '').trim().toLowerCase()
+  const filteredItems = q
+    ? LIST_DETAIL_DEMO_ITEMS.filter(
+        (item) =>
+          item.name.toLowerCase().includes(q) ||
+          item.latin.toLowerCase().includes(q),
+      )
+    : LIST_DETAIL_DEMO_ITEMS
+
   return (
     <div className="h-[560px] rounded-xl border border-white/5 overflow-hidden bg-earth-900/20">
       <ListDetailLayout
         top={<ListDetailDemoTop />}
-        list={<ListDetailDemoList selectedId={selectedId} />}
+        filters={
+          <div className="px-5 py-3 bg-earth-950/60 backdrop-blur-md border-b border-white/5">
+            <FilterBar
+              filters={INLINE_LIST_DEMO_FILTERS}
+              values={values}
+              onChange={setValue}
+              onClear={clear}
+              hasActiveFilters={hasActiveFilters}
+            />
+          </div>
+        }
+        list={
+          <ListDetailDemoList items={filteredItems} selectedId={selectedId} />
+        }
         detail={selectedItem ? <ListDetailDemoDetail item={selectedItem} backHref={backHref} /> : null}
         emptyDetail={<ListDetailDemoEmpty />}
       />

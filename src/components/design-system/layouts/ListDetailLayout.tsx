@@ -9,6 +9,14 @@ import { usePageMeta } from '@/components/layout/MobileTopBar'
 export interface ListDetailLayoutProps {
   /** Optional content rendered full-width above the list/detail row. */
   top?: ReactNode
+  /**
+   * Optional filter / search region rendered full-width below `top` and
+   * above the list/detail row. Sticky on desktop so the filters stay
+   * pinned while the list scrolls beneath. On mobile the region follows
+   * the list — visible when looking at the list, hidden when detail is
+   * active. Omit when the feature has no filters.
+   */
+  filters?: ReactNode
   /** Content for the left list column. */
   list: ReactNode
   /**
@@ -63,6 +71,7 @@ export interface ListDetailLayoutProps {
  */
 export default function ListDetailLayout({
   top,
+  filters,
   list,
   detail,
   emptyDetail,
@@ -84,6 +93,14 @@ export default function ListDetailLayout({
       {top && (
         <div className={`${isDetailActive ? 'hidden' : 'block'} lg:block lg:shrink-0`}>
           {top}
+        </div>
+      )}
+
+      {filters !== undefined && (
+        <div
+          className={`${isDetailActive ? 'hidden' : 'block'} lg:block lg:shrink-0 lg:sticky lg:top-0 lg:z-10`}
+        >
+          {filters}
         </div>
       )}
 
