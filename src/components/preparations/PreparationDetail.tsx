@@ -4,6 +4,7 @@ import { api } from '@/data/api'
 import type { Preparation } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
+import Notice from '@/components/design-system/components/Notice'
 
 function absorptionBadgeClass(speed: string | null | undefined) {
   if (!speed) return 'bg-earth-700/20 text-earth-400 ring-earth-600/20'
@@ -109,25 +110,7 @@ export default function PreparationDetail() {
       )}
 
       {prep.safety_notes && (
-        <section
-          className="rounded-xl p-4"
-          style={{
-            background: 'rgba(245, 158, 11, 0.04)',
-            border: '1px solid rgba(245, 158, 11, 0.1)',
-          }}
-        >
-          <div className="flex items-center gap-2 mb-2">
-            <span aria-hidden className="text-amber-500">
-              {'⚠'}
-            </span>
-            <Text.SectionLabel as="h2" className="!mb-0 text-amber-400">
-              Safety notes
-            </Text.SectionLabel>
-          </div>
-          <p className="text-sm text-earth-400 leading-relaxed">
-            {prep.safety_notes}
-          </p>
-        </section>
+        <Notice title="Safety notes">{prep.safety_notes}</Notice>
       )}
     </article>
   )

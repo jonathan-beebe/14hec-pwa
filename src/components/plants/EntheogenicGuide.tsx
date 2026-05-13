@@ -1,102 +1,109 @@
 import { useEffect, useState } from 'react'
-import { NavLink, useLocation, useOutlet } from 'react-router-dom'
+import { useLocation, useMatch, useOutlet } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant } from '../../types'
-import Text from '@/components/design-system/atoms/Text'
+import Badge from '@/components/design-system/atoms/Badge'
+import Type from '@/components/design-system/atoms/Type'
+import FlatListRow from '@/components/design-system/components/FlatListRow'
+import Notice from '@/components/design-system/components/Notice'
 import ListDetailLayout from '@/components/design-system/layouts/ListDetailLayout'
 import { usePageMeta } from '@/components/layout/MobileTopBar'
 import { INTEGRATION_PROTOCOLS } from './entheogenicProtocols'
 
+const PLANT_TINT = '#7c5eed' // celestial purple — sacred / mystical
+const PROTOCOL_TINT = '#5da87e' // botanical green — grounded / practical
+
 function TopBar() {
   return (
-    <div className="px-8 py-6">
-      <Text.PageTitle className="text-gradient-celestial">Entheogenic Journey Guide</Text.PageTitle>
-      <p className="text-sm text-earth-500 mt-1">
-        Sacred plant medicine guidance: preparation, set & setting, and integration
-      </p>
-
-      <div
-        className="glass-panel p-4 mt-4"
-        style={{
-          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(16, 15, 12, 0.8))',
-          border: '1px solid rgba(245, 158, 11, 0.08)',
-        }}
-      >
-        <div className="flex items-start gap-3">
-          <span className="text-sm text-amber-500/70 mt-0.5">⚠</span>
-          <div>
-            <p className="text-xs text-amber-300/80 font-display font-medium mb-0.5">Sacred Responsibility</p>
-            <p className="text-[11px] text-earth-500 leading-relaxed">
-              Entheogenic plants are powerful teachers that demand respect, preparation, and integration.
-              This guide is for educational purposes. Many of these substances have legal restrictions.
-              Always research local laws, work with experienced guides, and never combine with contraindicated medications.
-            </p>
-          </div>
-        </div>
+    <div className="px-8 py-6 space-y-4">
+      <div>
+        <Type.Branded.PageTitle className="text-gradient-celestial">
+          Entheogenic Journey Guide
+        </Type.Branded.PageTitle>
+        <Type.BodySmall className="mt-1 text-earth-500">
+          Sacred plant medicine guidance: preparation, set & setting, and
+          integration
+        </Type.BodySmall>
       </div>
+      <Notice title="Sacred Responsibility">
+        Entheogenic plants are powerful teachers that demand respect,
+        preparation, and integration. This guide is for educational purposes.
+        Many of these substances have legal restrictions. Always research
+        local laws, work with experienced guides, and never combine with
+        contraindicated medications.
+      </Notice>
     </div>
   )
 }
 
-function PlantsList({ plants }: { plants: Plant[] }) {
+function PlantsList({
+  plants,
+  selectedId,
+}: {
+  plants: Plant[]
+  selectedId: string | null
+}) {
   return (
-    <div className="space-y-2">
+    <ul>
       {plants.map((plant) => (
-        <NavLink
-          key={plant.id}
-          to={`plants/${plant.id}`}
-          className="block w-full text-left p-3.5 rounded-xl transition-all duration-200 ease-out-expo"
-          style={({ isActive }) => ({
-            background: isActive ? 'rgba(124, 94, 237, 0.1)' : 'rgba(26, 25, 21, 0.5)',
-            border: isActive
-              ? '1px solid rgba(124, 94, 237, 0.2)'
-              : '1px solid rgba(255, 255, 255, 0.04)',
-            boxShadow: isActive ? '0 0 24px rgba(124, 94, 237, 0.08)' : undefined,
-          })}
-        >
-          <div className="text-sm text-earth-200 font-medium">{plant.common_name}</div>
-          <div className="text-xs text-earth-500 italic">{plant.latin_name}</div>
-          <span className={`badge badge-${plant.category} mt-1.5`}>{plant.category}</span>
-        </NavLink>
+        <li key={plant.id}>
+          <FlatListRow
+            to={`plants/${plant.id}`}
+            selected={String(plant.id) === selectedId}
+            tintHex={PLANT_TINT}
+            primary={plant.common_name}
+            secondary={
+              <>
+                <span className="italic">{plant.latin_name}</span>
+                {' · '}
+                <Badge variant={plant.category}>{plant.category}</Badge>
+              </>
+            }
+            aria-label={`${plant.common_name} — ${plant.latin_name}`}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
-function ProtocolsList() {
+function ProtocolsList({ selectedSlug }: { selectedSlug: string | null }) {
   return (
-    <div className="space-y-2">
+    <ul>
       {INTEGRATION_PROTOCOLS.map((protocol) => (
-        <NavLink
-          key={protocol.slug}
-          to={`protocols/${protocol.slug}`}
-          className="block w-full text-left p-3.5 rounded-xl transition-all duration-200 ease-out-expo"
-          style={({ isActive }) => ({
-            background: isActive ? 'rgba(93, 168, 126, 0.08)' : 'rgba(26, 25, 21, 0.5)',
-            border: isActive
-              ? '1px solid rgba(93, 168, 126, 0.15)'
-              : '1px solid rgba(255, 255, 255, 0.04)',
-            boxShadow: isActive ? '0 0 24px rgba(93, 168, 126, 0.06)' : undefined,
-          })}
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-sm opacity-50">{protocol.icon}</span>
-            <span className="text-sm text-earth-200">{protocol.name}</span>
-          </div>
-          <div className="text-xs text-earth-500 mt-1 pl-6">{protocol.description}</div>
-        </NavLink>
+        <li key={protocol.slug}>
+          <FlatListRow
+            to={`protocols/${protocol.slug}`}
+            selected={protocol.slug === selectedSlug}
+            tintHex={PROTOCOL_TINT}
+            primary={protocol.name}
+            secondary={protocol.description}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
-function ListPane({ plants }: { plants: Plant[] }) {
+function ListPane({
+  plants,
+  selectedPlantId,
+  selectedProtocolSlug,
+}: {
+  plants: Plant[]
+  selectedPlantId: string | null
+  selectedProtocolSlug: string | null
+}) {
   return (
-    <div className="px-8 py-6 lg:pr-2">
-      <Text.SectionLabel className="mb-3">Entheogenic Plants</Text.SectionLabel>
-      <PlantsList plants={plants} />
-      <Text.SectionLabel className="mt-6 mb-3">Journey Protocols</Text.SectionLabel>
-      <ProtocolsList />
+    <div className="py-6 lg:pr-2">
+      <Type.SectionLabel className="px-8 mb-3">
+        Entheogenic Plants
+      </Type.SectionLabel>
+      <PlantsList plants={plants} selectedId={selectedPlantId} />
+      <Type.SectionLabel className="px-8 mt-6 mb-3">
+        Journey Protocols
+      </Type.SectionLabel>
+      <ProtocolsList selectedSlug={selectedProtocolSlug} />
     </div>
   )
 }
@@ -105,7 +112,10 @@ function EmptyState() {
   return (
     <div className="px-16 py-16 text-earth-500 font-system">
       <p className="text-lg mb-2">Select a plant or protocol</p>
-      <p className="text-sm">Choose an entheogenic plant to view its profile, or select a protocol for journey guidance.</p>
+      <p className="text-sm">
+        Choose an entheogenic plant to view its profile, or select a protocol
+        for journey guidance.
+      </p>
     </div>
   )
 }
@@ -114,6 +124,10 @@ export default function EntheogenicGuide() {
   const [plants, setPlants] = useState<Plant[]>([])
   const detail = useOutlet()
   const { pathname } = useLocation()
+  const plantMatch = useMatch('/entheogens/plants/:id')
+  const protocolMatch = useMatch('/entheogens/protocols/:slug')
+  const selectedPlantId = plantMatch?.params.id ?? null
+  const selectedProtocolSlug = protocolMatch?.params.slug ?? null
 
   usePageMeta({
     title: 'Entheogens',
@@ -132,7 +146,13 @@ export default function EntheogenicGuide() {
   return (
     <ListDetailLayout
       top={<TopBar />}
-      list={<ListPane plants={plants} />}
+      list={
+        <ListPane
+          plants={plants}
+          selectedPlantId={selectedPlantId}
+          selectedProtocolSlug={selectedProtocolSlug}
+        />
+      }
       detail={detail}
       emptyDetail={<EmptyState />}
       detailKey={pathname}
