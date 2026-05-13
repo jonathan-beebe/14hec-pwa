@@ -119,6 +119,13 @@ export function filterDemoItems(
   })
 }
 
+function statusFor(count: number, total: number, hasActiveFilters: boolean) {
+  const noun = total === 1 ? 'item' : 'items'
+  if (!hasActiveFilters) return `${count} ${noun}`
+  if (count === 0) return 'No items match your filters'
+  return `${count} of ${total} ${noun} match your filters`
+}
+
 /**
  * Route-driven dedicated demo of `CatalogLayout`. Mounted at
  * `/design-system/layouts/catalog` with a `:id` sibling route. Composes
@@ -130,6 +137,11 @@ export default function CatalogDemo() {
   const { values, setValue, clear, hasActiveFilters } =
     useCollectionFilters(DEMO_FILTERS)
   const filtered = useMemo(() => filterDemoItems(values), [values])
+  const statusMessage = statusFor(
+    filtered.length,
+    CATALOG_DEMO_ITEMS.length,
+    hasActiveFilters,
+  )
 
   return (
     <CatalogLayout
@@ -148,6 +160,7 @@ export default function CatalogDemo() {
       results={<DemoGrid items={filtered} />}
       empty={<DemoEmpty onClear={clear} />}
       itemCount={filtered.length}
+      statusMessage={statusMessage}
     />
   )
 }

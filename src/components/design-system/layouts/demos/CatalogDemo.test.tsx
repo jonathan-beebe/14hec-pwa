@@ -122,9 +122,34 @@ describe('CatalogDemo — composes the canonical Catalog layout with FilterBar',
   it('shows the empty state when no items match', async () => {
     setup(['/design-system/layouts/catalog?q=zzznotathing'])
 
+    // The visible <p> ends in a period; the role=status copy does not.
+    // The period disambiguates from the live-region announcement.
     expect(
-      await screen.findByText(/no items match your filters/i),
+      await screen.findByText(/no items match your filters\./i),
     ).toBeInTheDocument()
+  })
+
+  it('exposes the result count to assistive tech via role="status" (WCAG 4.1.3)', async () => {
+    const user = userEvent.setup()
+    setup()
+
+    expect(screen.getByRole('status')).toHaveTextContent('12 items')
+
+    await user.selectOptions(
+      screen.getByRole('combobox', { name: /category/i }),
+      'entheogenic',
+    )
+
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /2 of 12 items match your filters/i,
+    )
+  })
+
+  it('announces the empty state in the status region', () => {
+    setup(['/design-system/layouts/catalog?q=zzznotathing'])
+    expect(screen.getByRole('status')).toHaveTextContent(
+      /no items match your filters/i,
+    )
   })
 
   it('the empty state offers a way back to results', async () => {

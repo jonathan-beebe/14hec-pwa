@@ -24,6 +24,14 @@ export interface CatalogLayoutProps {
   empty?: ReactNode
   /** Drives the empty-state swap. */
   itemCount: number
+  /**
+   * Optional status message announced to assistive technology when it
+   * changes (WCAG 4.1.3). Rendered inside a visually-hidden `role="status"`
+   * region. Typical content is a localized count summary like
+   * `"12 plants"` or `"3 of 75 ailments match your filters"`. Compose the
+   * string in the consumer — the layout has no opinion about phrasing.
+   */
+  statusMessage?: string
 }
 
 /**
@@ -50,6 +58,7 @@ export default function CatalogLayout({
   results,
   empty,
   itemCount,
+  statusMessage,
 }: CatalogLayoutProps) {
   const showEmpty = itemCount === 0 && empty !== undefined
 
@@ -57,6 +66,11 @@ export default function CatalogLayout({
     <div className="h-full flex flex-col overflow-y-auto animate-fade-in">
       {header}
       <div className="sticky top-0 z-10">{filters}</div>
+      {statusMessage !== undefined && (
+        <div role="status" className="sr-only">
+          {statusMessage}
+        </div>
+      )}
       {showEmpty ? empty : results}
     </div>
   )

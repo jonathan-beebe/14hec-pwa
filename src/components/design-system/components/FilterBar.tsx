@@ -151,7 +151,13 @@ export default function FilterBar({
           <button
             type="button"
             onClick={onClear}
-            className="text-xs text-earth-400 hover:text-earth-100 transition-colors px-2"
+            className={
+              'text-xs text-earth-400 hover:text-earth-100 ' +
+              'rounded-md px-2 py-1.5 ' +
+              'focus:outline-none ' +
+              'focus-visible:ring-2 focus-visible:ring-botanical-400/60 ' +
+              'transition-colors'
+            }
           >
             Clear
           </button>
@@ -165,7 +171,7 @@ export default function FilterBar({
           {chips.map((chip) => (
             <li
               key={chip.key}
-              className="inline-flex items-center gap-1.5 pl-2.5 pr-1 py-0.5 rounded-full text-[11px] bg-earth-900/60 border border-white/[0.08] text-earth-300"
+              className="inline-flex items-center gap-1 pl-2.5 pr-1 py-0.5 rounded-full text-[11px] bg-earth-900/60 border border-white/[0.08] text-earth-300"
             >
               <span>
                 <span className="text-earth-500">{chip.filterLabel}: </span>
@@ -175,7 +181,16 @@ export default function FilterBar({
                 type="button"
                 onClick={() => onChange(chip.key, '')}
                 aria-label={`Remove ${chip.filterLabel} filter`}
-                className="flex items-center justify-center w-4 h-4 rounded-full text-earth-500 hover:text-earth-100 hover:bg-white/[0.06] transition-colors"
+                className={
+                  // 24x24 target meets WCAG 2.5.8 AA minimum; the inner
+                  // glyph stays at 12px so the chip's visual weight does
+                  // not change.
+                  'inline-flex items-center justify-center w-6 h-6 rounded-full ' +
+                  'text-earth-500 hover:text-earth-100 hover:bg-white/[0.08] ' +
+                  'focus:outline-none ' +
+                  'focus-visible:ring-2 focus-visible:ring-botanical-400/60 ' +
+                  'transition-colors'
+                }
               >
                 <Icon.MultiplicationX size={12} />
               </button>

@@ -12,12 +12,20 @@ export interface SearchInputProps extends NativeInputProps {
   hideIcon?: boolean
 }
 
+// Focus uses focus-visible so mouse clicks don't paint a ring around an
+// already-clearly-active input, but keyboard users get a confident 2px
+// ring at ~40% botanical-400 — sufficient contrast against the dark
+// surface (WCAG 1.4.11) and a clearly distinguishable change from the
+// rest state (WCAG 2.4.7). Hover lifts the resting border so the field
+// signals interactivity before the user commits.
 const inputClass =
-  'w-full rounded-xl bg-earth-900/50 backdrop-blur-md border border-white/[0.08] ' +
+  'w-full rounded-xl bg-earth-900/50 backdrop-blur-md ' +
+  'border border-white/[0.08] hover:border-white/[0.14] ' +
   'pl-10 pr-4 py-2.5 text-sm text-earth-100 placeholder-earth-500 ' +
-  'focus:outline-none focus:border-botanical-500/40 ' +
-  'focus:ring-[3px] focus:ring-botanical-500/10 ' +
-  'transition-all duration-200'
+  'focus:outline-none ' +
+  'focus-visible:border-botanical-400 ' +
+  'focus-visible:ring-2 focus-visible:ring-botanical-400/40 ' +
+  'transition-colors duration-150'
 
 const inputClassNoIcon = inputClass.replace('pl-10 ', 'px-4 ')
 

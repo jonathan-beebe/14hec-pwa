@@ -21,13 +21,16 @@ export interface SelectProps extends NativeSelectProps {
 // Native <select> arrows differ across browsers and engines and are
 // drawn flush to the padding edge. We hide the native arrow and draw a
 // chevron from a design-system token so the arrow has consistent spacing
-// and matches the dark theme.
+// and matches the dark theme. Focus/hover treatment mirrors SearchInput
+// so the two controls feel like one family.
 const selectClass =
-  'appearance-none rounded-xl bg-earth-900/50 backdrop-blur-md border border-white/[0.08] ' +
+  'appearance-none rounded-xl bg-earth-900/50 backdrop-blur-md ' +
+  'border border-white/[0.08] hover:border-white/[0.14] ' +
   'pl-3 pr-9 py-2.5 text-sm text-earth-300 cursor-pointer ' +
-  'focus:outline-none focus:border-botanical-500/40 ' +
-  'focus:ring-[3px] focus:ring-botanical-500/10 ' +
-  'transition-all duration-200'
+  'focus:outline-none ' +
+  'focus-visible:border-botanical-400 ' +
+  'focus-visible:ring-2 focus-visible:ring-botanical-400/40 ' +
+  'transition-colors duration-150'
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select({ label, options, value, onChange, className, ...rest }, ref) {
