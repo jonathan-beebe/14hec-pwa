@@ -15,15 +15,15 @@ export interface FlatListRowProps {
   /** Secondary line — earth-400. Optional. */
   secondary?: ReactNode
   /**
-   * Locks the row in its engaged appearance (stronger inner glow + the
-   * left-edge accent bar). Use to mark the active list item in a
-   * list/detail layout.
+   * Locks the row in its selected appearance — left-edge bar at full
+   * opacity, inner glow + black wash on the left. Use to mark the
+   * active list item in a list/detail layout.
    */
   selected?: boolean
   /**
-   * Hex color (e.g. `#dc2626`) that drives the icon color, the engaged
-   * inner glow, and the selected left-edge bar. Without it the engaged
-   * state falls back to a neutral white wash.
+   * Hex color (e.g. `#dc2626`) that drives the icon color, the inner
+   * glow when selected, and the left-edge bar. Without it the selected
+   * appearance falls back to a neutral white wash.
    */
   tintHex?: string
   /**
@@ -74,18 +74,18 @@ export default function FlatListRow({
   const reducedMotion = useReducedMotion()
   const sandActive = sandIcon !== undefined && !reducedMotion
   const [hovered, setHovered] = useState(false)
-  const engaged = !!selected || hovered
 
-  // Engaged state — three effects, all anchored to the left edge:
-  //   1. A 3px tinted bar (rendered as its own absolute element below).
+  // Three effects, all anchored to the left edge:
+  //   1. A 3px tinted bar (rendered as its own absolute element below) —
+  //      fades in on hover (subtle) and selected (full).
   //   2. A soft directional inner glow (inset box-shadow with positive
-  //      offsetX so the blur paints on the LEFT side inside the row).
+  //      offsetX so the blur paints on the LEFT side inside the row) —
+  //      shows only when selected.
   //   3. A black-to-transparent linear-gradient bg that darkens the
-  //      row's left side so the glow has dark space to pop against.
-  // Hover reveals just the bar at low opacity — clean cursor hint, no
-  // glow or wash. Selected layers in effects 2 + 3 at full opacity.
-  const engagedBackground = 'linear-gradient(to right, black, transparent)'
-  const engagedShadow = tinted
+  //      row's left side so the glow has dark space to pop against —
+  //      shows only when selected.
+  const selectedBackground = 'linear-gradient(to right, black, transparent)'
+  const selectedShadow = tinted
     ? `inset 32px 0 16px -16px ${tintHex}40`
     : 'inset 32px 0 16px -16px rgba(255,255,255,0.15)'
   const glowOpacity = selected ? 1 : 0
@@ -108,8 +108,8 @@ export default function FlatListRow({
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
         style={{
-          backgroundImage: engagedBackground,
-          boxShadow: engagedShadow,
+          backgroundImage: selectedBackground,
+          boxShadow: selectedShadow,
           opacity: glowOpacity,
         }}
       />
@@ -148,8 +148,8 @@ export default function FlatListRow({
         // sizing but is `invisible` so it doesn't compete with the canvas
         // paint. w-16 + text-6xl gives a 64×60 icon slot that the sand
         // body geometry (above) is calibrated to. `relative z-10` lifts
-        // the icon above the engaged overlay so it doesn't get washed
-        // out by the corner gradients.
+        // the icon above the selected-state overlay so it doesn't get
+        // washed out by the corner gradients.
         <div
           aria-hidden="true"
           className={`relative z-10 w-16 text-6xl flex items-center justify-center shrink-0 ${
@@ -159,7 +159,7 @@ export default function FlatListRow({
           }`}
           style={{
             color: tinted ? tintHex : undefined,
-            opacity: sandActive ? undefined : engaged ? 0.95 : 0.65,
+            opacity: sandActive ? undefined : selected || hovered ? 0.95 : 0.65,
           }}
         >
           {icon}

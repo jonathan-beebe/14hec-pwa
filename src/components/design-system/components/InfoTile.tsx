@@ -53,9 +53,10 @@ export interface InfoTileProps {
    */
   tintHex?: string
   /**
-   * Lock the tile in its engaged appearance (brighter gradient, stronger
-   * border tint, persistent glow). Use to mark the active list item in a
-   * list/detail layout so the selection reads at rest, not just on hover.
+   * Lock the tile in its selected appearance (brighter gradient, stronger
+   * border tint, persistent glow) so the selection reads at rest, not
+   * just on hover. Use to mark the active list item in a list/detail
+   * layout.
    */
   selected?: boolean
 }
@@ -79,7 +80,7 @@ const tonePrimaryClass: Record<InfoTileTone, string> = {
  * Per-tone frame tint: a tone-tinted border and a tone-glow shadow on
  * hover. Border + shadow animate fine via `.card`'s transition-all; the
  * gradient itself lives in stacked overlay divs (`toneRestingGradient`
- * / `toneEngagedGradient` below) that crossfade via opacity, since CSS
+ * / `toneGlowGradient` below) that crossfade via opacity, since CSS
  * gradient interpolation through Tailwind's `--tw-gradient-*` custom
  * properties is unreliable.
  */
@@ -111,9 +112,9 @@ const toneRestingGradient: Record<InfoTileTone, string> = {
   spirit:    'bg-gradient-to-br from-purple-500/20 to-transparent to-[33%]',
 }
 
-// Engaged gradient — brighter (0.30) and a wider sweep (45%). Crossfades
+// Glow gradient — brighter (0.30) and a wider sweep (45%). Crossfades
 // in over the resting layer on hover/focus via group-state opacity.
-const toneEngagedGradient: Record<InfoTileTone, string> = {
+const toneGlowGradient: Record<InfoTileTone, string> = {
   botanical: 'bg-gradient-to-br from-botanical-500/30 to-transparent to-[45%]',
   celestial: 'bg-gradient-to-br from-celestial-500/30 to-transparent to-[45%]',
   gold:      'bg-gradient-to-br from-gold-500/30 to-transparent to-[45%]',
@@ -125,7 +126,7 @@ const toneEngagedGradient: Record<InfoTileTone, string> = {
 
 // Per-tone border + glow for the locked-in selected state. Mirrors
 // `toneFrameClass` but skips the resting `/20` border and the `hover:`
-// prefix on the glow, so the engaged look is permanent. Press feedback
+// prefix on the glow, so the lifted look is permanent. Press feedback
 // (active:shadow-glow-X-sm) stays so a selected tile still telegraphs
 // press. The border and glow are split into parallel maps so tinted tiles
 // can adopt the glow without overriding their inline-styled border.
@@ -151,8 +152,8 @@ const toneSelectedShadow: Record<InfoTileTone, string> = {
 
 // Base box-shadow for all tiles — stronger drop than `.card`'s default,
 // preserving the inset top-edge highlight. Tone tiles get this via
-// `liftClass`; tinted tiles compose it inline so the engaged glow can
-// be tint-derived and stack on top instead of replacing it.
+// `liftClass`; tinted tiles compose it inline so the tinted glow can
+// be derived from `tintHex` and stack on top instead of replacing it.
 const BASE_LIFT_SHADOW =
   'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 10px 28px -6px rgba(0,0,0,0.7)'
 
@@ -161,7 +162,7 @@ const BASE_LIFT_SHADOW =
 // just above tone glow (0.15/0.05) so a custom-tinted glow still reads on
 // dark surfaces even for muted tints. Press shrinks the geometry without
 // fading, matching `glow-{tone}-sm`.
-function tintEngagedGlow(hex: string, pressed: boolean): string {
+function tintGlow(hex: string, pressed: boolean): string {
   const inner = pressed ? '8px' : '15px'
   const outer = pressed ? '24px' : '45px'
   return `0 0 ${inner} ${hex}26, 0 0 ${outer} ${hex}0D`
@@ -212,17 +213,17 @@ function InfoTile({
 
   // Tinted tiles can't rely on CSS `:hover` for the border + glow, since
   // those are inline-styled (CSS pseudo-classes can't override `style`).
-  // Track hover/focus in JS instead so engagement = selected || hovered.
-  // Tone-only tiles set `hovered` too but ignore it — CSS handles them.
+  // Track hover/focus in JS instead so the lifted appearance fires on
+  // either `selected` or `hovered`. Tone-only tiles set `hovered` too
+  // but ignore it — CSS handles them.
   const [hovered, setHovered] = useState(false)
-  const engaged = !!selected || hovered
 
   // 8-digit hex on the gradient overlays — they crossfade via opacity, so
-  // they don't need to switch colors with engagement.
+  // they don't need to switch colors with the state change.
   const tintRestingBg = tinted
     ? `linear-gradient(to bottom right, ${tintHex}33 0%, transparent 33%)`
     : undefined
-  const tintEngagedBg = tinted
+  const tintGlowBg = tinted
     ? `linear-gradient(to bottom right, ${tintHex}4D 0%, transparent 45%)`
     : undefined
 
@@ -241,10 +242,10 @@ function InfoTile({
   // Tone branch keeps its CSS-only frame: shadow-[...] overrides `.card`'s
   // resting box-shadow; `hover:shadow-glow-X` takes over on hover. Press
   // (active:shadow-glow-X-sm) shrinks the geometry, reading as a z-axis
-  // sink. When selected, swap to the always-on engaged classes so the
-  // brighter border + glow read at rest.
+  // sink. When selected, swap to the always-on `toneSelectedBorder` +
+  // `toneSelectedShadow` so the brighter border + glow read at rest.
   // Tinted branch drops all of that and styles border + box-shadow inline
-  // from `tintHex`, so the engaged appearance is faithful to the data-
+  // from `tintHex`, so the lifted appearance is faithful to the data-
   // driven color rather than a tone approximation.
   const liftClass =
     'shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04),_0_10px_28px_-6px_rgba(0,0,0,0.7)]'
@@ -265,20 +266,21 @@ function InfoTile({
   // z-10 to layer above it. The static icon DOM stays in flex layout for
   // sizing but is `invisible` so it doesn't compete with the canvas paint.
   // Inline tinted frame: border alpha + glow are derived from tintHex.
-  // `engaged` (selected || hovered) drives both, so the locked-selected
-  // and hover-pressed states share one source of truth. Press (mousedown)
-  // isn't tracked separately — the active:scale-[0.98] in focusClass
-  // already telegraphs press; the glow stays at engaged size.
+  // `selected || hovered` drives both, so the locked-selected and
+  // hovered states share one source of truth. Press (mousedown) isn't
+  // tracked separately — the active:scale-[0.98] in focusClass already
+  // telegraphs press; the glow stays at full size.
   const tintedFrameStyle: CSSProperties | undefined = tinted
     ? {
-        borderColor: `${tintHex}${engaged ? '66' : '33'}`,
-        boxShadow: engaged
-          ? `${BASE_LIFT_SHADOW}, ${tintEngagedGlow(tintHex!, false)}`
-          : BASE_LIFT_SHADOW,
+        borderColor: `${tintHex}${selected || hovered ? '66' : '33'}`,
+        boxShadow:
+          selected || hovered
+            ? `${BASE_LIFT_SHADOW}, ${tintGlow(tintHex!, false)}`
+            : BASE_LIFT_SHADOW,
       }
     : undefined
 
-  // Hover/focus handlers update `hovered` so tinted tiles get the engaged
+  // Hover/focus handlers update `hovered` so tinted tiles get the lifted
   // styling at the right moments. Tone-only tiles re-render but the state
   // doesn't drive their visuals (CSS does), so it's a no-op visually.
   const hoverHandlers = {
@@ -297,11 +299,11 @@ function InfoTile({
       {...hoverHandlers}
     >
       {/*
-        Two stacked gradient overlays crossfade between resting and engaged
-        on hover/focus. Opacity transitions are universally animatable;
-        the gradient stop changes themselves are not. group-hover and
-        group-focus-visible reach into descendants from the .group on this
-        Link, so no React state needed.
+        Two stacked gradient overlays crossfade between the resting and
+        the glow treatment on hover/focus. Opacity transitions are
+        universally animatable; the gradient stop changes themselves are
+        not. group-hover and group-focus-visible reach into descendants
+        from the .group on this Link, so no React state needed.
       */}
       <div
         aria-hidden="true"
@@ -310,8 +312,8 @@ function InfoTile({
       />
       <div
         aria-hidden="true"
-        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none ${selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100'} ${tinted ? '' : toneEngagedGradient[tone]}`}
-        style={tinted ? { backgroundImage: tintEngagedBg } : undefined}
+        className={`absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo motion-reduce:transition-none ${selected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100'} ${tinted ? '' : toneGlowGradient[tone]}`}
+        style={tinted ? { backgroundImage: tintGlowBg } : undefined}
       />
       {sandActive && (
         // text-8xl matches the static icon-slot's font-size — the

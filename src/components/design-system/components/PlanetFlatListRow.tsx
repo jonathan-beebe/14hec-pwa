@@ -13,13 +13,13 @@ import Type from '../atoms/Type'
 import { useReducedMotion } from '../atoms/useReducedMotion'
 
 /**
- * Flat, edge-to-edge list row carrying a live planet visual. Same engaged
- * treatment as `FlatListRow` (left-edge tint bar + black-to-transparent
- * left wash + tinted inset glow that fade in on hover/select), sized
- * taller so the planet has room to read. The icon column is a WebGL
- * canvas hosting the spike's `PlanetCluster` plus a `WindDrift` field
- * that lifts grains off the planet and drifts them past the text — same
- * role the sand tail plays in `FlatListRow`.
+ * Flat, edge-to-edge list row carrying a live planet visual. Same
+ * selection treatment as `FlatListRow` (left-edge tint bar + black-to-
+ * transparent left wash + tinted inset glow that fade in on hover and
+ * selected), sized taller so the planet has room to read. The icon
+ * column is a WebGL canvas hosting the spike's `PlanetCluster` plus a
+ * `WindDrift` field that lifts grains off the planet and drifts them
+ * past the text — same role the sand tail plays in `FlatListRow`.
  *
  * On hover/focus the planet morphs into its astrological glyph; wind
  * grains follow the silhouette through the morph.
@@ -120,13 +120,14 @@ function withRowDensity(config: PlanetVisual, zoom: number): PlanetVisual {
 
 function PlanetScene({
   config,
-  engaged,
+  showGlyph,
   morphRef,
   bodyRef,
   ringRef,
 }: {
   config: PlanetVisual
-  engaged: boolean
+  /** When true, damp the cluster toward its glyph silhouette; otherwise back to the planet shape. */
+  showGlyph: boolean
   morphRef: MorphRef
   bodyRef: PointsRef
   ringRef: PointsRef
@@ -142,7 +143,7 @@ function PlanetScene({
   useFrame((_, delta) => {
     morphRef.current = THREE.MathUtils.damp(
       morphRef.current,
-      engaged ? 1 : 0,
+      showGlyph ? 1 : 0,
       MORPH_LAMBDA,
       delta,
     )
@@ -176,9 +177,9 @@ export interface PlanetFlatListRowProps {
   /** Secondary line — earth-400. Optional. */
   secondary?: ReactNode
   /**
-   * Locks the row in its engaged appearance (stronger inner glow, the
-   * left-edge accent bar, and the planet morphed into its glyph). Use
-   * to mark the active list item in a list/detail layout.
+   * Locks the row in its selected appearance — stronger inner glow,
+   * left-edge accent bar at full opacity, and the planet morphed into
+   * its glyph. Use to mark the active list item in a list/detail layout.
    */
   selected?: boolean
   'aria-label'?: string
@@ -193,7 +194,6 @@ export default function PlanetFlatListRow({
   'aria-label': ariaLabel,
 }: PlanetFlatListRowProps) {
   const [hovered, setHovered] = useState(false)
-  const engaged = !!selected || hovered
   const reducedMotion = useReducedMotion()
   const morphRef = useRef(0) as MorphRef
   const bodyRef = useRef<THREE.Points | null>(null) as PointsRef
@@ -210,14 +210,14 @@ export default function PlanetFlatListRow({
   const tintCss = `rgb(${tintRgb})`
 
   // Single soft directional inset glow on the left edge, tinted by the
-  // planet. Matches `FlatListRow`'s engaged shadow exactly, just sourced
+  // planet. Matches `FlatListRow`'s selected shadow exactly, just sourced
   // from the planet's rgb tint instead of a hex prop.
-  const engagedShadow = `inset 32px 0 16px -16px rgba(${tintRgb}, 0.25)`
+  const selectedShadow = `inset 32px 0 16px -16px rgba(${tintRgb}, 0.25)`
   // Black-to-transparent wash beneath the glow — darkens the left side
   // so the tinted glow pops.
   const washGradient = 'linear-gradient(to right, black, transparent)'
   // Hover reveals just the bar at low opacity — clean cursor hint, no
-  // glow or wash. Selected layers in the full engaged treatment.
+  // glow or wash. Selected layers in the full lifted treatment.
   const glowOpacity = selected ? 1 : 0
   const barOpacity = selected ? 1 : hovered ? 0.55 : 0
 
@@ -231,14 +231,14 @@ export default function PlanetFlatListRow({
       onBlur={() => setHovered(false)}
       className="relative isolate flex items-center gap-4 px-6 py-4 overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-white/40 focus-visible:[outline-offset:-2px]"
     >
-      {/* Selected-only left-edge glow + black wash. Hover doesn't engage
+      {/* Selected-only left-edge glow + black wash. Hover doesn't trigger
           this — keeps the hover hint to just the bar. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 z-0 pointer-events-none transition-opacity duration-200 motion-reduce:transition-none"
         style={{
           backgroundImage: washGradient,
-          boxShadow: engagedShadow,
+          boxShadow: selectedShadow,
           opacity: glowOpacity,
         }}
       />
@@ -271,7 +271,7 @@ export default function PlanetFlatListRow({
           >
             <PlanetScene
               config={rowConfig}
-              engaged={engaged}
+              showGlyph={!!selected || hovered}
               morphRef={morphRef}
               bodyRef={bodyRef}
               ringRef={ringRef}

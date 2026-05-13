@@ -53,9 +53,9 @@ export interface PlanetTileProps {
   className?: string
   'aria-label'?: string
   /**
-   * Lock the tile in its engaged appearance — the cluster morphs into
+   * Lock the tile in its selected appearance — the cluster morphs into
    * the planetary glyph, the gradient brightens, and the border + glow
-   * lift to the engaged tint. Use to mark the active list item in a
+   * step up to the lifted tint. Use to mark the active list item in a
    * list/detail layout.
    */
   selected?: boolean
@@ -147,13 +147,14 @@ function withTileDensity(config: PlanetVisual, zoom: number): PlanetVisual {
 
 function PlanetScene({
   config,
-  engaged,
+  showGlyph,
   morphRef,
   bodyRef,
   ringRef,
 }: {
   config: PlanetVisual
-  engaged: boolean
+  /** When true, damp the cluster toward its glyph silhouette; otherwise back to the planet shape. */
+  showGlyph: boolean
   morphRef: MorphRef
   bodyRef: PointsRef
   ringRef: PointsRef
@@ -170,7 +171,7 @@ function PlanetScene({
   useFrame((_, delta) => {
     morphRef.current = THREE.MathUtils.damp(
       morphRef.current,
-      engaged ? 1 : 0,
+      showGlyph ? 1 : 0,
       MORPH_LAMBDA,
       delta,
     )
@@ -204,11 +205,10 @@ export default function PlanetTile({
   selected,
   'aria-label': ariaLabel,
 }: PlanetTileProps) {
-  const [hoverEngaged, setHoverEngaged] = useState(false)
-  // Selected locks the tile in its engaged appearance; hover/focus still
-  // toggle the same state for non-selected tiles, so behavior is unchanged
-  // when the prop is omitted.
-  const engaged = selected || hoverEngaged
+  const [hovered, setHovered] = useState(false)
+  // `selected` locks the tile in its lifted appearance at rest; hover and
+  // focus toggle the same look on non-selected tiles. Both states feed the
+  // same visual outputs via `selected || hovered` below.
   const reducedMotion = useReducedMotion()
   const morphRef = useRef(0) as MorphRef
   const bodyRef = useRef<THREE.Points | null>(null) as PointsRef
@@ -236,7 +236,7 @@ export default function PlanetTile({
   const cls = `${frame} ${focus}${className ? ` ${className}` : ''}`
 
   // Inline frame style mirrors InfoTile's tone treatment: tint border
-  // and a paired glow on engagement (same 15px/45px pair as
+  // and a paired glow when `selected || hovered` (same 15px/45px pair as
   // `boxShadow.glow-*` in tailwind.config). At rest the glow drops out,
   // leaving the deeper resting drop shadow + inset highlight. The
   // gradient lives in stacked overlay divs (below) so it can crossfade
@@ -244,29 +244,29 @@ export default function PlanetTile({
   // interpolate when their stops change.
   const baseShadow =
     'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 10px 28px -6px rgba(0,0,0,0.7)'
-  const engagedGlow =
+  const glowShadow =
     `, 0 0 15px rgba(${tintRgb}, 0.18), 0 0 45px rgba(${tintRgb}, 0.06)`
   const frameStyle: React.CSSProperties = {
-    borderColor: `rgba(${tintRgb}, ${engaged ? 0.40 : 0.20})`,
-    boxShadow: baseShadow + (engaged ? engagedGlow : ''),
+    borderColor: `rgba(${tintRgb}, ${selected || hovered ? 0.40 : 0.20})`,
+    boxShadow: baseShadow + (selected || hovered ? glowShadow : ''),
   }
 
-  // Two stacked gradient layers crossfade between resting (fainter, tighter
-  // sweep) and engaged (brighter, wider sweep) via opacity transitions —
-  // the only reliable way to animate a gradient stop change.
+  // Two stacked gradient layers crossfade between the resting (fainter,
+  // tighter sweep) and the glow (brighter, wider sweep) via opacity
+  // transitions — the only reliable way to animate a gradient stop change.
   const restingGradient = `linear-gradient(to bottom right, rgba(${tintRgb}, 0.20), transparent 33%)`
-  const engagedGradient = `linear-gradient(to bottom right, rgba(${tintRgb}, 0.30), transparent 45%)`
+  const glowGradient = `linear-gradient(to bottom right, rgba(${tintRgb}, 0.30), transparent 45%)`
   const gradientLayers = (
     <>
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo"
-        style={{ backgroundImage: restingGradient, opacity: engaged ? 0 : 1 }}
+        style={{ backgroundImage: restingGradient, opacity: selected || hovered ? 0 : 1 }}
       />
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none rounded-2xl transition-opacity duration-300 ease-out-expo"
-        style={{ backgroundImage: engagedGradient, opacity: engaged ? 1 : 0 }}
+        style={{ backgroundImage: glowGradient, opacity: selected || hovered ? 1 : 0 }}
       />
     </>
   )
@@ -290,7 +290,7 @@ export default function PlanetTile({
       >
         <PlanetScene
           config={tileConfig}
-          engaged={engaged}
+          showGlyph={selected || hovered}
           morphRef={morphRef}
           bodyRef={bodyRef}
           ringRef={ringRef}
@@ -332,13 +332,13 @@ export default function PlanetTile({
     </div>
   )
 
-  // Hover and focus both drive engagement so keyboard users get the same
+  // Hover and focus both flip `hovered` so keyboard users get the same
   // morph reveal as mouse users.
   const handlers = {
-    onMouseEnter: () => setHoverEngaged(true),
-    onMouseLeave: () => setHoverEngaged(false),
-    onFocus: () => setHoverEngaged(true),
-    onBlur: () => setHoverEngaged(false),
+    onMouseEnter: () => setHovered(true),
+    onMouseLeave: () => setHovered(false),
+    onFocus: () => setHovered(true),
+    onBlur: () => setHovered(false),
   }
 
   return (
