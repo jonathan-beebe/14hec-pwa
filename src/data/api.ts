@@ -565,6 +565,11 @@ export const api = {
     return journalStore.getEntries(filters)
   },
 
+  getJournalEntryById: async (id: number): Promise<JournalEntry | null> => {
+    const all = await journalStore.getEntries()
+    return all.find((e) => e.id === id) ?? null
+  },
+
   createJournalEntry: async (entry: {
     plant_id?: number | null; prompt_id?: number | null
     title?: string | null; content: string

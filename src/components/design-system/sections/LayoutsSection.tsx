@@ -297,7 +297,13 @@ export default function LayoutsSection() {
             <code className="text-earth-400">Body Systems</code>
           </p>
           <CatalogDemo />
-          <div className="text-right">
+          <div className="text-right flex justify-end gap-4">
+            <Link
+              to="/design-system/layouts/catalog-grouped"
+              className="inline-flex items-center gap-1 text-xs text-earth-400 hover:text-earth-100 font-system transition-colors"
+            >
+              Open grouped-results demo →
+            </Link>
             <Link
               to="/design-system/layouts/catalog"
               className="inline-flex items-center gap-1 text-xs text-earth-400 hover:text-earth-100 font-system transition-colors"

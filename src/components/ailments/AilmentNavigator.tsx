@@ -1,121 +1,140 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
 import { api } from '@/data/api'
 import type { Ailment } from '@/types'
-import Text from '@/components/design-system/atoms/Text'
+import Badge from '@/components/design-system/atoms/Badge'
+import BrowseTile from '@/components/design-system/components/BrowseTile'
+import CatalogLayout from '@/components/design-system/layouts/CatalogLayout'
+import CatalogHeader from '@/components/design-system/components/CatalogHeader'
+import {
+  CatalogGrid,
+  CatalogGroup,
+  CatalogGroupedResults,
+} from '@/components/design-system/components/CatalogGrid'
+import CatalogEmpty from '@/components/design-system/components/CatalogEmpty'
+import FilterBar from '@/components/design-system/components/FilterBar'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '@/components/design-system/hooks/useCollectionFilters'
+import { formatCatalogStatus } from '@/components/design-system/utils/formatCatalogStatus'
+
+const FILTERS: CatalogFilter[] = [
+  { kind: 'search', key: 'q', placeholder: 'Search ailments…', label: 'Search' },
+  {
+    kind: 'select',
+    key: 'category',
+    label: 'Category',
+    options: [
+      { value: '', label: 'All categories' },
+      { value: 'physical', label: 'Physical' },
+      { value: 'emotional', label: 'Emotional' },
+      { value: 'spiritual', label: 'Spiritual' },
+    ],
+  },
+]
+
+const categoryVariant: Record<Ailment['category'], 'earth' | 'water' | 'air'> = {
+  physical: 'earth',
+  emotional: 'water',
+  spiritual: 'air',
+}
+
+function filterAilments(values: Record<string, string>, all: Ailment[]) {
+  const q = (values.q ?? '').trim().toLowerCase()
+  const category = values.category ?? ''
+  return all.filter((a) => {
+    if (category && a.category !== category) return false
+    if (!q) return true
+    return (
+      a.name.toLowerCase().includes(q) ||
+      a.description.toLowerCase().includes(q)
+    )
+  })
+}
+
+function groupByBodySystem(items: Ailment[]) {
+  const map = new Map<string, Ailment[]>()
+  for (const a of items) {
+    const key = a.body_system || 'Other'
+    const bucket = map.get(key)
+    if (bucket) bucket.push(a)
+    else map.set(key, [a])
+  }
+  return [...map.entries()].sort(([a], [b]) => a.localeCompare(b))
+}
 
 export default function AilmentNavigator() {
-  const navigate = useNavigate()
-  const [ailments, setAilments] = useState<Ailment[]>([])
-  const [filterCategory, setFilterCategory] = useState('')
-  const [search, setSearch] = useState('')
+  const [all, setAll] = useState<Ailment[]>([])
+  const { values, setValue, clear, hasActiveFilters } =
+    useCollectionFilters(FILTERS)
 
   useEffect(() => {
-    const filters: any = {}
-    if (filterCategory) filters.category = filterCategory
-    if (search) filters.search = search
-    api.getAilments(filters).then(setAilments)
-  }, [filterCategory, search])
+    api.getAilments().then(setAll)
+  }, [])
 
-  const grouped = ailments.reduce<Record<string, Ailment[]>>((acc, a) => {
-    const key = a.body_system || 'Other'
-    if (!acc[key]) acc[key] = []
-    acc[key].push(a)
-    return acc
-  }, {})
-
-  const categoryColors: Record<string, string> = {
-    physical: 'badge-earth',
-    emotional: 'badge-water',
-    spiritual: 'badge-air'
-  }
-
-  const categoryIcons: Record<string, string> = {
-    physical: '\u2618',
-    emotional: '\u2661',
-    spiritual: '\u2726'
-  }
+  const filtered = useMemo(() => filterAilments(values, all), [values, all])
+  const grouped = useMemo(() => groupByBodySystem(filtered), [filtered])
+  const statusMessage = formatCatalogStatus(
+    filtered.length,
+    all.length,
+    hasActiveFilters,
+    { noun: 'ailment' },
+  )
 
   return (
-    <div className="animate-fade-in">
-      <div className="mb-4">
-        <Text.PageTitle>Ailments</Text.PageTitle>
-        <p className="text-sm text-earth-500">{ailments.length} conditions in database</p>
-      </div>
-
-      {/* Filters */}
-      <div className="glass-panel p-4 mb-6">
-        <div className="flex gap-3 items-center">
-          <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <svg className="w-4 h-4 text-earth-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              placeholder="Search ailments..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="input-field pl-10"
-            />
-          </div>
-          <div className="flex gap-2">
-            {[
-              { cat: '', label: 'All' },
-              { cat: 'physical', label: 'Physical' },
-              { cat: 'emotional', label: 'Emotional' },
-              { cat: 'spiritual', label: 'Spiritual' }
-            ].map(({ cat, label }) => (
-              <button
-                key={cat}
-                onClick={() => setFilterCategory(cat)}
-                className={`px-4 py-2.5 rounded-xl text-sm transition-all duration-200 ${
-                  filterCategory === cat
-                    ? 'text-botanical-200 shadow-glow-botanical'
-                    : 'bg-earth-800/40 text-earth-400 hover:text-earth-200'
-                }`}
-                style={filterCategory === cat ? { background: 'linear-gradient(135deg, rgba(45, 112, 72, 0.3), rgba(35, 90, 58, 0.3))' } : undefined}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+    <CatalogLayout
+      header={
+        <CatalogHeader
+          title="Ailments"
+          count={filtered.length}
+          total={all.length}
+          subtitle="Conditions across physical, emotional, and spiritual dimensions, grouped by body system."
+        />
+      }
+      filters={
+        <div className="px-8 py-3">
+          <FilterBar
+            filters={FILTERS}
+            values={values}
+            onChange={setValue}
+            onClear={clear}
+            hasActiveFilters={hasActiveFilters}
+          />
         </div>
-      </div>
-
-      {/* Grouped by body system */}
-      <div className="space-y-8">
-        {Object.entries(grouped)
-          .sort(([a], [b]) => a.localeCompare(b))
-          .map(([system, items]) => (
-            <div key={system}>
-              <Text.SectionLabel as="h2" className="mb-3 text-sm">
-                {system}
-              </Text.SectionLabel>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+      }
+      results={
+        <CatalogGroupedResults>
+          {grouped.map(([system, items]) => (
+            <CatalogGroup
+              key={system}
+              heading={`${system} (${items.length})`}
+            >
+              <CatalogGrid>
                 {items.map((ailment) => (
-                  <button
-                    key={ailment.id}
-                    onClick={() => navigate('/ailments/' + ailment.id)}
-                    className="card text-left cursor-pointer py-4 group"
-                  >
-                    <div className="flex justify-between items-center mb-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm opacity-40">{categoryIcons[ailment.category]}</span>
-                        <span className="text-earth-200 font-medium group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
-                      </div>
-                      <span className={`badge ${categoryColors[ailment.category]}`}>
-                        {ailment.category}
+                  <BrowseTile key={ailment.id} to={`/ailments/${ailment.id}`}>
+                    <div className="flex justify-between items-start mb-1.5 gap-2">
+                      <span className="text-sm font-medium text-earth-100">
+                        {ailment.name}
                       </span>
+                      <Badge variant={categoryVariant[ailment.category]}>
+                        {ailment.category}
+                      </Badge>
                     </div>
-                    <p className="text-xs text-earth-500 line-clamp-2 pl-6">{ailment.description}</p>
-                  </button>
+                    <p className="text-xs text-earth-400 line-clamp-2">
+                      {ailment.description}
+                    </p>
+                  </BrowseTile>
                 ))}
-              </div>
-            </div>
+              </CatalogGrid>
+            </CatalogGroup>
           ))}
-      </div>
-    </div>
+        </CatalogGroupedResults>
+      }
+      empty={
+        <CatalogEmpty message="No ailments match your filters." onClear={clear} />
+      }
+      itemCount={filtered.length}
+      statusMessage={statusMessage}
+    />
   )
 }

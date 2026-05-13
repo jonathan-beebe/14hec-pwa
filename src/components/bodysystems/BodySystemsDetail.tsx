@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
-import type { BodySystem, BodySystemDetail } from '@/types'
+import type { BodySystemDetail } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
 
@@ -11,16 +11,6 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; ring: string }
   tissue:    { bg: 'bg-amber-500/10',  text: 'text-amber-300',  ring: 'ring-amber-500/20' },
   gland:     { bg: 'bg-purple-500/10', text: 'text-purple-300', ring: 'ring-purple-500/20' },
   structure: { bg: 'bg-green-500/10',  text: 'text-green-300',  ring: 'ring-green-500/20' },
-}
-
-const CATEGORY_ORDER: BodySystem['category'][] = ['system', 'organ', 'gland', 'tissue', 'structure']
-
-const CATEGORY_LABELS: Record<string, string> = {
-  organ: 'Organs',
-  system: 'Systems',
-  tissue: 'Tissues',
-  gland: 'Glands',
-  structure: 'Structures',
 }
 
 const RELEVANCE_COLORS: Record<string, { bg: string; text: string; ring: string }> = {
@@ -47,141 +37,14 @@ const CORRESPONDENCE_LABELS: Record<string, string> = {
   clinical:               'Clinical',
 }
 
-// ── List View ────────────────────────────────────────────
-
-function BodySystemsList() {
-  const navigate = useNavigate()
-  const [systems, setSystems] = useState<BodySystem[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    api.getBodySystems().then((data) => {
-      setSystems(data)
-      setLoading(false)
-    })
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="animate-fade-in">
-        <div className="skeleton h-8 w-64 mb-2" />
-        <div className="skeleton h-4 w-96 mb-8" />
-        {[...Array(3)].map((_, gi) => (
-          <div key={gi} className="mb-8">
-            <div className="skeleton h-4 w-24 mb-4" />
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {[...Array(3)].map((_, ci) => (
-                <div key={ci} className="skeleton h-40 rounded-2xl" />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    )
-  }
-
-  const grouped: Record<string, BodySystem[]> = {}
-  for (const sys of systems) {
-    if (!grouped[sys.category]) grouped[sys.category] = []
-    grouped[sys.category].push(sys)
-  }
-
-  return (
-    <div className="max-w-6xl animate-fade-in">
-      {/* Header */}
-      <div className="hero-section mb-8">
-        <div className="hero-orb w-72 h-72 -top-32 -right-16 bg-botanical-500" />
-        <div className="hero-orb w-48 h-48 -bottom-20 -left-12 bg-celestial-500" style={{ opacity: 0.1 }} />
-
-        <div className="relative">
-          <div className="flex items-center gap-4 mb-3">
-            <div className="w-1 h-10 rounded-full"
-                 style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
-            <div>
-              <Text.Heading className="text-gradient-botanical">
-                Body Systems
-              </Text.Heading>
-              <p className="text-earth-400 text-sm mt-1">
-                Organs, systems, glands & tissues {'\u2014'} mapped to plants, planets & ancient wisdom
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Grouped grid */}
-      {CATEGORY_ORDER.filter((cat) => grouped[cat]?.length).map((category) => {
-        const items = grouped[category]
-        const catStyle = CATEGORY_COLORS[category] || CATEGORY_COLORS.system
-        return (
-          <div key={category} className="mb-8">
-            <div className="flex items-center gap-2 mb-4">
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-md text-[11px] font-medium tracking-wide ring-1 ring-inset ${catStyle.bg} ${catStyle.text} ${catStyle.ring}`}>
-                {CATEGORY_LABELS[category] || category}
-              </span>
-              <span className="text-[10px] text-earth-600">{items.length} {items.length === 1 ? 'entry' : 'entries'}</span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {items.map((sys, i) => (
-                <button
-                  key={sys.id}
-                  onClick={() => navigate('/body-systems/' + sys.id)}
-                  className="card text-left cursor-pointer group animate-fade-in-up"
-                  style={{ animationDelay: `${i * 0.04}s` }}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <Text.CardTitle className="group-hover:text-botanical-400 transition-colors">
-                      {sys.name}
-                    </Text.CardTitle>
-                    <span className={`inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium tracking-wide ring-1 ring-inset ${catStyle.bg} ${catStyle.text} ${catStyle.ring}`}>
-                      {sys.category}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-earth-400 line-clamp-2 leading-relaxed mb-3">
-                    {sys.description}
-                  </p>
-
-                  <div className="space-y-1.5">
-                    {sys.tcm_element && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-earth-500 uppercase tracking-[0.15em] w-12">TCM</span>
-                        <span className="text-xs text-earth-300">{sys.tcm_element}</span>
-                      </div>
-                    )}
-                    {sys.ayurvedic_dosha && (
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] text-earth-500 uppercase tracking-[0.15em] w-12">Dosha</span>
-                        <span className="text-xs text-earth-300">{sys.ayurvedic_dosha}</span>
-                      </div>
-                    )}
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )
-      })}
-
-      {systems.length === 0 && !loading && (
-        <div className="text-center py-16 text-earth-600">
-          <p className="text-sm font-display">No body systems found.</p>
-        </div>
-      )}
-    </div>
-  )
-}
-
-
-// ── Detail View ──────────────────────────────────────────
-
-function BodySystemDetailView({ id }: { id: number }) {
+export default function BodySystemsDetail() {
+  const { id } = useParams()
   const navigate = useNavigate()
   const [detail, setDetail] = useState<BodySystemDetail | null>(null)
 
   useEffect(() => {
-    api.getBodySystemById(id).then(setDetail)
+    if (id === undefined) return
+    api.getBodySystemById(Number(id)).then(setDetail)
   }, [id])
 
   if (!detail) {
@@ -209,15 +72,13 @@ function BodySystemDetailView({ id }: { id: number }) {
 
   return (
     <div className="max-w-4xl animate-fade-in">
-      {/* Back button */}
       <Button.Ghost
         route="/body-systems"
         className="mb-4 inline-flex items-center gap-1"
       >
-        {'\u2190'} Back to Body Systems
+        {'←'} Back to Body Systems
       </Button.Ghost>
 
-      {/* Hero header */}
       <div className="hero-section mb-8">
         <div className="hero-orb w-64 h-64 -top-20 -right-20" style={{ background: heroOrbColor }} />
         <div className="hero-orb w-40 h-40 -bottom-10 -left-10" style={{ background: heroOrbColor, animationDelay: '2s' }} />
@@ -233,11 +94,10 @@ function BodySystemDetailView({ id }: { id: number }) {
         </div>
       </div>
 
-      {/* Planetary & Zodiac info */}
       {(detail.ruling_planet_name || detail.zodiac_sign_name) && (
         <div className="card-glow-celestial mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xl opacity-50">{'\u2609'}</span>
+            <span className="text-xl opacity-50">{'☉'}</span>
             <h2 className="text-xl font-display font-semibold text-earth-100">Planetary & Zodiac Correspondences</h2>
           </div>
           <div className="flex flex-wrap gap-4">
@@ -263,11 +123,10 @@ function BodySystemDetailView({ id }: { id: number }) {
         </div>
       )}
 
-      {/* TCM Element + Ayurvedic Dosha */}
       {(detail.tcm_element || detail.ayurvedic_dosha) && (
         <div className="card mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xl opacity-50">{'\u2638'}</span>
+            <span className="text-xl opacity-50">{'☸'}</span>
             <h2 className="text-xl font-display font-semibold text-earth-100">Eastern Medicine Correspondences</h2>
           </div>
           <div className="flex flex-wrap gap-4">
@@ -287,11 +146,10 @@ function BodySystemDetailView({ id }: { id: number }) {
         </div>
       )}
 
-      {/* Associated Ailments */}
       {detail.ailments.length > 0 && (
         <div className="card mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xl opacity-50">{'\u2695'}</span>
+            <span className="text-xl opacity-50">{'⚕'}</span>
             <h2 className="text-xl font-display font-semibold text-earth-100">Associated Ailments</h2>
             <span className="text-[10px] text-earth-600">{detail.ailments.length}</span>
           </div>
@@ -331,11 +189,10 @@ function BodySystemDetailView({ id }: { id: number }) {
         </div>
       )}
 
-      {/* Plant Part Correspondences */}
       {detail.plantPartCorrespondences.length > 0 && (
         <div className="card mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xl opacity-50">{'\u2618'}</span>
+            <span className="text-xl opacity-50">{'☘'}</span>
             <h2 className="text-xl font-display font-semibold text-earth-100">Plant Correspondences</h2>
             <span className="text-[10px] text-earth-600">{detail.plantPartCorrespondences.length}</span>
           </div>
@@ -392,11 +249,10 @@ function BodySystemDetailView({ id }: { id: number }) {
         </div>
       )}
 
-      {/* Food Correspondences */}
       {detail.foodCorrespondences.length > 0 && (
         <div className="card mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-xl opacity-50">{'\u2767'}</span>
+            <span className="text-xl opacity-50">{'❧'}</span>
             <h2 className="text-xl font-display font-semibold text-earth-100">Food Correspondences</h2>
             <span className="text-[10px] text-earth-600">{detail.foodCorrespondences.length}</span>
           </div>
@@ -438,15 +294,4 @@ function BodySystemDetailView({ id }: { id: number }) {
       )}
     </div>
   )
-}
-
-
-// ── Router ───────────────────────────────────────────────
-
-export default function BodySystemsView() {
-  const { id } = useParams()
-  if (id !== undefined) {
-    return <BodySystemDetailView id={Number(id)} />
-  }
-  return <BodySystemsList />
 }

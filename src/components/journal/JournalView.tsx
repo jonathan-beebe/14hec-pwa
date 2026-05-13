@@ -1,21 +1,30 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
-import type { Plant, JournalEntry, JournalPrompt } from '../../types'
+import type { JournalEntry, JournalPrompt, Plant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
 
-type ViewMode = 'list' | 'new' | 'edit' | 'view'
+type ViewMode = 'new' | 'edit' | 'view'
 
-const MOODS = ['grateful', 'curious', 'peaceful', 'energized', 'reflective', 'challenged', 'transformed'] as const
+const MOODS = [
+  'grateful',
+  'curious',
+  'peaceful',
+  'energized',
+  'reflective',
+  'challenged',
+  'transformed',
+] as const
 
 const MOOD_ICONS: Record<string, string> = {
-  grateful: '\u2661',
-  curious: '\u2609',
-  peaceful: '\u2618',
-  energized: '\u2726',
-  reflective: '\u263D',
-  challenged: '\u2638',
-  transformed: '\u2727'
+  grateful: '♡',
+  curious: '☉',
+  peaceful: '☘',
+  energized: '✦',
+  reflective: '☽',
+  challenged: '☸',
+  transformed: '✧',
 }
 
 const MOOD_COLORS: Record<string, string> = {
@@ -25,7 +34,7 @@ const MOOD_COLORS: Record<string, string> = {
   energized: 'rgba(251, 191, 36, 0.7)',
   reflective: 'rgba(124, 94, 237, 0.7)',
   challenged: 'rgba(245, 158, 11, 0.7)',
-  transformed: 'rgba(168, 85, 247, 0.7)'
+  transformed: 'rgba(168, 85, 247, 0.7)',
 }
 
 function getCurrentSeason(): string {
@@ -42,87 +51,63 @@ function formatDate(dateStr: string): string {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
-  })
-}
-
-function formatDateShort(dateStr: string): string {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
     day: 'numeric',
-    year: 'numeric'
   })
 }
 
 export default function JournalView() {
-  const [viewMode, setViewMode] = useState<ViewMode>('list')
-  const [entries, setEntries] = useState<JournalEntry[]>([])
+  const navigate = useNavigate()
+  const { id: idParam } = useParams<{ id?: string }>()
+  const { pathname } = useLocation()
+  const id = idParam ? Number(idParam) : null
+
+  // viewMode derived from URL + local edit toggle.
+  // /journal/new → new ; /journal/:id → view (default) or edit
+  const [editing, setEditing] = useState(false)
+  const viewMode: ViewMode =
+    pathname === '/journal/new' ? 'new' : editing ? 'edit' : 'view'
+
+  const [entry, setEntry] = useState<JournalEntry | null>(null)
   const [plants, setPlants] = useState<Plant[]>([])
   const [prompts, setPrompts] = useState<JournalPrompt[]>([])
-  const [loading, setLoading] = useState(true)
 
   // Form state
-  const [editingEntry, setEditingEntry] = useState<JournalEntry | null>(null)
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [selectedPlantId, setSelectedPlantId] = useState<number | null>(null)
   const [selectedPromptId, setSelectedPromptId] = useState<number | null>(null)
   const [mood, setMood] = useState('')
   const [saving, setSaving] = useState(false)
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
-  // Filters
-  const [filterPlantId, setFilterPlantId] = useState<number | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState<number | null>(null)
-
-  // Load entries and plants on mount
   useEffect(() => {
-    loadEntries()
     api.getPlants().then(setPlants)
   }, [])
 
-  // Load prompts when plant selection changes
   useEffect(() => {
     const params = selectedPlantId ? { plantId: selectedPlantId } : undefined
     api.getJournalPrompts(params).then(setPrompts).catch(() => setPrompts([]))
   }, [selectedPlantId])
 
-  async function loadEntries() {
-    setLoading(true)
-    try {
-      const params = filterPlantId ? { plantId: filterPlantId } : undefined
-      const data = await api.getJournalEntries(params)
-      setEntries(data)
-    } catch {
-      setEntries([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Re-load entries when filter changes
+  // Load entry from URL when in detail mode
   useEffect(() => {
-    loadEntries()
-  }, [filterPlantId])
-
-  // Filtered and searched entries
-  const filteredEntries = useMemo(() => {
-    let result = entries
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase()
-      result = result.filter(
-        (e) =>
-          (e.title || '').toLowerCase().includes(q) ||
-          e.content.toLowerCase().includes(q) ||
-          (e.plant_name && e.plant_name.toLowerCase().includes(q))
-      )
+    if (id === null) {
+      setEntry(null)
+      resetForm()
+      setEditing(false)
+      return
     }
-    // Sort newest first
-    return [...result].sort(
-      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-    )
-  }, [entries, searchQuery])
+    api.getJournalEntryById(id).then((loaded) => {
+      setEntry(loaded)
+      if (loaded) {
+        setTitle(loaded.title || '')
+        setContent(loaded.content)
+        setSelectedPlantId(loaded.plant_id)
+        setSelectedPromptId(loaded.prompt_id)
+        setMood(loaded.mood || '')
+      }
+    })
+  }, [id])
 
   function resetForm() {
     setTitle('')
@@ -130,27 +115,6 @@ export default function JournalView() {
     setSelectedPlantId(null)
     setSelectedPromptId(null)
     setMood('')
-    setEditingEntry(null)
-  }
-
-  function startNewEntry() {
-    resetForm()
-    setViewMode('new')
-  }
-
-  function startEditEntry(entry: JournalEntry) {
-    setEditingEntry(entry)
-    setTitle(entry.title || '')
-    setContent(entry.content)
-    setSelectedPlantId(entry.plant_id)
-    setSelectedPromptId(entry.prompt_id)
-    setMood(entry.mood || '')
-    setViewMode('edit')
-  }
-
-  function viewEntry(entry: JournalEntry) {
-    setEditingEntry(entry)
-    setViewMode('view')
   }
 
   async function saveEntry() {
@@ -163,18 +127,16 @@ export default function JournalView() {
         plant_id: selectedPlantId,
         prompt_id: selectedPromptId,
         mood: mood || null,
-        season: getCurrentSeason()
+        season: getCurrentSeason(),
       }
 
-      if (viewMode === 'edit' && editingEntry) {
-        await api.updateJournalEntry(editingEntry.id, entryData)
+      if (viewMode === 'edit' && entry) {
+        await api.updateJournalEntry(entry.id, entryData)
       } else {
         await api.createJournalEntry(entryData)
       }
 
-      await loadEntries()
-      resetForm()
-      setViewMode('list')
+      navigate('/journal')
     } catch (err) {
       console.error('Failed to save journal entry:', err)
     } finally {
@@ -182,15 +144,10 @@ export default function JournalView() {
     }
   }
 
-  async function deleteEntry(id: number) {
+  async function deleteEntry(entryId: number) {
     try {
-      await api.deleteJournalEntry(id)
-      await loadEntries()
-      setShowDeleteConfirm(null)
-      if (viewMode !== 'list') {
-        resetForm()
-        setViewMode('list')
-      }
+      await api.deleteJournalEntry(entryId)
+      navigate('/journal')
     } catch (err) {
       console.error('Failed to delete journal entry:', err)
     }
@@ -198,204 +155,117 @@ export default function JournalView() {
 
   function selectPrompt(prompt: JournalPrompt) {
     setSelectedPromptId(prompt.id)
-    if (!content) {
-      setContent('')
-    }
   }
 
-  // ── Render: Entry List ──────────────────────────────────
-  function renderList() {
-    return (
-      <div className="animate-fade-in">
-        {/* Filters */}
-        <div className="flex items-center gap-3 mb-6">
-          <div className="flex-1 relative">
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-              <svg className="w-4 h-4 text-earth-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              placeholder="Search journal entries..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="input-field pl-11"
-            />
-          </div>
-          <select
-            value={filterPlantId || ''}
-            onChange={(e) => setFilterPlantId(e.target.value ? Number(e.target.value) : null)}
-            className="select-field"
-          >
-            <option value="">All plants</option>
-            {plants.map((p) => (
-              <option key={p.id} value={p.id}>{p.common_name}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* Entries */}
-        {loading ? (
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="skeleton h-28 rounded-2xl" />
-            ))}
-          </div>
-        ) : filteredEntries.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-4xl opacity-20 mb-4">{'\u270E'}</div>
-            <p className="text-earth-400 text-sm mb-2">
-              {entries.length === 0 ? 'Your journal awaits its first entry' : 'No entries match your search'}
-            </p>
-            {entries.length === 0 && (
-              <p className="text-earth-500 text-xs font-display italic">
-                Begin your record of plant relationships and inner exploration
-              </p>
-            )}
-            <Button.Primary onClick={startNewEntry} className="mt-6">
-              Write Your First Entry
-            </Button.Primary>
-          </div>
-        ) : (
-          <div className="space-y-2.5">
-            {filteredEntries.map((entry, i) => (
-              <button
-                key={entry.id}
-                onClick={() => viewEntry(entry)}
-                className="card w-full text-left cursor-pointer group animate-fade-in-up"
-                style={{ animationDelay: `${i * 0.04}s` }}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Text.CardTitle className="group-hover:text-botanical-400 transition-colors truncate">
-                        {entry.title}
-                      </Text.CardTitle>
-                      {entry.mood && (
-                        <span
-                          className="text-xs flex-shrink-0"
-                          style={{ color: MOOD_COLORS[entry.mood] || 'rgba(255,255,255,0.4)' }}
-                          title={entry.mood}
-                        >
-                          {MOOD_ICONS[entry.mood] || '\u25CB'}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[10px] text-earth-500">{formatDateShort(entry.created_at)}</span>
-                      {entry.plant_name && (
-                        <>
-                          <span className="text-earth-700 text-[10px]">{'\u00b7'}</span>
-                          <span className="text-[10px] text-botanical-500">{entry.plant_name}</span>
-                        </>
-                      )}
-                    </div>
-                    <p className="text-earth-400 text-xs leading-relaxed line-clamp-2">
-                      {entry.content.slice(0, 120)}{entry.content.length > 120 ? '...' : ''}
-                    </p>
-                    {entry.prompt_text && (
-                      <p className="text-earth-600 text-[10px] mt-1.5 italic truncate">
-                        Prompt: {entry.prompt_text}
-                      </p>
-                    )}
-                  </div>
-                  <div className="text-earth-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1">
-                    {'\u2192'}
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-    )
-  }
-
-  // ── Render: View Entry ──────────────────────────────────
   function renderViewEntry() {
-    if (!editingEntry) return null
+    if (!entry) return null
     return (
       <div className="animate-fade-in">
-        <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }} className="mb-4 inline-flex items-center gap-1">
-          {'\u2190'} Back to Journal
+        <Button.Ghost
+          route="/journal"
+          className="mb-4 inline-flex items-center gap-1"
+        >
+          {'←'} Back to Journal
         </Button.Ghost>
 
-        <div className="card p-8 mb-4"
-             style={{
-               background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(26, 25, 21, 0.65) 100%)',
-               borderColor: 'rgba(245, 158, 11, 0.06)'
-             }}>
+        <div
+          className="card p-8 mb-4"
+          style={{
+            background:
+              'linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(26, 25, 21, 0.65) 100%)',
+            borderColor: 'rgba(245, 158, 11, 0.06)',
+          }}
+        >
           <div className="flex items-start justify-between mb-4">
             <div>
-              <Text.Heading className="mb-1">
-                {editingEntry.title}
-              </Text.Heading>
+              <Text.Heading className="mb-1">{entry.title}</Text.Heading>
               <div className="flex items-center gap-3">
-                <span className="text-xs text-earth-500">{formatDate(editingEntry.created_at)}</span>
-                {editingEntry.plant_name && (
+                <span className="text-xs text-earth-500">
+                  {formatDate(entry.created_at)}
+                </span>
+                {entry.plant_name && (
                   <>
-                    <span className="text-earth-700 text-xs">{'\u00b7'}</span>
-                    <span className="text-xs text-botanical-500">{'\u2618'} {editingEntry.plant_name}</span>
-                  </>
-                )}
-                {editingEntry.mood && (
-                  <>
-                    <span className="text-earth-700 text-xs">{'\u00b7'}</span>
-                    <span className="text-xs capitalize" style={{ color: MOOD_COLORS[editingEntry.mood] || 'rgba(255,255,255,0.4)' }}>
-                      {MOOD_ICONS[editingEntry.mood]} {editingEntry.mood}
+                    <span className="text-earth-700 text-xs">·</span>
+                    <span className="text-xs text-botanical-500">
+                      ☘ {entry.plant_name}
                     </span>
                   </>
                 )}
-                {editingEntry.season && (
+                {entry.mood && (
                   <>
-                    <span className="text-earth-700 text-xs">{'\u00b7'}</span>
-                    <span className="text-xs text-earth-500 capitalize">{editingEntry.season}</span>
+                    <span className="text-earth-700 text-xs">·</span>
+                    <span
+                      className="text-xs capitalize"
+                      style={{
+                        color:
+                          MOOD_COLORS[entry.mood] || 'rgba(255,255,255,0.4)',
+                      }}
+                    >
+                      {MOOD_ICONS[entry.mood]} {entry.mood}
+                    </span>
+                  </>
+                )}
+                {entry.season && (
+                  <>
+                    <span className="text-earth-700 text-xs">·</span>
+                    <span className="text-xs text-earth-500 capitalize">
+                      {entry.season}
+                    </span>
                   </>
                 )}
               </div>
             </div>
           </div>
 
-          {editingEntry.prompt_text && (
-            <div className="rounded-xl p-3 mb-5"
-                 style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.04)'
-                 }}>
-              <span className="text-[10px] uppercase tracking-[0.12em] text-earth-500 font-medium">Guided by</span>
-              <p className="text-earth-400 text-xs mt-1 italic font-display">{editingEntry.prompt_text}</p>
+          {entry.prompt_text && (
+            <div
+              className="rounded-xl p-3 mb-5"
+              style={{
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.04)',
+              }}
+            >
+              <span className="text-[10px] uppercase tracking-[0.12em] text-earth-500 font-medium">
+                Guided by
+              </span>
+              <p className="text-earth-400 text-xs mt-1 italic font-display">
+                {entry.prompt_text}
+              </p>
             </div>
           )}
 
           <div className="divider-gradient mb-5" />
 
           <div className="text-earth-200 text-sm leading-[1.85] whitespace-pre-wrap font-body">
-            {editingEntry.content}
+            {entry.content}
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button.Primary onClick={() => startEditEntry(editingEntry)}>
-            Edit Entry
-          </Button.Primary>
-          {showDeleteConfirm === editingEntry.id ? (
+          <Button.Primary onClick={() => setEditing(true)}>Edit Entry</Button.Primary>
+          {showDeleteConfirm ? (
             <div className="flex items-center gap-2">
               <span className="text-xs text-earth-400">Are you sure?</span>
               <button
-                onClick={() => deleteEntry(editingEntry.id)}
+                onClick={() => deleteEntry(entry.id)}
                 className="px-3 py-1.5 text-xs text-red-400 hover:text-red-300 rounded-lg transition-colors"
-                style={{ background: 'rgba(220, 38, 38, 0.1)', border: '1px solid rgba(220, 38, 38, 0.15)' }}
+                style={{
+                  background: 'rgba(220, 38, 38, 0.1)',
+                  border: '1px solid rgba(220, 38, 38, 0.15)',
+                }}
               >
                 Yes, delete
               </button>
-              <Button.Ghost onClick={() => setShowDeleteConfirm(null)} className="text-xs">
+              <Button.Ghost
+                onClick={() => setShowDeleteConfirm(false)}
+                className="text-xs"
+              >
                 Cancel
               </Button.Ghost>
             </div>
           ) : (
             <Button.Ghost
-              onClick={() => setShowDeleteConfirm(editingEntry.id)}
+              onClick={() => setShowDeleteConfirm(true)}
               className="text-xs text-earth-500 hover:text-red-400"
             >
               Delete
@@ -406,13 +276,22 @@ export default function JournalView() {
     )
   }
 
-  // ── Render: New/Edit Entry Form ──────────────────────────
   function renderForm() {
     const isEdit = viewMode === 'edit'
+    const cancel = () => {
+      if (isEdit && entry) {
+        setEditing(false)
+      } else {
+        navigate('/journal')
+      }
+    }
     return (
       <div className="animate-fade-in">
-        <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }} className="mb-4 inline-flex items-center gap-1">
-          {'\u2190'} Back to Journal
+        <Button.Ghost
+          onClick={cancel}
+          className="mb-4 inline-flex items-center gap-1"
+        >
+          {'←'} {isEdit ? 'Cancel edits' : 'Back to Journal'}
         </Button.Ghost>
 
         <div className="mb-6">
@@ -420,16 +299,18 @@ export default function JournalView() {
             {isEdit ? 'Edit Entry' : 'New Journal Entry'}
           </Text.PageTitle>
           <p className="text-earth-500 text-xs mt-1">
-            {isEdit ? 'Refine your reflections' : 'Take a moment. Breathe. Write what comes.'}
+            {isEdit
+              ? 'Refine your reflections'
+              : 'Take a moment. Breathe. Write what comes.'}
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main form area - spans 2 cols */}
           <div className="lg:col-span-2 space-y-5">
-            {/* Title */}
             <div>
-              <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">Title</label>
+              <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">
+                Title
+              </label>
               <input
                 type="text"
                 value={title}
@@ -439,32 +320,42 @@ export default function JournalView() {
               />
             </div>
 
-            {/* Selected prompt display */}
-            {selectedPromptId && prompts.find((p) => p.id === selectedPromptId) && (
-              <div className="rounded-xl p-3 flex items-start gap-3"
-                   style={{
-                     background: 'rgba(245, 158, 11, 0.04)',
-                     border: '1px solid rgba(245, 158, 11, 0.1)'
-                   }}>
-                <span className="text-xs mt-0.5" style={{ color: 'rgba(251, 191, 36, 0.6)' }}>{'\u2727'}</span>
-                <div className="flex-1">
-                  <span className="text-[10px] uppercase tracking-[0.12em] text-earth-500 font-medium">Writing with prompt</span>
-                  <p className="text-earth-300 text-xs mt-1 italic font-display">
-                    {prompts.find((p) => p.id === selectedPromptId)?.prompt_text}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedPromptId(null)}
-                  className="text-earth-600 hover:text-earth-400 text-xs transition-colors"
+            {selectedPromptId &&
+              prompts.find((p) => p.id === selectedPromptId) && (
+                <div
+                  className="rounded-xl p-3 flex items-start gap-3"
+                  style={{
+                    background: 'rgba(245, 158, 11, 0.04)',
+                    border: '1px solid rgba(245, 158, 11, 0.1)',
+                  }}
                 >
-                  {'\u2715'}
-                </button>
-              </div>
-            )}
+                  <span
+                    className="text-xs mt-0.5"
+                    style={{ color: 'rgba(251, 191, 36, 0.6)' }}
+                  >
+                    ✧
+                  </span>
+                  <div className="flex-1">
+                    <span className="text-[10px] uppercase tracking-[0.12em] text-earth-500 font-medium">
+                      Writing with prompt
+                    </span>
+                    <p className="text-earth-300 text-xs mt-1 italic font-display">
+                      {prompts.find((p) => p.id === selectedPromptId)?.prompt_text}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedPromptId(null)}
+                    className="text-earth-600 hover:text-earth-400 text-xs transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
+              )}
 
-            {/* Content */}
             <div>
-              <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">Reflection</label>
+              <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">
+                Reflection
+              </label>
               <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
@@ -474,7 +365,6 @@ export default function JournalView() {
               />
             </div>
 
-            {/* Save button */}
             <div className="flex items-center gap-3">
               <Button.Primary
                 onClick={saveEntry}
@@ -482,41 +372,44 @@ export default function JournalView() {
               >
                 {saving ? 'Saving...' : isEdit ? 'Update Entry' : 'Save Entry'}
               </Button.Primary>
-              <Button.Ghost onClick={() => { resetForm(); setViewMode('list') }}>
-                Cancel
-              </Button.Ghost>
+              <Button.Ghost onClick={cancel}>Cancel</Button.Ghost>
             </div>
           </div>
 
-          {/* Sidebar: Plant, Mood, Prompts */}
           <div className="space-y-5">
-            {/* Plant selector */}
-            <div className="card p-4"
-                 style={{
-                   background: 'rgba(26, 25, 21, 0.5)',
-                   borderColor: 'rgba(93, 168, 126, 0.06)'
-                 }}>
+            <div
+              className="card p-4"
+              style={{
+                background: 'rgba(26, 25, 21, 0.5)',
+                borderColor: 'rgba(93, 168, 126, 0.06)',
+              }}
+            >
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2 block">
-                {'\u2618'} Associated Plant
+                ☘ Associated Plant
               </label>
               <select
                 value={selectedPlantId || ''}
-                onChange={(e) => setSelectedPlantId(e.target.value ? Number(e.target.value) : null)}
+                onChange={(e) =>
+                  setSelectedPlantId(e.target.value ? Number(e.target.value) : null)
+                }
                 className="select-field w-full"
               >
                 <option value="">No plant selected</option>
                 {plants.map((p) => (
-                  <option key={p.id} value={p.id}>{p.common_name}</option>
+                  <option key={p.id} value={p.id}>
+                    {p.common_name}
+                  </option>
                 ))}
               </select>
             </div>
 
-            {/* Mood selector */}
-            <div className="card p-4"
-                 style={{
-                   background: 'rgba(26, 25, 21, 0.5)',
-                   borderColor: 'rgba(124, 94, 237, 0.06)'
-                 }}>
+            <div
+              className="card p-4"
+              style={{
+                background: 'rgba(26, 25, 21, 0.5)',
+                borderColor: 'rgba(124, 94, 237, 0.06)',
+              }}
+            >
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2.5 block">
                 How are you feeling?
               </label>
@@ -530,13 +423,15 @@ export default function JournalView() {
                         ? 'ring-1 ring-inset'
                         : 'hover:bg-[rgba(255,255,255,0.04)]'
                     }`}
-                    style={mood === m ? {
-                      background: `${MOOD_COLORS[m]}15`,
-                      color: MOOD_COLORS[m],
-                      boxShadow: `inset 0 0 0 1px ${MOOD_COLORS[m]}30`
-                    } : {
-                      color: 'rgba(255, 255, 255, 0.4)'
-                    }}
+                    style={
+                      mood === m
+                        ? {
+                            background: `${MOOD_COLORS[m]}15`,
+                            color: MOOD_COLORS[m],
+                            boxShadow: `inset 0 0 0 1px ${MOOD_COLORS[m]}30`,
+                          }
+                        : { color: 'rgba(255, 255, 255, 0.4)' }
+                    }
                   >
                     {MOOD_ICONS[m]} {m}
                   </button>
@@ -544,28 +439,35 @@ export default function JournalView() {
               </div>
             </div>
 
-            {/* Season (auto-detected) */}
-            <div className="card p-4"
-                 style={{
-                   background: 'rgba(26, 25, 21, 0.5)',
-                   borderColor: 'rgba(255, 255, 255, 0.04)'
-                 }}>
+            <div
+              className="card p-4"
+              style={{
+                background: 'rgba(26, 25, 21, 0.5)',
+                borderColor: 'rgba(255, 255, 255, 0.04)',
+              }}
+            >
               <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-1.5 block">
                 Season
               </label>
-              <span className="text-xs text-earth-300 capitalize">{getCurrentSeason()}</span>
-              <span className="text-earth-600 text-[10px] ml-2">(auto-detected)</span>
+              <span className="text-xs text-earth-300 capitalize">
+                {getCurrentSeason()}
+              </span>
+              <span className="text-earth-600 text-[10px] ml-2">
+                (auto-detected)
+              </span>
             </div>
 
-            {/* Prompts */}
             {prompts.length > 0 && (
-              <div className="card p-4"
-                   style={{
-                     background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.03), rgba(26, 25, 21, 0.5))',
-                     borderColor: 'rgba(245, 158, 11, 0.08)'
-                   }}>
+              <div
+                className="card p-4"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(245, 158, 11, 0.03), rgba(26, 25, 21, 0.5))',
+                  borderColor: 'rgba(245, 158, 11, 0.08)',
+                }}
+              >
                 <label className="text-[11px] text-earth-500 uppercase tracking-[0.12em] font-medium mb-2.5 block">
-                  {'\u2727'} Guided Prompts
+                  ✧ Guided Prompts
                 </label>
                 <div className="space-y-2">
                   {prompts.map((prompt) => (
@@ -578,20 +480,19 @@ export default function JournalView() {
                           : 'text-earth-400 hover:text-earth-300'
                       }`}
                       style={{
-                        background: selectedPromptId === prompt.id
-                          ? 'rgba(245, 158, 11, 0.06)'
-                          : 'rgba(255, 255, 255, 0.02)',
-                        border: selectedPromptId === prompt.id
-                          ? '1px solid rgba(245, 158, 11, 0.15)'
-                          : '1px solid rgba(255, 255, 255, 0.03)'
+                        background:
+                          selectedPromptId === prompt.id
+                            ? 'rgba(245, 158, 11, 0.06)'
+                            : 'rgba(255, 255, 255, 0.02)',
+                        border:
+                          selectedPromptId === prompt.id
+                            ? '1px solid rgba(245, 158, 11, 0.15)'
+                            : '1px solid rgba(255, 255, 255, 0.03)',
                       }}
                     >
-                      <p className="italic font-display leading-relaxed">{prompt.prompt_text}</p>
-                      {(prompt as any).dimension && (
-                        <span className="text-[9px] text-earth-600 uppercase tracking-wider mt-1 block">
-                          {(prompt as any).dimension}
-                        </span>
-                      )}
+                      <p className="italic font-display leading-relaxed">
+                        {prompt.prompt_text}
+                      </p>
                     </button>
                   ))}
                 </div>
@@ -603,39 +504,8 @@ export default function JournalView() {
     )
   }
 
-  // ── Main Render ──────────────────────────────────────
   return (
     <div className="max-w-5xl animate-fade-in">
-      {/* Header */}
-      <div className="hero-section mb-8"
-           style={{
-             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(16, 15, 12, 0.88) 40%, rgba(124, 94, 237, 0.03) 100%)',
-             border: '1px solid rgba(245, 158, 11, 0.06)'
-           }}>
-        <div className="hero-orb w-72 h-72 -top-36 right-0 bg-amber-400" style={{ opacity: 0.08 }} />
-        <div className="hero-orb w-48 h-48 -bottom-24 -left-12 bg-celestial-500" style={{ opacity: 0.06 }} />
-
-        <div className="relative flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl opacity-40">{'\u270E'}</span>
-              <Text.Heading className="text-gradient-gold">Plant Journal</Text.Heading>
-            </div>
-            <p className="text-earth-400 text-sm pl-10">
-              Your living record of plant relationships and consciousness exploration
-            </p>
-          </div>
-          {viewMode === 'list' && (
-            <Button.Primary onClick={startNewEntry} className="flex-shrink-0">
-              + New Entry
-            </Button.Primary>
-          )}
-        </div>
-        <div className="divider-gradient mt-6" />
-      </div>
-
-      {/* Content */}
-      {viewMode === 'list' && renderList()}
       {viewMode === 'view' && renderViewEntry()}
       {(viewMode === 'new' || viewMode === 'edit') && renderForm()}
     </div>

@@ -3,6 +3,11 @@ import { api } from '@/data/api'
 import type { PlantTeachingWithPlant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
+import FilterBar from '@/components/design-system/components/FilterBar'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '@/components/design-system/hooks/useCollectionFilters'
 
 type TeachingDomain = 'energetic' | 'mental' | 'physical' | 'spiritual'
 
@@ -16,8 +21,6 @@ const DOMAIN_CONFIG: Record<TeachingDomain, { label: string; color: string; bg: 
 export default function DoctrineExplorer() {
   const [teachings, setTeachings] = useState<PlantTeachingWithPlant[]>([])
   const [selected, setSelected] = useState<PlantTeachingWithPlant | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState<string>('all')
   const [activeDomain, setActiveDomain] = useState<TeachingDomain>('energetic')
 
   useEffect(() => {
@@ -27,17 +30,38 @@ export default function DoctrineExplorer() {
     })
   }, [])
 
-  const categories = useMemo(() => {
+  const categoryOptions = useMemo(() => {
     const cats = new Set(teachings.map((t) => t.category))
-    return ['all', ...Array.from(cats).sort()]
+    return [
+      { value: '', label: 'All categories' },
+      ...Array.from(cats)
+        .sort()
+        .map((c) => ({
+          value: c,
+          label: c.charAt(0).toUpperCase() + c.slice(1),
+        })),
+    ]
   }, [teachings])
+
+  const filterConfig = useMemo<CatalogFilter[]>(
+    () => [
+      { kind: 'search', key: 'q', placeholder: 'Search plants…', label: 'Search' },
+      { kind: 'select', key: 'category', label: 'Category', options: categoryOptions },
+    ],
+    [categoryOptions],
+  )
+  const { values, setValue, clear, hasActiveFilters } =
+    useCollectionFilters(filterConfig)
+  const searchQuery = values.q ?? ''
+  const categoryFilter = values.category ?? ''
 
   const filtered = useMemo(() => {
     return teachings.filter((t) => {
-      const matchesSearch = searchQuery === '' ||
+      const matchesSearch =
+        searchQuery === '' ||
         t.common_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         t.latin_name.toLowerCase().includes(searchQuery.toLowerCase())
-      const matchesCategory = categoryFilter === 'all' || t.category === categoryFilter
+      const matchesCategory = categoryFilter === '' || t.category === categoryFilter
       return matchesSearch && matchesCategory
     })
   }, [teachings, searchQuery, categoryFilter])
@@ -84,35 +108,14 @@ export default function DoctrineExplorer() {
         <div className="lg:col-span-1">
           <Text.SectionLabel className="mb-3">Plant Teachings ({filtered.length})</Text.SectionLabel>
 
-          {/* Search */}
           <div className="mb-3">
-            <input
-              type="text"
-              placeholder="Search plants..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg text-sm text-earth-200 placeholder-earth-600"
-              style={{ background: 'rgba(26, 25, 21, 0.6)', border: '1px solid rgba(255,255,255,0.06)' }}
+            <FilterBar
+              filters={filterConfig}
+              values={values}
+              onChange={setValue}
+              onClear={clear}
+              hasActiveFilters={hasActiveFilters}
             />
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setCategoryFilter(cat)}
-                className={`px-2.5 py-1 rounded-lg text-xs transition-all ${
-                  categoryFilter === cat ? 'text-amber-300' : 'text-earth-500 hover:text-earth-300'
-                }`}
-                style={{
-                  background: categoryFilter === cat ? 'rgba(245, 158, 11, 0.1)' : 'rgba(26, 25, 21, 0.4)',
-                  border: categoryFilter === cat ? '1px solid rgba(245, 158, 11, 0.15)' : '1px solid rgba(255,255,255,0.03)'
-                }}
-              >
-                {cat === 'all' ? 'All' : cat.charAt(0).toUpperCase() + cat.slice(1)}
-              </button>
-            ))}
           </div>
 
           {/* Plant List */}

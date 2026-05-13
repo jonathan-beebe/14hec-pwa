@@ -1,137 +1,154 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
 import { api } from '@/data/api'
-import type { Plant, PlanetData, ZodiacSign } from '../../types'
-import Button from '@/components/design-system/atoms/Button'
-import Text from '@/components/design-system/atoms/Text'
+import type { Plant, PlanetData, ZodiacSign } from '@/types'
+import Badge from '@/components/design-system/atoms/Badge'
+import BrowseTile from '@/components/design-system/components/BrowseTile'
+import CatalogLayout from '@/components/design-system/layouts/CatalogLayout'
+import CatalogHeader from '@/components/design-system/components/CatalogHeader'
+import { CatalogGrid } from '@/components/design-system/components/CatalogGrid'
+import CatalogEmpty from '@/components/design-system/components/CatalogEmpty'
+import FilterBar from '@/components/design-system/components/FilterBar'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '@/components/design-system/hooks/useCollectionFilters'
+import { formatCatalogStatus } from '@/components/design-system/utils/formatCatalogStatus'
+
+const CATEGORY_OPTIONS = [
+  { value: '', label: 'All categories' },
+  { value: 'conventional', label: 'Conventional' },
+  { value: 'entheogenic', label: 'Entheogenic' },
+  { value: 'both', label: 'Both' },
+]
+
+const ELEMENT_OPTIONS = [
+  { value: '', label: 'All elements' },
+  { value: 'fire', label: 'Fire' },
+  { value: 'water', label: 'Water' },
+  { value: 'air', label: 'Air' },
+  { value: 'earth', label: 'Earth' },
+]
+
+function buildFilters(
+  planets: PlanetData[],
+  signs: ZodiacSign[],
+): CatalogFilter[] {
+  return [
+    { kind: 'search', key: 'q', placeholder: 'Search by name…', label: 'Search' },
+    { kind: 'select', key: 'category', label: 'Category', options: CATEGORY_OPTIONS },
+    {
+      kind: 'select',
+      key: 'planet',
+      label: 'Planet',
+      options: [
+        { value: '', label: 'All planets' },
+        ...planets.map((p) => ({ value: p.name, label: `${p.symbol} ${p.name}` })),
+      ],
+    },
+    {
+      kind: 'select',
+      key: 'sign',
+      label: 'Zodiac sign',
+      options: [
+        { value: '', label: 'All signs' },
+        ...signs.map((s) => ({ value: s.name, label: `${s.symbol} ${s.name}` })),
+      ],
+    },
+    { kind: 'select', key: 'element', label: 'Element', options: ELEMENT_OPTIONS },
+  ]
+}
+
+function valuesToApiFilters(values: Record<string, string>) {
+  return {
+    search: values.q || undefined,
+    category: values.category || undefined,
+    planet: values.planet || undefined,
+    zodiacSign: values.sign || undefined,
+    element: values.element || undefined,
+  }
+}
 
 export default function PlantList() {
-  const navigate = useNavigate()
-  const [plants, setPlants] = useState<Plant[]>([])
   const [planets, setPlanets] = useState<PlanetData[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
-  const [search, setSearch] = useState('')
-  const [filterCategory, setFilterCategory] = useState('')
-  const [filterPlanet, setFilterPlanet] = useState('')
-  const [filterSign, setFilterSign] = useState('')
-  const [filterElement, setFilterElement] = useState('')
+  const [total, setTotal] = useState(0)
+  const [plants, setPlants] = useState<Plant[]>([])
+
+  const filterConfig = useMemo(
+    () => buildFilters(planets, signs),
+    [planets, signs],
+  )
+  const { values, setValue, clear, hasActiveFilters } =
+    useCollectionFilters(filterConfig)
 
   useEffect(() => {
     api.getPlanets().then(setPlanets)
     api.getZodiacSigns().then(setSigns)
+    api.getPlants().then((p) => setTotal(p.length))
   }, [])
 
   useEffect(() => {
-    const filters: any = {}
-    if (search) filters.search = search
-    if (filterCategory) filters.category = filterCategory
-    if (filterPlanet) filters.planet = filterPlanet
-    if (filterSign) filters.zodiacSign = filterSign
-    if (filterElement) filters.element = filterElement
-    api.getPlants(filters).then(setPlants)
-  }, [search, filterCategory, filterPlanet, filterSign, filterElement])
+    api.getPlants(valuesToApiFilters(values)).then(setPlants)
+  }, [values])
 
-  const clearFilters = () => {
-    setSearch('')
-    setFilterCategory('')
-    setFilterPlanet('')
-    setFilterSign('')
-    setFilterElement('')
-  }
-
-  const hasFilters = search || filterCategory || filterPlanet || filterSign || filterElement
+  const statusMessage = formatCatalogStatus(
+    plants.length,
+    total,
+    hasActiveFilters,
+    { noun: 'plant' },
+  )
 
   return (
-    <div className="animate-fade-in">
-      <div className="flex items-center justify-between mb-5">
-        <div className="flex items-center gap-3">
-          <Text.PageTitle>Plants</Text.PageTitle>
-          <span className="badge badge-conventional">{plants.length}</span>
+    <CatalogLayout
+      header={
+        <CatalogHeader
+          title="Plants"
+          count={plants.length}
+          total={total}
+          subtitle="Browse 207 medicinal, energetic, and ceremonial plants. Filter by category, planet, zodiac sign, or element."
+        />
+      }
+      filters={
+        <div className="px-8 py-3">
+          <FilterBar
+            filters={filterConfig}
+            values={values}
+            onChange={setValue}
+            onClear={clear}
+            hasActiveFilters={hasActiveFilters}
+          />
         </div>
-      </div>
-
-      {/* Filters */}
-      <div className="glass-panel p-4 mb-5">
-        <div className="flex flex-wrap gap-3 items-center">
-          <div className="relative flex-1 min-w-[200px]">
-            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <svg className="w-4 h-4 text-earth-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              placeholder="Search by name..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="input-field pl-10"
-            />
-          </div>
-          <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)} className="select-field">
-            <option value="">All Categories</option>
-            <option value="conventional">Conventional</option>
-            <option value="entheogenic">Entheogenic</option>
-            <option value="both">Both</option>
-          </select>
-          <select value={filterPlanet} onChange={(e) => setFilterPlanet(e.target.value)} className="select-field">
-            <option value="">All Planets</option>
-            {planets.map((p) => (
-              <option key={p.id} value={p.name}>{p.symbol} {p.name}</option>
-            ))}
-          </select>
-          <select value={filterSign} onChange={(e) => setFilterSign(e.target.value)} className="select-field">
-            <option value="">All Signs</option>
-            {signs.map((s) => (
-              <option key={s.id} value={s.name}>{s.symbol} {s.name}</option>
-            ))}
-          </select>
-          <select value={filterElement} onChange={(e) => setFilterElement(e.target.value)} className="select-field">
-            <option value="">All Elements</option>
-            <option value="fire">Fire</option>
-            <option value="water">Water</option>
-            <option value="air">Air</option>
-            <option value="earth">Earth</option>
-          </select>
-          {hasFilters && (
-            <Button.Ghost onClick={clearFilters} className="text-xs">
-              Clear filters
-            </Button.Ghost>
-          )}
-        </div>
-      </div>
-
-      {/* Plant Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 animate-fade-in">
-        {plants.map((plant) => (
-          <button
-            key={plant.id}
-            onClick={() => navigate(`/plants/${plant.id}`)}
-            className="card p-4 text-left cursor-pointer group"
-          >
-            <div className="flex justify-between items-start mb-1.5">
-              <Text.CardTitle className="text-botanical-400 group-hover:text-botanical-300 transition-colors duration-200 ease-out-expo">{plant.common_name}</Text.CardTitle>
-              <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-            </div>
-            <p className="text-xs text-earth-500 italic mb-1.5">{plant.latin_name}</p>
-            <p className="text-xs text-earth-400 line-clamp-2">{plant.description}</p>
-            {plant.energetic_quality && (
-              <p className="text-[11px] text-celestial-500/60 mt-1.5 line-clamp-1">{plant.energetic_quality}</p>
-            )}
-          </button>
-        ))}
-      </div>
-
-      {plants.length === 0 && (
-        <div className="glass-panel p-12 text-center">
-          <div className="text-3xl mb-2 opacity-20">{'\u2618'}</div>
-          <p className="text-sm text-earth-500">No plants found matching your filters.</p>
-          {hasFilters && (
-            <Button.Ghost onClick={clearFilters} className="text-xs mt-3 text-botanical-400/60 hover:text-botanical-300">
-              Clear all filters
-            </Button.Ghost>
-          )}
-        </div>
-      )}
-    </div>
+      }
+      results={
+        <CatalogGrid>
+          {plants.map((plant) => (
+            <BrowseTile key={plant.id} to={`/plants/${plant.id}`}>
+              <div className="flex justify-between items-start mb-1.5 gap-2">
+                <span className="text-sm font-medium text-earth-100">
+                  {plant.common_name}
+                </span>
+                <Badge variant={plant.category}>{plant.category}</Badge>
+              </div>
+              <p className="text-xs text-earth-500 italic mb-1.5">
+                {plant.latin_name}
+              </p>
+              <p className="text-xs text-earth-400 line-clamp-2">
+                {plant.description}
+              </p>
+              {plant.energetic_quality && (
+                <p className="text-[11px] text-celestial-500/60 mt-1.5 line-clamp-1">
+                  {plant.energetic_quality}
+                </p>
+              )}
+            </BrowseTile>
+          ))}
+        </CatalogGrid>
+      }
+      empty={
+        <CatalogEmpty message="No plants match your filters." onClear={clear} />
+      }
+      itemCount={plants.length}
+      statusMessage={statusMessage}
+    />
   )
 }
