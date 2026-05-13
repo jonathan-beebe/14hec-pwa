@@ -1,15 +1,24 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { Section, Subsection } from '../primitives'
 import ListDetailLayout from '../layouts/ListDetailLayout'
 import CatalogLayout from '../layouts/CatalogLayout'
 import { LIST_DETAIL_DEMO_ITEMS } from '../layouts/demos/ListDetailDemo'
-import { CATALOG_DEMO_ITEMS, type CatalogDemoItem } from '../layouts/demos/CatalogDemo'
+import {
+  CATALOG_DEMO_ITEMS,
+  filterDemoItems,
+  type CatalogDemoItem,
+} from '../layouts/demos/CatalogDemo'
 import BrowseTile from '../components/BrowseTile'
 import FlatListRow from '../components/FlatListRow'
+import FilterBar from '../components/FilterBar'
 import Type from '../atoms/Type'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '../hooks/useCollectionFilters'
 
 function DemoPlaceholder() {
   return (
@@ -126,63 +135,21 @@ function CatalogDemoHeader({ count }: { count: number }) {
   )
 }
 
-function CatalogDemoFilters({
-  search,
-  onSearch,
-  category,
-  onCategory,
-  onClear,
-  hasFilters,
-}: {
-  search: string
-  onSearch: (value: string) => void
-  category: string
-  onCategory: (value: string) => void
-  onClear: () => void
-  hasFilters: boolean
-}) {
-  return (
-    <div className="px-5 pb-3 pt-1">
-      <div className="glass-panel bg-black/20 p-3">
-        <div className="flex flex-wrap gap-3 items-center">
-          <div className="relative flex-1 min-w-[180px]">
-            <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-              <svg className="w-4 h-4 text-earth-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              placeholder="Search by name…"
-              value={search}
-              onChange={(e) => onSearch(e.target.value)}
-              className="input-field pl-10"
-            />
-          </div>
-          <select
-            value={category}
-            onChange={(e) => onCategory(e.target.value)}
-            className="select-field"
-          >
-            <option value="">All Categories</option>
-            <option value="conventional">Conventional</option>
-            <option value="entheogenic">Entheogenic</option>
-            <option value="both">Both</option>
-          </select>
-          {hasFilters && (
-            <button
-              type="button"
-              onClick={onClear}
-              className="text-xs text-earth-400 hover:text-earth-100 transition-colors px-2"
-            >
-              Clear
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
+// Scoped filter keys so multiple demos can coexist on /design-system.
+const INLINE_DEMO_FILTERS: CatalogFilter[] = [
+  { kind: 'search', key: 'catalogDemoQ', placeholder: 'Search by name…', label: 'Search' },
+  {
+    kind: 'select',
+    key: 'catalogDemoCategory',
+    label: 'Category',
+    options: [
+      { value: '', label: 'All Categories' },
+      { value: 'conventional', label: 'Conventional' },
+      { value: 'entheogenic', label: 'Entheogenic' },
+      { value: 'both', label: 'Both' },
+    ],
+  },
+]
 
 function CatalogDemoGrid({ items }: { items: CatalogDemoItem[] }) {
   return (
@@ -231,7 +198,7 @@ function CatalogDemoDetailInline({
 function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
   return (
     <div className="px-5 pb-5">
-      <div className="glass-panel bg-black/20 p-10 text-center">
+      <div className="rounded-2xl bg-black/20 backdrop-blur-md border border-white/[0.06] p-10 text-center">
         <p className="text-sm text-earth-500 mb-2">No items match your filters.</p>
         <button
           type="button"
@@ -246,28 +213,19 @@ function CatalogDemoEmpty({ onClear }: { onClear: () => void }) {
 }
 
 function CatalogDemo() {
-  const [search, setSearch] = useState('')
-  const [category, setCategory] = useState('')
   const [searchParams] = useSearchParams()
   const selectedId = searchParams.get('demoCatalog')
 
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase()
-    return CATALOG_DEMO_ITEMS.filter((item) => {
-      if (category && item.category !== category) return false
-      if (!q) return true
-      return (
-        item.name.toLowerCase().includes(q) ||
-        item.latin.toLowerCase().includes(q)
-      )
-    })
-  }, [search, category])
-
-  const hasFilters = Boolean(search) || Boolean(category)
-  const clear = () => {
-    setSearch('')
-    setCategory('')
-  }
+  const { values, setValue, clear, hasActiveFilters } =
+    useCollectionFilters(INLINE_DEMO_FILTERS)
+  const filtered = useMemo(
+    () =>
+      filterDemoItems({
+        q: values.catalogDemoQ ?? '',
+        category: values.catalogDemoCategory ?? '',
+      }),
+    [values],
+  )
 
   const selected =
     selectedId !== null ? CATALOG_DEMO_ITEMS.find((i) => i.id === selectedId) : null
@@ -281,14 +239,15 @@ function CatalogDemo() {
         <CatalogLayout
           header={<CatalogDemoHeader count={filtered.length} />}
           filters={
-            <CatalogDemoFilters
-              search={search}
-              onSearch={setSearch}
-              category={category}
-              onCategory={setCategory}
-              onClear={clear}
-              hasFilters={hasFilters}
-            />
+            <div className="px-5 pb-3 pt-1">
+              <FilterBar
+                filters={INLINE_DEMO_FILTERS}
+                values={values}
+                onChange={setValue}
+                onClear={clear}
+                hasActiveFilters={hasActiveFilters}
+              />
+            </div>
           }
           results={<CatalogDemoGrid items={filtered} />}
           empty={<CatalogDemoEmpty onClear={clear} />}

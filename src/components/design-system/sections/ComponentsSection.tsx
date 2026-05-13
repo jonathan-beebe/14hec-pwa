@@ -5,8 +5,13 @@ import BrowseTile from '../components/BrowseTile'
 import PlanetTile from '../components/PlanetTile'
 import PlanetFlatListRow from '../components/PlanetFlatListRow'
 import FlatListRow from '../components/FlatListRow'
+import FilterBar from '../components/FilterBar'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '../hooks/useCollectionFilters'
 import {
   sun,
   moon,
@@ -20,6 +25,48 @@ import {
   pluto,
   type PlanetVisual,
 } from '@/components/spike/planetConfig'
+
+const BAR_DEMO_FILTERS: CatalogFilter[] = [
+  { kind: 'search', key: 'barDemoQ', placeholder: 'Search by name…', label: 'Search' },
+  {
+    kind: 'select',
+    key: 'barDemoElement',
+    label: 'Element',
+    options: [
+      { value: '', label: 'All Elements' },
+      { value: 'fire', label: 'Fire' },
+      { value: 'water', label: 'Water' },
+      { value: 'air', label: 'Air' },
+      { value: 'earth', label: 'Earth' },
+    ],
+  },
+  {
+    kind: 'select',
+    key: 'barDemoEvidence',
+    label: 'Evidence',
+    options: [
+      { value: '', label: 'Any Evidence' },
+      { value: 'clinical', label: 'Clinical' },
+      { value: 'traditional', label: 'Traditional' },
+      { value: 'ethnobotanical', label: 'Ethnobotanical' },
+      { value: 'anecdotal', label: 'Anecdotal' },
+    ],
+  },
+]
+
+function FilterBarShowcase() {
+  const { values, setValue, clear, hasActiveFilters } =
+    useCollectionFilters(BAR_DEMO_FILTERS)
+  return (
+    <FilterBar
+      filters={BAR_DEMO_FILTERS}
+      values={values}
+      onChange={setValue}
+      onClear={clear}
+      hasActiveFilters={hasActiveFilters}
+    />
+  )
+}
 
 type PlanetTileEntry = { config: PlanetVisual; signs: string }
 const planetTileEntries: PlanetTileEntry[] = [
@@ -95,6 +142,24 @@ export default function ComponentsSection() {
           <InfoTile.Body   to="/design-system" icon={<Icon.Ankh />}          sandIcon={showSand ? Icon.Ankh.source          : undefined} primary="Body"   secondary="Vitality, strength, healing" />
           <InfoTile.Spirit to="/design-system" icon={<Icon.StarFourPoint />} sandIcon={showSand ? Icon.StarFourPoint.source : undefined} primary="Spirit" secondary="Transcendence, intuition" />
         </div>
+      </Subsection>
+
+      <Subsection title="FilterBar">
+        <p className="text-earth-400 text-xs font-system mb-4 leading-relaxed">
+          Canonical filter bar for Catalog views — search + N selects driven
+          by a typed filter config, with applied-filter chips and a Clear
+          action. State lives in <code>useCollectionFilters</code>, which
+          binds every filter to a URL query param so the filtered view is
+          shareable and the back button restores prior pages, not prior
+          filter states.
+        </p>
+        <p className="text-earth-500 text-[11px] font-system mb-4 leading-relaxed">
+          Type in the search and watch the page URL update. The bar below
+          is a real instance — scoped to its own keys (<code>barDemoQ</code>,{' '}
+          <code>barDemoElement</code>, <code>barDemoEvidence</code>) so the
+          three demos on this page do not collide.
+        </p>
+        <FilterBarShowcase />
       </Subsection>
 
       <Subsection title="BrowseTile">
