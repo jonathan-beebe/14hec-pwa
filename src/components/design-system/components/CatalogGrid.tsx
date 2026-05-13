@@ -20,7 +20,7 @@ export interface CatalogGridProps {
 export function CatalogGrid({ children, className }: CatalogGridProps) {
   const cls = [
     'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3',
-    'px-8 pt-3 pb-8',
+    'px-4 md:px-8 pt-3 pb-8',
     className,
   ]
     .filter(Boolean)
@@ -46,7 +46,7 @@ export interface CatalogGroupProps {
 export function CatalogGroup({ heading, children }: CatalogGroupProps) {
   return (
     <section>
-      <div className="px-8 pt-2">
+      <div className="px-4 md:px-8 pt-2">
         <Text.SectionLabel as="h2" className="text-sm">
           {heading}
         </Text.SectionLabel>

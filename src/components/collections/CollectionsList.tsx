@@ -69,7 +69,7 @@ export default function CollectionsList() {
         />
       }
       filters={
-        <div className="px-8 py-3">
+        <div className="px-4 md:px-8 py-3">
           <FilterBar
             filters={FILTERS}
             values={values}

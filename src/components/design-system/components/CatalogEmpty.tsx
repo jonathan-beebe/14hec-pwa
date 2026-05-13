@@ -43,7 +43,7 @@ export default function CatalogEmpty({
   actions,
   className,
 }: CatalogEmptyProps) {
-  const wrapper = ['px-8 pt-3 pb-8', className].filter(Boolean).join(' ')
+  const wrapper = ['px-4 md:px-8 pt-3 pb-8', className].filter(Boolean).join(' ')
 
   return (
     <div className={wrapper}>

@@ -126,7 +126,7 @@ export default function CatalogDemo() {
     <CatalogLayout
       header={<DemoHeader count={filtered.length} />}
       filters={
-        <div className="px-8 py-3">
+        <div className="px-4 md:px-8 py-3">
           <FilterBar
             filters={DEMO_FILTERS}
             values={values}

@@ -55,7 +55,7 @@ export default function CatalogHeader({
   actions,
   className,
 }: CatalogHeaderProps) {
-  const wrapper = ['px-8 pt-6 pb-4', className].filter(Boolean).join(' ')
+  const wrapper = ['px-4 md:px-8 pt-6 pb-4', className].filter(Boolean).join(' ')
 
   return (
     <header className={wrapper}>
