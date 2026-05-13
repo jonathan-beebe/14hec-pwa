@@ -60,6 +60,14 @@ describe('Select', () => {
     expect(select).toHaveValue('entheogenic')
   })
 
+  it('renders a chevron marked as decorative (aria-hidden, pointer-events-none)', () => {
+    const { container } = render(<Controlled />)
+    const chevron = container.querySelector('[data-select-chevron]')
+    expect(chevron).not.toBeNull()
+    expect(chevron).toHaveAttribute('aria-hidden', 'true')
+    expect(chevron?.className ?? '').toContain('pointer-events-none')
+  })
+
   it('hides the visible label text from sighted users by default (visually hidden)', () => {
     // The aria-label drives the accessible name; we do not duplicate a
     // visible label in a FilterBar row by default. Sighted users orient by
