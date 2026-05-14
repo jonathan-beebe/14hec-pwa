@@ -597,6 +597,25 @@ export const api = {
     })).sort((a, b) => a.sort_order - b.sort_order) as WellnessCategory[]
   },
 
+  getWellnessGoals: async (): Promise<WellnessGoal[]> => {
+    return wellnessGoals
+      .map(g => {
+        const cat = wcatById.get(g.category_id)!
+        return {
+          ...g,
+          category_name: cat.name,
+          category_slug: cat.slug,
+          plant_count: (pwgByGoalId.get(g.id) || []).length
+        }
+      })
+      .sort((a, b) => {
+        const catA = wcatById.get(a.category_id)!
+        const catB = wcatById.get(b.category_id)!
+        if (catA.sort_order !== catB.sort_order) return catA.sort_order - catB.sort_order
+        return a.name.localeCompare(b.name)
+      }) as WellnessGoal[]
+  },
+
   getWellnessGoalsByCategory: async (categoryId: number): Promise<WellnessGoal[]> => {
     const cat = wcatById.get(categoryId)
     if (!cat) return []

@@ -31,6 +31,13 @@ export function CatalogGrid({ children, className }: CatalogGridProps) {
 export interface CatalogGroupProps {
   /** Group heading, rendered as `<h2>` to nest under `CatalogHeader`'s `<h1>`. */
   heading: ReactNode
+  /**
+   * Optional prose subheading rendered as a `<p>` beneath the `<h2>`.
+   * Use for group context the heading alone can't carry (e.g. a wellness
+   * category's description). Keep it to one or two short sentences so
+   * the catalog still scans quickly.
+   */
+  description?: ReactNode
   children: ReactNode
 }
 
@@ -43,13 +50,22 @@ export interface CatalogGroupProps {
  * Owns its own horizontal gutters so the heading aligns with the
  * grid beneath it.
  */
-export function CatalogGroup({ heading, children }: CatalogGroupProps) {
+export function CatalogGroup({
+  heading,
+  description,
+  children,
+}: CatalogGroupProps) {
   return (
     <section>
       <div className="px-4 md:px-8 pt-2">
         <Text.SectionLabel as="h2" className="text-sm">
           {heading}
         </Text.SectionLabel>
+        {description && (
+          <p className="mt-1 text-xs text-earth-400 leading-relaxed max-w-2xl">
+            {description}
+          </p>
+        )}
       </div>
       {children}
     </section>
