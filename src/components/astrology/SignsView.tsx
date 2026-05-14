@@ -6,6 +6,7 @@ import Text from '@/components/design-system/atoms/Text'
 import { ZodiacSymbol } from '@/components/design-system/atoms/ZodiacSymbol'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import FlatListRow from '@/components/design-system/components/FlatListRow'
+import ListDetailEmpty from '@/components/design-system/components/ListDetailEmpty'
 import {
   ASTROLOGY_LIST_WIDTH,
   ASTROLOGY_TOP_INSET,
@@ -60,17 +61,6 @@ function SignsList({ signs }: { signs: ZodiacSign[] }) {
   )
 }
 
-function SignsEmpty() {
-  return (
-    <div className="h-full flex items-center justify-center px-6 py-16 text-center text-earth-500 text-sm">
-      <div>
-        <div className="text-4xl mb-3 opacity-20">{'☉'}</div>
-        Select a zodiac sign to view its correspondences.
-      </div>
-    </div>
-  )
-}
-
 export default function SignsView() {
   const [signs, setSigns] = useState<ZodiacSign[]>([])
 
@@ -81,7 +71,12 @@ export default function SignsView() {
   return (
     <RoutedListDetailLayout
       list={<SignsList signs={signs} />}
-      emptyDetail={<SignsEmpty />}
+      emptyDetail={
+        <ListDetailEmpty
+          icon={'☉'}
+          message="Select a zodiac sign to view its correspondences."
+        />
+      }
       sidebarWidthClass={ASTROLOGY_LIST_WIDTH}
       topInset={ASTROLOGY_TOP_INSET}
     />

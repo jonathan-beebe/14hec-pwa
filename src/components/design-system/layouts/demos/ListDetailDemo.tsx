@@ -1,6 +1,7 @@
 import { Link, useMatch, useParams } from 'react-router-dom'
 import { RoutedListDetailLayout } from '../ListDetailLayout'
 import FlatListRow from '../../components/FlatListRow'
+import ListDetailEmpty from '../../components/ListDetailEmpty'
 import { Icon } from '../../atoms/Icon'
 
 export const LIST_DETAIL_DEMO_ITEMS = [
@@ -104,11 +105,7 @@ function DemoList() {
 }
 
 function DemoEmpty() {
-  return (
-    <div className="h-full flex items-center justify-center">
-      <p className="text-earth-500 text-sm">Select an item from the list.</p>
-    </div>
-  )
+  return <ListDetailEmpty icon={'✦'} message="Select an item from the list." />
 }
 
 /**

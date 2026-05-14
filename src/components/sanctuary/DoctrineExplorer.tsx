@@ -6,6 +6,7 @@ import Badge, { type BadgeVariant } from '@/components/design-system/atoms/Badge
 import Type from '@/components/design-system/atoms/Type'
 import FilterBar from '@/components/design-system/components/FilterBar'
 import FlatListRow from '@/components/design-system/components/FlatListRow'
+import ListDetailEmpty from '@/components/design-system/components/ListDetailEmpty'
 import Notice from '@/components/design-system/components/Notice'
 import ListDetailLayout from '@/components/design-system/layouts/ListDetailLayout'
 import {
@@ -147,20 +148,6 @@ function ListPane({
   )
 }
 
-function EmptyState() {
-  return (
-    <div className="px-16 py-16 text-earth-500 font-system">
-      <Type.Subheading className="mb-2">
-        Select a plant teaching
-      </Type.Subheading>
-      <Type.BodySmall>
-        Discover what each plant activates within you across four dimensions
-        of being.
-      </Type.BodySmall>
-    </div>
-  )
-}
-
 export default function DoctrineExplorer() {
   const [teachings, setTeachings] = useState<PlantTeachingWithPlant[]>([])
   const detail = useOutlet()
@@ -207,7 +194,12 @@ export default function DoctrineExplorer() {
         />
       }
       detail={detail}
-      emptyDetail={<EmptyState />}
+      emptyDetail={
+        <ListDetailEmpty
+          icon={'❝'}
+          message="Select a plant teaching to view what it activates within you."
+        />
+      }
       detailKey={pathname}
     />
   )

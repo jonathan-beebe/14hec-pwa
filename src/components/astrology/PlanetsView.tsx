@@ -5,6 +5,7 @@ import type { Plant, PlanetData } from '@/types'
 import Text from '@/components/design-system/atoms/Text'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import PlanetFlatListRow from '@/components/design-system/components/PlanetFlatListRow'
+import ListDetailEmpty from '@/components/design-system/components/ListDetailEmpty'
 import { allPlanets, type PlanetVisual } from '@/components/spike/planetConfig'
 import {
   ASTROLOGY_LIST_WIDTH,
@@ -59,17 +60,6 @@ function PlanetsList({ planets }: { planets: PlanetData[] }) {
   )
 }
 
-function PlanetsEmpty() {
-  return (
-    <div className="h-full flex items-center justify-center px-6 py-16 text-center text-earth-500 text-sm">
-      <div>
-        <div className="text-4xl mb-3 opacity-20">{'☉'}</div>
-        Select a planet to view its correspondences.
-      </div>
-    </div>
-  )
-}
-
 export default function PlanetsView() {
   const [planets, setPlanets] = useState<PlanetData[]>([])
 
@@ -80,7 +70,12 @@ export default function PlanetsView() {
   return (
     <RoutedListDetailLayout
       list={<PlanetsList planets={planets} />}
-      emptyDetail={<PlanetsEmpty />}
+      emptyDetail={
+        <ListDetailEmpty
+          icon={'☉'}
+          message="Select a planet to view its correspondences."
+        />
+      }
       sidebarWidthClass={ASTROLOGY_LIST_WIDTH}
       topInset={ASTROLOGY_TOP_INSET}
     />

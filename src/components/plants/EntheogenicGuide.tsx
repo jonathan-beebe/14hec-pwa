@@ -5,6 +5,7 @@ import type { Plant } from '../../types'
 import Badge from '@/components/design-system/atoms/Badge'
 import Type from '@/components/design-system/atoms/Type'
 import FlatListRow from '@/components/design-system/components/FlatListRow'
+import ListDetailEmpty from '@/components/design-system/components/ListDetailEmpty'
 import Notice from '@/components/design-system/components/Notice'
 import ListDetailLayout from '@/components/design-system/layouts/ListDetailLayout'
 import { usePageMeta } from '@/components/layout/MobileTopBar'
@@ -108,18 +109,6 @@ function ListPane({
   )
 }
 
-function EmptyState() {
-  return (
-    <div className="px-16 py-16 text-earth-500 font-system">
-      <p className="text-lg mb-2">Select a plant or protocol</p>
-      <p className="text-sm">
-        Choose an entheogenic plant to view its profile, or select a protocol
-        for journey guidance.
-      </p>
-    </div>
-  )
-}
-
 export default function EntheogenicGuide() {
   const [plants, setPlants] = useState<Plant[]>([])
   const detail = useOutlet()
@@ -156,7 +145,12 @@ export default function EntheogenicGuide() {
         />
       }
       detail={detail}
-      emptyDetail={<EmptyState />}
+      emptyDetail={
+        <ListDetailEmpty
+          icon={'✦'}
+          message="Select a plant or protocol to view its profile or guidance."
+        />
+      }
       detailKey={pathname}
     />
   )

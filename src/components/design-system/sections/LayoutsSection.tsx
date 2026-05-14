@@ -12,6 +12,7 @@ import {
 import BrowseTile from '../components/BrowseTile'
 import FlatListRow from '../components/FlatListRow'
 import FilterBar from '../components/FilterBar'
+import ListDetailEmpty from '../components/ListDetailEmpty'
 import RecordTable, { type TableColumn } from '../components/RecordTable'
 import TableLayout from '../layouts/TableLayout'
 import Type from '../atoms/Type'
@@ -124,11 +125,7 @@ function ListDetailDemoDetail({ item, backHref }: { item: DemoItem; backHref: st
 }
 
 function ListDetailDemoEmpty() {
-  return (
-    <div className="h-full flex items-center justify-center">
-      <p className="text-earth-500 text-sm">Select an item from the list.</p>
-    </div>
-  )
+  return <ListDetailEmpty icon={'✦'} message="Select an item from the list." />
 }
 
 function ListDetailDemo() {
