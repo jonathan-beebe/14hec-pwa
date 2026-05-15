@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Navigate, Link } from 'react-router-dom'
+import { useLocation, useParams, useNavigate, Navigate, Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, ZodiacSign } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
 import { SEASONS, getCurrentSeason, getSeasonBySlug } from './seasons'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 export default function SeasonalDetail() {
   const { season: seasonSlug } = useParams<{ season: string }>()
   const navigate = useNavigate()
+  const { search } = useLocation()
+  usePageMeta({ back: `/seasonal${search}` })
   const season = seasonSlug ? getSeasonBySlug(seasonSlug) : undefined
 
   const [plants, setPlants] = useState<Plant[]>([])
@@ -27,14 +30,6 @@ export default function SeasonalDetail() {
 
   return (
     <div className="animate-fade-in">
-      {/* Back link — mobile only */}
-      <Link
-        to="/seasonal"
-        className="md:hidden text-[11px] text-earth-500 hover:text-earth-200 transition-colors"
-      >
-        {'← '}Seasonal Guide
-      </Link>
-
       {/* Season selector — desktop only (preserves the tabbed layout on large screens) */}
       <div className="hidden md:block mb-6">
         <Text.PageTitle>Seasonal Guide</Text.PageTitle>

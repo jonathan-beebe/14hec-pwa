@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { PlanetData, Plant } from '../../types'
@@ -7,6 +7,7 @@ import Text from '@/components/design-system/atoms/Text'
 import Button from '@/components/design-system/atoms/Button'
 import { getPlanetaryTiming } from '@/lib/astro'
 import { useGeolocation } from '@/hooks/useGeolocation'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 const DEFAULT_COORDS = { latitude: 40.7128, longitude: -74.006 }
 
@@ -44,6 +45,8 @@ function formatTime(date: Date): string {
 
 export default function PlanetaryTimingDetail() {
   const { planet: planetSlug } = useParams()
+  const { search } = useLocation()
+  usePageMeta({ back: `/astrology/planetary-timing${search}` })
   const planetName = planetSlug
     ? planetSlug.charAt(0).toUpperCase() + planetSlug.slice(1).toLowerCase()
     : ''
@@ -82,7 +85,7 @@ export default function PlanetaryTimingDetail() {
   if (!planetName || !planetSymbols[planetName]) {
     return (
       <div className="max-w-4xl animate-fade-in">
-        <Button.Ghost route="/astrology/planetary-timing" className="mb-4 inline-flex items-center gap-1">
+        <Button.Ghost route={`/astrology/planetary-timing${search}`} className="mb-4 hidden lg:inline-flex items-center gap-1">
           {'←'} Planetary Timing
         </Button.Ghost>
         <p className="text-earth-500">Unknown planet.</p>
@@ -92,7 +95,7 @@ export default function PlanetaryTimingDetail() {
 
   return (
     <div className="max-w-4xl animate-fade-in">
-      <Button.Ghost route="/astrology/planetary-timing" className="mb-4 inline-flex items-center gap-1">
+      <Button.Ghost route={`/astrology/planetary-timing${search}`} className="mb-4 hidden lg:inline-flex items-center gap-1">
         {'←'} Planetary Timing
       </Button.Ghost>
 

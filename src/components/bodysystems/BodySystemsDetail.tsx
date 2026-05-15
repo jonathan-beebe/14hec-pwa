@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { BodySystemDetail } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; ring: string }> = {
   organ:     { bg: 'bg-rose-500/10',   text: 'text-rose-300',   ring: 'ring-rose-500/20' },
@@ -40,6 +41,8 @@ const CORRESPONDENCE_LABELS: Record<string, string> = {
 export default function BodySystemsDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { search } = useLocation()
+  usePageMeta({ back: `/body-systems${search}` })
   const [detail, setDetail] = useState<BodySystemDetail | null>(null)
 
   useEffect(() => {
@@ -73,8 +76,8 @@ export default function BodySystemsDetail() {
   return (
     <div className="max-w-4xl animate-fade-in">
       <Button.Ghost
-        route="/body-systems"
-        className="mb-4 inline-flex items-center gap-1"
+        route={`/body-systems${search}`}
+        className="mb-4 hidden lg:inline-flex items-center gap-1"
       >
         {'←'} Back to Body Systems
       </Button.Ghost>

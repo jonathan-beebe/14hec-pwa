@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, Navigate, Link } from 'react-router-dom'
+import { useLocation, useParams, useNavigate, Navigate, Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment, HMBSPlant } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
 import { getDomainByKey, HMBS_DOMAINS, DOMAIN_CSS_MAP, STRENGTH_LABELS } from './hmbs-domains'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 export default function HMBSDomainDetail() {
   const { domain: domainKey } = useParams<{ domain: string }>()
   const navigate = useNavigate()
+  const { search } = useLocation()
+  usePageMeta({ back: `/hmbs${search}` })
   const domain = domainKey ? getDomainByKey(domainKey) : undefined
 
   const [ailments, setAilments] = useState<Ailment[]>([])
@@ -36,14 +39,6 @@ export default function HMBSDomainDetail() {
 
   return (
     <div className="animate-fade-in">
-      {/* Back link — mobile only */}
-      <Link
-        to="/hmbs"
-        className="md:hidden text-[11px] text-earth-500 hover:text-earth-200 transition-colors"
-      >
-        {'← '}Heart · Mind · Body · Spirit
-      </Link>
-
       {/* Domain switcher — desktop only */}
       <div className="hidden md:block mb-6">
         <Text.PageTitle>Heart · Mind · Body · Spirit</Text.PageTitle>

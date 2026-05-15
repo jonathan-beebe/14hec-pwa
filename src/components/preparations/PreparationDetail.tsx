@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Preparation } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
 import Notice from '@/components/design-system/components/Notice'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 function absorptionBadgeClass(speed: string | null | undefined) {
   if (!speed) return 'bg-earth-700/20 text-earth-400 ring-earth-600/20'
@@ -38,6 +39,8 @@ function Attribute({ label, value }: { label: string; value: string }) {
 
 export default function PreparationDetail() {
   const { id } = useParams<{ id: string }>()
+  const { search } = useLocation()
+  usePageMeta({ back: `/preparations${search}` })
   const [prep, setPrep] = useState<Preparation | null>(null)
 
   useEffect(() => {
@@ -64,8 +67,8 @@ export default function PreparationDetail() {
   return (
     <article className="max-w-4xl animate-fade-in">
       <Button.Ghost
-        route="/preparations"
-        className="mb-4 inline-flex items-center gap-1"
+        route={`/preparations${search}`}
+        className="mb-4 hidden lg:inline-flex items-center gap-1"
       >
         {'←'} All preparations
       </Button.Ghost>
