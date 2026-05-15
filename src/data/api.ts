@@ -421,6 +421,23 @@ export const api = {
     return deduped
   },
 
+  getCrossRefDataset: async () => ({
+    rows: plantAilments.map(pa => ({
+      plantId: pa.plant_id,
+      ailmentId: pa.ailment_id,
+      partType: pa.plant_part_id ? partById.get(pa.plant_part_id)?.part_type ?? null : null,
+      preparationId: pa.preparation_id,
+    })),
+    plantZodiac: plantZodiacAssocs.map(a => ({
+      plantId: a.plant_id,
+      zodiacSignId: a.zodiac_sign_id,
+    })),
+    plantPlanet: plantPlanetAssocs.map(a => ({
+      plantId: a.plant_id,
+      planetId: a.planet_id,
+    })),
+  }),
+
   crossReferenceContraindications: async (params: {
     ailmentId?: number; zodiacSignId?: number; planetId?: string
   }): Promise<ContraindicationResult[]> => {

@@ -12,9 +12,15 @@ import type {
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
 import Select, { type SelectOption } from '@/components/design-system/atoms/Select'
+import {
+  computeAvailableOptions,
+  validateSelections,
+  EMPTY_SELECTIONS,
+  type CrossRefDataset,
+  type CrossRefSelections,
+} from './crossref-engine'
 
-const PART_OPTIONS: SelectOption[] = [
-  { value: '', label: 'Any part' },
+const ALL_PARTS: SelectOption[] = [
   { value: 'root', label: 'Root' },
   { value: 'bark', label: 'Bark' },
   { value: 'stem', label: 'Stem' },
@@ -26,21 +32,25 @@ const PART_OPTIONS: SelectOption[] = [
   { value: 'whole', label: 'Whole' },
 ]
 
+const EMPTY_DATASET: CrossRefDataset = {
+  rows: [],
+  plantZodiac: [],
+  plantPlanet: [],
+}
+
 export default function CrossReference() {
   const navigate = useNavigate()
+
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
   const [planets, setPlanets] = useState<PlanetData[]>([])
   const [preparations, setPreparations] = useState<Preparation[]>([])
+  const [dataset, setDataset] = useState<CrossRefDataset>(EMPTY_DATASET)
+
+  const [selections, setSelections] = useState<CrossRefSelections>(EMPTY_SELECTIONS)
   const [results, setResults] = useState<CrossRefResult[]>([])
   const [avoidResults, setAvoidResults] = useState<ContraindicationResult[]>([])
   const [hasSearched, setHasSearched] = useState(false)
-
-  const [selectedAilment, setSelectedAilment] = useState('')
-  const [selectedSign, setSelectedSign] = useState('')
-  const [selectedPlanet, setSelectedPlanet] = useState('')
-  const [selectedPart, setSelectedPart] = useState('')
-  const [selectedPrep, setSelectedPrep] = useState('')
 
   useEffect(() => {
     Promise.all([
@@ -48,58 +58,100 @@ export default function CrossReference() {
       api.getZodiacSigns(),
       api.getPlanets(),
       api.getPreparations(),
-    ]).then(([a, z, p, pr]) => {
+      api.getCrossRefDataset(),
+    ]).then(([a, z, p, pr, ds]) => {
       setAilments(a)
       setSigns(z)
       setPlanets(p)
       setPreparations(pr)
+      setDataset(ds)
     })
   }, [])
 
+  // ── Engine ──────────────────────────────────────────────
+  const available = useMemo(
+    () => computeAvailableOptions(dataset, selections),
+    [dataset, selections],
+  )
+
+  function updateSelection<K extends keyof CrossRefSelections>(
+    key: K,
+    value: CrossRefSelections[K],
+  ) {
+    setSelections((prev) => {
+      const next = { ...prev, [key]: value }
+      const nextAvailable = computeAvailableOptions(dataset, next)
+      return validateSelections(nextAvailable, next)
+    })
+  }
+
+  // ── Filtered option lists ──────────────────────────────
   const ailmentOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any ailment' },
-      ...ailments.map((a) => ({ value: String(a.id), label: a.name })),
+      ...ailments
+        .filter((a) => available.ailment.has(a.id))
+        .map((a) => ({ value: String(a.id), label: a.name })),
     ],
-    [ailments],
+    [ailments, available],
   )
 
   const signOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any sign' },
-      ...signs.map((s) => ({ value: String(s.id), label: `${s.symbol} ${s.name}` })),
+      ...signs
+        .filter((s) => available.zodiac.has(s.id))
+        .map((s) => ({ value: String(s.id), label: `${s.symbol} ${s.name}` })),
     ],
-    [signs],
+    [signs, available],
   )
 
   const planetOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any planet' },
-      ...planets.map((p) => ({ value: String(p.id), label: `${p.symbol} ${p.name}` })),
+      ...planets
+        .filter((p) => available.planet.has(p.id))
+        .map((p) => ({ value: String(p.id), label: `${p.symbol} ${p.name}` })),
     ],
-    [planets],
+    [planets, available],
+  )
+
+  const partOptions = useMemo<SelectOption[]>(
+    () => [
+      { value: '', label: 'Any part' },
+      ...ALL_PARTS.filter((opt) => available.part.has(opt.value)),
+    ],
+    [available],
   )
 
   const prepOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any method' },
-      ...preparations.map((p) => ({ value: String(p.id), label: p.name })),
+      ...preparations
+        .filter((p) => available.preparation.has(p.id))
+        .map((p) => ({ value: String(p.id), label: p.name })),
     ],
-    [preparations],
+    [preparations, available],
   )
 
+  // ── Adapters: engine ↔ Select strings ──────────────────
+  const toStr = (v: number | string | null) => (v === null ? '' : String(v))
+  const toNum = (s: string) => (s === '' ? null : Number(s))
+  const toNullableStr = (s: string) => (s === '' ? null : s)
+
+  // ── Query ──────────────────────────────────────────────
   const runQuery = async () => {
     const params: Record<string, string | number> = {}
-    if (selectedAilment) params.ailmentId = Number(selectedAilment)
-    if (selectedSign) params.zodiacSignId = Number(selectedSign)
-    if (selectedPlanet) params.planetId = selectedPlanet
-    if (selectedPart) params.plantPart = selectedPart
-    if (selectedPrep) params.preparationId = Number(selectedPrep)
+    if (selections.ailment !== null) params.ailmentId = selections.ailment
+    if (selections.zodiac !== null) params.zodiacSignId = selections.zodiac
+    if (selections.planet !== null) params.planetId = String(selections.planet)
+    if (selections.part !== null) params.plantPart = selections.part
+    if (selections.preparation !== null) params.preparationId = selections.preparation
 
     const contraindicationParams: Record<string, string | number> = {}
-    if (selectedAilment) contraindicationParams.ailmentId = Number(selectedAilment)
-    if (selectedSign) contraindicationParams.zodiacSignId = Number(selectedSign)
-    if (selectedPlanet) contraindicationParams.planetId = selectedPlanet
+    if (selections.ailment !== null) contraindicationParams.ailmentId = selections.ailment
+    if (selections.zodiac !== null) contraindicationParams.zodiacSignId = selections.zodiac
+    if (selections.planet !== null) contraindicationParams.planetId = String(selections.planet)
 
     const [recResults, avoidRes] = await Promise.all([
       api.crossReference(params),
@@ -111,18 +163,18 @@ export default function CrossReference() {
   }
 
   const clearAll = () => {
-    setSelectedAilment('')
-    setSelectedSign('')
-    setSelectedPlanet('')
-    setSelectedPart('')
-    setSelectedPrep('')
+    setSelections(EMPTY_SELECTIONS)
     setResults([])
     setAvoidResults([])
     setHasSearched(false)
   }
 
   const hasAnyFilter =
-    selectedAilment || selectedSign || selectedPlanet || selectedPart || selectedPrep
+    selections.ailment !== null ||
+    selections.zodiac !== null ||
+    selections.planet !== null ||
+    selections.part !== null ||
+    selections.preparation !== null
 
   const grouped = results.reduce<Record<number, CrossRefResult[]>>((acc, r) => {
     if (!acc[r.id]) acc[r.id] = []
@@ -160,8 +212,9 @@ export default function CrossReference() {
                 fullWidth
                 label="Ailment"
                 options={ailmentOptions}
-                value={selectedAilment}
-                onChange={setSelectedAilment}
+                value={toStr(selections.ailment)}
+                onChange={(v) => updateSelection('ailment', toNum(v))}
+                disabled={available.ailment.size === 0}
               />
             </div>
 
@@ -173,8 +226,9 @@ export default function CrossReference() {
                 fullWidth
                 label="Zodiac sign"
                 options={signOptions}
-                value={selectedSign}
-                onChange={setSelectedSign}
+                value={toStr(selections.zodiac)}
+                onChange={(v) => updateSelection('zodiac', toNum(v))}
+                disabled={available.zodiac.size === 0}
               />
             </div>
 
@@ -186,8 +240,9 @@ export default function CrossReference() {
                 fullWidth
                 label="Planet"
                 options={planetOptions}
-                value={selectedPlanet}
-                onChange={setSelectedPlanet}
+                value={toStr(selections.planet)}
+                onChange={(v) => updateSelection('planet', toNum(v))}
+                disabled={available.planet.size === 0}
               />
             </div>
 
@@ -198,9 +253,10 @@ export default function CrossReference() {
               <Select
                 fullWidth
                 label="Plant part"
-                options={PART_OPTIONS}
-                value={selectedPart}
-                onChange={setSelectedPart}
+                options={partOptions}
+                value={toStr(selections.part)}
+                onChange={(v) => updateSelection('part', toNullableStr(v))}
+                disabled={available.part.size === 0}
               />
             </div>
 
@@ -212,8 +268,9 @@ export default function CrossReference() {
                 fullWidth
                 label="Preparation"
                 options={prepOptions}
-                value={selectedPrep}
-                onChange={setSelectedPrep}
+                value={toStr(selections.preparation)}
+                onChange={(v) => updateSelection('preparation', toNum(v))}
+                disabled={available.preparation.size === 0}
               />
             </div>
           </div>

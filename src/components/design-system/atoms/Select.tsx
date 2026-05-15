@@ -32,7 +32,8 @@ const selectClass =
   'focus:outline-none ' +
   'focus-visible:border-botanical-400 ' +
   'focus-visible:ring-2 focus-visible:ring-botanical-400/40 ' +
-  'transition-colors duration-150'
+  'transition-colors duration-150 ' +
+  'disabled:opacity-40 disabled:cursor-not-allowed'
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   function Select({ label, options, value, onChange, fullWidth, className, ...rest }, ref) {
