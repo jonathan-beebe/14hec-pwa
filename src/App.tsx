@@ -107,13 +107,13 @@ export default function App() {
               <Route path=":slug" element={<PlanetDetailView />} />
             </Route>
           </Route>
+          <Route path="/astrology/natal-chart" element={<NatalInput />} />
 
           {/* Standard pages — wrapped in the page gutter */}
           <Route element={<PageGutter />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="/plants/:id" element={<PlantDetail />} />
             <Route path="/ailments/:id" element={<AilmentDetail />} />
-            <Route path="/astrology/natal-chart" element={<NatalInput />} />
             <Route path="/astrology/planetary-timing" element={<PlanetaryTiming />} />
             <Route path="/astrology/planetary-timing/:planet" element={<PlanetaryTimingDetail />} />
             <Route path="/preparations/:id" element={<PreparationDetail />} />

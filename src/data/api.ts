@@ -438,6 +438,10 @@ export const api = {
     })),
   }),
 
+  getNatalDataset: async () => ({
+    signsWithPlants: new Set(plantZodiacAssocs.map(a => a.zodiac_sign_id)),
+  }),
+
   crossReferenceContraindications: async (params: {
     ailmentId?: number; zodiacSignId?: number; planetId?: string
   }): Promise<ContraindicationResult[]> => {
