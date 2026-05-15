@@ -1,0 +1,18 @@
+{
+  "model": "claude-opus-4-6",
+  "editorMode": "vim",
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(npm i *)",
+      "Bash(gh pr *)",
+      "Bash(npm install *)",
+      "Bash(node -e \"const { useMatches } = require\\('react-router-dom'\\); console.log\\(typeof useMatches\\);\")",
+      "Bash(npx vitest *)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(docker version *)",
+      "Bash(docker run *)"
+    ]
+  }
+}

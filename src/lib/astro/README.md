@@ -4,6 +4,16 @@ Pure functional library for planetary timing calculations. Computes real
 sunrise/sunset times and traditional planetary hours based on geographic
 coordinates and date.
 
+## Goal
+
+Drive the astronomy and astrology calculations for the
+`/astrology/planetary-timing` feature. Given a moment in time and a
+geographic location, return the planetary hours, day ruler, and current
+hour **local to that location** — the user in Tokyo at 3 PM Tuesday should
+see Tuesday's ruler and a daytime planetary hour, not UTC's calendar day
+or a null result because the UTC-anchored search window missed their
+local sunrise.
+
 ## Design Principles
 
 ### Functional core, imperative shell
@@ -59,18 +69,21 @@ exist. `getSunTimes()` returns a discriminated union:
 
 ```typescript
 type SunTimesResult =
-  | { kind: 'normal'; sunrise: Date; sunset: Date }
-  | { kind: 'polar'; condition: 'polar-day' | 'polar-night' }
+  | { kind: "normal"; sunrise: Date; sunset: Date }
+  | { kind: "polar"; condition: "polar-day" | "polar-night" };
 ```
 
 `getPlanetaryTiming()` returns `null` for polar conditions. The UI layer
 decides how to handle that (fallback message, equal-hours mode, etc.).
 
-### UTC throughout
+### UTC timestamps, local calendar logic
 
-All calculations operate in UTC. The library never applies timezone offsets.
-Display-layer formatting (via `toLocaleTimeString()` or `Intl.DateTimeFormat`)
-handles local time conversion, including DST, automatically.
+All `Date` values passed in and returned are UTC timestamps — the library
+never formats for display. However, determining *which* sunrise-sunset
+cycle brackets `now` and *which weekday* governs the Chaldean ruler requires
+reasoning about the observer's local calendar day. The library uses longitude
+as a solar-time proxy (`longitude / 15` hours) for this purpose, which is
+more appropriate for a planetary-hours tradition than political timezones.
 
 ## Public API
 
@@ -92,24 +105,24 @@ findCurrentHour(now: Date, hours: PlanetaryHour[]) → PlanetaryHour | null
 
 ```typescript
 interface PlanetaryTiming {
-  dayRuler: string
-  sunTimes: SunTimes
-  hours: PlanetaryHour[]
-  currentHour: PlanetaryHour | null
+  dayRuler: string;
+  sunTimes: SunTimes;
+  hours: PlanetaryHour[];
+  currentHour: PlanetaryHour | null;
 }
 
 interface PlanetaryHour {
-  planet: string
-  hourNumber: number        // 1-12
-  isDay: boolean
-  startTime: Date
-  endTime: Date
-  durationMinutes: number
+  planet: string;
+  hourNumber: number; // 1-12
+  isDay: boolean;
+  startTime: Date;
+  endTime: Date;
+  durationMinutes: number;
 }
 
 interface SunTimes {
-  sunrise: Date
-  sunset: Date
+  sunrise: Date;
+  sunset: Date;
 }
 ```
 
@@ -122,6 +135,7 @@ npx vitest run src/lib/astro/
 ```
 
 Test strategy:
+
 - **chaldean.test.ts** — Verifies constants, day ruler mapping, Chaldean
   sequence continuity, and the critical invariant that 24 hours of sequence
   always land on the next day's ruler.
@@ -141,6 +155,7 @@ day length.
 ## Future extensions
 
 The `astronomy-engine` dependency also provides:
+
 - `EclipticLongitude(body, date)` — planetary zodiac positions
 - `SunPosition(date).elon` — Sun's ecliptic longitude
 - `MoonPhase(date)` — lunar phase angle
