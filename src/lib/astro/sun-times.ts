@@ -10,51 +10,24 @@ function isSunAboveHorizon(date: Date, observer: Observer): boolean {
 
 export function getSunTimes(date: Date, latitude: number, longitude: number): SunTimesResult {
   const observer = new Observer(latitude, longitude, 0)
-  const startOfDay = new Date(Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    0, 0, 0,
-  ))
-  const astroTime = MakeTime(startOfDay)
 
-  const riseResult = SearchRiseSet(Body.Sun, observer, +1, astroTime, 1)
-  const setResult = SearchRiseSet(Body.Sun, observer, -1, astroTime, 1)
+  // Find the most recent sunrise before `date` by searching forward from 24h ago
+  const searchStart = new Date(date.getTime() - 24 * 3600_000)
+  const riseResult = SearchRiseSet(Body.Sun, observer, +1, MakeTime(searchStart), 1)
 
-  if (!riseResult && !setResult) {
-    const midday = new Date(Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      12, 0, 0,
-    ))
-    const aboveHorizon = isSunAboveHorizon(midday, observer)
-    return { kind: 'polar', condition: aboveHorizon ? 'polar-day' : 'polar-night' }
-  }
-
-  if (!riseResult || !setResult) {
-    const midday = new Date(Date.UTC(
-      date.getUTCFullYear(),
-      date.getUTCMonth(),
-      date.getUTCDate(),
-      12, 0, 0,
-    ))
-    const aboveHorizon = isSunAboveHorizon(midday, observer)
+  if (!riseResult || riseResult.date.getTime() > date.getTime()) {
+    const aboveHorizon = isSunAboveHorizon(date, observer)
     return { kind: 'polar', condition: aboveHorizon ? 'polar-day' : 'polar-night' }
   }
 
   const sunrise = riseResult.date
-  const sunset = setResult.date
+  const setResult = SearchRiseSet(Body.Sun, observer, -1, MakeTime(sunrise), 1)
 
-  if (sunrise.getTime() > sunset.getTime()) {
-    const nextSet = SearchRiseSet(Body.Sun, observer, -1, MakeTime(sunrise), 1)
-    if (nextSet) {
-      return { kind: 'normal', sunrise, sunset: nextSet.date }
-    }
+  if (!setResult) {
     return { kind: 'polar', condition: 'polar-day' }
   }
 
-  return { kind: 'normal', sunrise, sunset }
+  return { kind: 'normal', sunrise, sunset: setResult.date }
 }
 
 export function getNextSunrise(date: Date, latitude: number, longitude: number): Date | null {

@@ -52,20 +52,44 @@ describe('getPlanetaryTiming (integration)', () => {
     expect(dayHours[0].durationMinutes).toBeGreaterThan(nightHours[0].durationMinutes)
   })
 
-  it('assigns currentHour as null when now is before sunrise', () => {
-    // Very early morning UTC before NYC sunrise
-    const now = new Date('2025-06-22T05:00:00Z') // ~1 AM EDT
+  it('identifies a night planetary hour for NYC at 1 AM EDT', () => {
+    // NYC at 1 AM EDT = 05:00 UTC — nighttime, but should still be in a planetary hour
+    // The planetary day runs sunrise-to-sunrise, so night hours exist after sunset
+    const now = new Date('2025-06-22T05:00:00Z')
     const result = getPlanetaryTiming(now, 40.7128, -74.006)
 
     if (!result) throw new Error('expected a PlanetaryTiming result')
+    if (!result.currentHour) throw new Error('expected a current hour during nighttime')
 
-    // This time might fall in the previous day's night hours (not computed),
-    // so currentHour may be null
-    // The key invariant: if currentHour exists, it contains now
-    if (result.currentHour) {
-      expect(result.currentHour.startTime.getTime()).toBeLessThanOrEqual(now.getTime())
-      expect(result.currentHour.endTime.getTime()).toBeGreaterThan(now.getTime())
-    }
+    expect(result.currentHour.isDay).toBe(false)
+    expect(result.currentHour.startTime.getTime()).toBeLessThanOrEqual(now.getTime())
+    expect(result.currentHour.endTime.getTime()).toBeGreaterThan(now.getTime())
+  })
+
+  it('identifies a planetary hour for Tokyo at 3 PM local', () => {
+    // Tokyo at 3 PM JST = 06:00 UTC — broad daylight
+    const now = new Date('2025-06-22T06:00:00Z')
+    const result = getPlanetaryTiming(now, 35.6762, 139.6503)
+
+    if (!result) throw new Error('expected a PlanetaryTiming result')
+    if (!result.currentHour) throw new Error('expected a current hour for Tokyo daytime')
+
+    expect(result.currentHour.isDay).toBe(true)
+    expect(result.currentHour.startTime.getTime()).toBeLessThanOrEqual(now.getTime())
+    expect(result.currentHour.endTime.getTime()).toBeGreaterThan(now.getTime())
+  })
+
+  it('identifies a planetary hour for Sydney at 3 PM local', () => {
+    // Sydney at 3 PM AEDT = 04:00 UTC Dec 21 — daytime in southern summer
+    const now = new Date('2025-12-21T04:00:00Z')
+    const result = getPlanetaryTiming(now, -33.8688, 151.2093)
+
+    if (!result) throw new Error('expected a PlanetaryTiming result')
+    if (!result.currentHour) throw new Error('expected a current hour for Sydney daytime')
+
+    expect(result.currentHour.isDay).toBe(true)
+    expect(result.currentHour.startTime.getTime()).toBeLessThanOrEqual(now.getTime())
+    expect(result.currentHour.endTime.getTime()).toBeGreaterThan(now.getTime())
   })
 
   it('all hours span from sunrise to next sunrise', () => {
