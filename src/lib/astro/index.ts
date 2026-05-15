@@ -10,7 +10,7 @@ export type {
   GeoLocation,
 } from './types'
 
-import { getDayRuler } from './chaldean'
+import { DAY_RULERS } from './chaldean'
 import { getSunTimes, getNextSunrise } from './sun-times'
 import { computePlanetaryHours, findCurrentHour } from './planetary-hours'
 import type { PlanetaryTiming } from './types'
@@ -27,11 +27,13 @@ export function getPlanetaryTiming(
   const nextSunrise = getNextSunrise(sunset, latitude, longitude)
   if (!nextSunrise) return null
 
-  const dayOfWeek = sunrise.getUTCDay()
+  const localOffsetMs = (longitude / 15) * 3600000
+  const localSunrise = new Date(sunrise.getTime() + localOffsetMs)
+  const dayOfWeek = localSunrise.getUTCDay()
   const hours = computePlanetaryHours(sunrise, sunset, nextSunrise, dayOfWeek)
 
   return {
-    dayRuler: getDayRuler(sunrise),
+    dayRuler: DAY_RULERS[dayOfWeek],
     sunTimes: { sunrise, sunset },
     hours,
     currentHour: findCurrentHour(now, hours),

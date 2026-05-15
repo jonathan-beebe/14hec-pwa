@@ -92,6 +92,20 @@ describe('getPlanetaryTiming (integration)', () => {
     expect(result.currentHour.endTime.getTime()).toBeGreaterThan(now.getTime())
   })
 
+  it('uses local (longitude-based) weekday for day ruler, not UTC weekday', () => {
+    // Tokyo Monday June 23 at noon local (03:00 UTC).
+    // Sunrise for that local morning is ~19:25 UTC June 22 (= ~04:25 JST June 23).
+    // UTC weekday of sunrise = Sunday (0) → wrong ruler 'Sun'.
+    // Local weekday = Monday (1) → correct ruler 'Moon'.
+    const now = new Date('2025-06-23T03:00:00Z')
+    const result = getPlanetaryTiming(now, 35.6762, 139.6503)
+
+    if (!result) throw new Error('expected a PlanetaryTiming result for Tokyo')
+
+    expect(result.dayRuler).toBe('Moon')
+    expect(result.hours[0].planet).toBe('Moon')
+  })
+
   it('all hours span from sunrise to next sunrise', () => {
     const now = new Date('2025-06-22T15:00:00Z')
     const result = getPlanetaryTiming(now, 40.7128, -74.006)
