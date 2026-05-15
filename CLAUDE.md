@@ -188,29 +188,72 @@ labels. When in doubt, run the `/my-accessibility-audit` skill.
 
 ## Testing & TDD
 
-We use **Vitest + React Testing Library**. The framework is set up; the discipline is the work.
+We use **Vitest + React Testing Library**. TDD is the default workflow —
+write the test first, watch it fail, make it pass, refactor.
 
-### TDD-on-refactor philosophy
-Before changing non-trivial code: ask what behaviors must not regress, write tests
-that capture them, confirm green, then refactor, then confirm green again. New
-behavior begins as a failing test that the refactor turns green.
+### Functional core, imperative shell
+Push logic out of React components and into pure functions. Pure
+functions are fast to test (no DOM, no jsdom, no async rendering).
+Components become thin shells that wire data to the UI.
 
-This protects against silent regressions and forces you to articulate intent
-before changing code. The flow:
+- **Functional core** — pure functions that take data in and return data
+  out: engines (`crossref-engine.ts`, `natal-engine.ts`), calculators
+  (`natal-chart-calc.ts`), formatters (`formatCatalogStatus.ts`), query
+  helpers (`api.ts`). These live in `.ts` files and run under the `node`
+  test environment (no jsdom overhead).
+- **Imperative shell** — React components that call the core, manage
+  state, and render UI. These live in `.tsx` files and opt into jsdom
+  via `// @vitest-environment jsdom`.
 
-1. **Identify** — what behaviors must this change preserve? What new behavior is being added?
-2. **Test first** — write characterization tests (passing, against current code) for behaviors to protect; write failing tests for any new behavior.
-3. **Change** — refactor or implement.
-4. **Verify** — re-run tests. Previously-green tests stay green. Previously-red new-behavior tests are now green.
+When adding new behavior, ask: *can this be a pure function?* If yes,
+write it as one and unit-test it in a `.test.ts` file. The component
+that consumes it needs only a thin integration test.
+
+### Test pyramid — optimize for speed
+1. **Unit tests (fast, many)** — test the functional core. Pure `.ts`
+   files, `node` environment, no DOM. Sub-millisecond per test.
+   Also unit-test individual components in isolation where practical
+   (render one component, assert on its output).
+2. **Integration tests (slower, fewer)** — test assembled flows: route
+   transitions, filter-to-URL sync, list-to-detail navigation. These
+   render a scoped route table in jsdom. Keep them focused on the
+   interaction, not on re-verifying logic the unit tests already cover.
+
+Favor many fast unit tests over fewer slow integration tests. If a test
+needs jsdom, make sure the behavior can't be tested as a pure function
+instead.
+
+### TDD flow
+1. **Red** — write a failing test that describes the new behavior.
+2. **Green** — write the minimum code to make it pass.
+3. **Refactor** — clean up while tests stay green.
+
+For refactors of existing code, add characterization tests first
+(passing, against current code), then refactor, then verify green.
 
 ### Conventions
-- **Real data over fixtures.** Tests import the real `src/data/api.ts` and the real seed JSON. No mocks unless isolation truly cannot be achieved otherwise.
-- **No non-null assertions (`!`).** After `expect(x).not.toBeNull()`, narrow with `if (!x) throw new Error('...')` so TypeScript narrows the type and the failure message is informative.
-- **Colocate tests** next to the source: `Foo.tsx` → `Foo.test.tsx`, `api.ts` → `api.test.ts`.
-- **Integration tests use scoped route tables** — only the routes the test exercises, never the full `App.tsx` tree. Use `renderWithRouter` from `@/test/render`.
-- **Query by role first**, then label, then text. Avoid querying by class. Use `findBy*` for async-rendered content; reach for manual `waitFor` only when `findBy*` cannot express the condition.
-- **Prefer `userEvent` over `fireEvent`** — closer to real user behavior. Always `userEvent.setup()` first.
-- **jsdom is not a browser.** It cannot validate layout, CSS, or service-worker behavior. Don't try to test those here — that is the line where Playwright (not currently installed) would take over.
+- **Real data over fixtures.** Tests import the real `src/data/api.ts`
+  and the real seed JSON. No mocks unless isolation truly cannot be
+  achieved otherwise.
+- **No non-null assertions (`!`).** After `expect(x).not.toBeNull()`,
+  narrow with `if (!x) throw new Error('...')` so TypeScript narrows
+  the type and the failure message is informative.
+- **Colocate tests** next to the source: `Foo.tsx` → `Foo.test.tsx`,
+  `api.ts` → `api.test.ts`.
+- **Default environment is `node`.** Only `.test.tsx` files that render
+  components opt into jsdom with `// @vitest-environment jsdom` on
+  line 1. Pure-logic `.test.ts` files must not pay the jsdom tax.
+- **Integration tests use scoped route tables** — only the routes the
+  test exercises, never the full `App.tsx` tree. Use `renderWithRouter`
+  from `@/test/render`.
+- **Query by role first**, then label, then text. Avoid querying by
+  class. Use `findBy*` for async-rendered content; reach for manual
+  `waitFor` only when `findBy*` cannot express the condition.
+- **Prefer `userEvent` over `fireEvent`** — closer to real user
+  behavior. Always `userEvent.setup()` first.
+- **jsdom is not a browser.** It cannot validate layout, CSS, or
+  service-worker behavior. Don't try to test those here — that is the
+  line where Playwright (not currently installed) would take over.
 
 ### Commands
 ```
