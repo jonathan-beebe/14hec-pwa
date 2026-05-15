@@ -3,7 +3,7 @@ import { useParams, useNavigate, Navigate, Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Ailment, HMBSPlant } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
-import { getDomainByKey, DOMAIN_CSS_MAP, STRENGTH_LABELS } from './hmbs-domains'
+import { getDomainByKey, HMBS_DOMAINS, DOMAIN_CSS_MAP, STRENGTH_LABELS } from './hmbs-domains'
 
 export default function HMBSDomainDetail() {
   const { domain: domainKey } = useParams<{ domain: string }>()
@@ -36,14 +36,57 @@ export default function HMBSDomainDetail() {
 
   return (
     <div className="animate-fade-in">
+      {/* Back link — mobile only */}
       <Link
         to="/hmbs"
-        className="text-[11px] text-earth-500 hover:text-earth-200 transition-colors"
+        className="md:hidden text-[11px] text-earth-500 hover:text-earth-200 transition-colors"
       >
         {'← '}Heart · Mind · Body · Spirit
       </Link>
 
-      <div className="space-y-6 mt-4">
+      {/* Domain switcher — desktop only */}
+      <div className="hidden md:block mb-6">
+        <Text.PageTitle>Heart · Mind · Body · Spirit</Text.PageTitle>
+        <p className="text-sm text-earth-500 mt-1">
+          Four domains of plant intelligence
+        </p>
+      </div>
+      <div className="hidden md:grid grid-cols-4 gap-3 mb-8">
+        {HMBS_DOMAINS.map((d) => (
+          <Link
+            key={d.key}
+            to={`/hmbs/${d.key}`}
+            aria-current={domain.key === d.key ? 'page' : undefined}
+            className={`card relative text-center block transition-all duration-300 ease-out-expo focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-botanical-400 ${
+              domain.key === d.key ? 'ring-1 ring-inset ring-white/10' : ''
+            }`}
+            style={{
+              background:
+                domain.key === d.key
+                  ? d.gradient
+                  : 'rgba(26, 25, 21, 0.65)',
+              boxShadow:
+                domain.key === d.key
+                  ? d.glowShadow
+                  : undefined,
+            }}
+          >
+            <div className="text-2xl mb-1" aria-hidden="true">
+              {d.icon}
+            </div>
+            <div
+              className={`text-sm font-display font-medium ${
+                domain.key === d.key ? d.textColor : 'text-earth-400'
+              }`}
+            >
+              {d.name}
+            </div>
+            <div className="text-[10px] text-earth-600 mt-0.5">{d.element}</div>
+          </Link>
+        ))}
+      </div>
+
+      <div className="space-y-6 mt-4 md:mt-0">
         {/* Domain Header */}
         <div className="glass-panel p-6" style={{ background: domain.gradient }}>
           <div className="flex items-center gap-4 mb-4">
