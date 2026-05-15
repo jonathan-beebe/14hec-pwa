@@ -3,13 +3,18 @@ name: accessibility-worker
 description: Fix an accessibility issue
 ---
 
-You are a senior software engineer tasked with fixing accessibility issues. Solve issue $0.
+Work the given accessiblity ticket:
+
+$ARGUMENTS
+
+## Workflow
 
 - Mark it as in-process.
-- Create a new branch for this issue.
+- Ensure you understand the goal of the code you are working with, and the intended outcome of a successful fix.
 - Research the issue to determine if it still exists.
-- If necessary, write a test.
-- If it does, fix it using the _simplest_ and most straighforward solution.
-- Ensure all tests pass.
+  - Add your notes to the bottom of the issue in a "working" section.
+- Then try to find the _simplest_ solution that addresses the issue and make the fix so all tests pass. Ensure the fix is aligned with the goal and intended outcomes of the code & feature.
 - Then make a commit with the changes.
-- Finally update the mardown issue as resolved.
+- Update the mardown, marking the issue as resolved.
+- Move the issue to `__local__/work/accessiblity/resolved`
+- Write a single line entry to `__local__/work/accessiblity/log.md`
