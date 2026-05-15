@@ -4,10 +4,10 @@ import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import DashboardHeader from '@/components/DashboardHeader'
 import { Icon } from '@/components/design-system/atoms/Icon'
+import Type from '@/components/design-system/atoms/Type'
 import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
 import InfoTile from '@/components/design-system/components/InfoTile'
-import DomainCard from '@/components/design-system/components/DomainCard'
 import Text from '@/components/design-system/atoms/Text'
 
 const viewToPath: Record<string, string> = {
@@ -72,28 +72,12 @@ export default function Dashboard() {
 
       {/* HMBS Domains */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <Text.SectionTitle className="mb-0">Sanctuary Domains</Text.SectionTitle>
-          <Button.Ghost route="/hmbs" className="text-xs">
-            Explore all {'\u2192'}
-          </Button.Ghost>
-        </div>
-        <div className="grid grid-cols-4 gap-3">
-          {([
-            { title: 'Heart', icon: '\u2661', domain: 'heart', desc: 'Love, connection, empathy' },
-            { title: 'Mind', icon: '\u2609', domain: 'mind', desc: 'Clarity, focus, cognition' },
-            { title: 'Body', icon: '\u2618', domain: 'body', desc: 'Vitality, strength, healing' },
-            { title: 'Spirit', icon: '\u2726', domain: 'spirit', desc: 'Transcendence, intuition' },
-          ] as const).map((d) => (
-            <DomainCard
-              key={d.domain}
-              to="/hmbs"
-              domain={d.domain}
-              icon={d.icon}
-              title={d.title}
-              description={d.desc}
-            />
-          ))}
+        <Type.Subheading className="mb-3">Sanctuary Domains</Type.Subheading>
+        <div className="grid grid-cols-2 gap-3">
+          <InfoTile.Heart to="/hmbs" icon={<Icon.Heart />} sandIcon={Icon.Heart.source} primary="Heart" secondary="Love, connection, empathy" />
+          <InfoTile.Mind to="/hmbs" icon={<Icon.Atom />} sandIcon={Icon.Atom.source} primary="Mind" secondary="Clarity, focus, cognition" />
+          <InfoTile.Body to="/hmbs" icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary="Body" secondary="Vitality, strength, healing" />
+          <InfoTile.Spirit to="/hmbs" icon={<Icon.Lotus />} sandIcon={Icon.Lotus.source} primary="Spirit" secondary="Transcendence, intuition" />
         </div>
       </div>
 

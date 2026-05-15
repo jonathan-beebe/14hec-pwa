@@ -63,7 +63,7 @@ export default function DashboardHeader({
         {search && filteredPlants.length > 0 && (
           <div
             className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down"
-            style={{ border: '1px solid rgba(255, 255, 255, 0.08)' }}
+            style={{ border: '2px solid rgba(255, 255, 255, 0.1)' }}
           >
             {filteredPlants.slice(0, 5).map((plant) => (
               <button
