@@ -258,7 +258,7 @@ function InfoTile({
       : toneFrameClass[tone]
   }
   const liftClassUsed = tinted ? '' : liftClass
-  const cardClass = `card bg-black ${liftClassUsed} flex items-center gap-4 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
+  const cardClass = `card bg-black ${liftClassUsed} flex items-center gap-0 group overflow-hidden ${frameClass} ${focusClass}${className ? ` ${className}` : ''}`
 
   // When sand is active the canvas wrapper sits behind the text (z-0) and
   // is tinted by the icon-slot's text color (the wrapper is rendered into
@@ -351,7 +351,7 @@ function InfoTile({
               ? 'invisible'
               : `${selected ? 'opacity-90' : 'opacity-60 group-hover:opacity-90'} transition-opacity duration-200 motion-reduce:transition-none ${tinted ? '' : tonePrimaryClass[tone]}`
           }`}
-          style={!sandActive && tinted ? { color: tintHex } : undefined}
+          style={{ transform: 'translateY(6px)', ...(!sandActive && tinted ? { color: tintHex } : undefined) }}
         >
           {icon}
         </div>
