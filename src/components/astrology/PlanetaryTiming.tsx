@@ -86,6 +86,7 @@ function HourCell({
   return (
     <Link
       to={`/astrology/planetary-timing/${hour.planet.toLowerCase()}`}
+      aria-label={`${hour.planet} hour starting ${formatTime(hour.startTime)} — view aligned plants`}
       className={`block p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[hour.planet]}`}
       style={{
         background: isCurrent ? planetBgColors[hour.planet] : 'rgba(36, 34, 30, 0.4)',
