@@ -91,11 +91,13 @@ function HourCell({
       style={{
         background: isCurrent ? planetBgColors[hour.planet] : 'rgba(36, 34, 30, 0.4)',
         border: isCurrent ? `1px solid ${planetRingColors[hour.planet]}` : '1px solid rgba(255, 255, 255, 0.05)',
-        opacity: isCurrent ? 1 : 0.55,
+        opacity: isCurrent ? 1 : 0.7,
         boxShadow: isCurrent ? `0 0 20px -4px ${planetRingColors[hour.planet]}` : 'none'
       }}
       onMouseEnter={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.9' }}
-      onMouseLeave={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.55' }}
+      onMouseLeave={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
+      onFocus={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.9' }}
+      onBlur={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.7' }}
     >
       <div className="text-lg" aria-hidden="true">{planetSymbols[hour.planet]}</div>
       <div className="text-[10px] text-earth-400 mt-0.5">
