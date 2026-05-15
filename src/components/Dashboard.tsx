@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
+import DashboardHeader from '@/components/DashboardHeader'
 import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
 import StatCard from '@/components/design-system/components/StatCard'
@@ -55,65 +56,11 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-6xl">
-      {/* Hero Section */}
-      <div className="hero-section mb-8 !overflow-visible">
-        <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-          <div className="hero-orb w-96 h-96 -top-48 right-0 bg-botanical-500" />
-          <div className="hero-orb w-72 h-72 -bottom-36 -left-24 bg-celestial-500" style={{ opacity: 0.1 }} />
-        </div>
-
-        <div className="relative">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-1 h-12 rounded-full"
-                 style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
-            <div>
-              <Text.Display className="text-gradient-botanical">
-                14 HEC Plant Intelligence
-              </Text.Display>
-              <p className="text-earth-400 text-sm mt-1">
-                Herbal {'\u00b7'} Energetic {'\u00b7'} Celestial {'\u2014'} Cross-reference plants, ailments, and astrology
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="relative mt-6">
-          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <svg className="w-4 h-4 text-earth-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          <input
-            type="text"
-            placeholder="Search plants, ailments, or conditions..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="input-field pl-11 py-3"
-          />
-          {search && filteredPlants.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down"
-                 style={{ border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              {filteredPlants.slice(0, 5).map((plant) => (
-                <button
-                  key={plant.id}
-                  onClick={() => navigate(`/plants/${plant.id}`)}
-                  className="w-full text-left px-5 py-3 flex justify-between items-center group transition-colors duration-100"
-                  style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)' }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
-                >
-                  <div>
-                    <span className="text-earth-100 group-hover:text-botanical-400 transition-colors text-sm">{plant.common_name}</span>
-                    <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
-                  </div>
-                  <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <DashboardHeader
+        search={search}
+        onSearchChange={setSearch}
+        filteredPlants={filteredPlants}
+      />
 
       {/* Bento Grid — Stats + HMBS combined */}
       <div className="grid grid-cols-4 gap-3 mb-8">
