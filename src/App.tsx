@@ -20,6 +20,7 @@ import EntheogenicGuide from './components/plants/EntheogenicGuide'
 import EntheogenicPlantDetail from './components/plants/EntheogenicPlantDetail'
 import EntheogenicProtocolDetail from './components/plants/EntheogenicProtocolDetail'
 import HMBSView from './components/sanctuary/HMBSView'
+import HMBSDomainDetail from './components/sanctuary/HMBSDomainDetail'
 import SeasonalGuide from './components/sanctuary/SeasonalGuide'
 import DoctrineExplorer from './components/sanctuary/DoctrineExplorer'
 import DoctrineDetail from './components/sanctuary/DoctrineDetail'
@@ -85,6 +86,7 @@ export default function App() {
           <Route path="/collections" element={<CollectionsList />} />
           <Route path="/journal" element={<JournalList />} />
           <Route path="/preparations" element={<PreparationList />} />
+          <Route path="/hmbs" element={<HMBSView />} />
           <Route path="/wellness" element={<WellnessNavigator />} />
           <Route path="/doctrine" element={<DoctrineExplorer />}>
             <Route path=":plantId" element={<DoctrineDetail />} />
@@ -113,7 +115,7 @@ export default function App() {
             <Route path="/astrology/planetary-timing/:planet" element={<PlanetaryTimingDetail />} />
             <Route path="/preparations/:id" element={<PreparationDetail />} />
             <Route path="/crossref" element={<CrossReference />} />
-            <Route path="/hmbs" element={<HMBSView />} />
+            <Route path="/hmbs/:domain" element={<HMBSDomainDetail />} />
             <Route path="/seasonal" element={<SeasonalGuide />} />
             <Route path="/body-systems/:id" element={<BodySystemsDetail />} />
             <Route path="/journal/new" element={<JournalView />} />
