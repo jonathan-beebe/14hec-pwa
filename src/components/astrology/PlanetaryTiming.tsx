@@ -143,7 +143,7 @@ export default function PlanetaryTiming() {
       </div>
 
       {/* Location status */}
-      <div className="mb-4">
+      <div className="mb-4" aria-live="polite" aria-atomic="true">
         {geo.status === 'idle' && (
           <div className="flex items-center gap-3 text-xs text-earth-500">
             <span>Using default location ({DEFAULT_LABEL})</span>
