@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import DashboardHeader from '@/components/DashboardHeader'
+import { Icon } from '@/components/design-system/atoms/Icon'
 import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
-import StatCard from '@/components/design-system/components/StatCard'
+import InfoTile from '@/components/design-system/components/InfoTile'
 import DomainCard from '@/components/design-system/components/DomainCard'
 import Text from '@/components/design-system/atoms/Text'
 
@@ -64,22 +65,10 @@ export default function Dashboard() {
 
       {/* Bento Grid — Stats + HMBS combined */}
       <div className="grid grid-cols-4 gap-3 mb-8">
-        {/* Stats */}
-        {([
-          { label: 'Plants', count: plants.length, tone: 'botanical', view: 'plants', icon: '\u2618' },
-          { label: 'Ailments', count: ailments.length, tone: 'celestial', view: 'ailments', icon: '\u2695' },
-          { label: 'Zodiac Signs', count: signs.length, tone: 'gold', view: 'astrology', icon: '\u2609' },
-          { label: 'Cross-Ref', count: '\u29D6', tone: 'botanical', view: 'crossref', icon: '\u29D6' },
-        ] as const).map((stat) => (
-          <StatCard
-            key={stat.label}
-            to={viewToPath[stat.view]}
-            tone={stat.tone}
-            icon={stat.icon}
-            count={stat.count}
-            label={stat.label}
-          />
-        ))}
+        <InfoTile.Botanical to={viewToPath.plants} icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary={plants.length} secondary="Plants" />
+        <InfoTile.Celestial to={viewToPath.ailments} icon={<Icon.Aesculapius />} sandIcon={Icon.Aesculapius.source} primary={ailments.length} secondary="Ailments" />
+        <InfoTile.Gold to={viewToPath.astrology} icon={<Icon.Sun />} sandIcon={Icon.Sun.source} primary={signs.length} secondary="Zodiac Signs" />
+        <InfoTile.Botanical to={viewToPath.crossref} icon={<Icon.Hourglass />} sandIcon={Icon.Hourglass.source} primary={'\u29D6'} secondary="Cross-Ref" />
       </div>
 
       {/* HMBS Domains */}
