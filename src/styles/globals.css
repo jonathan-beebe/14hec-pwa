@@ -741,3 +741,19 @@
     -webkit-backdrop-filter: blur(24px) saturate(160%);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-fade-in-down {
+    animation: none;
+    opacity: 1;
+  }
+
+  .animate-pulse,
+  .animate-pulse-slow,
+  .animate-pulse-glow,
+  .animate-glow-pulse {
+    animation: none;
+  }
+}
