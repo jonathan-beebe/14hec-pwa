@@ -16,6 +16,8 @@ export interface SelectProps extends NativeSelectProps {
   options: SelectOption[]
   value: string
   onChange: (value: string) => void
+  /** Stretch the control to fill its container width. */
+  fullWidth?: boolean
 }
 
 // Native <select> arrows differ across browsers and engines and are
@@ -33,10 +35,10 @@ const selectClass =
   'transition-colors duration-150'
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  function Select({ label, options, value, onChange, className, ...rest }, ref) {
-    const composedClass = selectClass + (className ? ` ${className}` : '')
+  function Select({ label, options, value, onChange, fullWidth, className, ...rest }, ref) {
+    const composedClass = selectClass + (fullWidth ? ' w-full' : '') + (className ? ` ${className}` : '')
     return (
-      <div className="relative inline-block">
+      <div className={`relative ${fullWidth ? 'w-full' : 'inline-block'}`}>
         <select
           ref={ref}
           aria-label={label}

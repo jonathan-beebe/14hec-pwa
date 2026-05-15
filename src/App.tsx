@@ -90,6 +90,7 @@ export default function App() {
           <Route path="/hmbs" element={<HMBSView />} />
           <Route path="/seasonal" element={<SeasonalList />} />
           <Route path="/wellness" element={<WellnessNavigator />} />
+          <Route path="/crossref" element={<CrossReference />} />
           <Route path="/doctrine" element={<DoctrineExplorer />}>
             <Route path=":plantId" element={<DoctrineDetail />} />
           </Route>
@@ -116,7 +117,6 @@ export default function App() {
             <Route path="/astrology/planetary-timing" element={<PlanetaryTiming />} />
             <Route path="/astrology/planetary-timing/:planet" element={<PlanetaryTimingDetail />} />
             <Route path="/preparations/:id" element={<PreparationDetail />} />
-            <Route path="/crossref" element={<CrossReference />} />
             <Route path="/hmbs/:domain" element={<HMBSDomainDetail />} />
             <Route path="/seasonal/:season" element={<SeasonalDetail />} />
             <Route path="/body-systems/:id" element={<BodySystemsDetail />} />
