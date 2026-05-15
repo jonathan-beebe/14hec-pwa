@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import {
   computeAvailableOptions,
   validateSelections,
+  autoSelect,
   EMPTY_SELECTIONS,
   type CrossRefDataset,
 } from './crossref-engine'
@@ -206,5 +207,58 @@ describe('validateSelections', () => {
     // but part axis excludes itself, so available.part = parts from ailment 3 + planet 1 minus part
     // Actually: available.part applies ailment 3 + planet 1 → no rows → empty set
     expect(validated.part).toBeNull()
+  })
+})
+
+describe('autoSelect', () => {
+  it('does nothing when all axes have multiple options', () => {
+    const result = autoSelect(DATASET, EMPTY_SELECTIONS, null)
+    expect(result).toEqual(EMPTY_SELECTIONS)
+  })
+
+  it('fills an axis that has been narrowed to a single option', () => {
+    // Ailment 1 + zodiac 1 + planet 1 → plant A only → prep rows: [1,2], parts: [leaf]
+    // Wait, let's use a clearer case:
+    // Prep 3 → row 4 only (plant B, ailment 3, stem, prep 3)
+    // Available: ailment={3}, part={stem}, planet={2}, zodiac={1,2}
+    const sel = { ...EMPTY_SELECTIONS, preparation: 3 }
+    const result = autoSelect(DATASET, sel, 'preparation')
+
+    expect(result.ailment).toBe(3)
+    expect(result.part).toBe('stem')
+    expect(result.planet).toBe(2)
+    // Zodiac has 2 options (B → Aries,Pisces) so stays null
+    expect(result.zodiac).toBeNull()
+    expect(result.preparation).toBe(3)
+  })
+
+  it('cascades: filling one axis may narrow another to one', () => {
+    // Planet Mars(1) → plant A → ailments {1,2}, parts {leaf,root}, preps {1,2}, zodiac {Aries=1}
+    // Zodiac narrows to 1 option → auto-fills zodiac=1
+    // After zodiac=1: plants {A,B} but planet=1 still limits to A → no further cascade
+    const sel = { ...EMPTY_SELECTIONS, planet: 1 }
+    const result = autoSelect(DATASET, sel, 'planet')
+
+    expect(result.zodiac).toBe(1)
+    // ailment, part, prep each have 2 options → stay null
+    expect(result.ailment).toBeNull()
+    expect(result.part).toBeNull()
+    expect(result.preparation).toBeNull()
+  })
+
+  it('skips the exempt axis even when it has a single option', () => {
+    // Part 'root' → ailment={2}, prep={2}, planet={1,3}, zodiac={1,2}
+    // Ailment and prep each narrow to 1 — but exempt 'ailment' from auto-fill
+    const sel = { ...EMPTY_SELECTIONS, part: 'root' }
+    const result = autoSelect(DATASET, sel, 'ailment')
+
+    expect(result.ailment).toBeNull()
+    expect(result.preparation).toBe(2)
+  })
+
+  it('does not auto-select into an empty set', () => {
+    const empty: CrossRefDataset = { rows: [], plantZodiac: [], plantPlanet: [] }
+    const result = autoSelect(empty, EMPTY_SELECTIONS, null)
+    expect(result).toEqual(EMPTY_SELECTIONS)
   })
 })

@@ -143,6 +143,46 @@ export function computeAvailableOptions(
   return { ailment, zodiac, planet, part, preparation }
 }
 
+const AXES: (keyof CrossRefSelections)[] = [
+  'ailment',
+  'zodiac',
+  'planet',
+  'part',
+  'preparation',
+]
+
+/**
+ * After a user changes one axis, auto-fill any other axis that has been
+ * narrowed to a single remaining option. Cascades: filling one axis may
+ * narrow another to one, which fills that one, etc. The `exempt` axis
+ * (the one the user just touched) is never auto-filled — if the user
+ * cleared it, we respect that intent.
+ */
+export function autoSelect(
+  dataset: CrossRefDataset,
+  selections: CrossRefSelections,
+  exempt: keyof CrossRefSelections | null,
+): CrossRefSelections {
+  let current = selections
+  for (let i = 0; i < AXES.length; i++) {
+    const available = computeAvailableOptions(dataset, current)
+    current = validateSelections(available, current)
+    let changed = false
+    for (const key of AXES) {
+      if (key === exempt) continue
+      if (current[key] !== null) continue
+      const set = available[key]
+      if (set.size === 1) {
+        const [value] = set
+        current = { ...current, [key]: value as never }
+        changed = true
+      }
+    }
+    if (!changed) break
+  }
+  return current
+}
+
 export function validateSelections(
   available: AvailableOptions,
   selections: CrossRefSelections,
