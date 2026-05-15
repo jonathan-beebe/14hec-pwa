@@ -250,11 +250,11 @@ export default function PlanetaryTiming() {
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xl opacity-50" aria-hidden="true">☉</span>
               <Text.SectionTitle className="mb-0">Day Hours</Text.SectionTitle>
-              <span
-                className="text-xs text-earth-500 ml-auto cursor-help border-b border-dotted border-earth-600"
-                title="Temporal hours divide the time between sunrise and sunset into 12 equal parts. In summer, day hours are longer than 60 minutes; in winter, shorter."
-              >
+              <span className="text-xs text-earth-500 ml-auto">
                 ~{Math.round(timing.hours[0].durationMinutes)} min each
+                <span className="sr-only">
+                  — temporal hours divide the time between sunrise and sunset into 12 equal parts. In summer, day hours are longer than 60 minutes; in winter, shorter.
+                </span>
               </span>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
@@ -273,11 +273,11 @@ export default function PlanetaryTiming() {
             <div className="flex items-center gap-3 mb-3">
               <span className="text-xl opacity-50" aria-hidden="true">☽</span>
               <Text.SectionTitle className="mb-0">Night Hours</Text.SectionTitle>
-              <span
-                className="text-xs text-earth-500 ml-auto cursor-help border-b border-dotted border-earth-600"
-                title="Temporal hours divide the time between sunset and next sunrise into 12 equal parts. In summer, night hours are shorter than 60 minutes; in winter, longer."
-              >
+              <span className="text-xs text-earth-500 ml-auto">
                 ~{Math.round(timing.hours[12].durationMinutes)} min each
+                <span className="sr-only">
+                  — temporal hours divide the time between sunset and next sunrise into 12 equal parts. In summer, night hours are shorter than 60 minutes; in winter, longer.
+                </span>
               </span>
             </div>
             <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
