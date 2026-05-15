@@ -29,7 +29,7 @@ function setup(props: Partial<React.ComponentProps<typeof FilterBar>> = {}) {
     hasActiveFilters: false,
   }
   const renderResult = render(
-    <MemoryRouter>
+    <MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
       <FilterBar {...defaults} {...props} />
     </MemoryRouter>,
   )

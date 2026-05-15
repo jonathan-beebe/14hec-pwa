@@ -10,7 +10,7 @@ function renderLayout(ui: React.ReactNode) {
   // ListDetailLayout uses react-router hooks via usePageMeta context, but
   // not directly in pure-layout mode; still, wrap in a router so any
   // descendant routing calls don't blow up.
-  return render(<MemoryRouter>{ui}</MemoryRouter>)
+  return render(<MemoryRouter future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>{ui}</MemoryRouter>)
 }
 
 function BackProbe() {
@@ -109,7 +109,7 @@ describe('ListDetailLayout — optional filters slot', () => {
 describe('RoutedListDetailLayout — back path preserves filter search', () => {
   it('registered back path includes the current location.search', () => {
     render(
-      <MemoryRouter initialEntries={['/things/42?q=yarrow&category=root']}>
+      <MemoryRouter initialEntries={['/things/42?q=yarrow&category=root']} future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <MobileTopBarProvider>
           <BackProbe />
           <Routes>
@@ -137,7 +137,7 @@ describe('RoutedListDetailLayout — back path preserves filter search', () => {
 
   it('registered back path is null when the layout is on the index route', () => {
     render(
-      <MemoryRouter initialEntries={['/things']}>
+      <MemoryRouter initialEntries={['/things']} future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <MobileTopBarProvider>
           <BackProbe />
           <Routes>

@@ -28,7 +28,7 @@ const filters: CatalogFilter[] = [
 function wrapperFor(initialEntry: string) {
   return function Wrapper({ children }: { children: ReactNode }) {
     return (
-      <MemoryRouter initialEntries={[initialEntry]}>
+      <MemoryRouter initialEntries={[initialEntry]} future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
         <Routes>
           <Route path="*" element={<>{children}</>} />
         </Routes>
