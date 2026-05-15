@@ -96,7 +96,7 @@ function HourCell({
       onMouseEnter={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.9' }}
       onMouseLeave={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.55' }}
     >
-      <div className="text-lg">{planetSymbols[hour.planet]}</div>
+      <div className="text-lg" aria-hidden="true">{planetSymbols[hour.planet]}</div>
       <div className="text-[10px] text-earth-400 mt-0.5">
         {formatTime(hour.startTime)}
       </div>
@@ -216,7 +216,7 @@ export default function PlanetaryTiming() {
                    style={{ background: planetGradients[item.planet] }}>
                 <Text.SectionLabel>{item.label}</Text.SectionLabel>
                 <div className="flex items-center gap-3 mt-2">
-                  <span className="text-4xl animate-pulse-slow">{planetSymbols[item.planet]}</span>
+                  <span className="text-4xl animate-pulse-slow" aria-hidden="true">{planetSymbols[item.planet]}</span>
                   <div>
                     <div className="text-xl font-display font-bold text-earth-100">{item.planet}</div>
                     <div className="text-sm text-earth-400">{item.sub}</div>
