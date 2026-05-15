@@ -1,10 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
-import { api } from '@/data/api'
-import type { PlanetData, Plant } from '../../types'
+import { Link } from 'react-router-dom'
 import Text from '@/components/design-system/atoms/Text'
 import Notice from '@/components/design-system/components/Notice'
 import { getPlanetaryTiming } from '@/lib/astro'
-import type { PlanetaryTiming as PlanetaryTimingData, PlanetaryHour } from '@/lib/astro'
+import type { PlanetaryHour } from '@/lib/astro'
 import { useGeolocation } from '@/hooks/useGeolocation'
 
 const DEFAULT_COORDS = { latitude: 40.7128, longitude: -74.006 }
@@ -80,16 +79,14 @@ const planetBgColors: Record<string, string> = {
 function HourCell({
   hour,
   isCurrent,
-  onSelect,
 }: {
   hour: PlanetaryHour
   isCurrent: boolean
-  onSelect: () => void
 }) {
   return (
-    <button
-      onClick={onSelect}
-      className={`p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[hour.planet]}`}
+    <Link
+      to={`/astrology/planetary-timing/${hour.planet.toLowerCase()}`}
+      className={`block p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[hour.planet]}`}
       style={{
         background: isCurrent ? planetBgColors[hour.planet] : 'rgba(36, 34, 30, 0.4)',
         border: isCurrent ? `1px solid ${planetRingColors[hour.planet]}` : '1px solid rgba(255, 255, 255, 0.05)',
@@ -104,15 +101,12 @@ function HourCell({
         {formatTime(hour.startTime)}
       </div>
       <div className="text-[10px] font-medium">{hour.planet}</div>
-    </button>
+    </Link>
   )
 }
 
 export default function PlanetaryTiming() {
-  const [planets, setPlanets] = useState<PlanetData[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [selectedPlanetPlants, setSelectedPlanetPlants] = useState<Plant[]>([])
-  const [selectedPlanetName, setSelectedPlanetName] = useState('')
   const { geo, requestLocation } = useGeolocation()
 
   const coords = geo.status === 'resolved'
@@ -125,19 +119,9 @@ export default function PlanetaryTiming() {
   )
 
   useEffect(() => {
-    api.getPlanets().then(setPlanets)
     const interval = setInterval(() => setCurrentTime(new Date()), 60000)
     return () => clearInterval(interval)
   }, [])
-
-  const loadPlanetPlants = async (planetName: string) => {
-    const planet = planets.find((p) => p.name === planetName)
-    if (planet) {
-      const detail = await api.getPlanetById(planet.id)
-      setSelectedPlanetPlants(detail?.plants || [])
-      setSelectedPlanetName(planetName)
-    }
-  }
 
   const isCurrentHour = (h: PlanetaryHour) =>
     timing?.currentHour !== null &&
@@ -238,7 +222,7 @@ export default function PlanetaryTiming() {
                     <div className="text-sm text-earth-400">{item.sub}</div>
                   </div>
                 </div>
-                {item.showActivities ? (
+                {item.showActivities && (
                   <div className="mt-3">
                     <div className="text-xs text-earth-500 mb-1.5">Best activities today:</div>
                     <div className="space-y-1">
@@ -247,14 +231,13 @@ export default function PlanetaryTiming() {
                       ))}
                     </div>
                   </div>
-                ) : (
-                  <button
-                    onClick={() => loadPlanetPlants(item.planet)}
-                    className="mt-3 text-xs text-botanical-500 hover:text-botanical-400 transition-colors duration-200 ease-out-expo"
-                  >
-                    View aligned plants {'→'}
-                  </button>
                 )}
+                <Link
+                  to={`/astrology/planetary-timing/${item.planet.toLowerCase()}`}
+                  className="mt-3 inline-block text-xs text-botanical-500 hover:text-botanical-400 transition-colors duration-200 ease-out-expo"
+                >
+                  View aligned plants {'→'}
+                </Link>
               </div>
             ))}
           </div>
@@ -277,7 +260,6 @@ export default function PlanetaryTiming() {
                   key={h.startTime.getTime()}
                   hour={h}
                   isCurrent={isCurrentHour(h)}
-                  onSelect={() => loadPlanetPlants(h.planet)}
                 />
               ))}
             </div>
@@ -301,7 +283,6 @@ export default function PlanetaryTiming() {
                   key={h.startTime.getTime()}
                   hour={h}
                   isCurrent={isCurrentHour(h)}
-                  onSelect={() => loadPlanetPlants(h.planet)}
                 />
               ))}
             </div>
@@ -309,40 +290,6 @@ export default function PlanetaryTiming() {
         </>
       )}
 
-      {/* Planet's Plants */}
-      {selectedPlanetName && (
-        <div className="card-glow-botanical animate-fade-in-up">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-2xl">{planetSymbols[selectedPlanetName]}</span>
-            <Text.SectionTitle as="h3" className="mb-0">{selectedPlanetName}-Aligned Plants</Text.SectionTitle>
-          </div>
-          <p className="text-xs text-earth-500 mb-4">
-            These plants are best harvested, prepared, or taken during {selectedPlanetName} hours and days.
-          </p>
-          {selectedPlanetPlants.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {selectedPlanetPlants.map((plant: Plant) => (
-                <div key={plant.id} className="rounded-xl p-3"
-                     style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-                  <span className="text-botanical-400 font-medium">{plant.common_name}</span>
-                  <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-earth-600 text-sm">No plants associated with this planet in the current database.</p>
-          )}
-
-          <div className="mt-4 rounded-xl p-4" style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
-            <Text.SectionLabel>Optimal activities during {selectedPlanetName} hours</Text.SectionLabel>
-            <div className="space-y-1 mt-1">
-              {getOptimalActivities(selectedPlanetName).map((act, i) => (
-                <p key={i} className="text-xs text-earth-400">{act}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

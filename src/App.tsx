@@ -12,6 +12,7 @@ import SignsView, { SignDetailView } from './components/astrology/SignsView'
 import PlanetsView, { PlanetDetailView } from './components/astrology/PlanetsView'
 import NatalInput from './components/astrology/NatalInput'
 import PlanetaryTiming from './components/astrology/PlanetaryTiming'
+import PlanetaryTimingDetail from './components/astrology/PlanetaryTimingDetail'
 import PreparationList from './components/preparations/PreparationList'
 import PreparationDetail from './components/preparations/PreparationDetail'
 import CrossReference from './components/crossref/CrossReference'
@@ -109,6 +110,7 @@ export default function App() {
             <Route path="/ailments/:id" element={<AilmentDetail />} />
             <Route path="/astrology/natal-chart" element={<NatalInput />} />
             <Route path="/astrology/planetary-timing" element={<PlanetaryTiming />} />
+            <Route path="/astrology/planetary-timing/:planet" element={<PlanetaryTimingDetail />} />
             <Route path="/preparations/:id" element={<PreparationDetail />} />
             <Route path="/crossref" element={<CrossReference />} />
             <Route path="/hmbs" element={<HMBSView />} />
