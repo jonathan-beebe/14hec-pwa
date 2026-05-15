@@ -190,9 +190,9 @@ export default function PlanetaryTiming() {
         <>
           {/* Sunrise / Sunset */}
           <div className="flex items-center justify-center gap-6 mb-4 text-sm text-earth-400">
-            <span>{'☉'} Sunrise {formatTime(timing.sunTimes.sunrise)}</span>
+            <span><span aria-hidden="true">☉</span> Sunrise {formatTime(timing.sunTimes.sunrise)}</span>
             <span className="text-earth-600">|</span>
-            <span>{'☽'} Sunset {formatTime(timing.sunTimes.sunset)}</span>
+            <span><span aria-hidden="true">☽</span> Sunset {formatTime(timing.sunTimes.sunset)}</span>
           </div>
 
           {/* Current Moment */}
@@ -246,7 +246,7 @@ export default function PlanetaryTiming() {
           {/* Day Hours */}
           <div className="card mb-5">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xl opacity-50">{'☉'}</span>
+              <span className="text-xl opacity-50" aria-hidden="true">☉</span>
               <Text.SectionTitle className="mb-0">Day Hours</Text.SectionTitle>
               <span
                 className="text-xs text-earth-500 ml-auto cursor-help border-b border-dotted border-earth-600"
@@ -269,7 +269,7 @@ export default function PlanetaryTiming() {
           {/* Night Hours */}
           <div className="card mb-5">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xl opacity-50">{'☽'}</span>
+              <span className="text-xl opacity-50" aria-hidden="true">☽</span>
               <Text.SectionTitle className="mb-0">Night Hours</Text.SectionTitle>
               <span
                 className="text-xs text-earth-500 ml-auto cursor-help border-b border-dotted border-earth-600"
