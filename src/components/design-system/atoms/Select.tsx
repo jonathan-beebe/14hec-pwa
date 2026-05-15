@@ -3,6 +3,7 @@ import { forwardRef, type SelectHTMLAttributes } from 'react'
 export interface SelectOption {
   value: string
   label: string
+  disabled?: boolean
 }
 
 type NativeSelectProps = Omit<
@@ -49,7 +50,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {...rest}
         >
           {options.map((opt) => (
-            <option key={opt.value} value={opt.value}>
+            <option key={opt.value} value={opt.value} disabled={opt.disabled}>
               {opt.label}
             </option>
           ))}

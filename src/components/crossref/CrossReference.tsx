@@ -15,7 +15,6 @@ import Select, { type SelectOption } from '@/components/design-system/atoms/Sele
 import {
   computeAvailableOptions,
   validateSelections,
-  autoSelect,
   EMPTY_SELECTIONS,
   type CrossRefDataset,
   type CrossRefSelections,
@@ -37,33 +36,6 @@ const EMPTY_DATASET: CrossRefDataset = {
   rows: [],
   plantZodiac: [],
   plantPlanet: [],
-}
-
-function FilterField({
-  label,
-  count,
-  total,
-  children,
-}: {
-  label: string
-  count: number
-  total: number
-  children: React.ReactNode
-}) {
-  const narrowed = total > 0 && count < total
-  return (
-    <div>
-      <div className="flex items-baseline justify-between mb-1.5">
-        <Text.SectionLabel as="label">{label}</Text.SectionLabel>
-        {narrowed && (
-          <span className="text-[10px] text-earth-500 tabular-nums">
-            {count} of {total}
-          </span>
-        )}
-      </div>
-      {children}
-    </div>
-  )
 }
 
 export default function CrossReference() {
@@ -97,11 +69,6 @@ export default function CrossReference() {
   }, [])
 
   // ── Engine ──────────────────────────────────────────────
-  const totals = useMemo(
-    () => computeAvailableOptions(dataset, EMPTY_SELECTIONS),
-    [dataset],
-  )
-
   const available = useMemo(
     () => computeAvailableOptions(dataset, selections),
     [dataset, selections],
@@ -113,7 +80,8 @@ export default function CrossReference() {
   ) {
     setSelections((prev) => {
       const next = { ...prev, [key]: value }
-      return autoSelect(dataset, next, value === null ? key : null)
+      const nextAvailable = computeAvailableOptions(dataset, next)
+      return validateSelections(nextAvailable, next)
     })
   }
 
@@ -121,9 +89,11 @@ export default function CrossReference() {
   const ailmentOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any ailment' },
-      ...ailments
-        .filter((a) => available.ailment.has(a.id))
-        .map((a) => ({ value: String(a.id), label: a.name })),
+      ...ailments.map((a) => ({
+        value: String(a.id),
+        label: a.name,
+        disabled: !available.ailment.has(a.id),
+      })),
     ],
     [ailments, available],
   )
@@ -131,9 +101,11 @@ export default function CrossReference() {
   const signOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any sign' },
-      ...signs
-        .filter((s) => available.zodiac.has(s.id))
-        .map((s) => ({ value: String(s.id), label: `${s.symbol} ${s.name}` })),
+      ...signs.map((s) => ({
+        value: String(s.id),
+        label: `${s.symbol} ${s.name}`,
+        disabled: !available.zodiac.has(s.id),
+      })),
     ],
     [signs, available],
   )
@@ -141,9 +113,11 @@ export default function CrossReference() {
   const planetOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any planet' },
-      ...planets
-        .filter((p) => available.planet.has(p.id))
-        .map((p) => ({ value: String(p.id), label: `${p.symbol} ${p.name}` })),
+      ...planets.map((p) => ({
+        value: String(p.id),
+        label: `${p.symbol} ${p.name}`,
+        disabled: !available.planet.has(p.id),
+      })),
     ],
     [planets, available],
   )
@@ -151,7 +125,10 @@ export default function CrossReference() {
   const partOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any part' },
-      ...ALL_PARTS.filter((opt) => available.part.has(opt.value)),
+      ...ALL_PARTS.map((opt) => ({
+        ...opt,
+        disabled: !available.part.has(opt.value),
+      })),
     ],
     [available],
   )
@@ -159,9 +136,11 @@ export default function CrossReference() {
   const prepOptions = useMemo<SelectOption[]>(
     () => [
       { value: '', label: 'Any method' },
-      ...preparations
-        .filter((p) => available.preparation.has(p.id))
-        .map((p) => ({ value: String(p.id), label: p.name })),
+      ...preparations.map((p) => ({
+        value: String(p.id),
+        label: p.name,
+        disabled: !available.preparation.has(p.id),
+      })),
     ],
     [preparations, available],
   )
@@ -236,7 +215,10 @@ export default function CrossReference() {
           </div>
 
           <div className="space-y-3">
-            <FilterField label="Ailment / Condition" count={available.ailment.size} total={totals.ailment.size}>
+            <div>
+              <Text.SectionLabel as="label" className="block mb-1.5">
+                Ailment / Condition
+              </Text.SectionLabel>
               <Select
                 fullWidth
                 label="Ailment"
@@ -245,9 +227,12 @@ export default function CrossReference() {
                 onChange={(v) => updateSelection('ailment', toNum(v))}
                 disabled={available.ailment.size === 0}
               />
-            </FilterField>
+            </div>
 
-            <FilterField label="Zodiac Sign" count={available.zodiac.size} total={totals.zodiac.size}>
+            <div>
+              <Text.SectionLabel as="label" className="block mb-1.5">
+                Zodiac Sign
+              </Text.SectionLabel>
               <Select
                 fullWidth
                 label="Zodiac sign"
@@ -256,9 +241,12 @@ export default function CrossReference() {
                 onChange={(v) => updateSelection('zodiac', toNum(v))}
                 disabled={available.zodiac.size === 0}
               />
-            </FilterField>
+            </div>
 
-            <FilterField label="Ruling Planet" count={available.planet.size} total={totals.planet.size}>
+            <div>
+              <Text.SectionLabel as="label" className="block mb-1.5">
+                Ruling Planet
+              </Text.SectionLabel>
               <Select
                 fullWidth
                 label="Planet"
@@ -267,9 +255,12 @@ export default function CrossReference() {
                 onChange={(v) => updateSelection('planet', toNum(v))}
                 disabled={available.planet.size === 0}
               />
-            </FilterField>
+            </div>
 
-            <FilterField label="Plant Part" count={available.part.size} total={totals.part.size}>
+            <div>
+              <Text.SectionLabel as="label" className="block mb-1.5">
+                Plant Part
+              </Text.SectionLabel>
               <Select
                 fullWidth
                 label="Plant part"
@@ -278,9 +269,12 @@ export default function CrossReference() {
                 onChange={(v) => updateSelection('part', toNullableStr(v))}
                 disabled={available.part.size === 0}
               />
-            </FilterField>
+            </div>
 
-            <FilterField label="Preparation Method" count={available.preparation.size} total={totals.preparation.size}>
+            <div>
+              <Text.SectionLabel as="label" className="block mb-1.5">
+                Preparation Method
+              </Text.SectionLabel>
               <Select
                 fullWidth
                 label="Preparation"
@@ -289,7 +283,7 @@ export default function CrossReference() {
                 onChange={(v) => updateSelection('preparation', toNum(v))}
                 disabled={available.preparation.size === 0}
               />
-            </FilterField>
+            </div>
           </div>
 
           <div className="flex gap-3">
