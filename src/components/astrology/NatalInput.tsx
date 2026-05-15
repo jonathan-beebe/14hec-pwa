@@ -12,6 +12,7 @@ import {
   type NatalDataset,
   type NatalSelections,
 } from './natal-engine'
+import { computePlacements } from './natal-chart-calc'
 
 interface PersonalizedResult {
   sign: ZodiacSign
@@ -33,6 +34,18 @@ const ROLE_DESCRIPTIONS = {
 
 const EMPTY_DATASET: NatalDataset = { signsWithPlants: new Set() }
 
+type InputMode = 'birth-data' | 'manual'
+
+
+const inputClass =
+  'w-full appearance-none rounded-xl bg-earth-900/50 backdrop-blur-md ' +
+  'border border-white/[0.08] hover:border-white/[0.14] ' +
+  'px-3 py-2.5 text-sm text-earth-300 ' +
+  'focus:outline-none ' +
+  'focus-visible:border-botanical-400 ' +
+  'focus-visible:ring-2 focus-visible:ring-botanical-400/40 ' +
+  'transition-colors duration-150'
+
 export default function NatalInput() {
   const navigate = useNavigate()
   const [signs, setSigns] = useState<ZodiacSign[]>([])
@@ -40,6 +53,13 @@ export default function NatalInput() {
   const [selections, setSelections] = useState<NatalSelections>(EMPTY_SELECTIONS)
   const [results, setResults] = useState<PersonalizedResult[]>([])
   const [hasSearched, setHasSearched] = useState(false)
+
+  const [mode, setMode] = useState<InputMode>('birth-data')
+  const [birthDate, setBirthDate] = useState('')
+  const [birthTime, setBirthTime] = useState('')
+  const [latitude, setLatitude] = useState('')
+  const [longitude, setLongitude] = useState('')
+  const [calcError, setCalcError] = useState<string | null>(null)
 
   useEffect(() => {
     Promise.all([api.getZodiacSigns(), api.getNatalDataset()]).then(
@@ -74,21 +94,54 @@ export default function NatalInput() {
   const toStr = (v: number | null) => (v === null ? '' : String(v))
   const toNum = (s: string) => (s === '' ? null : Number(s))
 
+  const computeFromBirthData = () => {
+    setCalcError(null)
+    if (!birthDate || !birthTime) {
+      setCalcError('Date and time are required.')
+      return null
+    }
+    const lat = parseFloat(latitude)
+    const lng = parseFloat(longitude)
+    if (isNaN(lat) || lat < -90 || lat > 90) {
+      setCalcError('Latitude must be between -90 and 90.')
+      return null
+    }
+    if (isNaN(lng) || lng < -180 || lng > 180) {
+      setCalcError('Longitude must be between -180 and 180.')
+      return null
+    }
+    const date = new Date(`${birthDate}T${birthTime}:00`)
+    if (isNaN(date.getTime())) {
+      setCalcError('Invalid date or time.')
+      return null
+    }
+    return computePlacements(date, lat, lng)
+  }
+
   const generateMap = async () => {
-    const placements: { signId: number | null; role: 'Sun' | 'Moon' | 'Rising' }[] = [
-      { signId: selections.sun, role: 'Sun' },
-      { signId: selections.moon, role: 'Moon' },
-      { signId: selections.rising, role: 'Rising' },
+    let placements = selections
+
+    if (mode === 'birth-data') {
+      const computed = computeFromBirthData()
+      if (!computed) return
+      placements = computed
+      setSelections(computed)
+    }
+
+    const roles: { signId: number | null; role: 'Sun' | 'Moon' | 'Rising' }[] = [
+      { signId: placements.sun, role: 'Sun' },
+      { signId: placements.moon, role: 'Moon' },
+      { signId: placements.rising, role: 'Rising' },
     ]
 
     const newResults: PersonalizedResult[] = []
-    for (const placement of placements) {
-      if (placement.signId === null) continue
-      const detail = await api.getZodiacSignById(placement.signId)
+    for (const { signId, role } of roles) {
+      if (signId === null) continue
+      const detail = await api.getZodiacSignById(signId)
       if (detail) {
         newResults.push({
           sign: detail,
-          role: placement.role,
+          role,
           plants: (detail as any).plants || [],
         })
       }
@@ -102,12 +155,21 @@ export default function NatalInput() {
     setSelections(EMPTY_SELECTIONS)
     setResults([])
     setHasSearched(false)
+    setCalcError(null)
   }
 
   const hasAnySelection =
     selections.sun !== null ||
     selections.moon !== null ||
     selections.rising !== null
+
+  const birthDataComplete =
+    birthDate !== '' &&
+    birthTime !== '' &&
+    latitude !== '' &&
+    longitude !== ''
+
+  const canGenerate = mode === 'birth-data' ? birthDataComplete : hasAnySelection
 
   return (
     <div className="animate-fade-in lg:h-full lg:flex">
@@ -117,38 +179,148 @@ export default function NatalInput() {
           <div>
             <Text.PageTitle>Astro-Botanical Chart</Text.PageTitle>
             <p className="text-sm text-earth-500 mt-1">
-              Input your Sun, Moon, and Rising signs to generate a personalized
-              plant map
+              Generate a personalized plant map from your natal placements
             </p>
           </div>
 
-          <div className="space-y-3">
-            {(['sun', 'moon', 'rising'] as const).map((key) => {
-              const role = key === 'sun' ? 'Sun' : key === 'moon' ? 'Moon' : 'Rising'
-              const config = ROLE_CONFIG[role]
-              return (
-                <div key={key}>
-                  <Text.SectionLabel as="label" className={`block mb-1.5 ${config.color}`}>
-                    <span className="mr-1">{config.icon}</span>
-                    {config.label}
-                  </Text.SectionLabel>
-                  <Select
-                    fullWidth
-                    label={config.label}
-                    options={signOptions}
-                    value={toStr(selections[key])}
-                    onChange={(v) => updateSelection(key, toNum(v))}
-                  />
-                </div>
-              )
-            })}
+          {/* Mode toggle */}
+          <div
+            className="inline-flex rounded-xl p-0.5 bg-earth-900/60 border border-white/[0.06]"
+            role="radiogroup"
+            aria-label="Input method"
+          >
+            {([
+              { value: 'birth-data' as const, label: 'Birth Data' },
+              { value: 'manual' as const, label: 'Manual' },
+            ]).map((opt) => (
+              <button
+                key={opt.value}
+                role="radio"
+                aria-checked={mode === opt.value}
+                onClick={() => setMode(opt.value)}
+                className={
+                  'px-4 py-1.5 text-xs font-medium rounded-[10px] transition-colors duration-150 ' +
+                  (mode === opt.value
+                    ? 'bg-celestial-500/20 text-celestial-300'
+                    : 'text-earth-500 hover:text-earth-300')
+                }
+              >
+                {opt.label}
+              </button>
+            ))}
           </div>
 
+          {mode === 'birth-data' ? (
+            <div className="space-y-3">
+              <p className="text-xs text-earth-500 leading-relaxed">
+                Your Sun, Moon, and Rising signs are determined by the positions
+                of celestial bodies at your exact time and place of birth. The
+                Sun moves through each sign monthly, the Moon every 2–3 days,
+                and the Rising sign changes roughly every 2 hours based on your
+                location.
+              </p>
+
+              <div>
+                <Text.SectionLabel as="label" className="block mb-1.5">
+                  Birth Date
+                </Text.SectionLabel>
+                <input
+                  type="date"
+                  aria-label="Birth date"
+                  value={birthDate}
+                  onChange={(e) => setBirthDate(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <Text.SectionLabel as="label" className="block mb-1.5">
+                  Birth Time
+                </Text.SectionLabel>
+                <input
+                  type="time"
+                  aria-label="Birth time"
+                  value={birthTime}
+                  onChange={(e) => setBirthTime(e.target.value)}
+                  className={inputClass}
+                />
+              </div>
+
+              <p className="text-xs text-earth-600 leading-relaxed">
+                To find your birth coordinates, drop a pin on your birthplace
+                in Google Maps — the latitude and longitude appear in the
+                info card or the URL.
+              </p>
+
+              <div>
+                <Text.SectionLabel as="label" className="block mb-1.5">
+                  Latitude
+                </Text.SectionLabel>
+                <input
+                  type="number"
+                  aria-label="Birth latitude"
+                  placeholder="e.g. 40.71"
+                  value={latitude}
+                  onChange={(e) => setLatitude(e.target.value)}
+                  step="any"
+                  min={-90}
+                  max={90}
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <Text.SectionLabel as="label" className="block mb-1.5">
+                  Longitude
+                </Text.SectionLabel>
+                <input
+                  type="number"
+                  aria-label="Birth longitude"
+                  placeholder="e.g. -74.01"
+                  value={longitude}
+                  onChange={(e) => setLongitude(e.target.value)}
+                  step="any"
+                  min={-180}
+                  max={180}
+                  className={inputClass}
+                />
+              </div>
+
+              {calcError && (
+                <p className="text-xs text-red-400" role="alert">
+                  {calcError}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {(['sun', 'moon', 'rising'] as const).map((key) => {
+                const role = key === 'sun' ? 'Sun' : key === 'moon' ? 'Moon' : 'Rising'
+                const config = ROLE_CONFIG[role]
+                return (
+                  <div key={key}>
+                    <Text.SectionLabel as="label" className={`block mb-1.5 ${config.color}`}>
+                      <span className="mr-1">{config.icon}</span>
+                      {config.label}
+                    </Text.SectionLabel>
+                    <Select
+                      fullWidth
+                      label={config.label}
+                      options={signOptions}
+                      value={toStr(selections[key])}
+                      onChange={(v) => updateSelection(key, toNum(v))}
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          )}
+
           <div className="flex gap-2">
-            <Button.Celestial onClick={generateMap} disabled={!hasAnySelection}>
+            <Button.Celestial onClick={generateMap} disabled={!canGenerate}>
               Generate Plant Map
             </Button.Celestial>
-            {hasAnySelection && (
+            {(hasAnySelection || birthDataComplete) && (
               <Button.Ghost onClick={clearAll}>Clear</Button.Ghost>
             )}
           </div>
