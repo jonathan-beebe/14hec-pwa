@@ -84,6 +84,7 @@ export default function App() {
           <Route path="/collections" element={<CollectionsList />} />
           <Route path="/journal" element={<JournalList />} />
           <Route path="/preparations" element={<PreparationList />} />
+          <Route path="/wellness" element={<WellnessNavigator />} />
           <Route path="/doctrine" element={<DoctrineExplorer />}>
             <Route path=":plantId" element={<DoctrineDetail />} />
           </Route>
@@ -118,7 +119,6 @@ export default function App() {
             <Route path="/collections/new" element={<CollectionsView />} />
             <Route path="/collections/:id" element={<CollectionsView />} />
             <Route path="/collections/:id/edit" element={<CollectionsView />} />
-            <Route path="/wellness" element={<WellnessNavigator />} />
             <Route path="/wellness/:id" element={<WellnessDetail />} />
             <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/spike/planets" element={<PlanetsSpike />} />
