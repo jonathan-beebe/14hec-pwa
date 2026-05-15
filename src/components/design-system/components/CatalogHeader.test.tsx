@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { screen } from '@testing-library/react'
 import { renderWithRouter } from '@/test/render'
 import { Route, Routes } from 'react-router-dom'

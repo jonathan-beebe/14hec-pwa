@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { screen, waitFor, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Route, Routes, useLocation } from 'react-router-dom'
