@@ -193,6 +193,7 @@ function tintGlow(hex: string, pressed: boolean): string {
 // it reaches the text — independent of card width.
 const SAND_BODY_SIZE = 96
 const SAND_BODY_OFFSET_X = 60
+const GLYPH_OFFSET_Y = 6
 const SAND_MASK_GRADIENT = 'linear-gradient(to right, black 130px, transparent 100%)'
 
 function InfoTile({
@@ -327,6 +328,7 @@ function InfoTile({
           aria-hidden="true"
           className={`absolute inset-0 z-0 pointer-events-none text-8xl ${tinted ? '' : tonePrimaryClass[tone]}`}
           style={{
+            transform: `translateY(${GLYPH_OFFSET_Y}px)`,
             maskImage: SAND_MASK_GRADIENT,
             WebkitMaskImage: SAND_MASK_GRADIENT,
             ...(tinted ? { color: tintHex } : null),
@@ -351,7 +353,7 @@ function InfoTile({
               ? 'invisible'
               : `${selected ? 'opacity-90' : 'opacity-60 group-hover:opacity-90'} transition-opacity duration-200 motion-reduce:transition-none ${tinted ? '' : tonePrimaryClass[tone]}`
           }`}
-          style={{ transform: 'translateY(6px)', ...(!sandActive && tinted ? { color: tintHex } : undefined) }}
+          style={{ transform: `translateY(${GLYPH_OFFSET_Y}px)`, ...(!sandActive && tinted ? { color: tintHex } : undefined) }}
         >
           {icon}
         </div>
