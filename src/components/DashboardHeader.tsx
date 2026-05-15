@@ -21,11 +21,14 @@ export default function DashboardHeader({
       className="relative overflow-visible rounded-3xl p-8 mb-8"
       style={{
         background: '#000',
-        border: '1px solid rgba(255, 255, 255, 0.06)',
-        boxShadow:
-          '0 0 80px -20px rgba(130, 200, 160, 0.14), ' +
-          '0 0 80px -20px rgba(150, 120, 255, 0.10), ' +
-          '0 16px 64px -16px rgba(0, 0, 0, 0.6)',
+        border: '1px solid rgba(0, 0, 0, 1)',
+        boxShadow:`
+          inset 0 -1px 0 0 rgba(255,255,255,0.1),
+          inset 0 1px 0 0 rgba(255,255,255,0.1), 
+          rgba(0, 0, 0, 1) 0px 2px 8px -4px, 
+          rgba(0, 0, 0, 0.6) 0px 6px 24px -12px, 
+          rgba(0, 0, 0, 0.4) 0px 18px 40px -20px
+        `,
       }}
     >
       <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
