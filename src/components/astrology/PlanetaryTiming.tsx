@@ -1,26 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { api } from '@/data/api'
 import type { PlanetData, Plant } from '../../types'
 import Text from '@/components/design-system/atoms/Text'
+import Notice from '@/components/design-system/components/Notice'
+import { getPlanetaryTiming } from '@/lib/astro'
+import type { PlanetaryTiming as PlanetaryTimingData, PlanetaryHour } from '@/lib/astro'
+import { useGeolocation } from '@/hooks/useGeolocation'
 
-const CHALDEAN_ORDER = ['Saturn', 'Jupiter', 'Mars', 'Sun', 'Venus', 'Mercury', 'Moon']
-const DAY_RULERS = ['Sun', 'Moon', 'Mars', 'Mercury', 'Jupiter', 'Venus', 'Saturn']
+const DEFAULT_COORDS = { latitude: 40.7128, longitude: -74.006 }
+const DEFAULT_LABEL = 'New York'
 
-function getDayRuler(date: Date): string {
-  return DAY_RULERS[date.getDay()]
+function formatTime(date: Date): string {
+  return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
 }
 
-function getPlanetaryHour(date: Date): { planet: string; hourNumber: number } {
-  const dayRuler = getDayRuler(date)
-  const startIdx = CHALDEAN_ORDER.indexOf(dayRuler)
-  const hour = date.getHours()
-  const sunriseHour = 6
-  const isDaytime = hour >= sunriseHour && hour < sunriseHour + 12
-  const hoursSinceSunrise = isDaytime
-    ? hour - sunriseHour
-    : (hour >= sunriseHour + 12 ? hour - sunriseHour - 12 : hour + 24 - sunriseHour - 12)
-  const planetaryHourIndex = (startIdx + (isDaytime ? hoursSinceSunrise : hoursSinceSunrise + 12)) % 7
-  return { planet: CHALDEAN_ORDER[planetaryHourIndex], hourNumber: hoursSinceSunrise + 1 }
+function formatCoord(value: number, pos: string, neg: string): string {
+  const abs = Math.abs(value).toFixed(2)
+  return `${abs}°${value >= 0 ? pos : neg}`
 }
 
 function getOptimalActivities(planetName: string): string[] {
@@ -36,20 +32,103 @@ function getOptimalActivities(planetName: string): string[] {
   return activities[planetName] || []
 }
 
+const planetSymbols: Record<string, string> = {
+  Sun: '☉', Moon: '☽', Mercury: '☿', Venus: '♀',
+  Mars: '♂', Jupiter: '♃', Saturn: '♄'
+}
+
+const planetGradients: Record<string, string> = {
+  Sun: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 15, 12, 0.85))',
+  Moon: 'linear-gradient(135deg, rgba(147, 197, 253, 0.08), rgba(16, 15, 12, 0.85))',
+  Mercury: 'linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(16, 15, 12, 0.85))',
+  Venus: 'linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(16, 15, 12, 0.85))',
+  Mars: 'linear-gradient(135deg, rgba(248, 113, 113, 0.08), rgba(16, 15, 12, 0.85))',
+  Jupiter: 'linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(16, 15, 12, 0.85))',
+  Saturn: 'linear-gradient(135deg, rgba(156, 163, 175, 0.08), rgba(16, 15, 12, 0.85))'
+}
+
+const planetTextColors: Record<string, string> = {
+  Sun: 'text-amber-400',
+  Moon: 'text-blue-300',
+  Mercury: 'text-emerald-400',
+  Venus: 'text-pink-300',
+  Mars: 'text-red-400',
+  Jupiter: 'text-purple-300',
+  Saturn: 'text-gray-300'
+}
+
+const planetRingColors: Record<string, string> = {
+  Sun: 'rgba(245, 158, 11, 0.25)',
+  Moon: 'rgba(147, 197, 253, 0.25)',
+  Mercury: 'rgba(52, 211, 153, 0.25)',
+  Venus: 'rgba(244, 114, 182, 0.25)',
+  Mars: 'rgba(248, 113, 113, 0.25)',
+  Jupiter: 'rgba(196, 181, 253, 0.25)',
+  Saturn: 'rgba(156, 163, 175, 0.25)'
+}
+
+const planetBgColors: Record<string, string> = {
+  Sun: 'rgba(245, 158, 11, 0.08)',
+  Moon: 'rgba(147, 197, 253, 0.08)',
+  Mercury: 'rgba(52, 211, 153, 0.08)',
+  Venus: 'rgba(244, 114, 182, 0.08)',
+  Mars: 'rgba(248, 113, 113, 0.08)',
+  Jupiter: 'rgba(196, 181, 253, 0.08)',
+  Saturn: 'rgba(156, 163, 175, 0.08)'
+}
+
+function HourCell({
+  hour,
+  isCurrent,
+  onSelect,
+}: {
+  hour: PlanetaryHour
+  isCurrent: boolean
+  onSelect: () => void
+}) {
+  return (
+    <button
+      onClick={onSelect}
+      className={`p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[hour.planet]}`}
+      style={{
+        background: isCurrent ? planetBgColors[hour.planet] : 'rgba(36, 34, 30, 0.4)',
+        border: isCurrent ? `1px solid ${planetRingColors[hour.planet]}` : '1px solid rgba(255, 255, 255, 0.05)',
+        opacity: isCurrent ? 1 : 0.55,
+        boxShadow: isCurrent ? `0 0 20px -4px ${planetRingColors[hour.planet]}` : 'none'
+      }}
+      onMouseEnter={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.9' }}
+      onMouseLeave={(e) => { if (!isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.55' }}
+    >
+      <div className="text-lg">{planetSymbols[hour.planet]}</div>
+      <div className="text-[10px] text-earth-400 mt-0.5">
+        {formatTime(hour.startTime)}
+      </div>
+      <div className="text-[10px] font-medium">{hour.planet}</div>
+    </button>
+  )
+}
+
 export default function PlanetaryTiming() {
   const [planets, setPlanets] = useState<PlanetData[]>([])
   const [currentTime, setCurrentTime] = useState(new Date())
   const [selectedPlanetPlants, setSelectedPlanetPlants] = useState<Plant[]>([])
   const [selectedPlanetName, setSelectedPlanetName] = useState('')
+  const { geo, requestLocation } = useGeolocation()
+
+  const coords = geo.status === 'resolved'
+    ? { latitude: geo.latitude, longitude: geo.longitude }
+    : DEFAULT_COORDS
+
+  const timing = useMemo(
+    () => getPlanetaryTiming(currentTime, coords.latitude, coords.longitude),
+    [currentTime, coords.latitude, coords.longitude]
+  )
 
   useEffect(() => {
     api.getPlanets().then(setPlanets)
     const interval = setInterval(() => setCurrentTime(new Date()), 60000)
     return () => clearInterval(interval)
   }, [])
-
-  const dayRuler = getDayRuler(currentTime)
-  const currentPlanetaryHour = getPlanetaryHour(currentTime)
 
   const loadPlanetPlants = async (planetName: string) => {
     const planet = planets.find((p) => p.name === planetName)
@@ -60,61 +139,14 @@ export default function PlanetaryTiming() {
     }
   }
 
-  const todayHours = Array.from({ length: 24 }, (_, i) => {
-    const hourDate = new Date(currentTime)
-    hourDate.setHours(6 + i, 0, 0, 0)
-    if (hourDate.getHours() >= 24) hourDate.setDate(hourDate.getDate() + 1)
-    return {
-      hour: (6 + i) % 24,
-      ...getPlanetaryHour(hourDate),
-      isCurrent: currentTime.getHours() === (6 + i) % 24
-    }
-  })
+  const isCurrentHour = (h: PlanetaryHour) =>
+    timing?.currentHour !== null &&
+    timing?.currentHour !== undefined &&
+    h.startTime.getTime() === timing.currentHour.startTime.getTime()
 
-  const planetSymbols: Record<string, string> = {
-    Sun: '\u2609', Moon: '\u263D', Mercury: '\u263F', Venus: '\u2640',
-    Mars: '\u2642', Jupiter: '\u2643', Saturn: '\u2644'
-  }
-
-  const planetGradients: Record<string, string> = {
-    Sun: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 15, 12, 0.85))',
-    Moon: 'linear-gradient(135deg, rgba(147, 197, 253, 0.08), rgba(16, 15, 12, 0.85))',
-    Mercury: 'linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(16, 15, 12, 0.85))',
-    Venus: 'linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(16, 15, 12, 0.85))',
-    Mars: 'linear-gradient(135deg, rgba(248, 113, 113, 0.08), rgba(16, 15, 12, 0.85))',
-    Jupiter: 'linear-gradient(135deg, rgba(196, 181, 253, 0.08), rgba(16, 15, 12, 0.85))',
-    Saturn: 'linear-gradient(135deg, rgba(156, 163, 175, 0.08), rgba(16, 15, 12, 0.85))'
-  }
-
-  const planetTextColors: Record<string, string> = {
-    Sun: 'text-amber-400',
-    Moon: 'text-blue-300',
-    Mercury: 'text-emerald-400',
-    Venus: 'text-pink-300',
-    Mars: 'text-red-400',
-    Jupiter: 'text-purple-300',
-    Saturn: 'text-gray-300'
-  }
-
-  const planetRingColors: Record<string, string> = {
-    Sun: 'rgba(245, 158, 11, 0.25)',
-    Moon: 'rgba(147, 197, 253, 0.25)',
-    Mercury: 'rgba(52, 211, 153, 0.25)',
-    Venus: 'rgba(244, 114, 182, 0.25)',
-    Mars: 'rgba(248, 113, 113, 0.25)',
-    Jupiter: 'rgba(196, 181, 253, 0.25)',
-    Saturn: 'rgba(156, 163, 175, 0.25)'
-  }
-
-  const planetBgColors: Record<string, string> = {
-    Sun: 'rgba(245, 158, 11, 0.08)',
-    Moon: 'rgba(147, 197, 253, 0.08)',
-    Mercury: 'rgba(52, 211, 153, 0.08)',
-    Venus: 'rgba(244, 114, 182, 0.08)',
-    Mars: 'rgba(248, 113, 113, 0.08)',
-    Jupiter: 'rgba(196, 181, 253, 0.08)',
-    Saturn: 'rgba(156, 163, 175, 0.08)'
-  }
+  const locationLabel = geo.status === 'resolved'
+    ? `${formatCoord(geo.latitude, 'N', 'S')}, ${formatCoord(geo.longitude, 'E', 'W')}`
+    : DEFAULT_LABEL
 
   return (
     <div className="max-w-4xl animate-fade-in">
@@ -125,74 +157,151 @@ export default function PlanetaryTiming() {
         </p>
       </div>
 
-      {/* Current Moment */}
-      <div className="grid grid-cols-2 gap-3 mb-5">
-        {[
-          { label: 'Day Ruler', planet: dayRuler, sub: currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) },
-          { label: 'Current Planetary Hour', planet: currentPlanetaryHour.planet, sub: `Hour ${currentPlanetaryHour.hourNumber} \u2014 ${currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}` }
-        ].map((item) => (
-          <div key={item.label} className="card-glow-celestial"
-               style={{ background: planetGradients[item.planet] }}>
-            <Text.SectionLabel>{item.label}</Text.SectionLabel>
-            <div className="flex items-center gap-3 mt-2">
-              <span className="text-4xl animate-pulse-slow">{planetSymbols[item.planet]}</span>
-              <div>
-                <div className="text-xl font-display font-bold text-earth-100">{item.planet}</div>
-                <div className="text-sm text-earth-400">{item.sub}</div>
-              </div>
-            </div>
-            {item.label === 'Day Ruler' ? (
-              <div className="mt-3">
-                <div className="text-xs text-earth-500 mb-1.5">Best activities today:</div>
-                <div className="space-y-1">
-                  {getOptimalActivities(item.planet).map((act, i) => (
-                    <p key={i} className="text-xs text-earth-400">{act}</p>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <button
-                onClick={() => loadPlanetPlants(item.planet)}
-                className="mt-3 text-xs text-botanical-500 hover:text-botanical-400 transition-colors duration-200 ease-out-expo"
-              >
-                View aligned plants {'\u2192'}
-              </button>
-            )}
+      {/* Location status */}
+      <div className="mb-4">
+        {geo.status === 'idle' && (
+          <div className="flex items-center gap-3 text-xs text-earth-500">
+            <span>Using default location ({DEFAULT_LABEL})</span>
+            <button
+              onClick={requestLocation}
+              className="text-celestial-400 hover:text-celestial-300 transition-colors duration-200"
+            >
+              Use my location
+            </button>
           </div>
-        ))}
+        )}
+        {geo.status === 'requesting' && (
+          <div className="text-xs text-earth-500 animate-pulse">
+            Requesting location...
+          </div>
+        )}
+        {geo.status === 'resolved' && (
+          <div className="text-xs text-earth-500">
+            Location: {locationLabel}
+          </div>
+        )}
+        {geo.status === 'denied' && (
+          <Notice tone="info">
+            Location access denied. Using default location ({DEFAULT_LABEL}).
+          </Notice>
+        )}
+        {geo.status === 'unavailable' && (
+          <Notice tone="info">
+            Location unavailable. Using default location ({DEFAULT_LABEL}).
+          </Notice>
+        )}
       </div>
 
-      {/* Today's Hours */}
-      <div className="card mb-5">
-        <div className="flex items-center gap-3 mb-3">
-          <span className="text-xl opacity-50">{'\u231A'}</span>
-          <Text.SectionTitle as="h3" className="mb-0">Today's Planetary Hours</Text.SectionTitle>
-        </div>
-        <p className="text-xs text-earth-600 mb-4">Simplified model: sunrise at 6:00 AM. Each hour is governed by a planet in Chaldean sequence.</p>
-        <div className="grid grid-cols-6 gap-3">
-          {todayHours.slice(0, 18).map((h) => (
-            <button
-              key={h.hour}
-              onClick={() => loadPlanetPlants(h.planet)}
-              className={`p-2.5 rounded-xl text-center transition-all duration-200 ease-out-expo ${planetTextColors[h.planet]}`}
-              style={{
-                background: h.isCurrent ? planetBgColors[h.planet] : 'rgba(36, 34, 30, 0.4)',
-                border: h.isCurrent ? `1px solid ${planetRingColors[h.planet]}` : '1px solid rgba(255, 255, 255, 0.05)',
-                opacity: h.isCurrent ? 1 : 0.55,
-                boxShadow: h.isCurrent ? `0 0 20px -4px ${planetRingColors[h.planet]}` : 'none'
-              }}
-              onMouseEnter={(e) => { if (!h.isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.9' }}
-              onMouseLeave={(e) => { if (!h.isCurrent) (e.currentTarget as HTMLElement).style.opacity = '0.55' }}
-            >
-              <div className="text-lg">{planetSymbols[h.planet]}</div>
-              <div className="text-[10px] text-earth-400 mt-0.5">
-                {h.hour.toString().padStart(2, '0')}:00
+      {/* Polar condition */}
+      {!timing && (
+        <Notice tone="info" title="Polar Conditions">
+          Planetary hours cannot be computed for your location at this time of year.
+          During polar day or polar night, the sun does not rise and set in the
+          normal pattern needed for traditional temporal hour calculations.
+        </Notice>
+      )}
+
+      {timing && (
+        <>
+          {/* Sunrise / Sunset */}
+          <div className="flex items-center justify-center gap-6 mb-4 text-sm text-earth-400">
+            <span>{'☉'} Sunrise {formatTime(timing.sunTimes.sunrise)}</span>
+            <span className="text-earth-600">|</span>
+            <span>{'☽'} Sunset {formatTime(timing.sunTimes.sunset)}</span>
+          </div>
+
+          {/* Current Moment */}
+          <div className="grid grid-cols-2 gap-3 mb-5">
+            {[
+              {
+                label: 'Day Ruler',
+                planet: timing.dayRuler,
+                sub: currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }),
+                showActivities: true,
+              },
+              {
+                label: 'Current Planetary Hour',
+                planet: timing.currentHour?.planet ?? timing.dayRuler,
+                sub: timing.currentHour
+                  ? `${timing.currentHour.isDay ? 'Day' : 'Night'} hour ${timing.currentHour.hourNumber} — ${formatTime(timing.currentHour.startTime)} to ${formatTime(timing.currentHour.endTime)}`
+                  : 'Between planetary days',
+                showActivities: false,
+              }
+            ].map((item) => (
+              <div key={item.label} className="card-glow-celestial"
+                   style={{ background: planetGradients[item.planet] }}>
+                <Text.SectionLabel>{item.label}</Text.SectionLabel>
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="text-4xl animate-pulse-slow">{planetSymbols[item.planet]}</span>
+                  <div>
+                    <div className="text-xl font-display font-bold text-earth-100">{item.planet}</div>
+                    <div className="text-sm text-earth-400">{item.sub}</div>
+                  </div>
+                </div>
+                {item.showActivities ? (
+                  <div className="mt-3">
+                    <div className="text-xs text-earth-500 mb-1.5">Best activities today:</div>
+                    <div className="space-y-1">
+                      {getOptimalActivities(item.planet).map((act, i) => (
+                        <p key={i} className="text-xs text-earth-400">{act}</p>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => loadPlanetPlants(item.planet)}
+                    className="mt-3 text-xs text-botanical-500 hover:text-botanical-400 transition-colors duration-200 ease-out-expo"
+                  >
+                    View aligned plants {'→'}
+                  </button>
+                )}
               </div>
-              <div className="text-[10px] font-medium">{h.planet}</div>
-            </button>
-          ))}
-        </div>
-      </div>
+            ))}
+          </div>
+
+          {/* Day Hours */}
+          <div className="card mb-5">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xl opacity-50">{'☉'}</span>
+              <Text.SectionTitle as="h3" className="mb-0">Day Hours</Text.SectionTitle>
+              <span className="text-xs text-earth-500 ml-auto">
+                ~{Math.round(timing.hours[0].durationMinutes)} min each
+              </span>
+            </div>
+            <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+              {timing.hours.filter(h => h.isDay).map((h) => (
+                <HourCell
+                  key={h.startTime.getTime()}
+                  hour={h}
+                  isCurrent={isCurrentHour(h)}
+                  onSelect={() => loadPlanetPlants(h.planet)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Night Hours */}
+          <div className="card mb-5">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xl opacity-50">{'☽'}</span>
+              <Text.SectionTitle as="h3" className="mb-0">Night Hours</Text.SectionTitle>
+              <span className="text-xs text-earth-500 ml-auto">
+                ~{Math.round(timing.hours[12].durationMinutes)} min each
+              </span>
+            </div>
+            <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
+              {timing.hours.filter(h => !h.isDay).map((h) => (
+                <HourCell
+                  key={h.startTime.getTime()}
+                  hour={h}
+                  isCurrent={isCurrentHour(h)}
+                  onSelect={() => loadPlanetPlants(h.planet)}
+                />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Planet's Plants */}
       {selectedPlanetName && (
@@ -206,7 +315,7 @@ export default function PlanetaryTiming() {
           </p>
           {selectedPlanetPlants.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {selectedPlanetPlants.map((plant: any) => (
+              {selectedPlanetPlants.map((plant: Plant) => (
                 <div key={plant.id} className="rounded-xl p-3"
                      style={{ background: 'rgba(36, 34, 30, 0.5)', border: '1px solid rgba(255, 255, 255, 0.05)' }}>
                   <span className="text-botanical-400 font-medium">{plant.common_name}</span>
