@@ -71,31 +71,15 @@ export default function DashboardHeader({
     : undefined
 
   return (
-    <div
-      className="relative overflow-visible rounded-3xl p-8 mb-8"
-      style={{
-        background: '#000',
-        border: '1px solid rgba(0, 0, 0, 1)',
-        boxShadow:`
-          inset 0 -1px 0 0 rgba(255,255,255,0.1),
-          inset 0 1px 0 0 rgba(255,255,255,0.1),
-          rgba(0, 0, 0, 1) 0px 2px 8px -4px,
-          rgba(0, 0, 0, 0.6) 0px 6px 24px -12px,
-          rgba(0, 0, 0, 0.4) 0px 18px 40px -20px
-        `,
-      }}
-    >
+    <div className="relative overflow-visible rounded-3xl p-8 mb-8 bg-black border border-black shadow-hero">
       <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-        <div className="hero-orb w-96 h-96 -top-48 right-0" style={{ background: '#82c8a0', filter: 'blur(100px)', opacity: 0.14 }} />
-        <div className="hero-orb w-72 h-72 -bottom-36 -left-24" style={{ background: '#b8a0ff', filter: 'blur(100px)', opacity: 0.12 }} />
+        <div className="hero-orb w-96 h-96 -top-48 right-0 bg-botanical-300 blur-[100px] opacity-[0.14]" />
+        <div className="hero-orb w-72 h-72 -bottom-36 -left-24 bg-celestial-200 blur-[100px] opacity-[0.12]" />
       </div>
 
       <div className="relative">
         <div className="flex items-center gap-4 mb-4">
-          <div
-            className="w-1 h-12 rounded-full"
-            style={{ background: 'linear-gradient(to bottom, #82c8a0, #b8a0ff)' }}
-          />
+          <div className="w-1 h-12 rounded-full bg-gradient-to-b from-botanical-300 to-celestial-200" />
           <div>
             <Type.Branded.Display className="text-gradient-botanical">
               14 HEC Plant Intelligence
@@ -126,8 +110,7 @@ export default function DashboardHeader({
             id={LISTBOX_ID}
             role="listbox"
             aria-label="Search results"
-            className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down"
-            style={{ border: '2px solid rgba(255, 255, 255, 0.1)' }}
+            className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down border-2 border-white/10"
           >
             {visiblePlants.map((plant, index) => (
               <div

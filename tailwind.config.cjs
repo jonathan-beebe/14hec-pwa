@@ -181,6 +181,7 @@ module.exports = {
         'depth-xl': '0 24px 80px -12px rgba(0, 0, 0, 0.6), 0 8px 24px -8px rgba(0, 0, 0, 0.4)',
         'glass': 'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 32px rgba(0, 0, 0, 0.3)',
         'glass-hover': 'inset 0 1px 0 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0, 0, 0, 0.35)',
+        'hero': 'inset 0 -1px 0 0 rgba(255,255,255,0.1), inset 0 1px 0 0 rgba(255,255,255,0.1), 0 2px 8px -4px rgba(0,0,0,1), 0 6px 24px -12px rgba(0,0,0,0.6), 0 18px 40px -20px rgba(0,0,0,0.4)',
       },
       borderRadius: {
         '4xl': '2rem',
