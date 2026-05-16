@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import DashboardHeader from '@/components/DashboardHeader'
-import { Icon } from '@/components/design-system/atoms/Icon'
+import { Icon, glyphIcon } from '@/components/design-system/atoms/Icon'
+import type { InfoTileTone } from '@/components/design-system/components/InfoTile'
 import Type from '@/components/design-system/atoms/Type'
-import Button from '@/components/design-system/atoms/Button'
-import LinkCard from '@/components/design-system/components/LinkCard'
 import InfoTile from '@/components/design-system/components/InfoTile'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import { neptune } from '@/components/spike/planetConfig'
@@ -132,87 +131,39 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Feature Cards — Botanical */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-        {[
-          { view: 'seasonal' as const, icon: '\u2741', title: 'Seasonal Guide', desc: 'Plants aligned with the current season' },
-          { view: 'doctrine' as const, icon: '\u2638', title: 'Doctrine Explorer', desc: 'How plant form reveals function' },
-          { view: 'preparations' as const, icon: '\u2697', title: 'Preparations', desc: 'Methods for herbal extraction' },
-          { view: 'body-systems' as const, icon: '\u2B22', title: 'Body Systems', desc: 'Organs & systems mapped to plants and planets' }
-        ].map((feature) => (
-          <LinkCard.Botanical
-            key={feature.view}
-            to={viewToPath[feature.view]}
-            icon={feature.icon}
-            title={feature.title}
-            caption={feature.desc}
-          />
-        ))}
+      {/* Botanical */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+        <InfoTile.Botanical to={viewToPath.seasonal} icon={<Icon.FloretteOutlined />} sandIcon={Icon.FloretteOutlined.source} primary="Seasonal Guide" secondary="Plants aligned with the current season" />
+        <InfoTile.Botanical to={viewToPath.doctrine} icon={<Icon.DharmaWheel />} sandIcon={Icon.DharmaWheel.source} primary="Doctrine Explorer" secondary="How plant form reveals function" />
+        <InfoTile.Botanical to={viewToPath.preparations} icon={<Icon.Alembic />} sandIcon={Icon.Alembic.source} primary="Preparations" secondary="Methods for herbal extraction" />
+        <InfoTile.Botanical to={viewToPath['body-systems']} icon={<Icon.Hexagon />} sandIcon={Icon.Hexagon.source} primary="Body Systems" secondary="Organs & systems mapped to plants and planets" />
       </div>
 
-      {/* Plant Journal Card */}
+      {/* Journal */}
       <div className="mb-8">
-        <button
-          onClick={() => navigate('/journal')}
-          className="w-full text-left cursor-pointer group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ease-out-expo"
-          style={{
-            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(16, 15, 12, 0.85) 40%, rgba(124, 94, 237, 0.03) 100%)',
-            border: '1px solid rgba(245, 158, 11, 0.08)',
-            boxShadow: 'inset 0 1px 0 0 rgba(245, 158, 11, 0.04), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(245, 158, 11, 0.15)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(245, 158, 11, 0.08)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-          }}
-        >
-          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
-               style={{ background: 'rgba(245, 158, 11, 0.04)', filter: 'blur(60px)' }} />
-          <div className="relative flex items-center gap-5">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0"
-                 style={{
-                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02))',
-                   border: '1px solid rgba(245, 158, 11, 0.1)'
-                 }}>
-              {'\u270E'}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-display font-semibold text-gradient-gold group-hover:opacity-90 transition-opacity">
-                Plant Journal
-              </div>
-              <p className="text-[11px] text-earth-400 mt-1 leading-relaxed">
-                Record your plant relationships, reflections, and consciousness exploration with guided prompts
-              </p>
-            </div>
-            <div className="text-earth-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-              {'\u2192'}
-            </div>
-          </div>
-        </button>
+        <Type.Subheading className="mb-3">Journal</Type.Subheading>
+        <InfoTile.Gold to={viewToPath.journal} icon={<Icon.Pencil />} sandIcon={Icon.Pencil.source} primary="Plant Journal" secondary="Record your plant relationships, reflections, and consciousness exploration with guided prompts" />
       </div>
 
       {/* My Collections */}
       {collections.length > 0 && (
         <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <Text.SectionTitle className="mb-0">My Collections</Text.SectionTitle>
-            <Button.Ghost route="/collections" className="text-xs">
-              View all {'\u2192'}
-            </Button.Ghost>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-            {collections.slice(0, 4).map((col) => (
-              <LinkCard.Plain
-                key={col.id}
-                to={`/collections/${col.id}`}
-                icon={col.icon || '\u2618'}
-                title={col.name}
-                caption={`${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
-              />
-            ))}
+          <Type.Subheading className="mb-3">My Collections</Type.Subheading>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {collections.map((col) => {
+              const ColIcon = glyphIcon('collection', col.icon || '\u2618')
+              return (
+                <InfoTile
+                  key={col.id}
+                  to={`/collections/${col.id}`}
+                  tone={col.color as InfoTileTone}
+                  icon={<ColIcon />}
+                  sandIcon={ColIcon.source}
+                  primary={col.name}
+                  secondary={`${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
+                />
+              )
+            })}
           </div>
         </div>
       )}

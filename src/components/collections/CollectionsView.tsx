@@ -15,7 +15,7 @@ const COLOR_OPTIONS = [
   { value: 'mind', label: 'Mind', bg: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.15)', text: 'text-blue-400' },
 ] as const
 
-const ICON_OPTIONS = ['☘', '♡', '⭐', '✦', '❁', '⚗', '☉', '☄', '☸', '☽']
+const ICON_OPTIONS = ['☘', '♡', '★', '✦', '❁', '⚗', '☉', '☄', '☸', '☽']
 
 function getColorStyle(color: string) {
   return COLOR_OPTIONS.find(c => c.value === color) || COLOR_OPTIONS[0]
