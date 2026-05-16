@@ -8,6 +8,7 @@ import FlatListRow from '../components/FlatListRow'
 import FilterBar from '../components/FilterBar'
 import Badge from '../atoms/Badge'
 import { Icon } from '../atoms/Icon'
+import Type from '../atoms/Type'
 import {
   useCollectionFilters,
   type CatalogFilter,
@@ -136,11 +137,37 @@ export default function ComponentsSection() {
         <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
           Domain tiles
         </div>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 mb-6">
           <InfoTile.Heart  to="/design-system" icon={<Icon.Heart />}         sandIcon={showSand ? Icon.Heart.source         : undefined} primary="Heart"  secondary="Love, connection, empathy" />
           <InfoTile.Mind   to="/design-system" icon={<Icon.Atom />}          sandIcon={showSand ? Icon.Atom.source          : undefined} primary="Mind"   secondary="Clarity, focus, cognition" />
-          <InfoTile.Body   to="/design-system" icon={<Icon.Ankh />}          sandIcon={showSand ? Icon.Ankh.source          : undefined} primary="Body"   secondary="Vitality, strength, healing" />
-          <InfoTile.Spirit to="/design-system" icon={<Icon.StarFourPoint />} sandIcon={showSand ? Icon.StarFourPoint.source : undefined} primary="Spirit" secondary="Transcendence, intuition" />
+        </div>
+        <div className="text-[10px] uppercase tracking-[0.18em] text-earth-500 mb-2">
+          Extended content (dashboard grid: 3-col + col-span-2)
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <InfoTile.Botanical
+            to="/design-system"
+            icon={<Icon.PalmBranch />}
+            sandIcon={showSand ? Icon.PalmBranch.source : undefined}
+            primary="Yarrow"
+            className="sm:col-span-2"
+          >
+            <Type.SectionLabel>Plant of the Day</Type.SectionLabel>
+            <Type.Heading as="div" className="text-botanical-300 mt-1">
+              Yarrow
+            </Type.Heading>
+            <Type.Caption as="p" className="italic mt-0.5">Achillea millefolium</Type.Caption>
+            <Type.BodySmall as="p" className="mt-1.5 line-clamp-2">
+              A warrior's herb that staunches wounds and opens the channels of courage. Ruled by Venus, it bridges the heart and the blood.
+            </Type.BodySmall>
+          </InfoTile.Botanical>
+          <InfoTile.Gold
+            to="/design-system"
+            icon={<Icon.Hourglass />}
+            sandIcon={showSand ? Icon.Hourglass.source : undefined}
+            primary="Cross-Reference"
+            secondary="Multi-axis query engine"
+          />
         </div>
       </Subsection>
 
