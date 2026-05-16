@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
+import { recentPlantsStore } from '@/data/recent-plants-store'
 import type { PlantDetail as PlantDetailType, CollectionForPlant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
@@ -19,6 +20,7 @@ export default function PlantDetail() {
     const plantId = Number(id)
     api.getPlantById(plantId).then(setPlant)
     api.getCollectionsForPlant(plantId).then(setCollections).catch(() => {})
+    recentPlantsStore.recordPlantView(plantId)
   }, [id])
 
   async function toggleCollection(collectionId: number, currentlyIn: boolean) {

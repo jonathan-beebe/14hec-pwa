@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '@/data/api'
+import { recentPlantsStore } from '@/data/recent-plants-store'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import DashboardHeader from '@/components/DashboardHeader'
 import { Icon, glyphIcon } from '@/components/design-system/atoms/Icon'
@@ -33,6 +34,7 @@ export default function Dashboard() {
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
   const [collections, setCollections] = useState<Collection[]>([])
+  const [recentPlants, setRecentPlants] = useState<Plant[]>([])
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -40,6 +42,15 @@ export default function Dashboard() {
     api.getAilments().then(setAilments)
     api.getZodiacSigns().then(setSigns)
     api.getCollections().then(setCollections).catch(() => {})
+
+    const recentIds = recentPlantsStore.getRecentPlantIds()
+    if (recentIds.length > 0) {
+      Promise.all(recentIds.map(id => api.getPlantById(id)))
+        .then(results => {
+          const valid = results.filter(p => p != null) as Plant[]
+          setRecentPlants(valid)
+        })
+    }
   }, [])
 
   const filteredPlants = search
@@ -169,9 +180,11 @@ export default function Dashboard() {
       {/* Quick Access Lists */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <Type.Subheading className="mb-3">Recent Plants</Type.Subheading>
+          <Type.Subheading className="mb-3">
+            {recentPlants.length > 0 ? 'Recent Plants' : 'Featured Plants'}
+          </Type.Subheading>
           <div className="space-y-1">
-            {plants.slice(0, 5).map((plant) => (
+            {(recentPlants.length > 0 ? recentPlants.slice(0, 5) : plants.slice(0, 5)).map((plant) => (
               <Link
                 key={plant.id}
                 to={`/plants/${plant.id}`}
