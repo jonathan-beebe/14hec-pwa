@@ -160,7 +160,7 @@ export default function Dashboard() {
                   icon={<ColIcon />}
                   sandIcon={ColIcon.source}
                   primary={col.name}
-                  secondary={`${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
+                  secondary={col.description || `${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
                 />
               )
             })}
