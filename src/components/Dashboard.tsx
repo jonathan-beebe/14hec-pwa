@@ -8,6 +8,8 @@ import Type from '@/components/design-system/atoms/Type'
 import Button from '@/components/design-system/atoms/Button'
 import LinkCard from '@/components/design-system/components/LinkCard'
 import InfoTile from '@/components/design-system/components/InfoTile'
+import PlanetTile from '@/components/design-system/components/PlanetTile'
+import { neptune } from '@/components/spike/planetConfig'
 import Text from '@/components/design-system/atoms/Text'
 
 const viewToPath: Record<string, string> = {
@@ -116,8 +118,8 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <InfoTile.Celestial to={viewToPath['natal-chart']} icon={<Icon.Star />} sandIcon={Icon.Star.source} primary="Astro-Botanical Chart" secondary="Personalized plant map from your birth chart" />
           <InfoTile.Celestial to={viewToPath['planetary-timing']} icon={<Icon.Watch />} sandIcon={Icon.Watch.source} primary="Planetary Timing" secondary="Optimal hours for harvesting and preparation" />
-          <InfoTile.Celestial to={viewToPath.astrology} icon={<Icon.Saturn />} sandIcon={Icon.Saturn.source} primary="Planets" secondary="Celestial bodies and their plant correspondences" />
-          <InfoTile.Celestial to={viewToPath.entheogenic} icon={<Icon.Comet />} sandIcon={Icon.Comet.source} primary="Entheogenic Guide" secondary="Sacred plant medicine protocols and integration" />
+          <PlanetTile to="/astrology/planets" config={neptune} primary="Planets" secondary="Celestial bodies and their plant correspondences" />
+          <InfoTile.Celestial to={viewToPath.astrology} icon={<Icon.Sun />} sandIcon={Icon.Sun.source} primary="Signs" secondary="Zodiac signs and their plant correspondences" />
         </div>
       </div>
 
