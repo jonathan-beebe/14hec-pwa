@@ -172,8 +172,6 @@ export class SandController {
 
     if (!this.sample) return
 
-    this.canvas.style.width = cssW + 'px'
-    this.canvas.style.height = cssH + 'px'
     this.canvas.width = w
     this.canvas.height = h
     this.canvasW = w
