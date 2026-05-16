@@ -28,7 +28,7 @@ if (typeof globalThis.IntersectionObserver === 'undefined') {
 // components using <canvas> (SandIcon, etc.) don't throw.
 if (typeof HTMLCanvasElement !== 'undefined') {
   const origGetContext = HTMLCanvasElement.prototype.getContext
-  HTMLCanvasElement.prototype.getContext = function (type: string, ...args: unknown[]) {
+  HTMLCanvasElement.prototype.getContext = function (this: HTMLCanvasElement, type: string, ...args: unknown[]) {
     if (type === '2d') {
       return {
         canvas: this,
