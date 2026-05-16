@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { api } from '@/data/api'
-import type { Collection, CollectionDetail } from '@/types'
+import type { CollectionDetail } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
 
-type ViewMode = 'list' | 'detail' | 'new' | 'edit'
+type ViewMode = 'detail' | 'new' | 'edit'
 
 const COLOR_OPTIONS = [
   { value: 'botanical', label: 'Botanical', bg: 'rgba(74, 222, 128, 0.1)', border: 'rgba(74, 222, 128, 0.15)', text: 'text-botanical-400' },
@@ -15,7 +15,7 @@ const COLOR_OPTIONS = [
   { value: 'mind', label: 'Mind', bg: 'rgba(59, 130, 246, 0.1)', border: 'rgba(59, 130, 246, 0.15)', text: 'text-blue-400' },
 ] as const
 
-const ICON_OPTIONS = ['\u2618', '\u2661', '\u2B50', '\u2726', '\u2741', '\u2697', '\u2609', '\u2604', '\u2638', '\u263D']
+const ICON_OPTIONS = ['☘', '♡', '★', '✦', '❁', '⚗', '☉', '☄', '☸', '☽']
 
 function getColorStyle(color: string) {
   return COLOR_OPTIONS.find(c => c.value === color) || COLOR_OPTIONS[0]
@@ -28,19 +28,18 @@ export default function CollectionsView() {
 
   const id = idParam ? Number(idParam) : null
   const viewMode: ViewMode =
-    pathname === '/collections/new' ? 'new'
-    : pathname.endsWith('/edit') && id !== null ? 'edit'
-    : id !== null ? 'detail'
-    : 'list'
+    pathname === '/collections/new'
+      ? 'new'
+      : pathname.endsWith('/edit') && id !== null
+        ? 'edit'
+        : 'detail'
 
-  const [collections, setCollections] = useState<Collection[]>([])
   const [detail, setDetail] = useState<CollectionDetail | null>(null)
-  const [loading, setLoading] = useState(true)
 
   // Form state
   const [formName, setFormName] = useState('')
   const [formDescription, setFormDescription] = useState('')
-  const [formIcon, setFormIcon] = useState('\u2618')
+  const [formIcon, setFormIcon] = useState('☘')
   const [formColor, setFormColor] = useState('botanical')
   const [editingId, setEditingId] = useState<number | null>(null)
   const [saving, setSaving] = useState(false)
@@ -50,44 +49,26 @@ export default function CollectionsView() {
   function resetForm() {
     setFormName('')
     setFormDescription('')
-    setFormIcon('\u2618')
+    setFormIcon('☘')
     setFormColor('botanical')
     setEditingId(null)
   }
 
-  async function loadCollections() {
-    setLoading(true)
-    try {
-      const data = await api.getCollections()
-      setCollections(data)
-    } catch {
-      setCollections([])
-    } finally {
-      setLoading(false)
-    }
-  }
-
   async function loadDetail(collectionId: number) {
-    setLoading(true)
     try {
       const data = await api.getCollectionById(collectionId)
       setDetail(data)
     } catch {
       setDetail(null)
-    } finally {
-      setLoading(false)
     }
   }
 
   // Sync data with URL-driven view mode
   useEffect(() => {
-    if (viewMode === 'list') {
-      loadCollections()
-    } else if (id !== null && (viewMode === 'detail' || viewMode === 'edit')) {
+    if (id !== null && (viewMode === 'detail' || viewMode === 'edit')) {
       loadDetail(id)
     } else if (viewMode === 'new') {
       resetForm()
-      setLoading(false)
     }
   }, [viewMode, id])
 
@@ -97,7 +78,7 @@ export default function CollectionsView() {
       setEditingId(detail.id)
       setFormName(detail.name)
       setFormDescription(detail.description || '')
-      setFormIcon(detail.icon || '\u2618')
+      setFormIcon(detail.icon || '☘')
       setFormColor(detail.color || 'botanical')
     }
   }, [viewMode, detail, editingId])
@@ -150,83 +131,6 @@ export default function CollectionsView() {
     }
   }
 
-  // ── Render: Collection List ──────────────────────────
-  function renderList() {
-    return (
-      <div className="animate-fade-in">
-        {loading ? (
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="skeleton h-24 rounded-2xl" />
-            ))}
-          </div>
-        ) : collections.length === 0 ? (
-          <div className="text-center py-16">
-            <div className="text-4xl opacity-20 mb-4">{'\u2661'}</div>
-            <p className="text-earth-400 text-sm mb-2">
-              No collections yet
-            </p>
-            <p className="text-earth-500 text-xs font-display italic">
-              Create your first collection to organize plants that matter to you
-            </p>
-            <Button.Primary route="/collections/new" className="mt-6">
-              Create Your First Collection
-            </Button.Primary>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 gap-3">
-            {collections.map((collection, i) => {
-              const colorStyle = getColorStyle(collection.color)
-              return (
-                <button
-                  key={collection.id}
-                  onClick={() => navigate(`/collections/${collection.id}`)}
-                  className="text-left cursor-pointer group rounded-2xl p-5 transition-all duration-200 animate-fade-in-up"
-                  style={{
-                    animationDelay: `${i * 0.04}s`,
-                    background: `linear-gradient(135deg, ${colorStyle.bg} 0%, rgba(24, 23, 33, 0.65) 100%)`,
-                    border: `1px solid ${colorStyle.border}`,
-                    boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.03), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
-                  }}
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-xl opacity-50 group-hover:opacity-80 transition-opacity">
-                        {collection.icon || '\u2618'}
-                      </span>
-                      <div>
-                        <Text.CardTitle className={`${colorStyle.text} group-hover:opacity-90 transition-opacity`}>
-                          {collection.name}
-                        </Text.CardTitle>
-                        <span className="text-[10px] text-earth-500">
-                          {collection.plant_count} {collection.plant_count === 1 ? 'plant' : 'plants'}
-                        </span>
-                      </div>
-                    </div>
-                    <span className="text-earth-600 text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                      {'\u2192'}
-                    </span>
-                  </div>
-                  {collection.description && (
-                    <p className="text-earth-400 text-xs mt-3 leading-relaxed line-clamp-2">
-                      {collection.description}
-                    </p>
-                  )}
-                </button>
-              )
-            })}
-          </div>
-        )}
-      </div>
-    )
-  }
-
   // ── Render: Collection Detail ──────────────────────────
   function renderDetail() {
     if (!detail) return null
@@ -234,7 +138,7 @@ export default function CollectionsView() {
     return (
       <div className="animate-fade-in">
         <Button.Ghost route="/collections" className="mb-4 inline-flex items-center gap-1">
-          {'\u2190'} All Collections
+          {'←'} All Collections
         </Button.Ghost>
 
         <div className="rounded-2xl p-6 mb-6"
@@ -245,7 +149,7 @@ export default function CollectionsView() {
              }}>
           <div className="flex items-start justify-between">
             <div className="flex items-center gap-4">
-              <span className="text-3xl opacity-50">{detail.icon || '\u2618'}</span>
+              <span className="text-3xl opacity-50">{detail.icon || '☘'}</span>
               <div>
                 <Text.PageTitle as="h2" className={colorStyle.text}>
                   {detail.name}
@@ -291,7 +195,7 @@ export default function CollectionsView() {
         {/* Plants in collection */}
         {detail.plants.length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-3xl opacity-20 mb-3">{'\u2618'}</div>
+            <div className="text-3xl opacity-20 mb-3">{'☘'}</div>
             <p className="text-earth-400 text-sm mb-1">This collection is empty</p>
             <p className="text-earth-500 text-xs font-display italic">
               Browse plants and add them to this collection from their detail page
@@ -317,7 +221,7 @@ export default function CollectionsView() {
                          background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.08), rgba(74, 222, 128, 0.02))',
                          border: '1px solid rgba(74, 222, 128, 0.08)'
                        }}>
-                    {'\u2618'}
+                    {'☘'}
                   </div>
                   <div className="min-w-0">
                     <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors block truncate">
@@ -332,7 +236,7 @@ export default function CollectionsView() {
                   className="ml-3 text-earth-600 hover:text-red-400 text-xs transition-colors opacity-0 group-hover:opacity-100 flex-shrink-0"
                   title="Remove from collection"
                 >
-                  {'\u2715'}
+                  {'✕'}
                 </button>
               </div>
             ))}
@@ -359,7 +263,7 @@ export default function CollectionsView() {
           onClick={cancel}
           className="mb-4 inline-flex items-center gap-1"
         >
-          {'\u2190'} Back
+          {'←'} Back
         </Button.Ghost>
 
         <div className="mb-6">
@@ -476,39 +380,6 @@ export default function CollectionsView() {
   // ── Main Render ──────────────────────────────────────
   return (
     <div className="max-w-5xl animate-fade-in">
-      {/* Header */}
-      <div className="hero-section mb-8"
-           style={{
-             background: 'linear-gradient(135deg, rgba(244, 63, 94, 0.04) 0%, rgba(13, 12, 20, 0.88) 30%, rgba(74, 222, 128, 0.03) 100%)',
-             border: '1px solid rgba(244, 63, 94, 0.06)'
-           }}>
-        <div className="hero-orb w-72 h-72 -top-36 right-0 bg-rose-400" style={{ opacity: 0.06 }} />
-        <div className="hero-orb w-48 h-48 -bottom-24 -left-12 bg-botanical-500" style={{ opacity: 0.05 }} />
-
-        <div className="relative flex items-start justify-between">
-          <div>
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-2xl opacity-40">{'\u2661'}</span>
-              <Text.Heading
-                  style={{ background: 'linear-gradient(135deg, #f43f5e, #4ade80)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                My Collections
-              </Text.Heading>
-            </div>
-            <p className="text-earth-400 text-sm pl-10">
-              Personal groupings of plants that share a purpose, season, or meaning
-            </p>
-          </div>
-          {viewMode === 'list' && (
-            <Button.Primary route="/collections/new" className="flex-shrink-0">
-              + New Collection
-            </Button.Primary>
-          )}
-        </div>
-        <div className="divider-gradient mt-6" />
-      </div>
-
-      {/* Content */}
-      {viewMode === 'list' && renderList()}
       {viewMode === 'detail' && renderDetail()}
       {(viewMode === 'new' || viewMode === 'edit') && renderForm()}
     </div>

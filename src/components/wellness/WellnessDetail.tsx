@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { WellnessGoalDetail as WellnessGoalDetailType } from '@/types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 export default function WellnessDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { search } = useLocation()
+  usePageMeta({ back: `/wellness${search}` })
   const [goal, setGoal] = useState<WellnessGoalDetailType | null>(null)
 
   useEffect(() => {
@@ -28,8 +31,8 @@ export default function WellnessDetail() {
   return (
     <div className="max-w-4xl animate-fade-in">
       <Button.Ghost
-        route="/wellness"
-        className="mb-4 inline-flex items-center gap-1"
+        route={`/wellness${search}`}
+        className="mb-4 hidden lg:inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Wellness Goals
       </Button.Ghost>

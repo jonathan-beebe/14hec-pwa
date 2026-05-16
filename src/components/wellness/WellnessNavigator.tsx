@@ -1,188 +1,147 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
 import { api } from '@/data/api'
 import type { WellnessCategory, WellnessGoal } from '@/types'
-import Text from '@/components/design-system/atoms/Text'
+import BrowseTile from '@/components/design-system/components/BrowseTile'
+import CatalogLayout from '@/components/design-system/layouts/CatalogLayout'
+import CatalogHeader from '@/components/design-system/components/CatalogHeader'
+import {
+  CatalogGrid,
+  CatalogGroup,
+  CatalogGroupedResults,
+} from '@/components/design-system/components/CatalogGrid'
+import CatalogEmpty from '@/components/design-system/components/CatalogEmpty'
+import FilterBar from '@/components/design-system/components/FilterBar'
+import {
+  useCollectionFilters,
+  type CatalogFilter,
+} from '@/components/design-system/hooks/useCollectionFilters'
+import { formatCatalogStatus } from '@/components/design-system/utils/formatCatalogStatus'
+
+const FILTERS: CatalogFilter[] = [
+  {
+    kind: 'search',
+    key: 'q',
+    placeholder: 'Search wellness goals… (e.g. hair growth, immunity, sleep)',
+    label: 'Search',
+  },
+]
+
+function filterGoals(values: Record<string, string>, all: WellnessGoal[]) {
+  const q = (values.q ?? '').trim().toLowerCase()
+  if (!q) return all
+  return all.filter(
+    (g) =>
+      g.name.toLowerCase().includes(q) ||
+      g.description.toLowerCase().includes(q) ||
+      (g.desired_outcome ?? '').toLowerCase().includes(q) ||
+      g.category_name.toLowerCase().includes(q),
+  )
+}
 
 export default function WellnessNavigator() {
-  const navigate = useNavigate()
+  const [goals, setGoals] = useState<WellnessGoal[]>([])
   const [categories, setCategories] = useState<WellnessCategory[]>([])
-  const [expandedCategory, setExpandedCategory] = useState<number | null>(null)
-  const [categoryGoals, setCategoryGoals] = useState<Record<number, WellnessGoal[]>>({})
-  const [search, setSearch] = useState('')
-  const [searchResults, setSearchResults] = useState<WellnessGoal[]>([])
+  const { values, setValue, clear, hasActiveFilters, linkToChild } =
+    useCollectionFilters(FILTERS)
 
   useEffect(() => {
+    api.getWellnessGoals().then(setGoals)
     api.getWellnessCategories().then(setCategories)
   }, [])
 
-  useEffect(() => {
-    if (search.length >= 2) {
-      api.searchWellnessGoals(search).then(setSearchResults)
-    } else {
-      setSearchResults([])
-    }
-  }, [search])
+  const filtered = useMemo(() => filterGoals(values, goals), [values, goals])
 
-  const toggleCategory = (categoryId: number) => {
-    if (expandedCategory === categoryId) {
-      setExpandedCategory(null)
-      return
+  const goalsByCategory = useMemo(() => {
+    const map = new Map<number, WellnessGoal[]>()
+    for (const g of filtered) {
+      const bucket = map.get(g.category_id)
+      if (bucket) bucket.push(g)
+      else map.set(g.category_id, [g])
     }
-    setExpandedCategory(categoryId)
-    if (!categoryGoals[categoryId]) {
-      api.getWellnessGoalsByCategory(categoryId).then((goals) => {
-        setCategoryGoals((prev) => ({ ...prev, [categoryId]: goals }))
-      })
-    }
-  }
+    return map
+  }, [filtered])
 
-  const totalGoals = categories.reduce((sum, c) => sum + c.goal_count, 0)
-
-  const isSearching = search.length >= 2
+  const statusMessage = formatCatalogStatus(
+    filtered.length,
+    goals.length,
+    hasActiveFilters,
+    { noun: 'wellness goal', nounPlural: 'wellness goals' },
+  )
 
   return (
-    <div className="animate-fade-in">
-      <div className="mb-4">
-        <Text.PageTitle>Wellness Goals</Text.PageTitle>
-        <p className="text-sm text-earth-500">
-          {categories.length} categories {'\u00b7'} {totalGoals} goals {'\u2014'} explore what you want to strengthen, improve, or protect
-        </p>
-      </div>
-
-      {/* Search */}
-      <div className="glass-panel p-4 mb-6">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-            <svg className="w-4 h-4 text-earth-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          <input
-            type="text"
-            placeholder="Search wellness goals... (e.g. hair growth, immunity, sleep)"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="input-field pl-10"
+    <CatalogLayout
+      header={
+        <CatalogHeader
+          title="Wellness Goals"
+          count={filtered.length}
+          total={goals.length}
+          subtitle="Explore what you want to strengthen, improve, or protect — grouped by the part of you each plant ally supports."
+        />
+      }
+      filters={
+        <div className="px-4 md:px-8 py-3">
+          <FilterBar
+            filters={FILTERS}
+            values={values}
+            onChange={setValue}
+            onClear={clear}
+            hasActiveFilters={hasActiveFilters}
           />
         </div>
-      </div>
-
-      {/* Search Results */}
-      {isSearching && (
-        <div className="mb-8">
-          <Text.SectionLabel as="h2" className="mb-3 text-sm">
-            {searchResults.length} result{searchResults.length !== 1 ? 's' : ''} for "{search}"
-          </Text.SectionLabel>
-          {searchResults.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-              {searchResults.map((goal) => (
-                <button
-                  key={goal.id}
-                  onClick={() => navigate('/wellness/' + goal.id)}
-                  className="card text-left cursor-pointer py-4 group"
-                >
-                  <div className="flex justify-between items-center mb-1.5">
-                    <span className="text-earth-200 font-medium group-hover:text-botanical-400 transition-colors">
-                      {goal.name}
-                    </span>
-                    <span className="badge badge-botanical">{goal.plant_count} plants</span>
-                  </div>
-                  <p className="text-[10px] text-earth-500 uppercase tracking-wider mb-1">{goal.category_name}</p>
-                  <p className="text-xs text-earth-500 line-clamp-2">{goal.description}</p>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <p className="text-sm text-earth-500">No wellness goals found matching your search.</p>
-          )}
-        </div>
-      )}
-
-      {/* Categories with expandable goals */}
-      {!isSearching && (
-        <div className="space-y-3">
+      }
+      results={
+        <CatalogGroupedResults>
           {categories.map((category) => {
-            const isExpanded = expandedCategory === category.id
-            const goals = categoryGoals[category.id] || []
-
+            const items = goalsByCategory.get(category.id) ?? []
+            if (items.length === 0) return null
             return (
-              <div key={category.id}>
-                <button
-                  onClick={() => toggleCategory(category.id)}
-                  className="w-full text-left group"
-                >
-                  <div
-                    className="rounded-2xl p-4 transition-all duration-200"
-                    style={{
-                      background: isExpanded
-                        ? 'linear-gradient(135deg, rgba(93, 168, 126, 0.08), rgba(16, 15, 12, 0.85))'
-                        : 'rgba(255, 255, 255, 0.03)',
-                      border: isExpanded
-                        ? '1px solid rgba(93, 168, 126, 0.15)'
-                        : '1px solid rgba(255, 255, 255, 0.06)',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isExpanded) {
-                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(93, 168, 126, 0.1)'
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isExpanded) {
-                        (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255, 255, 255, 0.06)'
-                      }
-                    }}
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <span className="text-lg opacity-50">{category.icon}</span>
-                        <div>
-                          <span className="text-earth-200 font-display font-medium group-hover:text-botanical-400 transition-colors">
-                            {category.name}
-                          </span>
-                          <p className="text-xs text-earth-500 mt-0.5 line-clamp-1">{category.description}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs text-earth-500">{category.goal_count} goal{category.goal_count !== 1 ? 's' : ''}</span>
-                        <span className={`text-earth-500 text-sm transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}>
-                          {'\u25B6'}
+              <CatalogGroup
+                key={category.id}
+                heading={
+                  <span className="inline-flex items-center gap-2">
+                    <span aria-hidden className="opacity-50">
+                      {category.icon}
+                    </span>
+                    {category.name}
+                  </span>
+                }
+                description={category.description}
+              >
+                <CatalogGrid>
+                  {items.map((goal) => (
+                    <BrowseTile
+                      key={goal.id}
+                      to={linkToChild(`/wellness/${goal.id}`)}
+                    >
+                      <div className="flex justify-between items-start mb-1.5 gap-2">
+                        <span className="text-sm font-medium text-earth-100">
+                          {goal.name}
+                        </span>
+                        <span className="text-[10px] text-botanical-300 bg-botanical-500/10 ring-1 ring-inset ring-botanical-500/20 rounded-md px-2 py-0.5 whitespace-nowrap">
+                          {goal.plant_count} plants
                         </span>
                       </div>
-                    </div>
-                  </div>
-                </button>
-
-                {/* Expanded goals */}
-                {isExpanded && (
-                  <div className="mt-2 ml-4 grid grid-cols-1 md:grid-cols-2 gap-2 animate-fade-in">
-                    {goals.map((goal) => (
-                      <button
-                        key={goal.id}
-                        onClick={() => navigate('/wellness/' + goal.id)}
-                        className="card text-left cursor-pointer py-3 px-4 group"
-                      >
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm text-earth-200 font-medium group-hover:text-botanical-400 transition-colors">
-                            {goal.name}
-                          </span>
-                          <span className="badge badge-botanical text-[10px]">{goal.plant_count} plants</span>
-                        </div>
-                        {goal.desired_outcome && (
-                          <p className="text-xs text-earth-500 line-clamp-1">{goal.desired_outcome}</p>
-                        )}
-                        {goal.body_system && (
-                          <p className="text-[10px] text-earth-600 mt-1">{goal.body_system}</p>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
+                      {goal.desired_outcome && (
+                        <p className="text-xs text-earth-400 line-clamp-2 leading-relaxed">
+                          {goal.desired_outcome}
+                        </p>
+                      )}
+                    </BrowseTile>
+                  ))}
+                </CatalogGrid>
+              </CatalogGroup>
             )
           })}
-        </div>
-      )}
-    </div>
+        </CatalogGroupedResults>
+      }
+      empty={
+        <CatalogEmpty
+          message="No wellness goals match your filters."
+          onClear={clear}
+        />
+      }
+      itemCount={filtered.length}
+      statusMessage={statusMessage}
+    />
   )
 }

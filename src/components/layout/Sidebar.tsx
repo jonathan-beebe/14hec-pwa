@@ -8,50 +8,51 @@ interface NavSection {
 const navSections: NavSection[] = [
   {
     items: [
-      { view: 'dashboard', route: '/', label: 'Dashboard', icon: '\u2302' }
+      { view: 'dashboard', route: '/', label: 'Dashboard', icon: '⌂' }
     ]
   },
   {
     label: 'Explore',
     items: [
-      { view: 'plants', route: '/plants', label: 'Plants', icon: '\u2618' },
-      { view: 'ailments', route: '/ailments', label: 'Ailments', icon: '\u2695' },
-      { view: 'wellness', route: '/wellness', label: 'Wellness Goals', icon: '\u2740' },
-      { view: 'preparations', route: '/preparations', label: 'Preparations', icon: '\u2697' },
-      { view: 'entheogenic', route: '/entheogens', label: 'Entheogens', icon: '\u2604' },
-      { view: 'body-systems', route: '/body-systems', label: 'Body Systems', icon: '\u2B22' },
-      { view: 'collections', route: '/collections', label: 'My Collections', icon: '\u2661' }
+      { view: 'plants', route: '/plants', label: 'Plants', icon: '☘' },
+      { view: 'ailments', route: '/ailments', label: 'Ailments', icon: '⚕' },
+      { view: 'wellness', route: '/wellness', label: 'Wellness Goals', icon: '❀' },
+      { view: 'preparations', route: '/preparations', label: 'Preparations', icon: '⚗' },
+      { view: 'entheogenic', route: '/entheogens', label: 'Entheogens', icon: '☄' },
+      { view: 'body-systems', route: '/body-systems', label: 'Body Systems', icon: '⬢' },
+      { view: 'collections', route: '/collections', label: 'My Collections', icon: '♡' }
     ]
   },
   {
-    label: 'Celestial',
+    label: 'Astrology',
     items: [
-      { view: 'astrology', route: '/astrology', label: 'Signs & Planets', icon: '\u2609' },
-      { view: 'natal-chart', route: '/natal-chart', label: 'Natal Chart', icon: '\u2B50' },
-      { view: 'planetary-timing', route: '/planetary-timing', label: 'Timing', icon: '\u231A' }
+      { view: 'astrology-signs', route: '/astrology/signs', label: 'Signs', icon: '♈' },
+      { view: 'astrology-planets', route: '/astrology/planets', label: 'Planets', icon: '♄' },
+      { view: 'natal-chart', route: '/astrology/natal-chart', label: 'Natal Chart', icon: '⭐' },
+      { view: 'planetary-timing', route: '/astrology/planetary-timing', label: 'Planetary Timing', icon: '⌚' }
     ]
   },
   {
     label: 'Sanctuary',
     items: [
-      { view: 'hmbs', route: '/hmbs', label: 'Heart Mind Body Spirit', icon: '\u2726' },
-      { view: 'seasonal', route: '/seasonal', label: 'Seasonal Guide', icon: '\u2741' },
-      { view: 'doctrine', route: '/doctrine', label: 'Doctrine Explorer', icon: '\u2638' },
-      { view: 'journal', route: '/journal', label: 'Plant Journal', icon: '\u270E' }
+      { view: 'hmbs', route: '/hmbs', label: 'Heart Mind Body Spirit', icon: '✦' },
+      { view: 'seasonal', route: '/seasonal', label: 'Seasonal Guide', icon: '❁' },
+      { view: 'doctrine', route: '/doctrine', label: 'Doctrine Explorer', icon: '☸' },
+      { view: 'journal', route: '/journal', label: 'Plant Journal', icon: '✎' }
     ]
   },
   {
     label: 'Tools',
     items: [
-      { view: 'crossref', route: '/crossref', label: 'Cross-Reference', icon: '\u29D6' }
+      { view: 'crossref', route: '/crossref', label: 'Cross-Reference', icon: '⧖' }
     ]
   },
   ...(import.meta.env.DEV
     ? [{
         label: 'Dev',
         items: [
-          { view: 'design-system', route: '/design-system', label: 'Design System', icon: '\u25A3' },
-          { view: 'spike-planets', route: '/spike/planets', label: 'Planets Spike', icon: '\u2644' }
+          { view: 'design-system', route: '/design-system', label: 'Design System', icon: '▣' },
+          { view: 'spike-planets', route: '/spike/planets', label: 'Planets Spike', icon: '♄' }
         ]
       }]
     : []),
@@ -64,17 +65,22 @@ function isActive(pathname: string, route: string): boolean {
   return pathname === route || pathname.startsWith(route + '/')
 }
 
-export default function Sidebar() {
+/**
+ * The visual content of the sidebar (logo, nav, footer) wrapped in the
+ * project's glass styling. Used by the desktop `Sidebar` shell and by
+ * `MobileNavDrawer`. Fills the height of its parent.
+ */
+export function SidebarContent() {
   const { pathname } = useLocation()
 
   return (
-    <aside className="w-60 relative flex flex-col z-10"
-           style={{
-             background: 'rgba(16, 15, 12, 0.82)',
-             backdropFilter: 'blur(24px) saturate(150%)',
-             WebkitBackdropFilter: 'blur(24px) saturate(150%)',
-             borderRight: '1px solid rgba(255, 255, 255, 0.06)'
-           }}>
+    <div className="h-full flex flex-col"
+         style={{
+           background: 'rgba(16, 15, 12, 0.82)',
+           backdropFilter: 'blur(24px) saturate(150%)',
+           WebkitBackdropFilter: 'blur(24px) saturate(150%)',
+           borderRight: '1px solid rgba(255, 255, 255, 0.06)'
+         }}>
 
       {/* Logo */}
       <div className="relative px-5 pt-5 pb-4">
@@ -89,14 +95,14 @@ export default function Sidebar() {
           </div>
           <div>
             <h1 className="text-base font-display font-bold tracking-wider text-gradient-botanical">14 HEC</h1>
-            <p className="text-[9px] text-earth-500 tracking-[0.2em] uppercase">Herbal {'\u00b7'} Energetic {'\u00b7'} Celestial</p>
+            <p className="text-[9px] text-earth-500 tracking-[0.2em] uppercase">Herbal {'·'} Energetic {'·'} Celestial</p>
           </div>
         </div>
         <div className="divider-gradient mt-4" />
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-2 px-3 overflow-y-auto scrollbar-hidden relative">
+      <nav aria-label="Sections" className="flex-1 py-2 px-3 overflow-y-auto scrollbar-hidden relative">
         {navSections.map((section, si) => (
           <div key={si} className={si > 0 ? 'mt-5' : ''}>
             {section.label && (
@@ -129,13 +135,21 @@ export default function Sidebar() {
         <div className="divider-gradient mb-3" />
         <div className="text-center">
           <p className="text-[9px] text-earth-600 tracking-[0.15em] uppercase">
-            Frequency {'\u00b7'} 14 HEC
+            Frequency {'·'} 14 HEC
           </p>
           <p className="text-[9px] text-earth-600/50 mt-0.5 font-display italic">
             "As above, so below"
           </p>
         </div>
       </div>
+    </div>
+  )
+}
+
+export default function Sidebar() {
+  return (
+    <aside aria-label="Primary" className="hidden lg:flex w-60 relative z-10">
+      <SidebarContent />
     </aside>
   )
 }

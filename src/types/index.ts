@@ -157,6 +157,11 @@ export interface PlanetData {
   plants?: Plant[]
 }
 
+export interface ZodiacPowerColor {
+  name: string
+  hex: string
+}
+
 export interface ZodiacSign {
   id: number
   name: string
@@ -170,6 +175,8 @@ export interface ZodiacSign {
   date_range_end: string
   body_parts_ruled: string
   description: string
+  power_colors: ZodiacPowerColor[]
+  power_color_meaning: string
   plants?: Plant[]
   ailments?: Ailment[]
 }

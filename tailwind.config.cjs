@@ -60,7 +60,14 @@ module.exports = {
         display: ['"Playfair Display"', 'Georgia', 'Cambria', 'serif'],
         body: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
         mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
-        system: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif']
+        system: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Helvetica', 'Arial', 'sans-serif'],
+        // Symbol-rich stack for unicode glyph icons (zodiac signs ♈–♓,
+        // alchemical/astrological symbols ⚕☉♀, dingbats ✦✧, etc.). Inter
+        // and the body sans-serif fallback don't carry these codepoints,
+        // so the icon library applies font-symbol on every glyph icon to
+        // route through a font that does — Apple Symbols on macOS, Segoe
+        // UI Symbol on Windows, Noto Sans Symbols on Linux/PWA.
+        symbol: ['"Apple Symbols"', '"Segoe UI Symbol"', '"Noto Sans Symbols 2"', '"Noto Sans Symbols"', 'serif']
       },
       animation: {
         'fade-in': 'fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -160,6 +167,13 @@ module.exports = {
         'glow-mind': '0 0 15px rgba(59, 130, 246, 0.15), 0 0 45px rgba(59, 130, 246, 0.05)',
         'glow-body': '0 0 15px rgba(34, 197, 94, 0.15), 0 0 45px rgba(34, 197, 94, 0.05)',
         'glow-spirit': '0 0 15px rgba(168, 85, 247, 0.15), 0 0 45px rgba(168, 85, 247, 0.05)',
+        'glow-botanical-sm': '0 0 8px rgba(93, 168, 126, 0.15), 0 0 24px rgba(93, 168, 126, 0.05)',
+        'glow-celestial-sm': '0 0 8px rgba(124, 94, 237, 0.15), 0 0 24px rgba(124, 94, 237, 0.05)',
+        'glow-amber-sm': '0 0 8px rgba(245, 158, 11, 0.15), 0 0 24px rgba(245, 158, 11, 0.05)',
+        'glow-heart-sm': '0 0 8px rgba(244, 63, 94, 0.15), 0 0 24px rgba(244, 63, 94, 0.05)',
+        'glow-mind-sm': '0 0 8px rgba(59, 130, 246, 0.15), 0 0 24px rgba(59, 130, 246, 0.05)',
+        'glow-body-sm': '0 0 8px rgba(34, 197, 94, 0.15), 0 0 24px rgba(34, 197, 94, 0.05)',
+        'glow-spirit-sm': '0 0 8px rgba(168, 85, 247, 0.15), 0 0 24px rgba(168, 85, 247, 0.05)',
         'inner-light': 'inset 0 1px 0 0 rgba(255,255,255,0.06)',
         'depth-sm': '0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15)',
         'depth': '0 4px 12px -2px rgba(0, 0, 0, 0.3), 0 2px 6px -2px rgba(0, 0, 0, 0.2)',
@@ -167,6 +181,7 @@ module.exports = {
         'depth-xl': '0 24px 80px -12px rgba(0, 0, 0, 0.6), 0 8px 24px -8px rgba(0, 0, 0, 0.4)',
         'glass': 'inset 0 1px 0 0 rgba(255,255,255,0.04), 0 8px 32px rgba(0, 0, 0, 0.3)',
         'glass-hover': 'inset 0 1px 0 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0, 0, 0, 0.35)',
+        'hero': 'inset 0 -1px 0 0 rgba(255,255,255,0.1), inset 0 1px 0 0 rgba(255,255,255,0.1), 0 2px 8px -4px rgba(0,0,0,1), 0 6px 24px -12px rgba(0,0,0,0.6), 0 18px 40px -20px rgba(0,0,0,0.4)',
       },
       borderRadius: {
         '4xl': '2rem',

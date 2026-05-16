@@ -421,6 +421,27 @@ export const api = {
     return deduped
   },
 
+  getCrossRefDataset: async () => ({
+    rows: plantAilments.map(pa => ({
+      plantId: pa.plant_id,
+      ailmentId: pa.ailment_id,
+      partType: pa.plant_part_id ? partById.get(pa.plant_part_id)?.part_type ?? null : null,
+      preparationId: pa.preparation_id,
+    })),
+    plantZodiac: plantZodiacAssocs.map(a => ({
+      plantId: a.plant_id,
+      zodiacSignId: a.zodiac_sign_id,
+    })),
+    plantPlanet: plantPlanetAssocs.map(a => ({
+      plantId: a.plant_id,
+      planetId: a.planet_id,
+    })),
+  }),
+
+  getNatalDataset: async () => ({
+    signsWithPlants: new Set(plantZodiacAssocs.map(a => a.zodiac_sign_id)),
+  }),
+
   crossReferenceContraindications: async (params: {
     ailmentId?: number; zodiacSignId?: number; planetId?: string
   }): Promise<ContraindicationResult[]> => {
@@ -565,6 +586,11 @@ export const api = {
     return journalStore.getEntries(filters)
   },
 
+  getJournalEntryById: async (id: number): Promise<JournalEntry | null> => {
+    const all = await journalStore.getEntries()
+    return all.find((e) => e.id === id) ?? null
+  },
+
   createJournalEntry: async (entry: {
     plant_id?: number | null; prompt_id?: number | null
     title?: string | null; content: string
@@ -590,6 +616,25 @@ export const api = {
       ...c,
       goal_count: wellnessGoals.filter(g => g.category_id === c.id).length
     })).sort((a, b) => a.sort_order - b.sort_order) as WellnessCategory[]
+  },
+
+  getWellnessGoals: async (): Promise<WellnessGoal[]> => {
+    return wellnessGoals
+      .map(g => {
+        const cat = wcatById.get(g.category_id)!
+        return {
+          ...g,
+          category_name: cat.name,
+          category_slug: cat.slug,
+          plant_count: (pwgByGoalId.get(g.id) || []).length
+        }
+      })
+      .sort((a, b) => {
+        const catA = wcatById.get(a.category_id)!
+        const catB = wcatById.get(b.category_id)!
+        if (catA.sort_order !== catB.sort_order) return catA.sort_order - catB.sort_order
+        return a.name.localeCompare(b.name)
+      }) as WellnessGoal[]
   },
 
   getWellnessGoalsByCategory: async (categoryId: number): Promise<WellnessGoal[]> => {

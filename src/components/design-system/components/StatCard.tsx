@@ -26,18 +26,13 @@ const toneNumberClass: Record<StatCardTone, string> = {
 }
 
 /**
- * Centered navigation tile with an icon, a large stat number, and a small
- * uppercase label.
- *
- * Renders `<Link>` (anchor) so middle-click, ⌘-click, right-click → "Open in
- * new tab", and screen-reader "link" semantics all work. `text-center` is
- * applied explicitly because `<a>` does not inherit the `<button>` default of
- * `text-align: center`.
- *
- * @example
- * <StatCard.Botanical to="/plants" icon="☘" count={207} label="Plants" />
- * <StatCard.Celestial to="/ailments" icon="⚕" count={75} label="Ailments" />
- * <StatCard tone="gold" to="/astrology" icon="☉" count={12} label="Zodiac" />
+ * @deprecated Legacy pattern. Use `InfoTile` (count → primary, label →
+ * secondary) for stat tiles going forward — `InfoTile.tsx` explicitly
+ * says it merges the StatCard shape into a single component. StatCard
+ * leans on `.card` + `.stat-number` from globals.css (Charter Rule #1)
+ * and accepts inline unicode glyph strings as `icon` (Rule #13).
+ * Retained only until the Dashboard is rebuilt against the canonical
+ * Dashboard layout.
  */
 function StatCard({
   to,

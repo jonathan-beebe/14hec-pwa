@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api } from '@/data/api'
+import { recentPlantsStore } from '@/data/recent-plants-store'
 import type { PlantDetail as PlantDetailType, CollectionForPlant } from '../../types'
 import Button from '@/components/design-system/atoms/Button'
 import Text from '@/components/design-system/atoms/Text'
+import { usePageMeta } from '@/components/layout/MobileTopBar'
 
 export default function PlantDetail() {
   const navigate = useNavigate()
   const { id } = useParams()
+  const { search } = useLocation()
+  usePageMeta({ back: `/plants${search}` })
   const [plant, setPlant] = useState<PlantDetailType | null>(null)
   const [collections, setCollections] = useState<CollectionForPlant[]>([])
   const [showCollections, setShowCollections] = useState(false)
@@ -16,6 +20,7 @@ export default function PlantDetail() {
     const plantId = Number(id)
     api.getPlantById(plantId).then(setPlant)
     api.getCollectionsForPlant(plantId).then(setCollections).catch(() => {})
+    recentPlantsStore.recordPlantView(plantId)
   }, [id])
 
   async function toggleCollection(collectionId: number, currentlyIn: boolean) {
@@ -45,10 +50,9 @@ export default function PlantDetail() {
 
   return (
     <div className="max-w-5xl animate-fade-in">
-      {/* Back button */}
       <Button.Ghost
-        route="/plants"
-        className="mb-4 inline-flex items-center gap-1"
+        route={`/plants${search}`}
+        className="mb-4 hidden lg:inline-flex items-center gap-1"
       >
         {'\u2190'} Back to Plants
       </Button.Ghost>

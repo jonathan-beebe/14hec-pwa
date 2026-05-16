@@ -119,12 +119,24 @@
       0 4px 16px -4px rgba(0, 0, 0, 0.3);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+  }
+
   .card:hover {
     border-color: rgba(255, 255, 255, 0.1);
     box-shadow:
       inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
       0 8px 32px -8px rgba(0, 0, 0, 0.4);
     transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover {
+      transform: none;
+    }
   }
 
   .card-glow-botanical {
@@ -147,6 +159,12 @@
     transform: translateY(-2px);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .card-glow-botanical:hover {
+      transform: none;
+    }
+  }
+
   .card-glow-celestial {
     @apply card;
     border-color: rgba(124, 94, 237, 0.1);
@@ -165,6 +183,12 @@
       0 8px 32px -8px rgba(0, 0, 0, 0.4),
       0 0 60px -12px rgba(124, 94, 237, 0.1);
     transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-glow-celestial:hover {
+      transform: none;
+    }
   }
 
   /* Feature card with animated gradient border */
@@ -736,8 +760,24 @@
   }
 
   .bg-glass-dense {
-    background: rgba(26, 25, 21, 0.8);
+    background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(24px) saturate(160%);
     -webkit-backdrop-filter: blur(24px) saturate(160%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-fade-in-down {
+    animation: none;
+    opacity: 1;
+  }
+
+  .animate-pulse,
+  .animate-pulse-slow,
+  .animate-pulse-glow,
+  .animate-glow-pulse {
+    animation: none;
   }
 }

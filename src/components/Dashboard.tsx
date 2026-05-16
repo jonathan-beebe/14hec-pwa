@@ -1,37 +1,66 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useMemo } from 'react'
 import { api } from '@/data/api'
+import { recentPlantsStore } from '@/data/recent-plants-store'
+import { routes } from '@/routes'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
-import Button from '@/components/design-system/atoms/Button'
-import LinkCard from '@/components/design-system/components/LinkCard'
-import StatCard from '@/components/design-system/components/StatCard'
-import DomainCard from '@/components/design-system/components/DomainCard'
-import Text from '@/components/design-system/atoms/Text'
+import DashboardHeader from '@/components/DashboardHeader'
+import { Icon, glyphIcon } from '@/components/design-system/atoms/Icon'
+import type { InfoTileTone } from '@/components/design-system/components/InfoTile'
+import Type from '@/components/design-system/atoms/Type'
+import InfoTile from '@/components/design-system/components/InfoTile'
+import { List, ListItem } from '@/components/design-system/components/List'
+import type { ListItemViewModel } from '@/components/design-system/components/List'
+import Badge from '@/components/design-system/atoms/Badge'
+import PlanetTile from '@/components/design-system/components/PlanetTile'
+import { DashboardSection } from '@/components/design-system/layouts/DashboardSection'
+import { neptune } from '@/components/design-system/components/planet/planetConfig'
 
-const viewToPath: Record<string, string> = {
-  dashboard: '/',
-  plants: '/plants',
-  ailments: '/ailments',
-  wellness: '/wellness',
-  preparations: '/preparations',
-  entheogenic: '/entheogens',
-  'body-systems': '/body-systems',
-  astrology: '/astrology',
-  'natal-chart': '/natal-chart',
-  'planetary-timing': '/planetary-timing',
-  hmbs: '/hmbs',
-  seasonal: '/seasonal',
-  doctrine: '/doctrine',
-  journal: '/journal',
-  crossref: '/crossref',
+interface PlantListItem extends ListItemViewModel {
+  name: string
+  category: 'conventional' | 'entheogenic' | 'both'
+}
+
+function toPlantListItem(plant: Plant): PlantListItem {
+  return { id: plant.id, to: `/plants/${plant.id}`, name: plant.common_name, category: plant.category }
+}
+
+function PlantListItemRow(item: PlantListItem) {
+  return (
+    <ListItem to={item.to} trailing={<Badge variant={item.category}>{item.category}</Badge>}>
+      {item.name}
+    </ListItem>
+  )
+}
+
+const ailmentBadgeVariant = {
+  physical: 'earth',
+  emotional: 'water',
+  spiritual: 'air',
+} as const
+
+interface AilmentListItem extends ListItemViewModel {
+  name: string
+  category: 'physical' | 'emotional' | 'spiritual'
+}
+
+function toAilmentListItem(ailment: Ailment): AilmentListItem {
+  return { id: ailment.id, to: `/ailments/${ailment.id}`, name: ailment.name, category: ailment.category }
+}
+
+function AilmentListItemRow(item: AilmentListItem) {
+  return (
+    <ListItem to={item.to} trailing={<Badge variant={ailmentBadgeVariant[item.category]}>{item.category}</Badge>}>
+      {item.name}
+    </ListItem>
+  )
 }
 
 export default function Dashboard() {
-  const navigate = useNavigate()
   const [plants, setPlants] = useState<Plant[]>([])
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
   const [collections, setCollections] = useState<Collection[]>([])
+  const [recentPlants, setRecentPlants] = useState<Plant[]>([])
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -39,15 +68,26 @@ export default function Dashboard() {
     api.getAilments().then(setAilments)
     api.getZodiacSigns().then(setSigns)
     api.getCollections().then(setCollections).catch(() => {})
+
+    const recentIds = recentPlantsStore.getRecentPlantIds()
+    if (recentIds.length > 0) {
+      Promise.all(recentIds.map(id => api.getPlantById(id)))
+        .then(results => {
+          const valid = results.filter(p => p != null) as Plant[]
+          setRecentPlants(valid)
+        })
+    }
   }, [])
 
-  const filteredPlants = search
-    ? plants.filter(
-        (p) =>
-          p.common_name.toLowerCase().includes(search.toLowerCase()) ||
-          p.latin_name.toLowerCase().includes(search.toLowerCase())
-      )
-    : []
+  const filteredPlants = useMemo(() => {
+    if (!search) return []
+    const q = search.toLowerCase()
+    return plants.filter(
+      (p) =>
+        p.common_name.toLowerCase().includes(q) ||
+        p.latin_name.toLowerCase().includes(q)
+    )
+  }, [search, plants])
 
   const featuredPlant = plants.length > 0
     ? plants[new Date().getDate() % plants.length]
@@ -55,345 +95,120 @@ export default function Dashboard() {
 
   return (
     <div className="max-w-6xl">
-      {/* Hero Section */}
-      <div className="hero-section mb-8 !overflow-visible">
-        <div className="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-          <div className="hero-orb w-96 h-96 -top-48 right-0 bg-botanical-500" />
-          <div className="hero-orb w-72 h-72 -bottom-36 -left-24 bg-celestial-500" style={{ opacity: 0.1 }} />
-        </div>
-
-        <div className="relative">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-1 h-12 rounded-full"
-                 style={{ background: 'linear-gradient(to bottom, #5da87e, #7c5eed)' }} />
-            <div>
-              <Text.Display className="text-gradient-botanical">
-                14 HEC Plant Intelligence
-              </Text.Display>
-              <p className="text-earth-400 text-sm mt-1">
-                Herbal {'\u00b7'} Energetic {'\u00b7'} Celestial {'\u2014'} Cross-reference plants, ailments, and astrology
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Search */}
-        <div className="relative mt-6">
-          <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <svg className="w-4 h-4 text-earth-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </div>
-          <input
-            type="text"
-            placeholder="Search plants, ailments, or conditions..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="input-field pl-11 py-3"
-          />
-          {search && filteredPlants.length > 0 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down"
-                 style={{ border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-              {filteredPlants.slice(0, 5).map((plant) => (
-                <button
-                  key={plant.id}
-                  onClick={() => navigate(`/plants/${plant.id}`)}
-                  className="w-full text-left px-5 py-3 flex justify-between items-center group transition-colors duration-100"
-                  style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)' }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
-                >
-                  <div>
-                    <span className="text-earth-100 group-hover:text-botanical-400 transition-colors text-sm">{plant.common_name}</span>
-                    <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
-                  </div>
-                  <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+      <DashboardHeader
+        search={search}
+        onSearchChange={setSearch}
+        filteredPlants={filteredPlants}
+      />
 
       {/* Bento Grid — Stats + HMBS combined */}
-      <div className="grid grid-cols-4 gap-3 mb-8">
-        {/* Stats */}
-        {([
-          { label: 'Plants', count: plants.length, tone: 'botanical', view: 'plants', icon: '\u2618' },
-          { label: 'Ailments', count: ailments.length, tone: 'celestial', view: 'ailments', icon: '\u2695' },
-          { label: 'Zodiac Signs', count: signs.length, tone: 'gold', view: 'astrology', icon: '\u2609' },
-          { label: 'Cross-Ref', count: '\u29D6', tone: 'botanical', view: 'crossref', icon: '\u29D6' },
-        ] as const).map((stat) => (
-          <StatCard
-            key={stat.label}
-            to={viewToPath[stat.view]}
-            tone={stat.tone}
-            icon={stat.icon}
-            count={stat.count}
-            label={stat.label}
-          />
-        ))}
-      </div>
+      <DashboardSection columns={3}>
+        <InfoTile.Botanical to={routes.plants} icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary={plants.length} secondary="Plants" />
+        <InfoTile.Celestial to={routes.ailments} icon={<Icon.Aesculapius />} sandIcon={Icon.Aesculapius.source} primary={ailments.length} secondary="Ailments" />
+        <InfoTile.Gold to={routes.astrology} icon={<Icon.Sun />} sandIcon={Icon.Sun.source} primary={signs.length} secondary="Zodiac Signs" />
+      </DashboardSection>
 
       {/* HMBS Domains */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-3">
-          <Text.SectionTitle className="mb-0">Sanctuary Domains</Text.SectionTitle>
-          <Button.Ghost route="/hmbs" className="text-xs">
-            Explore all {'\u2192'}
-          </Button.Ghost>
-        </div>
-        <div className="grid grid-cols-4 gap-3">
-          {([
-            { title: 'Heart', icon: '\u2661', domain: 'heart', desc: 'Love, connection, empathy' },
-            { title: 'Mind', icon: '\u2609', domain: 'mind', desc: 'Clarity, focus, cognition' },
-            { title: 'Body', icon: '\u2618', domain: 'body', desc: 'Vitality, strength, healing' },
-            { title: 'Spirit', icon: '\u2726', domain: 'spirit', desc: 'Transcendence, intuition' },
-          ] as const).map((d) => (
-            <DomainCard
-              key={d.domain}
-              to="/hmbs"
-              domain={d.domain}
-              icon={d.icon}
-              title={d.title}
-              description={d.desc}
-            />
-          ))}
-        </div>
-      </div>
+      <DashboardSection title="Sanctuary Domains">
+        <InfoTile.Heart to="/hmbs" icon={<Icon.Heart />} sandIcon={Icon.Heart.source} primary="Heart" secondary="Love, connection, empathy" />
+        <InfoTile.Mind to="/hmbs" icon={<Icon.Atom />} sandIcon={Icon.Atom.source} primary="Mind" secondary="Clarity, focus, cognition" />
+        <InfoTile.Body to="/hmbs" icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary="Body" secondary="Vitality, strength, healing" />
+        <InfoTile.Spirit to="/hmbs" icon={<Icon.Lotus />} sandIcon={Icon.Lotus.source} primary="Spirit" secondary="Transcendence, intuition" />
+      </DashboardSection>
 
-      {/* Featured Plant + Feature Cards — Bento layout */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
-        {/* Featured Plant — spans 2 cols */}
-        {featuredPlant && (
-          <button
-            onClick={() => navigate(`/plants/${featuredPlant.id}`)}
-            className="col-span-2 card-glow-botanical text-left cursor-pointer group"
+      {/* Featured Plant + Cross-Reference */}
+      <DashboardSection columns={3}>
+        {featuredPlant ? (
+          <InfoTile.Botanical
+            to={`/plants/${featuredPlant.id}`}
+            icon={<Icon.PalmBranch />}
+            sandIcon={Icon.PalmBranch.source}
+            primary={featuredPlant.common_name}
+            className="sm:col-span-2"
           >
-            <div className="flex items-start gap-5">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 animate-float"
-                   style={{
-                     background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.1), rgba(93, 168, 126, 0.02))',
-                     border: '1px solid rgba(93, 168, 126, 0.1)'
-                   }}>
-                {'\u2618'}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[10px] text-earth-500 uppercase tracking-[0.2em] mb-1">Plant of the Day</div>
-                <Text.Subheading className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
-                  {featuredPlant.common_name}
-                </Text.Subheading>
-                <p className="text-xs text-earth-500 italic mb-2">{featuredPlant.latin_name}</p>
-                <p className="text-earth-300 text-sm leading-relaxed line-clamp-2">{featuredPlant.description}</p>
-              </div>
-            </div>
-          </button>
+            <Type.SectionLabel>Plant of the Day</Type.SectionLabel>
+            <Type.Heading as="div" className="text-botanical-300 mt-1">
+              {featuredPlant.common_name}
+            </Type.Heading>
+            <Type.Caption as="p" className="italic mt-0.5">{featuredPlant.latin_name}</Type.Caption>
+            <Type.BodySmall as="p" className="mt-1.5 line-clamp-2">{featuredPlant.description}</Type.BodySmall>
+          </InfoTile.Botanical>
+        ) : (
+          <div className="sm:col-span-2" />
         )}
-        {!featuredPlant && <div className="col-span-2" />}
+        <InfoTile.Gold
+          to={routes.crossref}
+          icon={<Icon.Hourglass />}
+          sandIcon={Icon.Hourglass.source}
+          primary="Cross-Reference"
+          secondary="Multi-axis query engine"
+        />
+      </DashboardSection>
 
-        {/* Quick action */}
-        <button
-          onClick={() => navigate('/crossref')}
-          className="card-glow-celestial text-left cursor-pointer group flex flex-col justify-between"
-        >
-          <div>
-            <div className="text-xl mb-2 opacity-40 group-hover:opacity-70 transition-opacity">{'\u29D6'}</div>
-            <div className="text-sm font-display font-medium text-celestial-400 group-hover:text-celestial-300 transition-colors">
-              Cross-Reference
-            </div>
-            <p className="text-[10px] text-earth-500 mt-1.5 leading-relaxed">Multi-axis query builder across all dimensions</p>
-          </div>
-          <div className="text-[10px] text-celestial-500/50 mt-3 flex items-center gap-1 group-hover:text-celestial-400/70 transition-colors">
-            Open engine {'\u2192'}
-          </div>
-        </button>
-      </div>
+      {/* Astrology */}
+      <DashboardSection title="Astrology">
+        <InfoTile.Celestial to={routes['natal-chart']} icon={<Icon.Star />} sandIcon={Icon.Star.source} primary="Astro-Botanical Chart" secondary="Personalized plant map from your birth chart" />
+        <InfoTile.Celestial to={routes['planetary-timing']} icon={<Icon.Watch />} sandIcon={Icon.Watch.source} tintHex="#c4b5fd" primary="Planetary Timing" secondary="Optimal hours for harvesting and preparation" />
+        <PlanetTile to="/astrology/planets" config={neptune} primary="Planets" secondary="Celestial bodies and their plant correspondences" />
+        <InfoTile.Celestial to={routes.astrology} icon={<Icon.Sun />} sandIcon={Icon.Sun.source} primary="Signs" secondary="Zodiac signs and their plant correspondences" />
+      </DashboardSection>
 
-      {/* Feature Cards — Celestial */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
-        {[
-          { view: 'natal-chart' as const, icon: '\u2B50', title: 'Astro-Botanical Chart', desc: 'Personalized plant map from your birth chart' },
-          { view: 'planetary-timing' as const, icon: '\u231A', title: 'Planetary Timing', desc: 'Optimal hours for harvesting and preparation' },
-          { view: 'entheogenic' as const, icon: '\u2604', title: 'Entheogenic Guide', desc: 'Sacred plant medicine protocols and integration' }
-        ].map((feature) => (
-          <LinkCard.Celestial
-            key={feature.view}
-            to={viewToPath[feature.view]}
-            icon={feature.icon}
-            title={feature.title}
-            caption={feature.desc}
-          />
-        ))}
-      </div>
+      {/* Wellness */}
+      <DashboardSection title="Wellness" columns={3}>
+        <InfoTile.Botanical to={routes.wellness} icon={<Icon.Florette />} sandIcon={Icon.Florette.source} primary="Wellness Goals" secondary="Explore plants by what you want to improve — hair growth, immunity, sleep, cognition, and more" className="sm:col-span-2" />
+        <InfoTile.Celestial to={routes.entheogenic} icon={<Icon.Comet />} sandIcon={Icon.Comet.source} primary="Entheogenic Guide" secondary="Sacred plant medicine protocols" />
+      </DashboardSection>
 
-      {/* Wellness Goals Card */}
-      <div className="mb-8">
-        <button
-          onClick={() => navigate('/wellness')}
-          className="w-full text-left cursor-pointer group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ease-out-expo"
-          style={{
-            background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.05) 0%, rgba(16, 15, 12, 0.85) 40%, rgba(61, 138, 94, 0.03) 100%)',
-            border: '1px solid rgba(93, 168, 126, 0.08)',
-            boxShadow: 'inset 0 1px 0 0 rgba(93, 168, 126, 0.04), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(93, 168, 126, 0.15)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(93, 168, 126, 0.08)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-          }}
-        >
-          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
-               style={{ background: 'rgba(93, 168, 126, 0.04)', filter: 'blur(60px)' }} />
-          <div className="relative flex items-center gap-5">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0"
-                 style={{
-                   background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.1), rgba(93, 168, 126, 0.02))',
-                   border: '1px solid rgba(93, 168, 126, 0.1)'
-                 }}>
-              {'\u2740'}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-display font-semibold text-gradient-botanical group-hover:opacity-90 transition-opacity">
-                Wellness Goals
-              </div>
-              <p className="text-[11px] text-earth-400 mt-1 leading-relaxed">
-                Explore plants by what you want to improve {'\u2014'} hair growth, immunity, sleep, cognition, and more
-              </p>
-            </div>
-            <div className="text-earth-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-              {'\u2192'}
-            </div>
-          </div>
-        </button>
-      </div>
+      {/* Botanical */}
+      <DashboardSection>
+        <InfoTile.Botanical to={routes.seasonal} icon={<Icon.FloretteOutlined />} sandIcon={Icon.FloretteOutlined.source} primary="Seasonal Guide" secondary="Plants aligned with the current season" />
+        <InfoTile.Botanical to={routes.doctrine} icon={<Icon.DharmaWheel />} sandIcon={Icon.DharmaWheel.source} primary="Doctrine Explorer" secondary="How plant form reveals function" />
+        <InfoTile.Botanical to={routes.preparations} icon={<Icon.Alembic />} sandIcon={Icon.Alembic.source} primary="Preparations" secondary="Methods for herbal extraction" />
+        <InfoTile.Botanical to={routes['body-systems']} icon={<Icon.Hexagon />} sandIcon={Icon.Hexagon.source} primary="Body Systems" secondary="Organs & systems mapped to plants and planets" />
+      </DashboardSection>
 
-      {/* Feature Cards — Botanical */}
-      <div className="grid grid-cols-4 gap-3 mb-8">
-        {[
-          { view: 'seasonal' as const, icon: '\u2741', title: 'Seasonal Guide', desc: 'Plants aligned with the current season' },
-          { view: 'doctrine' as const, icon: '\u2638', title: 'Doctrine Explorer', desc: 'How plant form reveals function' },
-          { view: 'preparations' as const, icon: '\u2697', title: 'Preparations', desc: 'Methods for herbal extraction' },
-          { view: 'body-systems' as const, icon: '\u2B22', title: 'Body Systems', desc: 'Organs & systems mapped to plants and planets' }
-        ].map((feature) => (
-          <LinkCard.Botanical
-            key={feature.view}
-            to={viewToPath[feature.view]}
-            icon={feature.icon}
-            title={feature.title}
-            caption={feature.desc}
-          />
-        ))}
-      </div>
-
-      {/* Plant Journal Card */}
-      <div className="mb-8">
-        <button
-          onClick={() => navigate('/journal')}
-          className="w-full text-left cursor-pointer group relative overflow-hidden rounded-2xl p-6 transition-all duration-300 ease-out-expo"
-          style={{
-            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(16, 15, 12, 0.85) 40%, rgba(124, 94, 237, 0.03) 100%)',
-            border: '1px solid rgba(245, 158, 11, 0.08)',
-            boxShadow: 'inset 0 1px 0 0 rgba(245, 158, 11, 0.04), 0 4px 24px -4px rgba(0, 0, 0, 0.3)'
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(245, 158, 11, 0.15)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.borderColor = 'rgba(245, 158, 11, 0.08)';
-            (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-          }}
-        >
-          <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
-               style={{ background: 'rgba(245, 158, 11, 0.04)', filter: 'blur(60px)' }} />
-          <div className="relative flex items-center gap-5">
-            <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl flex-shrink-0"
-                 style={{
-                   background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.02))',
-                   border: '1px solid rgba(245, 158, 11, 0.1)'
-                 }}>
-              {'\u270E'}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-sm font-display font-semibold text-gradient-gold group-hover:opacity-90 transition-opacity">
-                Plant Journal
-              </div>
-              <p className="text-[11px] text-earth-400 mt-1 leading-relaxed">
-                Record your plant relationships, reflections, and consciousness exploration with guided prompts
-              </p>
-            </div>
-            <div className="text-earth-600 text-sm opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
-              {'\u2192'}
-            </div>
-          </div>
-        </button>
-      </div>
+      {/* Journal */}
+      <DashboardSection title="Journal">
+        <InfoTile.Gold to={routes.journal} icon={<Icon.Pencil />} sandIcon={Icon.Pencil.source} primary="Plant Journal" secondary="Record your plant relationships, reflections, and consciousness exploration with guided prompts" />
+      </DashboardSection>
 
       {/* My Collections */}
       {collections.length > 0 && (
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-3">
-            <Text.SectionTitle className="mb-0">My Collections</Text.SectionTitle>
-            <Button.Ghost route="/collections" className="text-xs">
-              View all {'\u2192'}
-            </Button.Ghost>
-          </div>
-          <div className="grid grid-cols-4 gap-3">
-            {collections.slice(0, 4).map((col) => (
-              <LinkCard.Plain
+        <DashboardSection title="My Collections" columns={3}>
+          {collections.map((col) => {
+            const ColIcon = glyphIcon('collection', col.icon || '\u2618')
+            return (
+              <InfoTile
                 key={col.id}
                 to={`/collections/${col.id}`}
-                icon={col.icon || '\u2618'}
-                title={col.name}
-                caption={`${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
+                tone={col.color as InfoTileTone}
+                icon={<ColIcon />}
+                sandIcon={ColIcon.source}
+                primary={col.name}
+                secondary={col.description || `${col.plant_count} ${col.plant_count === 1 ? 'plant' : 'plants'}`}
               />
-            ))}
-          </div>
-        </div>
+            )
+          })}
+        </DashboardSection>
       )}
 
       {/* Quick Access Lists */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <Text.SectionTitle as="h3">Recent Plants</Text.SectionTitle>
-          <div className="space-y-1.5">
-            {plants.slice(0, 5).map((plant, i) => (
-              <button
-                key={plant.id}
-                onClick={() => navigate(`/plants/${plant.id}`)}
-                className="card w-full text-left cursor-pointer py-3 px-4 animate-fade-in-up group"
-                style={{ animationDelay: `${i * 0.04}s` }}
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-200 group-hover:text-botanical-400 transition-colors">{plant.common_name}</span>
-                  <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-                </div>
-              </button>
-            ))}
-          </div>
+          <Type.Subheading className="mb-3">
+            {recentPlants.length > 0 ? 'Recent Plants' : 'Featured Plants'}
+          </Type.Subheading>
+          <List
+            items={(recentPlants.length > 0 ? recentPlants.slice(0, 5) : plants.slice(0, 5)).map(toPlantListItem)}
+            renderItem={PlantListItemRow}
+          />
         </div>
         <div>
-          <Text.SectionTitle as="h3">Common Ailments</Text.SectionTitle>
-          <div className="space-y-1.5">
-            {ailments.slice(0, 5).map((ailment, i) => (
-              <button
-                key={ailment.id}
-                onClick={() => navigate(`/ailments/${ailment.id}`)}
-                className="card w-full text-left cursor-pointer py-3 px-4 animate-fade-in-up group"
-                style={{ animationDelay: `${i * 0.04}s` }}
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-200 group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
-                  <span className={`badge badge-${ailment.category === 'physical' ? 'earth' : ailment.category === 'emotional' ? 'water' : 'air'}`}>
-                    {ailment.category}
-                  </span>
-                </div>
-              </button>
-            ))}
-          </div>
+          <Type.Subheading className="mb-3">Common Ailments</Type.Subheading>
+          <List
+            items={ailments.slice(0, 5).map(toAilmentListItem)}
+            renderItem={AilmentListItemRow}
+          />
         </div>
       </div>
     </div>

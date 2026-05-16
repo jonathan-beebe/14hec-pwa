@@ -1,134 +1,188 @@
 [
   {
     "name": "Aries",
-    "symbol": "\u2648",
+    "symbol": "♈",
     "element": "fire",
     "modality": "cardinal",
     "ruling_planet": "Mars",
     "date_range_start": "03-21",
     "date_range_end": "04-19",
     "body_parts_ruled": ["Head", "Face", "Blood"],
+    "power_colors": [
+      { "name": "Red", "hex": "#ef4444" }
+    ],
+    "power_color_meaning": "Represents passion and energy.",
     "description": "Aries initiates the zodiacal cycle with fierce, pioneering energy. As the cardinal fire sign, it governs the head and the rush of blood that drives action. Aries energy is hot, dry, and fast-acting, making it aligned with herbs that stimulate circulation, clear head congestion, and ignite the will to heal."
   },
   {
     "name": "Taurus",
-    "symbol": "\u2649",
+    "symbol": "♉",
     "element": "earth",
     "modality": "fixed",
     "ruling_planet": "Venus",
     "date_range_start": "04-20",
     "date_range_end": "05-20",
     "body_parts_ruled": ["Throat", "Neck", "Thyroid"],
+    "power_colors": [
+      { "name": "Green", "hex": "#22c55e" }
+    ],
+    "power_color_meaning": "Symbolizes growth and stability.",
     "description": "Taurus embodies the fixed stability of earth, governing the throat, neck, and thyroid gland. Its energy is slow, sensual, and deeply nourishing. Taurean herbs support thyroid balance, soothe sore throats, and provide grounding sustenance to the body through rich mineral content and steady, building action."
   },
   {
     "name": "Gemini",
-    "symbol": "\u264A",
+    "symbol": "♊",
     "element": "air",
     "modality": "mutable",
     "ruling_planet": "Mercury",
     "date_range_start": "05-21",
     "date_range_end": "06-20",
     "body_parts_ruled": ["Arms", "Hands", "Lungs", "Nervous system"],
+    "power_colors": [
+      { "name": "Yellow", "hex": "#facc15" }
+    ],
+    "power_color_meaning": "Enhances intellect and communication.",
     "description": "Gemini channels the mutable quality of air, ruling the lungs, hands, arms, and the branching pathways of the nervous system. Its energy is quick, communicative, and dualistic. Gemini herbs support respiratory health, calm nervous tension, and enhance cognitive flexibility and mental agility."
   },
   {
     "name": "Cancer",
-    "symbol": "\u264B",
+    "symbol": "♋",
     "element": "water",
     "modality": "cardinal",
     "ruling_planet": "Moon",
     "date_range_start": "06-21",
     "date_range_end": "07-22",
     "body_parts_ruled": ["Stomach", "Breasts", "Womb"],
+    "power_colors": [
+      { "name": "Silver", "hex": "#cbd5e1" },
+      { "name": "White", "hex": "#f4f4f5" }
+    ],
+    "power_color_meaning": "Connects with intuition and nurturing.",
     "description": "Cancer holds the cardinal power of water, governing the stomach, breasts, and womb. Its energy is nurturing, protective, and deeply intuitive. Cancerian herbs support digestive health, ease nausea, nourish the womb, and promote the flow of maternal and nutritive fluids throughout the body."
   },
   {
     "name": "Leo",
-    "symbol": "\u264C",
+    "symbol": "♌",
     "element": "fire",
     "modality": "fixed",
     "ruling_planet": "Sun",
     "date_range_start": "07-23",
     "date_range_end": "08-22",
     "body_parts_ruled": ["Heart", "Spine", "Blood"],
+    "power_colors": [
+      { "name": "Gold", "hex": "#fbbf24" }
+    ],
+    "power_color_meaning": "Reflects confidence and creativity.",
     "description": "Leo radiates the fixed intensity of fire, ruling the heart, spine, and the warmth of the blood. Its energy is generous, vital, and commanding. Leonine herbs strengthen the heart, support spinal health, and invigorate the blood with solar warmth, restoring courage and joy to the spirit."
   },
   {
     "name": "Virgo",
-    "symbol": "\u264D",
+    "symbol": "♍",
     "element": "earth",
     "modality": "mutable",
     "ruling_planet": "Mercury",
     "date_range_start": "08-23",
     "date_range_end": "09-22",
     "body_parts_ruled": ["Digestive system", "Intestines"],
+    "power_colors": [
+      { "name": "Brown", "hex": "#92400e" },
+      { "name": "Green", "hex": "#15803d" }
+    ],
+    "power_color_meaning": "Represents practicality and stability.",
     "description": "Virgo refines the mutable quality of earth, governing the digestive system and intestines. Its energy is analytical, purifying, and service-oriented. Virgoan herbs support intestinal health, aid nutrient absorption, promote healthy gut flora, and bring discerning order to the body's assimilative processes."
   },
   {
     "name": "Libra",
-    "symbol": "\u264E",
+    "symbol": "♎",
     "element": "air",
     "modality": "cardinal",
     "ruling_planet": "Venus",
     "date_range_start": "09-23",
     "date_range_end": "10-22",
     "body_parts_ruled": ["Kidneys", "Lower back", "Skin"],
+    "power_colors": [
+      { "name": "Pink", "hex": "#f472b6" },
+      { "name": "Light Blue", "hex": "#7dd3fc" }
+    ],
+    "power_color_meaning": "Promotes balance and harmony.",
     "description": "Libra seeks cardinal balance through the element of air, ruling the kidneys, lower back, and skin. Its energy strives for equilibrium, beauty, and harmony. Libran herbs support kidney filtration, ease lower back tension, nourish the skin, and restore balance to systems that have swung to extremes."
   },
   {
     "name": "Scorpio",
-    "symbol": "\u264F",
+    "symbol": "♏",
     "element": "water",
     "modality": "fixed",
     "ruling_planet": "Mars/Pluto",
     "date_range_start": "10-23",
     "date_range_end": "11-21",
     "body_parts_ruled": ["Reproductive organs", "Elimination"],
+    "power_colors": [
+      { "name": "Deep Red", "hex": "#7f1d1d" },
+      { "name": "Black", "hex": "#18181b" }
+    ],
+    "power_color_meaning": "Symbolizes intensity and transformation.",
     "description": "Scorpio wields the fixed intensity of water, governing the reproductive organs and eliminatory pathways. Its energy is transformative, penetrating, and regenerative. Scorpionic herbs support detoxification, reproductive health, and deep cellular renewal, working in the hidden depths where death feeds rebirth."
   },
   {
     "name": "Sagittarius",
-    "symbol": "\u2650",
+    "symbol": "♐",
     "element": "fire",
     "modality": "mutable",
     "ruling_planet": "Jupiter",
     "date_range_start": "11-22",
     "date_range_end": "12-21",
     "body_parts_ruled": ["Thighs", "Liver", "Hips"],
+    "power_colors": [
+      { "name": "Purple", "hex": "#a855f7" }
+    ],
+    "power_color_meaning": "Enhances wisdom and optimism.",
     "description": "Sagittarius expands through the mutable quality of fire, ruling the liver, thighs, and hips. Its energy is adventurous, philosophical, and growth-oriented. Sagittarian herbs support liver detoxification, ease hip and thigh tension, and promote the expansive optimism that fuels the body's regenerative journeys."
   },
   {
     "name": "Capricorn",
-    "symbol": "\u2651",
+    "symbol": "♑",
     "element": "earth",
     "modality": "cardinal",
     "ruling_planet": "Saturn",
     "date_range_start": "12-22",
     "date_range_end": "01-19",
     "body_parts_ruled": ["Bones", "Joints", "Teeth", "Knees"],
+    "power_colors": [
+      { "name": "Gray", "hex": "#64748b" },
+      { "name": "Brown", "hex": "#57534e" }
+    ],
+    "power_color_meaning": "Represents reliability and structure.",
     "description": "Capricorn builds with the cardinal force of earth, governing the skeletal structure including bones, joints, teeth, and knees. Its energy is disciplined, enduring, and authoritative. Capricornian herbs mineralize the bones, strengthen joint integrity, and provide the structural support that allows the body to endure."
   },
   {
     "name": "Aquarius",
-    "symbol": "\u2652",
+    "symbol": "♒",
     "element": "air",
     "modality": "fixed",
     "ruling_planet": "Saturn/Uranus",
     "date_range_start": "01-20",
     "date_range_end": "02-18",
     "body_parts_ruled": ["Circulatory system", "Ankles"],
+    "power_colors": [
+      { "name": "Blue", "hex": "#3b82f6" }
+    ],
+    "power_color_meaning": "Reflects creativity and intellect.",
     "description": "Aquarius electrifies the fixed quality of air, ruling the circulatory system and ankles. Its energy is innovative, humanitarian, and electrically charged. Aquarian herbs support circulation, strengthen the vascular network, and work on the bioelectric field, catalyzing unconventional healing pathways and systemic renewal."
   },
   {
     "name": "Pisces",
-    "symbol": "\u2653",
+    "symbol": "♓",
     "element": "water",
     "modality": "mutable",
     "ruling_planet": "Jupiter/Neptune",
     "date_range_start": "02-19",
     "date_range_end": "03-20",
     "body_parts_ruled": ["Feet", "Lymph", "Pineal gland"],
+    "power_colors": [
+      { "name": "Light Green", "hex": "#86efac" },
+      { "name": "Turquoise", "hex": "#2dd4bf" }
+    ],
+    "power_color_meaning": "Represents healing and intuition.",
     "description": "Pisces dissolves boundaries through the mutable quality of water, governing the feet, lymphatic system, and pineal gland. Its energy is compassionate, dreamlike, and transcendent. Piscean herbs support lymphatic drainage, activate the pineal gland, and open the channels of intuition, vision, and spiritual receptivity."
   }
 ]
