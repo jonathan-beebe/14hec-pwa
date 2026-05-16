@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import { recentPlantsStore } from '@/data/recent-plants-store'
@@ -53,13 +53,15 @@ export default function Dashboard() {
     }
   }, [])
 
-  const filteredPlants = search
-    ? plants.filter(
-        (p) =>
-          p.common_name.toLowerCase().includes(search.toLowerCase()) ||
-          p.latin_name.toLowerCase().includes(search.toLowerCase())
-      )
-    : []
+  const filteredPlants = useMemo(() => {
+    if (!search) return []
+    const q = search.toLowerCase()
+    return plants.filter(
+      (p) =>
+        p.common_name.toLowerCase().includes(q) ||
+        p.latin_name.toLowerCase().includes(q)
+    )
+  }, [search, plants])
 
   const featuredPlant = plants.length > 0
     ? plants[new Date().getDate() % plants.length]
