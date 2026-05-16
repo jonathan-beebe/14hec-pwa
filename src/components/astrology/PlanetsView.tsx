@@ -6,7 +6,7 @@ import Text from '@/components/design-system/atoms/Text'
 import { RoutedListDetailLayout } from '@/components/design-system/layouts/ListDetailLayout'
 import PlanetFlatListRow from '@/components/design-system/components/PlanetFlatListRow'
 import ListDetailEmpty from '@/components/design-system/components/ListDetailEmpty'
-import { allPlanets, type PlanetVisual } from '@/components/spike/planetConfig'
+import { allPlanets, type PlanetVisual } from '@/components/design-system/components/planet/planetConfig'
 import {
   ASTROLOGY_LIST_WIDTH,
   ASTROLOGY_TOP_INSET,

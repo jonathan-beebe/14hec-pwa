@@ -13,7 +13,7 @@ import type { ListItemViewModel } from '@/components/design-system/components/Li
 import Badge from '@/components/design-system/atoms/Badge'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import { DashboardSection } from '@/components/design-system/layouts/DashboardSection'
-import { neptune } from '@/components/spike/planetConfig'
+import { neptune } from '@/components/design-system/components/planet/planetConfig'
 
 interface PlantListItem extends ListItemViewModel {
   name: string

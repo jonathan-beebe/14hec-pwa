@@ -1,13 +1,13 @@
 import { useMemo, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import type { PlanetVisual } from './planetConfig'
+import type { PlanetVisual } from '@/components/design-system/components/planet/planetConfig'
 import PlanetCluster, {
   MORPH_LAMBDA,
   type MorphRef,
   type PointsRef,
-} from './PlanetCluster'
-import WindDrift, { WIND_ENABLED, type WindSource } from './WindDrift'
+} from '@/components/design-system/components/planet/PlanetCluster'
+import WindDrift, { WIND_ENABLED, type WindSource } from '@/components/design-system/components/planet/WindDrift'
 
 // Per-canvas legacy used a perspective camera at z=4 fov=30°, giving a
 // vertical world extent of 2 * 4 * tan(15°). Pinning the unified ortho zoom

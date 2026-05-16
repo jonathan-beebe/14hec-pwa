@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PlanetField from './PlanetField'
-import { allPlanets } from './planetConfig'
+import { allPlanets } from '@/components/design-system/components/planet/planetConfig'
 import { api } from '@/data/api'
 import type { PlanetData, Plant } from '@/types'
 import Text from '@/components/design-system/atoms/Text'

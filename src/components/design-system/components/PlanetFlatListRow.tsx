@@ -2,13 +2,13 @@ import { useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
-import type { PlanetVisual } from '@/components/spike/planetConfig'
+import type { PlanetVisual } from './planet/planetConfig'
 import PlanetCluster, {
   MORPH_LAMBDA,
   type MorphRef,
   type PointsRef,
-} from '@/components/spike/PlanetCluster'
-import WindDrift from '@/components/spike/WindDrift'
+} from './planet/PlanetCluster'
+import WindDrift from './planet/WindDrift'
 import Type from '../atoms/Type'
 import { useReducedMotion } from '../atoms/useReducedMotion'
 

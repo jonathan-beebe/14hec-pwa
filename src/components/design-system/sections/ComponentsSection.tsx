@@ -25,7 +25,7 @@ import {
   neptune,
   pluto,
   type PlanetVisual,
-} from '@/components/spike/planetConfig'
+} from '@/components/design-system/components/planet/planetConfig'
 
 const BAR_DEMO_FILTERS: CatalogFilter[] = [
   { kind: 'search', key: 'barDemoQ', placeholder: 'Search by name…', label: 'Search' },
