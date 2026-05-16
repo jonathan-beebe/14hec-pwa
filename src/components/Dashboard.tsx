@@ -110,21 +110,15 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Feature Cards — Celestial */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-        {[
-          { view: 'natal-chart' as const, icon: '\u2B50', title: 'Astro-Botanical Chart', desc: 'Personalized plant map from your birth chart' },
-          { view: 'planetary-timing' as const, icon: '\u231A', title: 'Planetary Timing', desc: 'Optimal hours for harvesting and preparation' },
-          { view: 'entheogenic' as const, icon: '\u2604', title: 'Entheogenic Guide', desc: 'Sacred plant medicine protocols and integration' }
-        ].map((feature) => (
-          <LinkCard.Celestial
-            key={feature.view}
-            to={viewToPath[feature.view]}
-            icon={feature.icon}
-            title={feature.title}
-            caption={feature.desc}
-          />
-        ))}
+      {/* Astrology */}
+      <div className="mb-8">
+        <Type.Subheading className="mb-3">Astrology</Type.Subheading>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <InfoTile.Celestial to={viewToPath['natal-chart']} icon={<Icon.Star />} sandIcon={Icon.Star.source} primary="Astro-Botanical Chart" secondary="Personalized plant map from your birth chart" />
+          <InfoTile.Celestial to={viewToPath['planetary-timing']} icon={<Icon.Watch />} sandIcon={Icon.Watch.source} primary="Planetary Timing" secondary="Optimal hours for harvesting and preparation" />
+          <InfoTile.Celestial to={viewToPath.astrology} icon={<Icon.Saturn />} sandIcon={Icon.Saturn.source} primary="Planets" secondary="Celestial bodies and their plant correspondences" />
+          <InfoTile.Celestial to={viewToPath.entheogenic} icon={<Icon.Comet />} sandIcon={Icon.Comet.source} primary="Entheogenic Guide" secondary="Sacred plant medicine protocols and integration" />
+        </div>
       </div>
 
       {/* Wellness Goals Card */}
