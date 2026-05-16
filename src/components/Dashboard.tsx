@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from 'react'
-import { Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import { recentPlantsStore } from '@/data/recent-plants-store'
 import { routes } from '@/routes'
@@ -9,9 +8,51 @@ import { Icon, glyphIcon } from '@/components/design-system/atoms/Icon'
 import type { InfoTileTone } from '@/components/design-system/components/InfoTile'
 import Type from '@/components/design-system/atoms/Type'
 import InfoTile from '@/components/design-system/components/InfoTile'
+import { List, ListItem } from '@/components/design-system/components/List'
+import type { ListItemViewModel } from '@/components/design-system/components/List'
+import Badge from '@/components/design-system/atoms/Badge'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import { neptune } from '@/components/spike/planetConfig'
 
+interface PlantListItem extends ListItemViewModel {
+  name: string
+  category: 'conventional' | 'entheogenic' | 'both'
+}
+
+function toPlantListItem(plant: Plant): PlantListItem {
+  return { id: plant.id, to: `/plants/${plant.id}`, name: plant.common_name, category: plant.category }
+}
+
+function PlantListItemRow(item: PlantListItem) {
+  return (
+    <ListItem to={item.to} trailing={<Badge variant={item.category}>{item.category}</Badge>}>
+      {item.name}
+    </ListItem>
+  )
+}
+
+const ailmentBadgeVariant = {
+  physical: 'earth',
+  emotional: 'water',
+  spiritual: 'air',
+} as const
+
+interface AilmentListItem extends ListItemViewModel {
+  name: string
+  category: 'physical' | 'emotional' | 'spiritual'
+}
+
+function toAilmentListItem(ailment: Ailment): AilmentListItem {
+  return { id: ailment.id, to: `/ailments/${ailment.id}`, name: ailment.name, category: ailment.category }
+}
+
+function AilmentListItemRow(item: AilmentListItem) {
+  return (
+    <ListItem to={item.to} trailing={<Badge variant={ailmentBadgeVariant[item.category]}>{item.category}</Badge>}>
+      {item.name}
+    </ListItem>
+  )
+}
 
 export default function Dashboard() {
   const [plants, setPlants] = useState<Plant[]>([])
@@ -169,39 +210,17 @@ export default function Dashboard() {
           <Type.Subheading className="mb-3">
             {recentPlants.length > 0 ? 'Recent Plants' : 'Featured Plants'}
           </Type.Subheading>
-          <div className="space-y-1">
-            {(recentPlants.length > 0 ? recentPlants.slice(0, 5) : plants.slice(0, 5)).map((plant) => (
-              <Link
-                key={plant.id}
-                to={`/plants/${plant.id}`}
-                className="block py-2 pr-3 group"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{plant.common_name}</span>
-                  <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <List
+            items={(recentPlants.length > 0 ? recentPlants.slice(0, 5) : plants.slice(0, 5)).map(toPlantListItem)}
+            renderItem={PlantListItemRow}
+          />
         </div>
         <div>
           <Type.Subheading className="mb-3">Common Ailments</Type.Subheading>
-          <div className="space-y-1">
-            {ailments.slice(0, 5).map((ailment) => (
-              <Link
-                key={ailment.id}
-                to={`/ailments/${ailment.id}`}
-                className="block py-2 pr-3 group"
-              >
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
-                  <span className={`badge badge-${ailment.category === 'physical' ? 'earth' : ailment.category === 'emotional' ? 'water' : 'air'}`}>
-                    {ailment.category}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <List
+            items={ailments.slice(0, 5).map(toAilmentListItem)}
+            renderItem={AilmentListItemRow}
+          />
         </div>
       </div>
     </div>
