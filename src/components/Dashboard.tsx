@@ -9,7 +9,6 @@ import Type from '@/components/design-system/atoms/Type'
 import InfoTile from '@/components/design-system/components/InfoTile'
 import PlanetTile from '@/components/design-system/components/PlanetTile'
 import { neptune } from '@/components/spike/planetConfig'
-import Text from '@/components/design-system/atoms/Text'
 
 const viewToPath: Record<string, string> = {
   dashboard: '/',
@@ -171,17 +170,16 @@ export default function Dashboard() {
       {/* Quick Access Lists */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <Text.SectionTitle as="h3">Recent Plants</Text.SectionTitle>
-          <div className="space-y-1.5">
-            {plants.slice(0, 5).map((plant, i) => (
+          <Type.Subheading className="mb-3">Recent Plants</Type.Subheading>
+          <div className="space-y-1">
+            {plants.slice(0, 5).map((plant) => (
               <button
                 key={plant.id}
                 onClick={() => navigate(`/plants/${plant.id}`)}
-                className="card w-full text-left cursor-pointer py-3 px-4 animate-fade-in-up group"
-                style={{ animationDelay: `${i * 0.04}s` }}
+                className="w-full text-left cursor-pointer py-2 pr-3 group"
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-200 group-hover:text-botanical-400 transition-colors">{plant.common_name}</span>
+                  <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{plant.common_name}</span>
                   <span className={`badge badge-${plant.category}`}>{plant.category}</span>
                 </div>
               </button>
@@ -189,17 +187,16 @@ export default function Dashboard() {
           </div>
         </div>
         <div>
-          <Text.SectionTitle as="h3">Common Ailments</Text.SectionTitle>
-          <div className="space-y-1.5">
-            {ailments.slice(0, 5).map((ailment, i) => (
+          <Type.Subheading className="mb-3">Common Ailments</Type.Subheading>
+          <div className="space-y-1">
+            {ailments.slice(0, 5).map((ailment) => (
               <button
                 key={ailment.id}
                 onClick={() => navigate(`/ailments/${ailment.id}`)}
-                className="card w-full text-left cursor-pointer py-3 px-4 animate-fade-in-up group"
-                style={{ animationDelay: `${i * 0.04}s` }}
+                className="w-full text-left cursor-pointer py-2 pr-3 group"
               >
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-earth-200 group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
+                  <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
                   <span className={`badge badge-${ailment.category === 'physical' ? 'earth' : ailment.category === 'emotional' ? 'water' : 'air'}`}>
                     {ailment.category}
                   </span>
