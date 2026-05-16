@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
 import { Routes, Route } from 'react-router-dom'
-import { screen } from '@testing-library/react'
+import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { renderWithRouter } from '@/test/render'
 import Dashboard from './Dashboard'
@@ -29,5 +29,37 @@ describe('Dashboard navigation', () => {
     expect(
       await screen.findByRole('heading', { name: /preparation methods/i }),
     ).toBeInTheDocument()
+  })
+
+  it('renders quick-access plant items as links with proper hrefs', async () => {
+    renderWithRouter(
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+      </Routes>,
+    )
+
+    await waitFor(() => {
+      const allLinks = screen.getAllByRole('link')
+      const plantLink = allLinks.find((link) => link.getAttribute('href')?.startsWith('/plants/'))
+      expect(plantLink).toBeDefined()
+      if (!plantLink) throw new Error('No plant link found')
+      expect(plantLink.getAttribute('href')).toMatch(/^\/plants\/\d+$/)
+    })
+  })
+
+  it('renders quick-access ailment items as links with proper hrefs', async () => {
+    renderWithRouter(
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+      </Routes>,
+    )
+
+    await waitFor(() => {
+      const allLinks = screen.getAllByRole('link')
+      const ailmentLink = allLinks.find((link) => link.getAttribute('href')?.startsWith('/ailments/'))
+      expect(ailmentLink).toBeDefined()
+      if (!ailmentLink) throw new Error('No ailment link found')
+      expect(ailmentLink.getAttribute('href')).toMatch(/^\/ailments\/\d+$/)
+    })
   })
 })

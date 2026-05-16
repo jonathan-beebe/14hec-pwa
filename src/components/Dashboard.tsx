@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { api } from '@/data/api'
 import type { Plant, Ailment, ZodiacSign, Collection } from '../types'
 import DashboardHeader from '@/components/DashboardHeader'
@@ -29,7 +29,6 @@ const viewToPath: Record<string, string> = {
 }
 
 export default function Dashboard() {
-  const navigate = useNavigate()
   const [plants, setPlants] = useState<Plant[]>([])
   const [ailments, setAilments] = useState<Ailment[]>([])
   const [signs, setSigns] = useState<ZodiacSign[]>([])
@@ -173,16 +172,16 @@ export default function Dashboard() {
           <Type.Subheading className="mb-3">Recent Plants</Type.Subheading>
           <div className="space-y-1">
             {plants.slice(0, 5).map((plant) => (
-              <button
+              <Link
                 key={plant.id}
-                onClick={() => navigate(`/plants/${plant.id}`)}
-                className="w-full text-left cursor-pointer py-2 pr-3 group"
+                to={`/plants/${plant.id}`}
+                className="block py-2 pr-3 group"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{plant.common_name}</span>
                   <span className={`badge badge-${plant.category}`}>{plant.category}</span>
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
         </div>
@@ -190,10 +189,10 @@ export default function Dashboard() {
           <Type.Subheading className="mb-3">Common Ailments</Type.Subheading>
           <div className="space-y-1">
             {ailments.slice(0, 5).map((ailment) => (
-              <button
+              <Link
                 key={ailment.id}
-                onClick={() => navigate(`/ailments/${ailment.id}`)}
-                className="w-full text-left cursor-pointer py-2 pr-3 group"
+                to={`/ailments/${ailment.id}`}
+                className="block py-2 pr-3 group"
               >
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-earth-100 group-hover:text-botanical-400 transition-colors">{ailment.name}</span>
@@ -201,7 +200,7 @@ export default function Dashboard() {
                     {ailment.category}
                   </span>
                 </div>
-              </button>
+              </Link>
             ))}
           </div>
         </div>
