@@ -59,6 +59,12 @@ export interface InfoTileProps {
    * layout.
    */
   selected?: boolean
+  /**
+   * Custom content for the text slot. When provided, replaces the
+   * default primary/secondary layout so the call site controls what
+   * renders beside the icon.
+   */
+  children?: ReactNode
 }
 
 type VariantInfoTileProps = Omit<InfoTileProps, 'tone'>
@@ -207,6 +213,7 @@ function InfoTile({
   sandIcon,
   tintHex,
   selected,
+  children,
 }: InfoTileProps) {
   const reducedMotion = useReducedMotion()
   const sandActive = sandIcon !== undefined && !reducedMotion
@@ -359,17 +366,21 @@ function InfoTile({
         </div>
       )}
       <div className="relative z-10 flex flex-col min-w-0">
-        <Type.Heading
-          as="div"
-          className={`tabular-nums ${tinted ? '' : tonePrimaryClass[tone]}`}
-          style={tinted ? { color: tintHex } : undefined}
-        >
-          {primary}
-        </Type.Heading>
-        {secondary !== undefined && (
-          <Type.Caption as="div" className="mt-0.5">
-            {secondary}
-          </Type.Caption>
+        {children ?? (
+          <>
+            <Type.Heading
+              as="div"
+              className={`tabular-nums ${tinted ? '' : tonePrimaryClass[tone]}`}
+              style={tinted ? { color: tintHex } : undefined}
+            >
+              {primary}
+            </Type.Heading>
+            {secondary !== undefined && (
+              <Type.Caption as="div" className="mt-0.5">
+                {secondary}
+              </Type.Caption>
+            )}
+          </>
         )}
       </div>
     </Link>

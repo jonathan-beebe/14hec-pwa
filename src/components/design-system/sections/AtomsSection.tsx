@@ -18,6 +18,7 @@ const iconGroups: IconGroup[] = [
       { name: 'HeartExclamation', component: Icon.HeartExclamation },
       { name: 'Atom', component: Icon.Atom },
       { name: 'Ankh', component: Icon.Ankh },
+      { name: 'PalmBranch', component: Icon.PalmBranch },
       { name: 'Lotus', component: Icon.Lotus },
     ],
   },

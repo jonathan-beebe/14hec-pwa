@@ -81,51 +81,33 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Featured Plant + Feature Cards — Bento layout */}
+      {/* Featured Plant + Cross-Reference */}
       <div className="grid grid-cols-3 gap-3 mb-8">
-        {/* Featured Plant — spans 2 cols */}
-        {featuredPlant && (
-          <button
-            onClick={() => navigate(`/plants/${featuredPlant.id}`)}
-            className="col-span-2 card-glow-botanical text-left cursor-pointer group"
+        {featuredPlant ? (
+          <InfoTile.Botanical
+            to={`/plants/${featuredPlant.id}`}
+            icon={<Icon.PalmBranch />}
+            sandIcon={Icon.PalmBranch.source}
+            primary={featuredPlant.common_name}
+            className="col-span-2"
           >
-            <div className="flex items-start gap-5">
-              <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 animate-float"
-                   style={{
-                     background: 'linear-gradient(135deg, rgba(93, 168, 126, 0.1), rgba(93, 168, 126, 0.02))',
-                     border: '1px solid rgba(93, 168, 126, 0.1)'
-                   }}>
-                {'\u2618'}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[10px] text-earth-500 uppercase tracking-[0.2em] mb-1">Plant of the Day</div>
-                <Text.Subheading className="text-botanical-400 group-hover:text-botanical-300 transition-colors">
-                  {featuredPlant.common_name}
-                </Text.Subheading>
-                <p className="text-xs text-earth-500 italic mb-2">{featuredPlant.latin_name}</p>
-                <p className="text-earth-300 text-sm leading-relaxed line-clamp-2">{featuredPlant.description}</p>
-              </div>
-            </div>
-          </button>
+            <Type.SectionLabel>Plant of the Day</Type.SectionLabel>
+            <Type.Heading as="div" className="text-botanical-300 mt-1">
+              {featuredPlant.common_name}
+            </Type.Heading>
+            <Type.Caption as="p" className="italic mt-0.5">{featuredPlant.latin_name}</Type.Caption>
+            <Type.BodySmall as="p" className="mt-1.5 line-clamp-2">{featuredPlant.description}</Type.BodySmall>
+          </InfoTile.Botanical>
+        ) : (
+          <div className="col-span-2" />
         )}
-        {!featuredPlant && <div className="col-span-2" />}
-
-        {/* Quick action */}
-        <button
-          onClick={() => navigate('/crossref')}
-          className="card-glow-celestial text-left cursor-pointer group flex flex-col justify-between"
-        >
-          <div>
-            <div className="text-xl mb-2 opacity-40 group-hover:opacity-70 transition-opacity">{'\u29D6'}</div>
-            <div className="text-sm font-display font-medium text-celestial-400 group-hover:text-celestial-300 transition-colors">
-              Cross-Reference
-            </div>
-            <p className="text-[10px] text-earth-500 mt-1.5 leading-relaxed">Multi-axis query builder across all dimensions</p>
-          </div>
-          <div className="text-[10px] text-celestial-500/50 mt-3 flex items-center gap-1 group-hover:text-celestial-400/70 transition-colors">
-            Open engine {'\u2192'}
-          </div>
-        </button>
+        <InfoTile.Gold
+          to={viewToPath.crossref}
+          icon={<Icon.Hourglass />}
+          sandIcon={Icon.Hourglass.source}
+          primary="Cross-Reference"
+          secondary="Multi-axis query engine"
+        />
       </div>
 
       {/* Feature Cards — Celestial */}

@@ -164,6 +164,7 @@ const Heart = glyphIcon('Heart', '♡')
 const HeartExclamation = glyphIcon('HeartExclamation', '❣')
 const Atom = glyphIcon('Atom', '⚛')
 const Ankh = glyphIcon('Ankh', '☥')
+const PalmBranch = glyphIcon('PalmBranch', '⸙')
 
 // SVG — no satisfactory monochrome unicode glyph for a lotus. Stylized
 // 3-petal lotus on a water line.
@@ -250,6 +251,7 @@ export const Icon = {
   HeartExclamation,
   Atom,
   Ankh,
+  PalmBranch,
   Lotus,
   // celestial bodies
   Sun,
