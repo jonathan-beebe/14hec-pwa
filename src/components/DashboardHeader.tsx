@@ -139,11 +139,7 @@ export default function DashboardHeader({
                   onSearchChange('')
                   setActiveIndex(-1)
                 }}
-                className="w-full text-left px-5 py-3 flex justify-between items-center cursor-pointer transition-colors duration-100"
-                style={{
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                  background: index === activeIndex ? 'rgba(255,255,255,0.04)' : 'transparent',
-                }}
+                className="w-full text-left px-5 py-3 flex justify-between items-center cursor-pointer transition-colors duration-100 border-b border-white/[0.04] hover:bg-white/[0.04] focus-visible:bg-white/[0.04] aria-selected:bg-white/[0.04]"
               >
                 <div>
                   <span className="text-earth-100 text-sm">
