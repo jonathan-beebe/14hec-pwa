@@ -12,7 +12,7 @@ import { Outlet } from 'react-router-dom'
  */
 export default function PageGutter() {
   return (
-    <div className="px-8 py-6 max-w-7xl">
+    <div className="px-4 md:px-8 py-6 max-w-7xl">
       <Outlet />
     </div>
   )
