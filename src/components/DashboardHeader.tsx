@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Type from '@/components/design-system/atoms/Type'
 import SearchInput from '@/components/design-system/atoms/SearchInput'
@@ -9,12 +10,64 @@ interface DashboardHeaderProps {
   filteredPlants: Plant[]
 }
 
+const LISTBOX_ID = 'search-results'
+
+function optionId(plantId: number) {
+  return `search-option-${plantId}`
+}
+
 export default function DashboardHeader({
   search,
   onSearchChange,
   filteredPlants,
 }: DashboardHeaderProps) {
   const navigate = useNavigate()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [activeIndex, setActiveIndex] = useState(-1)
+
+  const visiblePlants = filteredPlants.slice(0, 5)
+  const isOpen = search.length > 0 && visiblePlants.length > 0
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (!isOpen) {
+      if (e.key === 'Escape') {
+        onSearchChange('')
+      }
+      return
+    }
+
+    switch (e.key) {
+      case 'ArrowDown': {
+        e.preventDefault()
+        setActiveIndex((prev) => (prev + 1) % visiblePlants.length)
+        break
+      }
+      case 'ArrowUp': {
+        e.preventDefault()
+        setActiveIndex((prev) => (prev <= 0 ? visiblePlants.length - 1 : prev - 1))
+        break
+      }
+      case 'Enter': {
+        e.preventDefault()
+        if (activeIndex >= 0 && activeIndex < visiblePlants.length) {
+          navigate(`/plants/${visiblePlants[activeIndex].id}`)
+          onSearchChange('')
+          setActiveIndex(-1)
+        }
+        break
+      }
+      case 'Escape': {
+        e.preventDefault()
+        onSearchChange('')
+        setActiveIndex(-1)
+        break
+      }
+    }
+  }
+
+  const activeDescendant = activeIndex >= 0 && activeIndex < visiblePlants.length
+    ? optionId(visiblePlants[activeIndex].id)
+    : undefined
 
   return (
     <div
@@ -24,9 +77,9 @@ export default function DashboardHeader({
         border: '1px solid rgba(0, 0, 0, 1)',
         boxShadow:`
           inset 0 -1px 0 0 rgba(255,255,255,0.1),
-          inset 0 1px 0 0 rgba(255,255,255,0.1), 
-          rgba(0, 0, 0, 1) 0px 2px 8px -4px, 
-          rgba(0, 0, 0, 0.6) 0px 6px 24px -12px, 
+          inset 0 1px 0 0 rgba(255,255,255,0.1),
+          rgba(0, 0, 0, 1) 0px 2px 8px -4px,
+          rgba(0, 0, 0, 0.6) 0px 6px 24px -12px,
           rgba(0, 0, 0, 0.4) 0px 18px 40px -20px
         `,
       }}
@@ -55,37 +108,51 @@ export default function DashboardHeader({
 
       <div className="relative mt-6">
         <SearchInput
+          ref={inputRef}
           value={search}
           onChange={onSearchChange}
+          onKeyDown={handleKeyDown}
           placeholder="Search plants, ailments, or conditions..."
           aria-label="Search plants, ailments, or conditions"
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-controls={LISTBOX_ID}
+          aria-activedescendant={activeDescendant}
+          aria-autocomplete="list"
         />
-        {search && filteredPlants.length > 0 && (
+        {isOpen && (
           <div
+            id={LISTBOX_ID}
+            role="listbox"
+            aria-label="Search results"
             className="absolute top-full left-0 right-0 mt-2 bg-glass-dense rounded-2xl overflow-hidden shadow-depth-xl z-20 animate-fade-in-down"
             style={{ border: '2px solid rgba(255, 255, 255, 0.1)' }}
           >
-            {filteredPlants.slice(0, 5).map((plant) => (
-              <button
+            {visiblePlants.map((plant, index) => (
+              <div
                 key={plant.id}
-                onClick={() => navigate(`/plants/${plant.id}`)}
-                className="w-full text-left px-5 py-3 flex justify-between items-center group transition-colors duration-100"
-                style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}
-                onMouseEnter={(e) => {
-                  ;(e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+                id={optionId(plant.id)}
+                role="option"
+                aria-selected={index === activeIndex}
+                onClick={() => {
+                  navigate(`/plants/${plant.id}`)
+                  onSearchChange('')
+                  setActiveIndex(-1)
                 }}
-                onMouseLeave={(e) => {
-                  ;(e.currentTarget as HTMLElement).style.background = 'transparent'
+                className="w-full text-left px-5 py-3 flex justify-between items-center cursor-pointer transition-colors duration-100"
+                style={{
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                  background: index === activeIndex ? 'rgba(255,255,255,0.04)' : 'transparent',
                 }}
               >
                 <div>
-                  <span className="text-earth-100 group-hover:text-botanical-400 transition-colors text-sm">
+                  <span className="text-earth-100 text-sm">
                     {plant.common_name}
                   </span>
                   <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
                 </div>
                 <span className={`badge badge-${plant.category}`}>{plant.category}</span>
-              </button>
+              </div>
             ))}
           </div>
         )}
