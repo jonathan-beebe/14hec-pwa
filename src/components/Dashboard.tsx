@@ -64,7 +64,7 @@ export default function Dashboard() {
       />
 
       {/* Bento Grid — Stats + HMBS combined */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
         <InfoTile.Botanical to={viewToPath.plants} icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary={plants.length} secondary="Plants" />
         <InfoTile.Celestial to={viewToPath.ailments} icon={<Icon.Aesculapius />} sandIcon={Icon.Aesculapius.source} primary={ailments.length} secondary="Ailments" />
         <InfoTile.Gold to={viewToPath.astrology} icon={<Icon.Sun />} sandIcon={Icon.Sun.source} primary={signs.length} secondary="Zodiac Signs" />
@@ -73,7 +73,7 @@ export default function Dashboard() {
       {/* HMBS Domains */}
       <div className="mb-8">
         <Type.Subheading className="mb-3">Sanctuary Domains</Type.Subheading>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <InfoTile.Heart to="/hmbs" icon={<Icon.Heart />} sandIcon={Icon.Heart.source} primary="Heart" secondary="Love, connection, empathy" />
           <InfoTile.Mind to="/hmbs" icon={<Icon.Atom />} sandIcon={Icon.Atom.source} primary="Mind" secondary="Clarity, focus, cognition" />
           <InfoTile.Body to="/hmbs" icon={<Icon.Shamrock />} sandIcon={Icon.Shamrock.source} primary="Body" secondary="Vitality, strength, healing" />
@@ -82,14 +82,14 @@ export default function Dashboard() {
       </div>
 
       {/* Featured Plant + Cross-Reference */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
         {featuredPlant ? (
           <InfoTile.Botanical
             to={`/plants/${featuredPlant.id}`}
             icon={<Icon.PalmBranch />}
             sandIcon={Icon.PalmBranch.source}
             primary={featuredPlant.common_name}
-            className="col-span-2"
+            className="sm:col-span-2"
           >
             <Type.SectionLabel>Plant of the Day</Type.SectionLabel>
             <Type.Heading as="div" className="text-botanical-300 mt-1">
@@ -99,7 +99,7 @@ export default function Dashboard() {
             <Type.BodySmall as="p" className="mt-1.5 line-clamp-2">{featuredPlant.description}</Type.BodySmall>
           </InfoTile.Botanical>
         ) : (
-          <div className="col-span-2" />
+          <div className="sm:col-span-2" />
         )}
         <InfoTile.Gold
           to={viewToPath.crossref}
@@ -111,7 +111,7 @@ export default function Dashboard() {
       </div>
 
       {/* Feature Cards — Celestial */}
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
         {[
           { view: 'natal-chart' as const, icon: '\u2B50', title: 'Astro-Botanical Chart', desc: 'Personalized plant map from your birth chart' },
           { view: 'planetary-timing' as const, icon: '\u231A', title: 'Planetary Timing', desc: 'Optimal hours for harvesting and preparation' },
@@ -172,7 +172,7 @@ export default function Dashboard() {
       </div>
 
       {/* Feature Cards — Botanical */}
-      <div className="grid grid-cols-4 gap-3 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-8">
         {[
           { view: 'seasonal' as const, icon: '\u2741', title: 'Seasonal Guide', desc: 'Plants aligned with the current season' },
           { view: 'doctrine' as const, icon: '\u2638', title: 'Doctrine Explorer', desc: 'How plant form reveals function' },
@@ -242,7 +242,7 @@ export default function Dashboard() {
               View all {'\u2192'}
             </Button.Ghost>
           </div>
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
             {collections.slice(0, 4).map((col) => (
               <LinkCard.Plain
                 key={col.id}
@@ -257,7 +257,7 @@ export default function Dashboard() {
       )}
 
       {/* Quick Access Lists */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <Text.SectionTitle as="h3">Recent Plants</Text.SectionTitle>
           <div className="space-y-1.5">
