@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Type from '@/components/design-system/atoms/Type'
 import SearchInput from '@/components/design-system/atoms/SearchInput'
+import Badge from '@/components/design-system/atoms/Badge'
 import type { Plant } from '@/types'
 
 interface DashboardHeaderProps {
@@ -147,7 +148,7 @@ export default function DashboardHeader({
                   </span>
                   <span className="text-earth-500 text-xs ml-2 italic">{plant.latin_name}</span>
                 </div>
-                <span className={`badge badge-${plant.category}`}>{plant.category}</span>
+                <Badge variant={plant.category}>{plant.category}</Badge>
               </div>
             ))}
           </div>
